@@ -20,7 +20,7 @@ services:
       timeout: 1s
       retries: 3
     volumes:
-      - ./etc:/etc/mysql/conf.d
+      - ./mysql/etc:/etc/mysql/conf.d
   sqoop:
     container_name: sqoop
     image: psyoblade/data-engineer-intermediate-day1-sqoop:1.0.0
@@ -38,7 +38,16 @@ services:
     depends_on:
       - mysql
     volumes:
-      - ./jars:/jdbc
+      - ./sqoop/jars:/jdbc
+  fluentd:
+    container_name: fluentd
+    image: local/td-agent:1.0 # psyoblade/data-engineer-basic-fluentd:1.0.0
+    user: root
+    tty: true
+    ports:
+      - 9880:9880
+    volumes:
+      - ./fluentd/etc:/fluentd/etc
 networks:
   default:
     name: default_network
