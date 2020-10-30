@@ -41,7 +41,7 @@ services:
       - ./sqoop/jars:/jdbc
   fluentd:
     container_name: fluentd
-    image: local/td-agent:1.0 # psyoblade/data-engineer-basic-fluentd:1.0.0
+    image: psyoblade/data-engineer-basic-fluentd:1.0.0
     user: root
     tty: true
     ports:

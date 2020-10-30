@@ -1,0 +1,4 @@
+logid,logname
+1000,login
+1001,logout
+1002,purchase
