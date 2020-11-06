@@ -3,7 +3,7 @@ version: "3"
 services:
   mysql:
     container_name: mysql
-    image: psyoblade/data-engineer-intermediate-day1-mysql:1.0
+    image: psyoblade/data-engineer-intermediate-day1-mysql:1.1
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -41,7 +41,7 @@ services:
       - ./sqoop/jars:/jdbc
   fluentd:
     container_name: fluentd
-    image: psyoblade/data-engineer-basic-fluentd:1.0
+    image: psyoblade/data-engineer-basic-fluentd:1.1
     user: root
     tty: true
     ports:
