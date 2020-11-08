@@ -15,7 +15,8 @@
 > 이번 강좌에서 사용하게 될 주요 Git 명령어에 대해 실습합니다 
 
 ### 2.1 헬로월드 레포지토리를 복제합니다
-> [psyoblade/hellowolrld](https://github.com/psyoblade/helloworld) 사이트에 접속하여 Code 버턴을 클릭하고 주소를 복사합니다
+* [psyoblade/hellowolrld](https://github.com/psyoblade/helloworld) 사이트에 접속하여 Code 버튼을 클릭하고 주소를 복사합니다
+
 ![LGDE1.1](images/lgde.1.1.png)
 ```bash
 bash> mkdir -p ~/workspace
