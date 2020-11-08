@@ -4,7 +4,7 @@
 
 - 목차
   * [1. AWS 환경 구성](#1-AWS-환경-구성)
-  * [2. Git 명령어 실습](#2-lit-명령어-실습)
+  * [2. Git 명령어 실습](#2-Git-명령어-실습)
   * [3. Docker 명령어 실습](#3-Docker-명령어-실습)
   * [4. LGDE 서비스 시나리오](#4-LGDE-서비스-시나리오)
 
@@ -74,10 +74,44 @@ bash> git status -sb
 ```
 
 
-
-
 ## 3. Docker 명령어 실습
-> 
+
+### 3.1 예제 코드를 다운로드 받습니다
+
+* [docker-compose](https://github.com/psyoblade/docker-compose-for-dummies.git) 로부터 코드를 다운로드 받습니다
+```bash
+bash> cd ~/workspace
+bash> git clone https://github.com/psyoblade/docker-compose-for-dummies.git
+```
+
+### 3.2 Ubuntu 컨테이너를 기동하고 fortune 명령어를 실행합니다
+```bash
+bash> cd ~/workspace/docker-compose-for-dummies/ubuntu
+bash> docker-compose up -d
+bash> docker-compose ps ubuntu # ubuntu /bin/bash 가 기동 되었는지 확인합니다
+
+bash> docker-compose exec ubuntu bash  # 우분투 컨테이너로 접속합니다
+$> fortune  # 명령어 실행에 성공했다면, Ctrl+D 로 빠져나옵니다
+
+bash> docker-compose down  # 컨테이너를 종료합니다
+```
+
+### 3.3 MySQL + phpMyAdmin 서비스를 기동하고 테스트 합니다
+```bash
+bash> cd ~/workspace/docker-compose-for-dummies/mysql
+bash> docker-compose up -d
+bash> docker-compose ps  # mysql 과 phpmyadmin 이 기동 되었음을 확인합니다
+bash> docker-compose top  # 서비스명을 입력하지 않으면 2개 서비스의 프로세스를 모두 확인합니다
+```
+
+### 3.4 phpMyAdmin 웹 페이지에 접속합니다
+* 로그인 전후에 로그가 정상적으로 출력됨을 확인할 수 있습니다
+```bash
+bash> docker-compose logs -f phpmyadmin  # 서비스 로그를 확인할 수 있도록 로그를 모니터링 합니다
+bash> # 브라우저를 통해서 http://student:8183 으로 접속하여 user / user 로 로그인합니다
+bash> docker-compose down  # 모든 서비스 컨테이너를 종료합니다
+```
+
 
 ## 4. LGDE 서비스 시나리오
 > 인터넷 쇼핑몰 "LGDE.com" 지표 개발 시나리오
