@@ -182,19 +182,19 @@ $> exit
 ```bash
 bash> docker-compose exec fluentd bash
 
-#1> more /etc/fluentd/fluent.tail
-#1> ./fluentd.sh -c /etc/fluentd/fluent.tail
+$1> more /etc/fluentd/fluent.tail
+$1> ./fluentd.sh -c /etc/fluentd/fluent.tail
 
-#2> # 별도의 탭을 이용하여 서버에 접속하여, 테스트 과정에 발생할 수 있는 임시파일을 삭제합니다
-#2> rm -rf /tmp/source/access.pos
-#2> head /etc/fluentd/access.csv
+$2> # 별도의 탭을 이용하여 서버에 접속하여, 테스트 과정에 발생할 수 있는 임시파일을 삭제합니다
+$2> rm -rf /tmp/source/access.pos
+$2> head /etc/fluentd/access.csv
 
-#2> touch /tmp/source/access.csv  # 명령 이후에 #1 터미널에서 파일을 인지한 것을 확인합니다
-#2> cat /etc/fluentd/access.csv > /tmp/source/access.csv 
-#2> ls -al /tmp/target/access/20201025/*.json
+$2> touch /tmp/source/access.csv  # 명령 이후에 #1 터미널에서 파일을 인지한 것을 확인합니다
+$2> cat /etc/fluentd/access.csv > /tmp/source/access.csv 
+$2> ls -al /tmp/target/access/20201025/*.json
 
-#2> exit
-#1> exit  # Ctrl+C 를 통해 fluentd.sh 종료 후 터미널을 종료합니다
+$2> exit
+$1> exit  # Ctrl+C 를 통해 fluentd.sh 종료 후 터미널을 종료합니다
 
 bash> ls -al ~/workspace/data-engineer-basic/day1/notebooks  # 수집된 3개의 테이블이 존재하는지 확인합니다
 ```
