@@ -19,9 +19,10 @@
 * 서버에 접속하여 기본 도구들이 설치되어 있는지 버전은 맞는지 확인합니다
 ```bash
 bash> docker --version
+Docker version 19.03.13, build 4484c46d9d
 
 bash> docker-compose version
-
+docker-compose version 1.27.4, build 40524192
 ```
 
 
@@ -160,18 +161,18 @@ bash> docker-compose ps --servicees
 * 터미널 종료 시에는 exit 혹은 Ctrl+D 로 빠져나옵니다
 ```bash
 bash> docker-compose exec sqoop bash
-#> sqoop list-databases --connect jdbc:mysql://mysql:3306 --username sqoop --password sqoop
-#> sqoop list-tables --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop
+$> sqoop list-databases --connect jdbc:mysql://mysql:3306 --username sqoop --password sqoop
+$> sqoop list-tables --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop
 
-#> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "describe user"
-#> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from user"
-#> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from purchse"
+$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "describe user"
+$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from user"
+$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from purchse"
 
-#> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table user --target-dir file:///tmp/target/user/20201025 --username sqoop --password sqoop --relaxed-isolation --as-parquetfile --delete-target-dir
-#> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table purchase --target-dir file:///tmp/target/purchase/20201025 --username sqoop --password sqoop --relaxed-isolation --as-parquetfile --delete-target-dir
+$> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table user --target-dir file:///tmp/target/user/20201025 --username sqoop --password sqoop --relaxed-isolation --as-parquetfile --delete-target-dir
+$> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table purchase --target-dir file:///tmp/target/purchase/20201025 --username sqoop --password sqoop --relaxed-isolation --as-parquetfile --delete-target-dir
 
-#> ls /tmp/target/*/20201025/*.parquet
-#> exit
+$> ls /tmp/target/*/20201025/*.parquet
+$> exit
 ```
 
 ### 4.3 고객 접속 정보(access)를 오픈소스 Fluentd 를 통해 수집합니다 (fluentd)
