@@ -48,7 +48,6 @@ services:
     ports:
       - 9880:9880
     volumes:
-      - ./fluentd/etc:/fluentd/etc
       - ./tmp:/tmp/source
       - ./notebooks:/tmp/target
   notebook:
