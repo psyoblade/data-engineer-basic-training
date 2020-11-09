@@ -178,22 +178,27 @@ $> exit
 ### 4.3 고객 접속 정보(access)를 오픈소스 Fluentd 를 통해 수집합니다 (fluentd)
 * exec 명령을 통해서 fluentd 가 설치된 우분투 서버에 접속합니다
 * #1. 사전에 작성된 /tmp/source/access.csv 파일이 생성되면 tailing 하면서 수집하는 fluent.tail 파일을 이용하여 수집서버를 기동시킵니다
-* #2. 정상적으로 fluentd 서버가 기동된 것을 확인하고 별도의 창을 하나 더 띄워서 /etc/fluentd/access.csv 파일을 복사합니다
 ```bash
 bash> docker-compose exec fluentd bash
 
-$1> more /etc/fluentd/fluent.tail
-$1> ./fluentd.sh -c /etc/fluentd/fluent.tail
+$> more /etc/fluentd/fluent.tail
+$> ./fluentd.sh -c /etc/fluentd/fluent.tail
+```
 
-$2> # 별도의 탭을 이용하여 서버에 접속하여, 테스트 과정에 발생할 수 있는 임시파일을 삭제합니다
-$2> rm -rf /tmp/source/access.pos
-$2> head /etc/fluentd/access.csv
+* 정상적으로 fluentd 서버가 기동된 것을 확인하고 별도의 창을 하나 더 띄워서 /etc/fluentd/access.csv 파일을 복사합니다
+  - 별도의 탭을 이용하여 서버에 접속하여, 테스트 과정에 발생할 수 있는 임시파일을 삭제합니다
+```bash
+$> rm -rf /tmp/source/access.pos
+$> head /etc/fluentd/access.csv
 
-$2> touch /tmp/source/access.csv  # 명령 이후에 #1 터미널에서 파일을 인지한 것을 확인합니다
-$2> cat /etc/fluentd/access.csv > /tmp/source/access.csv 
-$2> ls -al /tmp/target/access/20201025/*.json
+$> touch /tmp/source/access.csv  # 명령 이후에 #1 터미널에서 파일을 인지한 것을 확인합니다
+$> cat /etc/fluentd/access.csv > /tmp/source/access.csv 
+$> ls -al /tmp/target/access/20201025/*.json
 
-$2> exit
+$> exit
+```
+* 첫 번째로 띄웠던 터미널도 접속 종료합니다
+```bash
 $1> exit  # Ctrl+C 를 통해 fluentd.sh 종료 후 터미널을 종료합니다
 
 bash> ls -al ~/workspace/data-engineer-basic/day1/notebooks  # 수집된 3개의 테이블이 존재하는지 확인합니다
