@@ -31,14 +31,15 @@ services:
       - '8088:8088'
       - '10020:10020'
       - '19888:19888'
-      - '50070:50070'
-      - '50075:50075'
+      - '60070:50070'
+      - '60075:50075'
     networks:
       - default
     depends_on:
       - mysql
     volumes:
       - ./sqoop/jars:/jdbc
+      - ./tmp/target:/tmp/target
   fluentd:
     container_name: fluentd
     image: psyoblade/data-engineer-basic-fluentd:1.1
@@ -47,7 +48,8 @@ services:
     ports:
       - 9880:9880
     volumes:
-      - ./fluentd/etc:/fluentd/etc
+      - ./tmp/source:/tmp/source
+      - ./tmp/target:/tmp/target
 networks:
   default:
     name: default_network
