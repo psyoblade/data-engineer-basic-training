@@ -1,6 +1,7 @@
 # 데이터 엔지니어링 초급 2일차
 > 데이터 처리 및 분석의 가장 처음 과정인 데이터 수집 도구를 이용한 데이터 적재를 실습합니다.
 > 관계형 데이터베이스 수집을 위한 Apache Sqoop, 파일 데이터 수집을 위한 TreasureData Fluentd 를 이용해 실습합니다
+> 이번 장에서 사용하는 외부 오픈 포트는 22, 80, 5601, 8080, 9880, 50070 입니다
 
 - 목차
   * [1. Apache Sqoop Table Import](#1-Apache-Sqoop-Table-Import)
@@ -65,7 +66,7 @@ $> sqoop import \
     -m 1 \
     --connect jdbc:mysql://mysql:3306/testdb \
     --table user \
-    --target-dir file:///tmp/target/user/20201025 \
+    --target-dir file:///tmp/target/table/user/20201025 \
     --username sqoop \
     --password sqoop \
     --relaxed-isolation \
@@ -73,10 +74,10 @@ $> sqoop import \
     --delete-target-dir
 
 $> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table purchase \
-    --target-dir file:///tmp/target/purchase/20201025 --username sqoop --password sqoop \
+    --target-dir file:///tmp/target/table/purchase/20201025 --username sqoop --password sqoop \
     --relaxed-isolation --as-parquetfile --delete-target-dir
 
-$> ls /tmp/target/*/20201025/*.parquet
+$> ls /tmp/target/table/*/20201025/*.parquet
 ```
 
 ### 1.4 파케이 포맷 파일 읽기
@@ -85,10 +86,10 @@ $> ls /tmp/target/*/20201025/*.parquet
   - 서버에 설치된 /jdbc/parquet-tools-1.8.1.jar 어플리케이션을 이용하여 확인이 가능합니다
 ```bash
 $> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table seoul_popular_trip \
-    --target-dir file:///tmp/target/seoul_popular_trip --username sqoop --password sqoop \
+    --target-dir file:///tmp/target/table/seoul_popular_trip --username sqoop --password sqoop \
     --relaxed-isolation --as-parquetfile --delete-target-dir
 
-$> hadoop jar /jdbc/parquet-tools-1.8.1.jar head file:///tmp/target/seoul_popular_trip
+$> hadoop jar /jdbc/parquet-tools-1.8.1.jar head file:///tmp/target/table/seoul_popular_trip
 ```
 
 * 파케이 포맷 도구를 이용하여 사용가능한 기능
@@ -98,11 +99,11 @@ $> hadoop jar /jdbc/parquet-tools-1.8.1.jar head file:///tmp/target/seoul_popula
   - meta : 파케이 포맷의 메타데이터를 출력합니다 
   - dump : 텍스트 포맷으로 출력 합니다
 ```bash
-$> hadoop jar /jdbc/parquet-tools-1.8.1.jar head -n 10 file:///tmp/target/seoul_popular_trip
+$> hadoop jar /jdbc/parquet-tools-1.8.1.jar head -n 10 file:///tmp/target/table/seoul_popular_trip
 
-$> hadoop jar /jdbc/parquet-tools-1.8.1.jar schema file:///tmp/target/seoul_popular_trip
+$> hadoop jar /jdbc/parquet-tools-1.8.1.jar schema file:///tmp/target/table/seoul_popular_trip
 
-$> hadoop jar /jdbc/parquet-tools-1.8.1.jar meta file:///tmp/target/seoul_popular_trip
+$> hadoop jar /jdbc/parquet-tools-1.8.1.jar meta file:///tmp/target/table/seoul_popular_trip
 ```
 
 ### 1.5 클러스터 모드에서 테이블 수집
@@ -236,10 +237,354 @@ $> sqoop export -m 1 --connect jdbc:mysql://mysql:3306/testdb --table seoul_popu
 
 $> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop \
     -e "select count(1) from seoul_popular_exp"
+
+$> exit
 ```
 
 
 ## 3. TreasureData Fluentd File Collect
 
-### 3.1
+### 예제 1. 웹 서버를 통해서 전송 받은 데이터를 표준 출력으로 전달
+* 서버가 정상적으로 기동 되어 있는지 확인 후 fluentd 서버로 접속합니다
+```bash
+bash> docker-compose ps
+bash> docker-compose logs -f fluentd
+bash> docker-compose exec fluentd bash
+```
+* vim 와 같은 편집기를 사용하지 않고 실습에 필요한 ex1.conf 파일을 생성합니다
+  - 터미널 창에서 "cat > ex1.conf" 명령으로 표준입력을 받을 준비를 합니다
+```bash
+$> cat > ex1.conf
+```
+* 다음 설정 정보를 복사하여 붙여 넣은 뒤 Ctrl+C 명령으로 빠져나오면 파일이 생성됩니다
+```conf
+<source>
+    @type http
+    port 9880
+    bind 0.0.0.0
+</source>
+
+<match test>
+    @type stdout
+</match>
+```
+* 생성된 설정파일을 이용하여 fluentd.sh 데몬을 기동합니다
+  - fluentd.sh 명령을 그대로 실행하면 usage 가 출력됩니다
+  - 방금 생성한 ex1.conf 파일을 이용하여 기동합니다
+```bash
+$> ./fluentd.sh 
+./fluentd.sh -c <fluent.conf>
+./fluentd.sh -c /etc/fluentd/fluent.conf
+
+$> ./fluentd.sh -c ./ex1.conf
+```
+* 해당 fluentd 서버로 로그를 전송하기 위한 별도의 터미널을 하나 더 엽니다
+```bash
+bash> docker-compose exec fluentd bash
+```
+* curl 명령으로 fluentd 서버 동작 유무 확인 후, 종료합니다
+  - 명령 실행 후에 이전 터미널에서 로그가 정상 수신된 것을 확인합니다
+  - fluentd.sh 에서 Ctrl+C 명령으로 종료합니다
+```bash
+$> curl -i -X POST -d 'json={"action":"login","user":2}' http://localhost:9880/test
+```
+
+### 예제 2. 더미 에이전트를 통해 생성된 이벤트를 로컬 저장소에 저장
+* 첫 번째 터미널에서, 예제 1번과 동일한 방식으로 ex2.conf 파일을 생성합니다
+```bash
+$> cat > ex2.conf
+<source>
+    @type dummy
+    tag lgde.info
+    size 5
+    rate 1
+    auto_increment_key seq
+    dummy {"info":"hello-world"}
+</source>
+
+<source>
+    @type dummy
+    tag lgde.debug
+    size 3
+    rate 1
+    dummy {"debug":"hello-world"}
+</source>
+
+<filter lgde.info>
+    @type record_transformer
+    <record>
+        table_name ${tag_parts[0]}
+    </record>
+</filter>
+
+<match lgde.info>
+    @type file
+    path_suffix .log
+    path /tmp/target/ex2/${table_name}/%Y%m%d/part-%Y%m%d.%H%M
+    <buffer time,table_name>
+        timekey 1m
+        timekey_wait 10s
+        timekey_use_utc false
+        timekey_zone +0900
+    </buffer>
+</match>
+```
+* 방금 생성한 ex2.conf 파일을 이용하여 기동합니다
+```bash
+$> ./fluentd.sh -c ./ex2.conf
+```
+* 두 번째 터미널에서 파일이 생성되는지 확인해 봅니다
+```bash
+$> ls -al /tmp/target/ex2/lgde/20201111/
+```
+
+### 예제 3. 기존 로그에 추가되는 로그를 테일링하며 표준 출력으로 전달합니다
+* 동일한 방식으로 ex3.conf 파일을 생성합니다
+```bash
+$> cat > ex3.conf
+<source>
+    @type tail
+    @log_level info
+    path /tmp/source/ex3/accesslogs
+    pos_file /tmp/source/ex3/accesslogs.pos
+    refresh_interval 5
+    multiline_flush_interval 5
+    rotate_wait 5
+    open_on_every_update true
+    emit_unmatched_lines true
+    read_from_head false
+    tag weblog.info
+    <parse>
+        @type apache2
+    </parse>
+</source>
+
+<match weblog.info>
+    @type file
+    @log_level info
+    add_path_suffix true
+    path_suffix .log
+    path /tmp/target/ex3/${tag}/%Y%m%d/accesslog.%Y%m%d.%H
+    <buffer time,tag>
+        timekey 1h
+        timekey_use_utc false
+        timekey_wait 10s
+        timekey_zone +0900
+        flush_mode immediate
+        flush_thread_count 8
+    </buffer>
+</match>
+
+<match weblog.debug>
+    @type stdout
+    @log_level debug
+</match>
+```
+* tmp 경로에 존재하는 파이썬 스크립트를 통해 시스템 로그를 생성합니다
+  - 이번에는 플루언트디 서버가 아니라, 터미널 상에서 파이썬 스크립트를 통해 로그를 생성합니다
+  - 플루언트디 서버의 경우 /tmp/source/ex3, /tmp/target/ex3 경로를 각 각 입력과 출력 경로로 설정되어 있습니다
+```python
+bash> ~/workspace/data-engineer-basic-training/day2/tmp
+bash> python -V
+Python 3.7.3
+
+bash> python flush_logs.py
+```
+* 플루언트디도 기동 되었고, 파이썬 스크립트도 생성되었다면 로그를 생성합니다
+  - 같이 배포되어 있는 apache\_logs 파일을 읽어서 예제 시스템 로그가 생성됩니다
+```bash
+$> ls -al /tmp/source
+```
+
+### 예제 4. 변환함수를 통해 Epoch 시간을 포맷팅된 문자열 데이터로 변환
+* 동일한 방식으로 ex4.conf 파일을 생성후, 플루언트디를 기동합니다
+```bash
+$> cat > ex4.conf
+<source>
+    @type http
+    port 8080
+    <parse>
+        @type json
+        time_type float
+        time_key logtime
+        types column1:integer,column2:string,logtime:time:unixtime
+        localtime true
+        keep_time_key true
+    </parse>
+</source>
+
+<filter test>
+    @type record_transformer
+    enable_ruby
+    <record>
+        filtered_logtime ${Time.at(time).strftime('%Y-%m-%d %H:%M:%S')}
+    </record>
+</filter>
+
+<match test>
+    @type stdout
+    <format>
+        @type json
+        time_format %Y-%m-%d %H:%M:%S.%L
+        timezone +09:00
+    </format>
+</match>
+
+$> ./fluentd.sh -c ex4.conf
+```
+* 예제 데이터를 전송하고, 정상적으로 시간이 포맷팅된 문자열로 변환이 되는지 확인합니다
+```bash
+$> curl -X POST -d '{ "column1":"1", "column2":"hello-world", "logtime": 1593379470 }' http://localhost:8080/test
+```
+
+### 예제 5. 외부 도커 컨테이너에서 생성되는 로그를 수집할 수 있습니다
+* 동일한 방식으로 ex5.conf 파일을 생성후, 플루언트디를 기동합니다
+  - 항상 aggregator fluentd 는 떠 있고, 외부 혹은 우리가 관리하는 agent 를 통해 전송되는 로그를 집계합니다
+```bash
+$> cat > ex5.conf
+<source>
+    @type forward
+    port 24224
+    bind 0.0.0.0
+</source>
+
+<filter docker.*>
+    @type parser
+    key_name log
+    reserve_data true
+    <parse>
+        @type json
+    </parse>
+</filter>
+
+<filter docker.*>
+    @type record_transformer
+    <record>
+        table_name ${tag_parts[1]}
+    </record>
+</filter>
+
+<match docker.*>
+    @type stdout
+</match>
+
+$> ./fluentd.sh -c ex5.conf
+```
+* 외부 도커를 통한 컨테이너를 흉내내기 위해 도커 로그를 발생하는 예제입니다
+  - .ID .Name .FullID 값들은 도커 구현 시에 포함된 사전에 정의된 값입니다
+```bash
+bash> docker run --rm --log-driver=fluentd ubuntu echo '{"message":"null tag message"}'
+bash> docker run --rm --log-driver=fluentd --log-opt tag=docker.{{.ID}} ubuntu echo '{"message":"send message with id"}'
+bash> docker run --rm --log-driver=fluentd --log-opt tag=docker.{{.Name}} ubuntu echo '{"message":"send message with name"}'
+bash> docker run --rm --log-driver=fluentd --log-opt tag=docker.{{.FullID}} ubuntu echo '{"message":"send message with full-id"}'
+```
+
+### 예제 6. 하나의 장비에 여러개의 프로세스를 통한 수집작업
+* 동일한 방식으로 ex6.conf 파일을 생성후, 플루언트디를 기동합니다
+  - 예제에서는 "worker0"는 로컬 파일을 읽어서 저장하는 예제이고 "worker1"의 경우는 http 서버를 통해 수신하는 예제입니다
+```bash
+$> cat > ex6.con
+<system>
+    workers 2
+    root_dir /tmp/log
+</system>
+<worker 0>
+    <source>
+        @type tail
+        path /tmp/source/ex6/*.log
+        pos_file /tmp/source/ex6/local.pos
+        tag worker.tail
+        <parse>
+            @type json
+        </parse>
+    </source>
+    <match>
+        @type stdout
+    </match>
+</worker>
+<worker 1>
+    <source>
+        @type http
+        port 9880
+        bind 0.0.0.0
+    </source>
+    <match>
+        @type stdout
+    </match>
+</worker>
+
+$> ./fluentd.sh -c ex6.conf
+```
+
+### 예제 7. 여러개의 프로세스가 하나의 장비에서, 하나 저장소에 저장합니다
+* 동일한 방식으로 ex7.conf 파일을 생성후, 플루언트디를 기동합니다
+  - 예제에서는 "worker0"는 로컬 파일을 읽어서 저장하는 예제이고 "worker1"의 경우는 http 서버를 통해 수신하는 예제입니다
+```bash
+$> cat > ex7.conf
+<system>
+    workers 2
+    root_dir /fluentd/log
+</system>
+
+<worker 0>
+    <source>
+        @type http
+        port 9880
+        bind 0.0.0.0
+    </source>
+    <match debug>
+        @type stdout
+    </match>
+    <match test>
+        @type file
+        @id out_file_0
+        path "/tmp/target/ex7/#{worker_id}/${tag}/%Y/%m/%d/testlog.%H%M"
+        <buffer time,tag>
+            timekey 1m
+            timekey_use_utc false
+            timekey_wait 10s
+        </buffer>
+    </match>
+</worker>
+
+<worker 1>
+    <source>
+        @type http
+        port 9881
+        bind 0.0.0.0
+    </source>
+    <match debug>
+        @type stdout
+    </match>
+    <match test>
+        @type file
+        @id out_file_1
+        path "/tmp/target/ex7/#{worker_id}/${tag}/%Y/%m/%d/testlog.%H%M"
+        <buffer time,tag>
+            timekey 1m
+            timekey_use_utc false
+            timekey_wait 10s
+        </buffer>
+    </match>
+</worker>
+
+$> ./fluentd.sh -c ex7.conf
+```
+* 2개의 플루언트디 프로세스에 curl 로 메시지를 전달하는 bash 스크립트를 생성 및 실행합니다
+```bash
+$> cat > progress.sh
+#!/bin/bash
+max=60
+dot="."
+for number in $(seq 0 $max); do
+    for port in $(seq 9880 9881); do
+        # echo curl -XPOST -d "json={\"hello\":\"$number\"}" http://localhost:$port/test
+        curl -XPOST -d "json={\"hello\":\"$number\"}" http://localhost:$port/test
+    done
+    echo -ne "[$number/$max] $dot\r"
+    sleep 1
+    dot="$dot."
+done
+tree
+```
 
