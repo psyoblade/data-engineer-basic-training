@@ -243,6 +243,12 @@ $> exit
 
 
 ## 3. TreasureData Fluentd File Collect
+* 예제 실행을 위해 프로젝트 루트 폴더로 이동합니다
+```bash
+bash> cd ~/workspace/data-engineer-basic-training/day2
+bash> pwd
+/home/ubuntu/workspace/data-engineer-basic-training/day2
+```
 
 ### 예제 1. 웹 서버를 통해서 전송 받은 데이터를 표준 출력으로 전달
 * 서버가 정상적으로 기동 되어 있는지 확인 후 fluentd 서버로 접속합니다
@@ -289,10 +295,13 @@ bash> docker-compose exec fluentd bash
 $> curl -i -X POST -d 'json={"action":"login","user":2}' http://localhost:9880/test
 ```
 
+
 ### 예제 2. 더미 에이전트를 통해 생성된 이벤트를 로컬 저장소에 저장
 * 첫 번째 터미널에서, 예제 1번과 동일한 방식으로 ex2.conf 파일을 생성합니다
+  - 방금 생성한 ex2.conf 파일을 이용하여 기동합니다
 ```bash
 $> cat > ex2.conf
+
 <source>
     @type dummy
     tag lgde.info
@@ -328,20 +337,20 @@ $> cat > ex2.conf
         timekey_zone +0900
     </buffer>
 </match>
-```
-* 방금 생성한 ex2.conf 파일을 이용하여 기동합니다
-```bash
+
 $> ./fluentd.sh -c ./ex2.conf
 ```
 * 두 번째 터미널에서 파일이 생성되는지 확인해 봅니다
 ```bash
-$> ls -al /tmp/target/ex2/lgde/20201111/
+$> ls -al /tmp/target/ex2/lgde/
 ```
+
 
 ### 예제 3. 기존 로그에 추가되는 로그를 테일링하며 표준 출력으로 전달합니다
 * 동일한 방식으로 ex3.conf 파일을 생성합니다
 ```bash
 $> cat > ex3.conf
+
 <source>
     @type tail
     @log_level info
@@ -379,27 +388,67 @@ $> cat > ex3.conf
     @type stdout
     @log_level debug
 </match>
-```
-* tmp 경로에 존재하는 파이썬 스크립트를 통해 시스템 로그를 생성합니다
-  - 이번에는 플루언트디 서버가 아니라, 터미널 상에서 파이썬 스크립트를 통해 로그를 생성합니다
-  - 플루언트디 서버의 경우 /tmp/source/ex3, /tmp/target/ex3 경로를 각 각 입력과 출력 경로로 설정되어 있습니다
-```python
-bash> ~/workspace/data-engineer-basic-training/day2/tmp
-bash> python -V
-Python 3.7.3
 
-bash> python flush_logs.py
+$> ./fluentd.sh -c ./ex3.conf
+```
+* 기존에 아파치 로그를 이용하여 로그추가를 시뮬레이션 하는 파이썬 스크립트를 생성합니다
+  - 플루언트디 서버의 경우 /tmp/source/ex3, /tmp/target/ex3 경로를 각 각 입력과 출력 경로로 설정되어 있습니다
+  - 로그를 생성하고 10초 대기 후 다시 반복하면서 전체 로그를 생성합니다
+```python
+$> cat > generate_logs.py
+
+#!/usr/bin/env python3
+# lgde data-engineering-basic ex3
+
+import sys, time, os, shutil
+
+# 1. read apache_logs flush every 100 lines until 1000 lines
+# 2. every 1000 lines file close & rename file with seq
+# 3. create new accesslogs and goto 1.
+
+def readlines(fp, num_of_lines):
+    lines = ""
+    for line in fp:
+        lines += line
+        num_of_lines = num_of_lines - 1
+        if num_of_lines == 0:
+            break
+    return lines
+
+
+fr = open("/tmp/source/ex3/access_log", "r")
+for x in range(0, 10):
+    fw = open("/tmp/source/ex3/accesslogs", "w+")
+    for y in range(0, 10):
+        lines = readlines(fr, 100)
+        fw.write(lines)
+        fw.flush()
+        time.sleep(0.1)
+        sys.stdout.write(".")
+        sys.stdout.flush()
+    fw.close()
+    print("file flushed ... sleep 10 secs")
+    time.sleep(10)
+    shutil.move("/tmp/source/ex3/accesslogs", "/tmp/source/ex3/accesslogs.%d" % x)
+    print("renamed accesslogs.%d" % x)
+fr.close()
+
+$> python3 generate_logs.py
 ```
 * 플루언트디도 기동 되었고, 파이썬 스크립트도 생성되었다면 로그를 생성합니다
   - 같이 배포되어 있는 apache\_logs 파일을 읽어서 예제 시스템 로그가 생성됩니다
+  - 동시에 target 경로에는 수집된 로그가 포맷에 맞게 적재됩니다
 ```bash
-$> ls -al /tmp/source
+$> ls -al /tmp/source/ex3/
+$> ls -al /tmp/target/ex3/
 ```
+
 
 ### 예제 4. 변환함수를 통해 Epoch 시간을 포맷팅된 문자열 데이터로 변환
 * 동일한 방식으로 ex4.conf 파일을 생성후, 플루언트디를 기동합니다
 ```bash
 $> cat > ex4.conf
+
 <source>
     @type http
     port 8080
@@ -437,11 +486,14 @@ $> ./fluentd.sh -c ex4.conf
 $> curl -X POST -d '{ "column1":"1", "column2":"hello-world", "logtime": 1593379470 }' http://localhost:8080/test
 ```
 
+
 ### 예제 5. 외부 도커 컨테이너에서 생성되는 로그를 수집할 수 있습니다
 * 동일한 방식으로 ex5.conf 파일을 생성후, 플루언트디를 기동합니다
-  - 항상 aggregator fluentd 는 떠 있고, 외부 혹은 우리가 관리하는 agent 를 통해 전송되는 로그를 집계합니다
+  - 플루언트디 프로세스가 외부에서 전송하는 로그를 수집하는 Aggregator 데몬 예제입니다
+  - 프로세스를 하나 띄워두고, 각 도커 컨테이너에서 로그를 전송하는 방식입니다
 ```bash
 $> cat > ex5.conf
+
 <source>
     @type forward
     port 24224
@@ -470,20 +522,34 @@ $> cat > ex5.conf
 
 $> ./fluentd.sh -c ex5.conf
 ```
-* 외부 도커를 통한 컨테이너를 흉내내기 위해 도커 로그를 발생하는 예제입니다
-  - .ID .Name .FullID 값들은 도커 구현 시에 포함된 사전에 정의된 값입니다
+* 현재 수집 플루언트디 에이전트가 떠 있는 서버의 IP 를 확인합니다
 ```bash
-bash> docker run --rm --log-driver=fluentd ubuntu echo '{"message":"null tag message"}'
-bash> docker run --rm --log-driver=fluentd --log-opt tag=docker.{{.ID}} ubuntu echo '{"message":"send message with id"}'
-bash> docker run --rm --log-driver=fluentd --log-opt tag=docker.{{.Name}} ubuntu echo '{"message":"send message with name"}'
-bash> docker run --rm --log-driver=fluentd --log-opt tag=docker.{{.FullID}} ubuntu echo '{"message":"send message with full-id"}'
+$> hostname -I
 ```
+* 외부에 존재하는 서버의 도커 컨테이너가 로그를 전송하는 예제입니다
+  - 별도의 터미널 창을 하나 더 열어서 도커 명령어를 실행시킬 준비를 합니다
+```bash
+bash> FLUENTD_IP=""
+bash> FLUENTD_PORT=24224
+bash> docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_IP}:${FLUENTD_PORT} alpine echo '{"message":"null tag message"}'
+```
+* 해당 컨테이너가 가진 이름 아이디를 포함해서 전송할 수 있습니다
+  - .ID .Name .FullID 값들은 도커 구현 시에 포함된 사전에 정의된 값입니다
+  - 전송과 동시에 플루언트디가 설치된 터미널에 해당 로그가 수신된 것을 볼 수 있습니다
+```bash
+bash> docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_IP}:${FLUENTD_PORT} alpine echo '{"message":"null tag message"}'
+bash> docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_IP}:${FLUENTD_PORT} --log-opt tag=docker.{{.ID}} alpine echo '{"message":"send message with id"}'
+bash> docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_IP}:${FLUENTD_PORT} --log-opt tag=docker.{{.Name}} alpine echo '{"message":"send message with name"}'
+bash> docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_IP}:${FLUENTD_PORT} --log-opt tag=docker.{{.FullID}} alpine echo '{"message":"send message with full-id"}'
+```
+
 
 ### 예제 6. 하나의 장비에 여러개의 프로세스를 통한 수집작업
 * 동일한 방식으로 ex6.conf 파일을 생성후, 플루언트디를 기동합니다
   - 예제에서는 "worker0"는 로컬 파일을 읽어서 저장하는 예제이고 "worker1"의 경우는 http 서버를 통해 수신하는 예제입니다
 ```bash
 $> cat > ex6.con
+
 <system>
     workers 2
     root_dir /tmp/log
@@ -515,15 +581,28 @@ $> cat > ex6.con
 
 $> ./fluentd.sh -c ex6.conf
 ```
+* 첫 번째 프로세스가 파일로 받은 입력을 표준 출력으로 내보내는 프로세스입니다
+  - 임의의 파일 수집로그를 생성하기 위해, 임의의 로그를 touch 명령으로 생성합니다
+  - seq 명령으로 100 개의 메시지를 생성하고, 해당 메시지가 정상 수신됨을 첫 번째 터미널에서 확인합니다
+```bash
+bash> touch /tmp/source/ex6/access.log
+bash> for x in $(seq 1 100); do echo "{\"worker0\":\"hello world worker 0\"}" >> /tmp/source/ex6/start.log; done
+``` 
+* 두 번째 프로세스는 HTTP 로 입력 받은 내용을 표준 출력으로 내보내는 프로세스입니다
+```bash
+bash> curl -XPOST -d "json={\"worker1\":\"hello world worker 1\"}" http://localhost:9880/test
+```
+
 
 ### 예제 7. 여러개의 프로세스가 하나의 장비에서, 하나 저장소에 저장합니다
 * 동일한 방식으로 ex7.conf 파일을 생성후, 플루언트디를 기동합니다
   - 예제에서는 "worker0"는 로컬 파일을 읽어서 저장하는 예제이고 "worker1"의 경우는 http 서버를 통해 수신하는 예제입니다
 ```bash
 $> cat > ex7.conf
+
 <system>
     workers 2
-    root_dir /fluentd/log
+    root_dir /tmp/workers
 </system>
 
 <worker 0>
@@ -538,7 +617,7 @@ $> cat > ex7.conf
     <match test>
         @type file
         @id out_file_0
-        path "/tmp/target/ex7/#{worker_id}/${tag}/%Y/%m/%d/testlog.%H%M"
+        path "/tmp/target/ex7/#{worker_id}/${tag}/%Y%m%d/testlog.%H%M"
         <buffer time,tag>
             timekey 1m
             timekey_use_utc false
@@ -559,7 +638,7 @@ $> cat > ex7.conf
     <match test>
         @type file
         @id out_file_1
-        path "/tmp/target/ex7/#{worker_id}/${tag}/%Y/%m/%d/testlog.%H%M"
+        path "/tmp/target/ex7/#{worker_id}/${tag}/%Y%m%d/testlog.%H%M"
         <buffer time,tag>
             timekey 1m
             timekey_use_utc false
@@ -573,6 +652,7 @@ $> ./fluentd.sh -c ex7.conf
 * 2개의 플루언트디 프로세스에 curl 로 메시지를 전달하는 bash 스크립트를 생성 및 실행합니다
 ```bash
 $> cat > progress.sh
+
 #!/bin/bash
 max=60
 dot="."
@@ -585,6 +665,8 @@ for number in $(seq 0 $max); do
     sleep 1
     dot="$dot."
 done
-tree
+
+$> bash ./progress.sh
 ```
+* 끝으로 /tmp/target 경로에 워커 아이디 별로 경로와 파일이 생성되었는지 확인합니다
 
