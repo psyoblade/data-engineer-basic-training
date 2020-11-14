@@ -416,7 +416,7 @@ def readlines(fp, num_of_lines):
     return lines
 
 
-fr = open("/tmp/source/ex3/access_log", "r")
+fr = open("/tmp/access_log", "r")
 for x in range(0, 10):
     fw = open("/tmp/source/ex3/accesslogs", "w+")
     for y in range(0, 10):
