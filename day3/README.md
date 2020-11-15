@@ -11,10 +11,10 @@ bash> docker-compose logs notebook
 
 * 목차
   * 스파크 기본 명령어 이해
-    * [1. 스파크 기본 명령어 이해](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-1.html)
-    * [2. 기본 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-2.html)
-    * [3. 데이터 타입 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-3.html)
-    * [4. 조인 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-4.html)
-    * [5. 집계 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-5.html)
-    * [6. 스파크 JDBC to MySQL](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-6.html)
+    * [1. 스파크 기본 명령어 이해](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/main/day3/notebooks/html/lgde-pyspark-tutorial-1.html)
+    * [2. 기본 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/main/day3/notebooks/html/lgde-pyspark-tutorial-2.html)
+    * [3. 데이터 타입 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/main/day3/notebooks/html/lgde-pyspark-tutorial-3.html)
+    * [4. 조인 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/main/day3/notebooks/html/lgde-pyspark-tutorial-4.html)
+    * [5. 집계 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/main/day3/notebooks/html/lgde-pyspark-tutorial-5.html)
+    * [6. 스파크 JDBC to MySQL](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/main/day3/notebooks/html/lgde-pyspark-tutorial-6.html)
 
