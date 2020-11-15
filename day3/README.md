@@ -17,4 +17,3 @@ bash> docker-compose logs notebook
     * [4. 조인 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/main/day3/notebooks/html/lgde-pyspark-tutorial-4.html)
     * [5. 집계 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/main/day3/notebooks/html/lgde-pyspark-tutorial-5.html)
     * [6. 스파크 JDBC to MySQL](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/main/day3/notebooks/html/lgde-pyspark-tutorial-6.html)
-
