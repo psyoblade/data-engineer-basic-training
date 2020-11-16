@@ -245,7 +245,7 @@ create table if not exists local_users (d_uid string, d_name string, d_gender st
     stored as parquet;
 
 load data local inpath '/tmp/target/dim_users/dt=20201025' overwrite into table local_users partition (dt = 20201025);
-load data local inpath '/tmp/target/dim_users/dt=20201025' overwrite into table local_users partition (dt = 20201026);
+load data local inpath '/tmp/target/dim_users/dt=20201026' overwrite into table local_users partition (dt = 20201026);
 select dt, d_gender, count(1) from local_users group by dt, d_gender;
 ```
 * 대상 테이블을 분산 저장소에 저장하여 하이브 테이블을 생성할 수도 있습니다
@@ -273,7 +273,6 @@ create external table if not exists dim_users (d_uid string, d_name string, d_ge
     location 'hdfs://namenode:8020/user/lgde/dim_users';
 
 alter table dim_users add if not exists partition (dt = 20201025);
-alter table dim_users add if not exists partition (dt = 20201026);
 describe extended dim_users partition (dt = '20201025');
 select dt, d_gender, count(1) from dim_users group by dt, d_gender;
 ```
