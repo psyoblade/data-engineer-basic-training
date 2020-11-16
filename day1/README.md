@@ -45,13 +45,13 @@ bash> ./init.sh  # 명령을 통해 tree 패키지 및 rc 파일을 복사합니
 ### 2.2 helloworld.py 파일을 수정하고, 원래 파일의 상태로 되돌립니다
 ```bash
 bash> echo "print('helloworld')" >> helloworld.py
-bash> python helloworld.py
+bash> python3 helloworld.py
 
 bash> git status -sb
 bash> git diff
 
 bash> git checkout -- .
-bash> python helloworld.py
+bash> python3 helloworld.py
 ```
 
 ### 2.3 임의의 파일을 추가하고 스테이징 상태까지 갔다가 다시 원래 상태로 되돌립니다
@@ -62,34 +62,20 @@ bash> git status -sb
 
 bash> git reset -- .
 bash> git status -sb
+bash> rm XXX
 ```
 
-### 2.4 임의의 파일을 추가한 뒤, 커밋 이후에 다시 원래 상태로 롤백합니다
-```bash
-bash> touch YYY
-bash> git status -sb
-
-bash> git add -A  # 변경된 모든 파일을 추가합니다
-bash> git commit -am "[추가] 파일추가"  # 파일추가 메시지를 포함하여 커밋합니다
-
-bash> git status -sb
-bash> git log  # 마지막으로 수정된 "파일추가" 메시지가 있는 커밋로그ID 값을 확인합니다
-
-bash> git revert <git log 에서 복사한 commit id>  # 입력하면 vim 편집기가 뜨는데 Esc 키를 2회 이상 눌러 명령어 모드로 바꾼 뒤, ":wq" 명령어를 입력하여 저장합니다
-```
-
-### 2.5 임의의 가비지 파일을 10개 생성하고, 깃 클린 명령어를 통해 정리합니다
+### 2.4 임의의 가비지 파일을 10개 생성하고, 깃 클린 명령어를 통해 정리합니다
 ```bash
 bash> mkdir -p tmp
 bash> for x in $(seq 1 10); do touch tmp/XXX_$x; done
 
-bash> git clean -n  # 명령으로 삭제될 대상 파일을 확인하고
-bash> git clean -f  # 명령으로 삭제합니다
-bash> rm -rf tmp
+bash> git clean -d -n  # 명령으로 삭제될 대상 디렉토리/파일을 확인하고
+bash> git clean -d -f  # 명령으로 삭제합니다
 bash> git status -sb
 ```
 
-### 2.6 컨테이너 시작, 종료가 정상적으로 되지 않는 경우
+### 2.5 컨테이너 시작, 종료가 정상적으로 되지 않는 경우
 > 이미 기동되어 있는 컨테이너와 이름이 동일하거나, 컨테이너에 오류가 있어 기동되지 않은 경우에도 컨테이너 정보는 여전히 남아있어 다음 실행 시에 문제가 될 수 있습니다.
 * 모든 도커 컨테이너를 확인 및 삭제하는 명령어
 ```bash
@@ -137,7 +123,7 @@ bash> docker-compose top  # 서비스명을 입력하지 않으면 2개 서비�
 * 로그인 전후에 로그가 정상적으로 출력됨을 확인할 수 있습니다
 ```bash
 bash> docker-compose logs -f phpmyadmin  # 서비스 로그를 확인할 수 있도록 로그를 모니터링 합니다
-bash> # 브라우저를 통해서 http://student:8183 으로 접속하여 user / user 로 로그인합니다
+bash> # 브라우저를 통해서 http://<aws-ec2-instance-url-or-ip>:8183 으로 접속하여 user / user 로 로그인합니다
 bash> docker-compose down  # 모든 서비스 컨테이너를 종료합니다
 ```
 
@@ -153,7 +139,7 @@ bash> git clone https://github.com/psyoblade/data-engineer-basic-training.git
 bash> cd ~/workspace/data-engineer-basic-training/day1
 
 bash> docker-compose up -d
-bash> docker-compose ps --servicees
+bash> docker-compose ps --services
 ```
 
 ### 4.2 고객 정보(user) 및 매출 정보(purchase) 테이블을 오픈소스 Sqoop 을 통해 수집합니다 (sqoop)
@@ -166,10 +152,14 @@ $> sqoop list-tables --connect jdbc:mysql://mysql:3306/testdb --username sqoop -
 
 $> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "describe user"
 $> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from user"
-$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from purchse"
+$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from purchase"
 
-$> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table user --target-dir file:///tmp/target/user/20201025 --username sqoop --password sqoop --relaxed-isolation --as-parquetfile --delete-target-dir
-$> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table purchase --target-dir file:///tmp/target/purchase/20201025 --username sqoop --password sqoop --relaxed-isolation --as-parquetfile --delete-target-dir
+$> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table user \
+    --target-dir file:///tmp/target/user/20201025 --username sqoop --password sqoop \
+    --relaxed-isolation --as-parquetfile --delete-target-dir
+$> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table purchase \
+    --target-dir file:///tmp/target/purchase/20201025 --username sqoop --password sqoop \
+    --relaxed-isolation --as-parquetfile --delete-target-dir
 
 $> ls /tmp/target/*/20201025/*.parquet
 $> exit
