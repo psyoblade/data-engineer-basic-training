@@ -250,7 +250,7 @@ select dt, d_gender, count(1) from local_users group by dt, d_gender;
 ```bash
 bash> docker-compose exec hive-server bash
 
-bash> hadoop fs -mkdir /user/lgde/dim_users
+bash> hadoop fs -mkdir -p /user/lgde/dim_users
 bash> hadoop fs -put /tmp/target/dim_users/* /user/lgde/dim_users 
 bash> hadoop fs -ls /user/lgde/dim_users
 
@@ -266,7 +266,7 @@ create external table if not exists dim_users (d_uid string, d_name string, d_ge
     row format delimited
     fields terminated by ','
     stored as parquet
-    location 'hdfs://namenode:8020/tmp/target/dim_users';
+    location 'hdfs://namenode:8020/user/lgde/dim_users';
 
 alter table dim_users add if not exists partition (dt = 20201025);
 alter table dim_users add if not exists partition (dt = 20201026);
