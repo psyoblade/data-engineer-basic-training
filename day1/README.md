@@ -235,6 +235,9 @@ beeline>
 !connect jdbc:hive2://localhost:10000 scott tiger
 
 beeline> 
+create database if not exists testdb comment 'test database' location '/user/hive/warehouse/testdb' with dbproperties ('createdBy' = 'psyoblade');
+use testdb;
+drop table if exists local_users;
 create table if not exists local_users (d_uid string, d_name string, d_gender string, d_account bigint, d_pamount bigint, d_pcount bigint)
     partitioned by (dt int)
     row format delimited
@@ -259,6 +262,7 @@ beeline> !connect jdbc:hive2://localhost:10000 scott tiger
 
 beeline> 
 create database if not exists testdb comment 'test database' location '/user/hive/warehouse/testdb' with dbproperties ('createdBy' = 'psyoblade');
+use testdb;
 drop table if exists dim_users;
 create external table if not exists dim_users (d_uid string, d_name string, d_gender string, d_account bigint, d_pamount bigint, d_pcount bigint)
     comment 'users dimension'
