@@ -1,6 +1,6 @@
 # 데이터 엔지니어링 초급 1일차
 > AWS 환경 구성, Git 및 Docker 명령어 실습을 통해 기본적인 도구를 손에 익힙니다.
-> 가상의 인터넷 쇼핑몰 "LGDE" 사이트에서 발생하는 다양한 로그를 통해 고객을 분석하고, 의사결정을 위한 지표를 생성하는 시나리오를 경험합니다
+> 가상의 인터넷 쇼핑몰 "LGDE" 사이트에서 발생하는 다양한 로그를 통해 고객을 분석하고, 의사결정을 위한 지표를 생성하는 시나리오를 경험합니다.
 
 - 목차
   * [1. AWS 환경 구성](#1-AWS-및-로컬환경-구성)
@@ -14,6 +14,7 @@
 > 각자 개인 계정으로 AWS 컨테이너에 접속이 가능한지, 기본 도구들이 설치되어 있는지 확인합니다
 * AWS 인스턴스에 개인 계정으로 접속합니다
 ```bash
+bash> ssh ubuntu@lgde # 할당 받은 IP 혹은 AWS HOSTNAME 으로 접속하시면 됩니다
 ```
 
 * 서버에 접속하여 기본 도구들이 설치되어 있는지 버전은 맞는지 확인합니다
@@ -39,7 +40,10 @@ bash> cd ~/workspace
 bash> git clone https://github.com/psyoblade/helloworld.git
 bash> cd helloworld
 
-bash> ./init.sh  # 명령을 통해 tree 패키지 및 rc 파일을 복사합니다
+bash> sudo ./init.sh  # 명령을 통해 tree 패키지 및 rc 파일을 복사합니다
+
+bash> d # alias 로 docker-compose 를 등록되어 --help 가 뜨면 정상입니다
+bash> source ~/.bashrc  # d 명령어 오류가 나는 경우 .bashrc 를 다시 로딩합니다
 ```
 
 ### 2.2 helloworld.py 파일을 수정하고, 원래 파일의 상태로 되돌립니다
@@ -69,10 +73,12 @@ bash> rm XXX
 ```bash
 bash> mkdir -p tmp
 bash> for x in $(seq 1 10); do touch tmp/XXX_$x; done
+bash> tree
 
 bash> git clean -d -n  # 명령으로 삭제될 대상 디렉토리/파일을 확인하고
 bash> git clean -d -f  # 명령으로 삭제합니다
 bash> git status -sb
+bash> tree
 ```
 
 ### 2.5 컨테이너 시작, 종료가 정상적으로 되지 않는 경우
@@ -106,7 +112,8 @@ bash> docker-compose up -d
 bash> docker-compose ps ubuntu # ubuntu /bin/bash 가 기동 되었는지 확인합니다
 
 bash> docker-compose exec ubuntu bash  # 우분투 컨테이너로 접속합니다
-#> fortune  # 명령어 실행에 성공했다면, Ctrl+D 로 빠져나옵니다
+$> fortune
+$> exit  # 명령어 실행에 성공했다면, Ctrl+D 혹은 exit 명령어로 빠져나옵니다
 
 bash> docker-compose down  # 컨테이너를 종료합니다
 ```
@@ -147,22 +154,25 @@ bash> docker-compose ps --services
 * 터미널 종료 시에는 exit 혹은 Ctrl+D 로 빠져나옵니다
 ```bash
 bash> docker-compose exec sqoop bash
-#> sqoop list-databases --connect jdbc:mysql://mysql:3306 --username sqoop --password sqoop
-#> sqoop list-tables --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop
+$> sqoop list-databases --connect jdbc:mysql://mysql:3306 --username sqoop --password sqoop
+$> sqoop list-tables --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop
 
-#> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "describe user"
-#> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from user"
-#> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from purchase"
+$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "describe user"
+$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from user"
+$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from purchase"
 
-#> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table user \
+$> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table user \
     --target-dir file:///tmp/target/user/20201025 --username sqoop --password sqoop \
     --relaxed-isolation --as-parquetfile --delete-target-dir
-#> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table purchase \
+$> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table purchase \
     --target-dir file:///tmp/target/purchase/20201025 --username sqoop --password sqoop \
     --relaxed-isolation --as-parquetfile --delete-target-dir
 
-#> ls /tmp/target/*/20201025/*.parquet
-#> exit
+$> ls /tmp/target/*/20201025/*.parquet
+
+$> # parquet 파일을 확인합니다
+$> hadoop jar /jdbc/parquet-tools-1.8.1.jar schema file://<target-parquet-file>
+$> exit
 
 bash> tree notebooks
 ```
@@ -173,8 +183,9 @@ bash> tree notebooks
 ```bash
 bash> docker-compose exec fluentd bash
 
-#> more /etc/fluentd/fluent.tail
-#> ./fluentd.sh -c /etc/fluentd/fluent.tail
+$> more /etc/fluentd/fluent.tail
+$> rm -rf /tmp/source/access.*
+$> ./fluentd.sh -c /etc/fluentd/fluent.tail
 ```
 
 * 정상적으로 fluentd 서버가 기동된 것을 확인하고 별도의 창을 하나 더 띄워서 /etc/fluentd/access.csv 파일을 복사합니다
@@ -183,14 +194,13 @@ bash> docker-compose exec fluentd bash
 bash> cd ~/workspace/data-engineer-basic-training/day1/
 bash> docker-compose exec fluentd bash
 
-#> rm -rf /tmp/source/access.pos
-#> head /etc/fluentd/access.csv
+$> head /etc/fluentd/access.csv
 
-#> touch /tmp/source/access.csv  # 명령 이후에 #1 터미널에서 파일을 인지한 것을 확인합니다
-#> cat /etc/fluentd/access.csv >> /tmp/source/access.csv 
-#> ls -al /tmp/target/access/20201025/*.json
+$> touch /tmp/source/access.csv  # 명령 이후에 #1 터미널에서 파일을 인지한 것을 확인합니다
+$> cat /etc/fluentd/access.csv >> /tmp/source/access.csv 
+$> ls -al /tmp/target/access/20201025/*.json
 
-#> exit
+$> exit
 ```
 * 첫 번째로 띄웠던 터미널도 접속 종료합니다
 ```bash
@@ -205,25 +215,18 @@ bash> tree ~/workspace/data-engineer-basic-training/day1/notebooks
 * 노트북 접속을 위한 URL을 확인하여, http://127.0.0.1:8888 로 시작하는 URL을 아래와 같이 변경하여 접속합니다
   - [1일차 - LGDE.com 인터넷 쇼핑몰 지표 설계 및 개발](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day1/notebooks/html/lgde-basic-day1.html)
   - AS-IS: http://127.0.0.1:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6
-  - TO-BE: http://<aws--ip>:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6 
+  - TO-BE: http://{ec2-instance-ip}:8888/?token={notebook-token-copied}
 * 테이블 수집 및 변환작업이 완료되었다면, 하이브 작업을 위해 기존의 모든 프로세스는 종료합니다
   - 하이브의 경우 의존성이 있는 컴포넌트가 많아서 별도의 컨테이너에서 띄우는 것이 좋습니다
 ```bash
-bash> docker-compose logs notebook
-...
-notebook                     |     To access the notebook, open this file in a browser:
-notebook                     |         file:///home/jovyan/.local/share/jupyter/runtime/nbserver-6-open.html
-notebook                     |     Or copy and paste one of these URLs:
-notebook                     |         http://ecaed76f05b8:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6
-notebook                     |      or http://127.0.0.1:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6
-...
-bash> docker-compose down
+bash> docker-compose logs notebook | grep localhost
+or http://127.0.0.1:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6
 ```
 
 
 ### 4.5 원본 로그를 통해 추출 가능한 기본 지표를 추출합니다 (spark+notebook)
-> 크롬을 통해서 http://<my-aws-ip>:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6 사이트에 접속합니다
-
+> 크롬을 통해서 http://{ec2-instance-ip}:8888/?token={notebook-token-copied} 사이트에 접속합니다
+  
 
 ### 4.6 추출된 기본지표를 하이브 테이블로 작성하고 제공합니다 (hive)
 * 테이블을 생성한 이후에 로컬 파일을 로딩하여 생성하는 방법이 가장 간편합니다
