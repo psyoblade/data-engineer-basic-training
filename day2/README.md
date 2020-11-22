@@ -550,7 +550,7 @@ $> hostname -I
 * 외부에 존재하는 서버의 도커 컨테이너가 로그를 전송하는 예제입니다
   - 별도의 터미널 창을 하나 더 열어서 도커 명령어를 실행시킬 준비를 합니다
 ```bash
-bash> FLUENTD_IP=""
+bash> FLUENTD_IP="" # 플루언트디가 떠 있는 IP
 bash> FLUENTD_PORT=24224
 bash> docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_IP}:${FLUENTD_PORT} alpine echo '{"message":"null tag message"}'
 ```
@@ -558,10 +558,11 @@ bash> docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_I
   - .ID .Name .FullID 값들은 도커 구현 시에 포함된 사전에 정의된 값입니다
   - 전송과 동시에 플루언트디가 설치된 터미널에 해당 로그가 수신된 것을 볼 수 있습니다
 ```bash
-bash> docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_IP}:${FLUENTD_PORT} alpine echo '{"message":"null tag message"}'
-bash> docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_IP}:${FLUENTD_PORT} --log-opt tag=docker.{{.ID}} alpine echo '{"message":"send message with id"}'
-bash> docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_IP}:${FLUENTD_PORT} --log-opt tag=docker.{{.Name}} alpine echo '{"message":"send message with name"}'
-bash> docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_IP}:${FLUENTD_PORT} --log-opt tag=docker.{{.FullID}} alpine echo '{"message":"send message with full-id"}'
+bash> 
+docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_IP}:${FLUENTD_PORT} alpine echo '{"message":"null tag message"}'
+docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_IP}:${FLUENTD_PORT} --log-opt tag=docker.{{.ID}} alpine echo '{"message":"send message with id"}'
+docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_IP}:${FLUENTD_PORT} --log-opt tag=docker.{{.Name}} alpine echo '{"message":"send message with name"}'
+docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_IP}:${FLUENTD_PORT} --log-opt tag=docker.{{.FullID}} alpine echo '{"message":"send message with full-id"}'
 ```
 
 
@@ -569,7 +570,7 @@ bash> docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_I
 * 동일한 방식으로 ex6.conf 파일을 생성후, 플루언트디를 기동합니다
   - 예제에서는 "worker0"는 로컬 파일을 읽어서 저장하는 예제이고 "worker1"의 경우는 http 서버를 통해 수신하는 예제입니다
 ```bash
-$> cat > ex6.con
+$> cat > ex6.conf
 ```
 * 다음 설정 정보를 복사하여 붙여 넣은 뒤 Ctrl+C 명령으로 빠져나오면 파일이 생성됩니다
 ```bash
