@@ -14,6 +14,7 @@
 > 각자 개인 계정으로 AWS 컨테이너에 접속이 가능한지, 기본 도구들이 설치되어 있는지 확인합니다
 * AWS 인스턴스에 개인 계정으로 접속합니다
 ```bash
+bash> ssh ubuntu@lgde # 개인별로 할당 받은 IP 혹은 DNS 로 접속하시면 됩니다
 ```
 
 * 서버에 접속하여 기본 도구들이 설치되어 있는지 버전은 맞는지 확인합니다
@@ -39,7 +40,9 @@ bash> cd ~/workspace
 bash> git clone https://github.com/psyoblade/helloworld.git
 bash> cd helloworld
 
-bash> ./init.sh  # 명령을 통해 tree 패키지 및 rc 파일을 복사합니다
+bash> sudo ./init.sh  # 명령을 통해 tree 패키지 및 rc 파일을 복사합니다
+bash> source ~/.bashrc  # .bashrc 를 다시 한 번 적용합니다
+bash> d  # docker-compose 명령어를 d 로 alias 를 걸어두었습니다
 ```
 
 ### 2.2 helloworld.py 파일을 수정하고, 원래 파일의 상태로 되돌립니다
@@ -82,11 +85,13 @@ bash> git revert <git log 에서 복사한 commit id>  # 입력하면 vim 편집
 ```bash
 bash> mkdir -p tmp
 bash> for x in $(seq 1 10); do touch tmp/XXX_$x; done
+bash> tree
 
 bash> git clean -n  # 명령으로 삭제될 대상 파일을 확인하고
 bash> git clean -f  # 명령으로 삭제합니다
 bash> rm -rf tmp
 bash> git status -sb
+bash> tree
 ```
 
 ### 2.6 컨테이너 시작, 종료가 정상적으로 되지 않는 경우
@@ -120,7 +125,8 @@ bash> docker-compose up -d
 bash> docker-compose ps ubuntu # ubuntu /bin/bash 가 기동 되었는지 확인합니다
 
 bash> docker-compose exec ubuntu bash  # 우분투 컨테이너로 접속합니다
-$> fortune  # 명령어 실행에 성공했다면, Ctrl+D 로 빠져나옵니다
+$> fortune
+$> exit  # fortune 명령어 실행에 성공했다면, Ctrl+D 혹은 exit 명령어로 빠져나옵니다
 
 bash> docker-compose down  # 컨테이너를 종료합니다
 ```
@@ -147,6 +153,7 @@ bash> docker-compose down  # 모든 서비스 컨테이너를 종료합니다
 
 ### 4.1 데이터 수집을 위한 예제 프로젝트를 다운로드 합니다 (git)
 * 모든 서비스(mysql, sqoop, fluentd, notebook)가 전부 기동되었는지 확인합니다
+  - 도커 이미지 다운로드 시간이 약 2~3분 소요됩니다
 ```bash
 bash> cd ~/workspace
 bash> git clone https://github.com/psyoblade/data-engineer-basic-training.git 
