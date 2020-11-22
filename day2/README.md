@@ -159,7 +159,7 @@ $> hadoop fs -cat /user/sqoop/user_append/part-m-00000
 ```bash
 $> sqoop import -m 1 --connect jdbc:mysql://mysql:3306/testdb --table user \
     --where "u_id >= 5" \
-    --target-dir /user/soqop/user_append --username sqoop --password sqoop \
+    --target-dir /user/sqoop/user_append --username sqoop --password sqoop \
     --fields-terminated-by '\t' --relaxed-isolation --append
 
 $> hadoop fs -cat /user/sqoop/user_append/part-m-00001
