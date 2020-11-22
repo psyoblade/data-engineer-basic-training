@@ -2,14 +2,29 @@
 > 가상의 웹 쇼핑몰 LGDE.com 접속정보, 매출 및 고객정보를 통해 각종 지표를 생성하는 실습을 수행합니다
 
 * 목차
-  * [스냅샷 및 파일 수집](#1-스냅샷-및-파일-수집)
-  * [기본 지표 설계 및 생성](#2-기본-지표-설계-및-생성)
-  * [디멘젼 테이블 설계 및 생성](#3-디멘젼-테이블-설계-및-생성)
-  * [고급 지표 설계 및 생성](#4-고급-지표-설계-및-생성)
+  * [서버 기동 및 확인](#1-서버-기동-및-확인)
+  * [스냅샷 및 파일 수집](#2-스냅샷-및-파일-수집)
+  * [서비스 첫 날 지표 생성](#3-서비스-첫-날-지표-생성)
+  * [서비스 둘째날 이후 지표 생성](#4-서비스-둘째날-이후-지표-생성)
 
 
-1. 서버 기동 및 확인
-2. 테이블 수집
-3. 파일 수집
-4. 노트북 기동 - 노트북 생성 (lgde-basic-day5-1.ipynb)
-9. 하이브 테이블 생성 (user, purchase, access, dimension, lgde-index)
+## 1. 서버 기동 및 확인
+```bash
+bash> cd ~/workspace/data-engineer-basic-training/day5
+bash> docker-compose up -d
+bash> docker-compose ps
+
+# 아래와 같이 http://127.0.0.1 로 시작하는 URL 에서 127.0.0.1 부분을 현재 aws-instance-host 이름으로 변경합니다
+bash> docker-compose logs notebook | grep http
+...
+or http://127.0.0.1:8888/?token=ad4f43203ac46f7f7f58807ab6781b1fd18b9ca5066664df
+...
+
+chrome> http://<aws-hostname-or-ip>:8888/?token=ad4f43203ac46f7f7f58807ab6781b1fd18b9ca5066664df
+```
+
+## 2. 스냅샷 및 파일 수집
+
+## 3. 서비스 첫 날 지표 생성
+
+## 4. 서비스 둘째날 이후 지표 생성
