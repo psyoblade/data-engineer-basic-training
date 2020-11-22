@@ -340,7 +340,9 @@ $> cat > ex2.conf
         timekey_zone +0900
     </buffer>
 </match>
-
+```
+* 아래 명령으로 플루언트디를 기동합니다
+```bash
 $> ./fluentd.sh -c ./ex2.conf
 ```
 * 두 번째 터미널에서 파일이 생성되는지 확인해 봅니다
@@ -393,7 +395,9 @@ $> cat > ex3.conf
     @type stdout
     @log_level debug
 </match>
-
+```
+* 아래 명령으로 플루언트디를 기동합니다
+```bash
 $> ./fluentd.sh -c ./ex3.conf
 ```
 * 기존에 아파치 로그를 이용하여 로그추가를 시뮬레이션 하는 파이썬 스크립트를 생성합니다
@@ -487,7 +491,9 @@ $> cat > ex4.conf
         timezone +09:00
     </format>
 </match>
-
+```
+* 아래 명령으로 플루언트디를 기동합니다
+```bash
 $> ./fluentd.sh -c ex4.conf
 ```
 * 예제 데이터를 전송하고, 정상적으로 시간이 포맷팅된 문자열로 변환이 되는지 확인합니다
@@ -530,7 +536,9 @@ $> cat > ex5.conf
 <match docker.*>
     @type stdout
 </match>
-
+```
+* 아래 명령으로 플루언트디를 기동합니다
+```bash
 $> ./fluentd.sh -c ex5.conf
 ```
 * 현재 수집 플루언트디 에이전트가 떠 있는 서버의 IP 를 확인합니다
@@ -591,7 +599,9 @@ $> cat > ex6.con
         @type stdout
     </match>
 </worker>
-
+```
+* 아래 명령으로 플루언트디를 기동합니다
+```bash
 $> ./fluentd.sh -c ex6.conf
 ```
 * 첫 번째 프로세스가 파일로 받은 입력을 표준 출력으로 내보내는 프로세스입니다
@@ -661,7 +671,9 @@ $> cat > ex7.conf
         </buffer>
     </match>
 </worker>
-
+```
+* 아래 명령으로 플루언트디를 기동합니다
+```bash
 $> ./fluentd.sh -c ex7.conf
 ```
 * 2개의 플루언트디 프로세스에 curl 로 메시지를 전달하는 bash 스크립트를 생성 및 실행합니다
