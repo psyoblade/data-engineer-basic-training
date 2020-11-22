@@ -609,10 +609,10 @@ $> ./fluentd.sh -c ex6.conf
 ```
 * 첫 번째 프로세스가 파일로 받은 입력을 표준 출력으로 내보내는 프로세스입니다
   - 임의의 파일 수집로그를 생성하기 위해, 임의의 로그를 touch 명령으로 생성합니다
-  - seq 명령으로 100 개의 메시지를 생성하고, 해당 메시지가 정상 수신됨을 첫 번째 터미널에서 확인합니다
+  - seq 명령으로 10 개의 메시지를 생성하고, 해당 메시지가 정상 수신됨을 첫 번째 터미널에서 확인합니다
 ```bash
 bash> touch /tmp/source/ex6/access.log
-bash> for x in $(seq 1 100); do echo "{\"worker0\":\"hello world worker 0\"}" >> /tmp/source/ex6/start.log; done
+bash> for x in $(seq 1 10); do echo "{\"worker0\":\"hello world worker 0\"}" >> /tmp/source/ex6/access.log; done
 ``` 
 * 두 번째 프로세스는 HTTP 로 입력 받은 내용을 표준 출력으로 내보내는 프로세스입니다
 ```bash
