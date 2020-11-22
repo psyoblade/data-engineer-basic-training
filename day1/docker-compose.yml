@@ -10,6 +10,8 @@ services:
       MYSQL_DATABASE: testdb
       MYSQL_USER: sqoop
       MYSQL_PASSWORD: sqoop
+    command:
+      --skip-grant-tables
     ports:
       - '3306:3306'
     networks:

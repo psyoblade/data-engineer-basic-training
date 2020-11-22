@@ -1,5 +1,6 @@
 # Custom .gitignore
 tmp/
+notebooks/
 
 # Created by https://www.toptal.com/developers/gitignore/api/git,python,jupyternotebooks,macos,vim
 # Edit at https://www.toptal.com/developers/gitignore?templates=git,python,jupyternotebooks,macos,vim
