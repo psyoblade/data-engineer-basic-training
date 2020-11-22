@@ -697,8 +697,11 @@ for number in $(seq 0 $max); do
     sleep 1
     dot="$dot."
 done
-
-$> bash ./progress.sh
+```
+* 프로그래스 파일을 실행합니다
+```bash
+$> chmod +x ./progress.sh
+$> ./progress.sh
 ```
 * 끝으로 /tmp/target 경로에 워커 아이디 별로 경로와 파일이 생성되었는지 확인합니다
 
