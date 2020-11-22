@@ -5,7 +5,9 @@
 * logs 출력에 localhost:8888 페이지를 크롬 브라우저에서 오픈합니다
 ```bash
 bash> cd ~/workspace/data-engineer-basic-training/day3
+bash> git pull
 bash> docker-compose up -d
+bash> docker-compose ps
 bash> docker-compose logs notebook
 ```
 
@@ -17,3 +19,9 @@ bash> docker-compose logs notebook
     * [4. 조인 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-4.html)
     * [5. 집계 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-5.html)
     * [6. 스파크 JDBC to MySQL](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-6.html)
+
+### 모든 실습이 완료되었다면 컨테이너를 모두 종료합니다
+```bash
+bash> cd ~/workspace/data-engineer-basic-training/day3
+bash> docker-compose down
+```

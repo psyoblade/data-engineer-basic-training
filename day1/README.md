@@ -48,13 +48,13 @@ bash> d  # docker-compose 명령어를 d 로 alias 를 걸어두었습니다
 ### 2.2 helloworld.py 파일을 수정하고, 원래 파일의 상태로 되돌립니다
 ```bash
 bash> echo "print('helloworld')" >> helloworld.py
-bash> python helloworld.py
+bash> python3 helloworld.py
 
 bash> git status -sb
 bash> git diff
 
 bash> git checkout -- .
-bash> python helloworld.py
+bash> python3 helloworld.py
 ```
 
 ### 2.3 임의의 파일을 추가하고 스테이징 상태까지 갔다가 다시 원래 상태로 되돌립니다
@@ -65,36 +65,22 @@ bash> git status -sb
 
 bash> git reset -- .
 bash> git status -sb
+bash> rm XXX
 ```
 
-### 2.4 임의의 파일을 추가한 뒤, 커밋 이후에 다시 원래 상태로 롤백합니다
-```bash
-bash> touch YYY
-bash> git status -sb
-
-bash> git add -A  # 변경된 모든 파일을 추가합니다
-bash> git commit -am "[추가] 파일추가"  # 파일추가 메시지를 포함하여 커밋합니다
-
-bash> git status -sb
-bash> git log  # 마지막으로 수정된 "파일추가" 메시지가 있는 커밋로그ID 값을 확인합니다
-
-bash> git revert <git log 에서 복사한 commit id>  # 입력하면 vim 편집기가 뜨는데 Esc 키를 2회 이상 눌러 명령어 모드로 바꾼 뒤, ":wq" 명령어를 입력하여 저장합니다
-```
-
-### 2.5 임의의 가비지 파일을 10개 생성하고, 깃 클린 명령어를 통해 정리합니다
+### 2.4 임의의 가비지 파일을 10개 생성하고, 깃 클린 명령어를 통해 정리합니다
 ```bash
 bash> mkdir -p tmp
 bash> for x in $(seq 1 10); do touch tmp/XXX_$x; done
 bash> tree
 
-bash> git clean -n  # 명령으로 삭제될 대상 파일을 확인하고
-bash> git clean -f  # 명령으로 삭제합니다
-bash> rm -rf tmp
+bash> git clean -d -n  # 명령으로 삭제될 대상 디렉토리/파일을 확인하고
+bash> git clean -d -f  # 명령으로 삭제합니다
 bash> git status -sb
 bash> tree
 ```
 
-### 2.6 컨테이너 시작, 종료가 정상적으로 되지 않는 경우
+### 2.5 컨테이너 시작, 종료가 정상적으로 되지 않는 경우
 > 이미 기동되어 있는 컨테이너와 이름이 동일하거나, 컨테이너에 오류가 있어 기동되지 않은 경우에도 컨테이너 정보는 여전히 남아있어 다음 실행 시에 문제가 될 수 있습니다.
 * 모든 도커 컨테이너를 확인 및 삭제하는 명령어
 ```bash
@@ -143,7 +129,7 @@ bash> docker-compose top  # 서비스명을 입력하지 않으면 2개 서비�
 * 로그인 전후에 로그가 정상적으로 출력됨을 확인할 수 있습니다
 ```bash
 bash> docker-compose logs -f phpmyadmin  # 서비스 로그를 확인할 수 있도록 로그를 모니터링 합니다
-bash> # 브라우저를 통해서 http://student:8183 으로 접속하여 user / user 로 로그인합니다
+bash> # 브라우저를 통해서 http://<aws-ec2-instance-url-or-ip>:8183 으로 접속하여 user / user 로 로그인합니다
 bash> docker-compose down  # 모든 서비스 컨테이너를 종료합니다
 ```
 
@@ -160,7 +146,7 @@ bash> git clone https://github.com/psyoblade/data-engineer-basic-training.git
 bash> cd ~/workspace/data-engineer-basic-training/day1
 
 bash> docker-compose up -d
-bash> docker-compose ps --servicees
+bash> docker-compose ps --services
 ```
 
 ### 4.2 고객 정보(user) 및 매출 정보(purchase) 테이블을 오픈소스 Sqoop 을 통해 수집합니다 (sqoop)
@@ -168,18 +154,24 @@ bash> docker-compose ps --servicees
 * 터미널 종료 시에는 exit 혹은 Ctrl+D 로 빠져나옵니다
 ```bash
 bash> docker-compose exec sqoop bash
-$> sqoop list-databases --connect jdbc:mysql://mysql:3306 --username sqoop --password sqoop
-$> sqoop list-tables --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop
+#> sqoop list-databases --connect jdbc:mysql://mysql:3306 --username sqoop --password sqoop
+#> sqoop list-tables --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop
 
-$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "describe user"
-$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from user"
-$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from purchse"
+#> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "describe user"
+#> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from user"
+#> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from purchase"
 
-$> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table user --target-dir file:///tmp/target/user/20201025 --username sqoop --password sqoop --relaxed-isolation --as-parquetfile --delete-target-dir
-$> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table purchase --target-dir file:///tmp/target/purchase/20201025 --username sqoop --password sqoop --relaxed-isolation --as-parquetfile --delete-target-dir
+#> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table user \
+    --target-dir file:///tmp/target/user/20201025 --username sqoop --password sqoop \
+    --relaxed-isolation --as-parquetfile --delete-target-dir
+#> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table purchase \
+    --target-dir file:///tmp/target/purchase/20201025 --username sqoop --password sqoop \
+    --relaxed-isolation --as-parquetfile --delete-target-dir
 
-$> ls /tmp/target/*/20201025/*.parquet
-$> exit
+#> ls /tmp/target/*/20201025/*.parquet
+#> exit
+
+bash> tree notebooks
 ```
 
 ### 4.3 고객 접속 정보(access)를 오픈소스 Fluentd 를 통해 수집합니다 (fluentd)
@@ -188,46 +180,56 @@ $> exit
 ```bash
 bash> docker-compose exec fluentd bash
 
-$> more /etc/fluentd/fluent.tail
-$> ./fluentd.sh -c /etc/fluentd/fluent.tail
+#> more /etc/fluentd/fluent.tail
+#> ./fluentd.sh -c /etc/fluentd/fluent.tail
 ```
 
 * 정상적으로 fluentd 서버가 기동된 것을 확인하고 별도의 창을 하나 더 띄워서 /etc/fluentd/access.csv 파일을 복사합니다
   - 별도의 탭을 이용하여 서버에 접속하여, 테스트 과정에 발생할 수 있는 임시파일을 삭제합니다
 ```bash
-$> rm -rf /tmp/source/access.pos
-$> head /etc/fluentd/access.csv
+bash> cd ~/workspace/data-engineer-basic-training/day1/
+bash> docker-compose exec fluentd bash
 
-$> touch /tmp/source/access.csv  # 명령 이후에 #1 터미널에서 파일을 인지한 것을 확인합니다
-$> cat /etc/fluentd/access.csv > /tmp/source/access.csv 
-$> ls -al /tmp/target/access/20201025/*.json
+#> rm -rf /tmp/source/access.pos
+#> head /etc/fluentd/access.csv
 
-$> exit
+#> touch /tmp/source/access.csv  # 명령 이후에 #1 터미널에서 파일을 인지한 것을 확인합니다
+#> cat /etc/fluentd/access.csv >> /tmp/source/access.csv 
+#> ls -al /tmp/target/access/20201025/*.json
+
+#> exit
 ```
 * 첫 번째로 띄웠던 터미널도 접속 종료합니다
 ```bash
-$1> exit  # Ctrl+C 를 통해 fluentd.sh 종료 후 터미널을 종료합니다
+#1> exit  # Ctrl+C 를 통해 fluentd.sh 종료 후 터미널을 종료합니다
 
-bash> ls -al ~/workspace/data-engineer-basic/day1/notebooks  # 수집된 3개의 테이블이 존재하는지 확인합니다
+bash> ls -al ~/workspace/data-engineer-basic-training/day1/notebooks  # 수집된 3개의 테이블이 존재하는지 확인합니다
+bash> tree ~/workspace/data-engineer-basic-training/day1/notebooks
 ```
 
 
 ### 4.4 수집된 고객, 매출 및 접속 정보를 오픈소스 Spark 를 통해 탐색합니다 (spark+notebook)
-* 노트북 접속을 위한 URL을 확인하여, http://127.0.0.1:8888 로 시작하는 URL로 접속합니다
+* 노트북 접속을 위한 URL을 확인하여, http://127.0.0.1:8888 로 시작하는 URL을 아래와 같이 변경하여 접속합니다
   - [1일차 - LGDE.com 인터넷 쇼핑몰 지표 설계 및 개발](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/main/day1/notebooks/html/lgde-basic-day1.html)
+  - AS-IS: http://127.0.0.1:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6
+  - TO-BE: http://<aws--ip>:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6 
 * 테이블 수집 및 변환작업이 완료되었다면, 하이브 작업을 위해 기존의 모든 프로세스는 종료합니다
   - 하이브의 경우 의존성이 있는 컴포넌트가 많아서 별도의 컨테이너에서 띄우는 것이 좋습니다
 ```bash
 bash> docker-compose logs notebook
-
+...
+notebook                     |     To access the notebook, open this file in a browser:
+notebook                     |         file:///home/jovyan/.local/share/jupyter/runtime/nbserver-6-open.html
+notebook                     |     Or copy and paste one of these URLs:
+notebook                     |         http://ecaed76f05b8:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6
+notebook                     |      or http://127.0.0.1:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6
+...
 bash> docker-compose down
 ```
 
 
 ### 4.5 원본 로그를 통해 추출 가능한 기본 지표를 추출합니다 (spark+notebook)
-```bash
-bash>
-```
+> 크롬을 통해서 http://<my-aws-ip>:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6 사이트에 접속합니다
 
 
 ### 4.6 추출된 기본지표를 하이브 테이블로 작성하고 제공합니다 (hive)
@@ -235,43 +237,50 @@ bash>
 ```bash
 bash> docker-compose exec hive-server bash
 bash> beeline
-beeline> !connect jdbc:hive2://localhost:10000 scott tiger
 
-beeline> create table if not exists local_users (d_uid string, d_name string, d_gender string, d_account bigint, d_pamount bigint, d_pcount bigint)
+beeline> 
+!connect jdbc:hive2://localhost:10000 scott tiger
+
+beeline> 
+create database if not exists testdb comment 'test database' location '/user/hive/warehouse/testdb' with dbproperties ('createdBy' = 'psyoblade');
+use testdb;
+drop table if exists local_users;
+create table if not exists local_users (d_uid string, d_name string, d_gender string, d_account bigint, d_pamount bigint, d_pcount bigint)
     partitioned by (dt int)
     row format delimited
     fields terminated by ','
     stored as parquet;
 
-beeline> load data local inpath '/tmp/target/dim_users/dt=20201025' overwrite into table local_users partition (dt = 20201025);
-beeline> load data local inpath '/tmp/target/dim_users/dt=20201025' overwrite into table local_users partition (dt = 20201026);
-beeline> select dt, d_gender, count(1) from local_users group by dt, d_gender;
+load data local inpath '/tmp/target/dim_users/dt=20201025' overwrite into table local_users partition (dt = 20201025);
+load data local inpath '/tmp/target/dim_users/dt=20201026' overwrite into table local_users partition (dt = 20201026);
+select dt, d_gender, count(1) from local_users group by dt, d_gender;
 ```
 * 대상 테이블을 분산 저장소에 저장하여 하이브 테이블을 생성할 수도 있습니다
   - 스파크를 통해 생성된 파일을 하둡 클러스터에 업로드합니다 (기존에는 로컬에 저장했습니다)
 ```bash
 bash> docker-compose exec hive-server bash
 
-bash> hadoop fs -mkdir /user/lgde/dim_users
+bash> hadoop fs -mkdir -p /user/lgde/dim_users
 bash> hadoop fs -put /tmp/target/dim_users/* /user/lgde/dim_users 
 bash> hadoop fs -ls /user/lgde/dim_users
 
 bash> beeline
 beeline> !connect jdbc:hive2://localhost:10000 scott tiger
 
-beeline> create database if not exists testdb comment 'test database' location '/user/hive/warehouse/testdb' with dbproperties ('createdBy' = 'psyoblade');
-beeline> drop table if exists dim_users;
-beeline> create external table if not exists dim_users (d_uid string, d_name string, d_gender string, d_account bigint, d_pamount bigint, d_pcount bigint)
+beeline> 
+create database if not exists testdb comment 'test database' location '/user/hive/warehouse/testdb' with dbproperties ('createdBy' = 'psyoblade');
+use testdb;
+drop table if exists dim_users;
+create external table if not exists dim_users (d_uid string, d_name string, d_gender string, d_account bigint, d_pamount bigint, d_pcount bigint)
     comment 'users dimension'
     partitioned by (dt int)
     row format delimited
     fields terminated by ','
     stored as parquet
-    location 'hdfs://namenode:8020/tmp/target/dim_users';
+    location 'hdfs://namenode:8020/user/lgde/dim_users';
 
-beeline> alter table dim_users add if not exists partition (dt = 20201025);
-beeline> alter table dim_users add if not exists partition (dt = 20201026);
-beeline> describe extended dim_users partition (dt = '20201025');
-beeline> select dt, d_gender, count(1) from dim_users group by dt, d_gender;
+alter table dim_users add if not exists partition (dt = 20201025);
+describe extended dim_users partition (dt = '20201025');
+select dt, d_gender, count(1) from dim_users group by dt, d_gender;
 ```
 

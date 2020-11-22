@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  sqoop:
+    container_name: sqoop
+    image: psyoblade/data-engineer-intermediate-day1-sqoop:1.0
+    tty: true
+    environment:
+      LANG: ko_KR.UTF-8
+    ports:
+      - '8088:8088'
+      - '10020:10020'
+      - '19888:19888'
+      - '60070:50070'
+      - '60075:50075'
+    networks:
+      - default
+    volumes:
+      - ./sqoop/jars:/jdbc
+      - ./tmp:/tmp/source
+networks:
+  default:
+    name: default_network

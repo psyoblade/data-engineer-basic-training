@@ -13,6 +13,7 @@
 * 대상 서버에 접속하기 위해 도커 컴포즈를 이용하여 서버를 기동합니다
 ```bash
 bash> cd ~/workspace/data-engineer-basic-training/day2
+bash> git pull
 bash> docker-compose up -d
 bash> docker-comopse ps
 ```
@@ -670,3 +671,8 @@ $> bash ./progress.sh
 ```
 * 끝으로 /tmp/target 경로에 워커 아이디 별로 경로와 파일이 생성되었는지 확인합니다
 
+### 모든 실습이 완료되었다면 컨테이너를 모두 종료합니다
+```bash
+bash> cd ~/workspace/data-engineer-basic-training/day2
+bash> docker-compose down
+```
