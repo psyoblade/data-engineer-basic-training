@@ -302,7 +302,9 @@ $> curl -i -X POST -d 'json={"action":"login","user":2}' http://localhost:9880/t
   - 방금 생성한 ex2.conf 파일을 이용하여 기동합니다
 ```bash
 $> cat > ex2.conf
-
+```
+* 다음 설정 정보를 복사하여 붙여 넣은 뒤 Ctrl+C 명령으로 빠져나오면 파일이 생성됩니다
+```bash
 <source>
     @type dummy
     tag lgde.info
@@ -351,7 +353,9 @@ $> ls -al /tmp/target/ex2/lgde/
 * 동일한 방식으로 ex3.conf 파일을 생성합니다
 ```bash
 $> cat > ex3.conf
-
+```
+* 다음 설정 정보를 복사하여 붙여 넣은 뒤 Ctrl+C 명령으로 빠져나오면 파일이 생성됩니다
+```bash
 <source>
     @type tail
     @log_level info
@@ -397,7 +401,9 @@ $> ./fluentd.sh -c ./ex3.conf
   - 로그를 생성하고 10초 대기 후 다시 반복하면서 전체 로그를 생성합니다
 ```python
 $> cat > generate_logs.py
-
+```
+* 다음 정보를 복사하여 붙여 넣은 뒤 Ctrl+C 명령으로 빠져나오면 파일이 생성됩니다
+```bash
 #!/usr/bin/env python3
 # lgde data-engineering-basic ex3
 
@@ -449,7 +455,9 @@ $> ls -al /tmp/target/ex3/
 * 동일한 방식으로 ex4.conf 파일을 생성후, 플루언트디를 기동합니다
 ```bash
 $> cat > ex4.conf
-
+```
+* 다음 설정 정보를 복사하여 붙여 넣은 뒤 Ctrl+C 명령으로 빠져나오면 파일이 생성됩니다
+```bash
 <source>
     @type http
     port 8080
@@ -494,7 +502,9 @@ $> curl -X POST -d '{ "column1":"1", "column2":"hello-world", "logtime": 1593379
   - 프로세스를 하나 띄워두고, 각 도커 컨테이너에서 로그를 전송하는 방식입니다
 ```bash
 $> cat > ex5.conf
-
+```
+* 다음 설정 정보를 복사하여 붙여 넣은 뒤 Ctrl+C 명령으로 빠져나오면 파일이 생성됩니다
+```bash
 <source>
     @type forward
     port 24224
@@ -550,7 +560,9 @@ bash> docker run --rm --log-driver=fluentd --log-opt fluentd-address=${FLUENTD_I
   - 예제에서는 "worker0"는 로컬 파일을 읽어서 저장하는 예제이고 "worker1"의 경우는 http 서버를 통해 수신하는 예제입니다
 ```bash
 $> cat > ex6.con
-
+```
+* 다음 설정 정보를 복사하여 붙여 넣은 뒤 Ctrl+C 명령으로 빠져나오면 파일이 생성됩니다
+```bash
 <system>
     workers 2
     root_dir /tmp/log
@@ -600,7 +612,9 @@ bash> curl -XPOST -d "json={\"worker1\":\"hello world worker 1\"}" http://localh
   - 예제에서는 "worker0"는 로컬 파일을 읽어서 저장하는 예제이고 "worker1"의 경우는 http 서버를 통해 수신하는 예제입니다
 ```bash
 $> cat > ex7.conf
-
+```
+* 다음 설정 정보를 복사하여 붙여 넣은 뒤 Ctrl+C 명령으로 빠져나오면 파일이 생성됩니다
+```bash
 <system>
     workers 2
     root_dir /tmp/workers
@@ -653,7 +667,9 @@ $> ./fluentd.sh -c ex7.conf
 * 2개의 플루언트디 프로세스에 curl 로 메시지를 전달하는 bash 스크립트를 생성 및 실행합니다
 ```bash
 $> cat > progress.sh
-
+```
+* 다음 정보를 복사하여 붙여 넣은 뒤 Ctrl+C 명령으로 빠져나오면 파일이 생성됩니다
+```bash
 #!/bin/bash
 max=60
 dot="."
