@@ -443,7 +443,9 @@ for x in range(0, 10):
     shutil.move("/tmp/source/ex3/accesslogs", "/tmp/source/ex3/accesslogs.%d" % x)
     print("renamed accesslogs.%d" % x)
 fr.close()
-
+```
+* 아래의 명령으로 로그를 생성하는 파이썬 프로그램을 기동합니다
+```bash
 $> python3 generate_logs.py
 ```
 * 플루언트디도 기동 되었고, 파이썬 스크립트도 생성되었다면 로그를 생성합니다
