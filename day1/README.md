@@ -203,7 +203,7 @@ bash> tree ~/workspace/data-engineer-basic-training/day1/notebooks
 
 ### 4.4 수집된 고객, 매출 및 접속 정보를 오픈소스 Spark 를 통해 탐색합니다 (spark+notebook)
 * 노트북 접속을 위한 URL을 확인하여, http://127.0.0.1:8888 로 시작하는 URL을 아래와 같이 변경하여 접속합니다
-  - [1일차 - LGDE.com 인터넷 쇼핑몰 지표 설계 및 개발](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/main/day1/notebooks/html/lgde-basic-day1.html)
+  - [1일차 - LGDE.com 인터넷 쇼핑몰 지표 설계 및 개발](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day1/notebooks/html/lgde-basic-day1.html)
   - AS-IS: http://127.0.0.1:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6
   - TO-BE: http://<aws--ip>:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6 
 * 테이블 수집 및 변환작업이 완료되었다면, 하이브 작업을 위해 기존의 모든 프로세스는 종료합니다
