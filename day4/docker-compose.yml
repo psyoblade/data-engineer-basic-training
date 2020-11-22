@@ -26,6 +26,8 @@ services:
   hive-server:
     container_name: hive-server
     image: psyoblade/data-engineer-basic-hive-server:1.0
+    volumes:
+      - ./tmp:/tmp/source
     env_file:
       - ./hadoop-hive.env
     environment:
