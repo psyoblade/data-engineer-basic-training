@@ -24,7 +24,11 @@ chrome> http://<aws-hostname-or-ip>:8888/?token=ad4f43203ac46f7f7f58807ab6781b1f
 ```
 
 ## 2. 스냅샷 및 파일 수집
+  * [2-1. 스쿱 스냅샷 수집 실습](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/lgde-basic-day5-step1.html)
+  * [2-2. 플루언트디 파일 수집 실습](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/lgde-basic-day5-step2.html)
 
 ## 3. 서비스 첫 날 지표 생성
+  * [3-1. LGDE.com 1일차 지표 실습](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/lgde-basic-day5-step3.html)
 
 ## 4. 서비스 둘째날 이후 지표 생성
+  * [4-1. LGDE.com 2일차 지표 실습](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/lgde-basic-day5-step4.html)
