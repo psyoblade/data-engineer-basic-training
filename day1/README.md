@@ -267,13 +267,13 @@ beeline>
 create database if not exists testdb comment 'test database' location '/user/hive/warehouse/testdb' with dbproperties ('createdBy' = 'psyoblade');
 use testdb;
 drop table if exists dim_users;
-create external table if not exists dim_users (d_uid string, d_name string, d_gender string, d_account bigint, d_pamount bigint, d_pcount bigint)
-    comment 'users dimension'
-    partitioned by (dt int)
-    row format delimited
-    fields terminated by ','
-    stored as parquet
-    location 'hdfs://namenode:8020/user/lgde/dim_users';
+
+create table if not exists dim_users 
+(a_uid string, a_count bigint, p_amount bigint, p_count bigint, u_name string, u_gender string, u_signup string)
+partitioned by (dt int)
+row format delimited
+stored as parquet
+location 'hdfs://namenode:8020/user/lgde/dim_users';
 
 alter table dim_users add if not exists partition (dt = 20201025);
 describe extended dim_users partition (dt = '20201025');
