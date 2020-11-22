@@ -277,6 +277,6 @@ location 'hdfs://namenode:8020/user/lgde/dim_users';
 
 alter table dim_users add if not exists partition (dt = 20201025);
 describe extended dim_users partition (dt = '20201025');
-select dt, d_gender, count(1) from dim_users group by dt, d_gender;
+select dt, u_gender, count(1) from dim_users group by dt, u_gender;
 ```
 
