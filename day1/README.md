@@ -94,6 +94,11 @@ bash> docker container prune  # 사용되지 않는 모든 가비지 컨테이�
 bash> docker network prune  # 사용되지 않는 모든 네트워크를 정리합니다
 ```
 
+### 2.6 깃 패스워드를 캐시
+```bash
+bash> git config --global credential.helper cache
+```
+
 
 ## 3. Docker 명령어 실습
 
