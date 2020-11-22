@@ -12,6 +12,7 @@ bash> docker-compose logs notebook
 ```
 
 * 목차
+  * 아래의 문서를 열고 "lgde-pyspark-tutorial-#.ipynb" 파일명으로 빈 노트북을 하나씩 생성합니다
   * 스파크 기본 명령어 이해
     * [1. 스파크 기본 명령어 이해](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-1.html)
     * [2. 기본 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-2.html)
