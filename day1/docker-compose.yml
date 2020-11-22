@@ -97,6 +97,7 @@ services:
     ports:
       - "10000:10000"
     volumes:
+      - ./tmp:/tmp/source
       - ./notebooks:/tmp/target
   hive-metastore:
     container_name: hive-metastore

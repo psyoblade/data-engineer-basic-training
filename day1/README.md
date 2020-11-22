@@ -241,14 +241,15 @@ beeline>
 create database if not exists testdb comment 'test database' location '/user/hive/warehouse/testdb' with dbproperties ('createdBy' = 'psyoblade');
 use testdb;
 drop table if exists local_users;
-create table if not exists local_users (d_uid string, d_name string, d_gender string, d_account bigint, d_pamount bigint, d_pcount bigint)
-    partitioned by (dt int)
-    row format delimited
-    fields terminated by ','
-    stored as parquet;
+
+create table if not exists local_users 
+(a_uid string, a_count bigint, p_amount bigint, p_count bigint, u_name string, u_gender string, u_signup string)
+partitioned by (dt int)
+row format delimited
+stored as parquet;
 
 load data local inpath '/tmp/target/dim_users/dt=20201025' overwrite into table local_users partition (dt = 20201025);
-select dt, d_gender, count(1) from local_users group by dt, d_gender;
+select dt, u_gender, count(1) from local_users group by dt, u_gender;
 ```
 * 대상 테이블을 분산 저장소에 저장하여 하이브 테이블을 생성할 수도 있습니다
   - 스파크를 통해 생성된 파일을 하둡 클러스터에 업로드합니다 (기존에는 로컬에 저장했습니다)
