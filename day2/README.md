@@ -130,7 +130,7 @@ $> hadoop fs -cat /user/sqoop/user_append/part-m-00000
   - hadoop fs -mv <from> <to> : 경로의 파일을 이동합니다
 ```bash
 $> hadoop fs -ls /user/sqoop/user_append/part-m-00000
-$> hadoop fs -mkdir /user/sqoop/foo/bar
+$> hadoop fs -mkdir -p /user/sqoop/foo/bar
 $> hadoop fs -cp /user/sqoop/user_append/part-m-00000 /user/sqoop/foo/bar
 $> hadoop fs -cat /user/sqoop/foo/bar/part-m-00000
 ```
