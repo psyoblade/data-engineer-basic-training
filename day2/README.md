@@ -4,9 +4,55 @@
 > 이번 장에서 사용하는 외부 오픈 포트는 22, 80, 5601, 8080, 9880, 50070 입니다
 
 - 목차
+  * [0. SQL 기초](https://velog.io/@matisse/session-SQL%EA%B8%B0%EC%B4%88-20.04.09)
   * [1. Apache Sqoop Table Import](#1-Apache-Sqoop-Table-Import)
   * [2. Apache Sqoop Table Export](#2-Apache-Sqoop-Table-Export)
   * [3. TreasureData Fluentd File Collect](#3-TreasureData-Fluentd-File-Collect)
+
+
+## 0. SQL 기초 명령어
+* CREATE TABLE
+```sql
+CREATE TABLE table1 (
+    col1 INT NOT NULL,
+    col2 VARCHAR(10)
+);
+
+CREATE TABLE table2 (
+    col1 INT NOT NULL AUTO_INCREMENT,
+    col2 VARCHAR(10) NOT NULL,
+    PRIMARY KEY (col1)
+);
+```
+
+* SELECT
+```sql
+SELECT col1, col2
+FROM table1;
+
+SELECT col2
+FROM table2
+WHERE col1 = '찾는값'
+```
+
+* INSERT
+```sql
+INSERT INTO table1 ( col1 ) VALUES ( 1 );
+INSERT INTO table2 VALUES ( 1, 'one' );
+INSERT INTO table2 VALUES ( 2, 'two' ), ( 3, 'three' );
+```
+
+* UPDATE
+```sql
+UPDATE table1 SET col1 = 100 WHERE col1 = 1;
+```
+
+* DELETE
+```sql
+DELETE FROM table1 WHERE col1 = 100;
+DELETE FROM table1;
+```
+
 
 
 ## 1. Apache Sqoop Table Import
