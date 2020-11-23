@@ -21,7 +21,9 @@ bash> docker-compose ps
 * mysql 서버로 접속
 ```bash
 bash> docker-compose exec mysql mysql -usqoop -psqoop
+
 mysql> use testdb;
+mysql> show tables;
 ```
 
 * CREATE TABLE
