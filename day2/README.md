@@ -844,3 +844,6 @@ $> ./progress.sh
 bash> cd ~/workspace/data-engineer-basic-training/day2
 bash> docker-compose down
 ```
+
+### 오늘은 데이터 수집 관련 퀴즈를 통해 오늘 과정을 복습합니다
+* [Kahoot!](https://create.kahoot.it/)
