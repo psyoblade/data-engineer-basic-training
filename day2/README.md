@@ -52,7 +52,32 @@ $> sqoop eval --connect jdbc:mysql://mysql:3306 --username sqoop --password sqoo
 
 $> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop \
     -e "show tables"
+```
+#### 실습#1. 다음과 같은 스키마를 가진 테이블을 sqoop eval 명령어를 통해 student 테이블을 생성하세요
+* 데이터베이스: testdb
+* 테이블 이름: student 
+| 컬럼명 | 컬럼유형 | 데이터 예제 |
+| - | - | - |
+| no | int | 1~44 사이의 숫자, 본인의 EC2 인스턴스 번호 |
+| name | varchar(50) | 박수혁 |
+| email | varchar(50) | suhyuk.park@gmail.com |
+| age | int | 30 | 나이 |
+| gender | varchar(10) | 남 |
 
+
+#### 실습#2. sqoop eval 명령어를 통해 student 테이블에 임의의 데이터를 입력하세요 
+* 아래의 목록을 이용하여 5명의 학생 레코드를 입력하세요
+```text
+권보안,Kwon.Boan@lgde.com,18,여
+민의주,Min.Euiju@lgde.com,20,여
+김혀시,Kim.Hyeosi@lgde.com,20,남
+김유은,Kim.Yueun@lgde.com,38,여
+박윤미,Park.Yoonmi@lgde.com,27,여
+박예하,Park.Yeha@lgde.com,30,남
+이병하,Lee.Byungha@lgde.com,21,남
+김휘비,Kim.Hwibi@lgde.com,38,남
+박재문,Park.Jaemoon@lgde.com,49,남
+우소은,Woo.Soeun@lgde.com,30,여
 ```
 
 ### 1.3 로컬 모드 테이블 수집
@@ -74,12 +99,24 @@ $> sqoop import \
     --as-parquetfile \
     --delete-target-dir
 
+$> # parquet 포맷으로 저장
 $> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table purchase \
     --target-dir file:///tmp/target/table/purchase/20201025 --username sqoop --password sqoop \
     --relaxed-isolation --as-parquetfile --delete-target-dir
 
 $> ls /tmp/target/table/*/20201025/*.parquet
+
+$> # tab 구분자 포맷으로 저장
+$> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table user \
+    --target-dir file:///tmp/target/table/purchase_tsv/20201025 --username sqoop --password sqoop \
+    --fields-terminated-by '\t' --relaxed-isolation --delete-target-dir
+
 ```
+
+#### 실습#3. 실습#1 에서 생성했던 student 테이블을 로컬 경로에 수집하세요
+* testdb.student 테이블을 /tmp/target/table/student/20201124 경로에 csv 포맷으로 저장하세요
+  - 탭이 아니라 콤마(,) 구분자로 저장합니다
+
 
 ### 1.4 파케이 포맷 파일 읽기
 * 파케이 포맷으로 저장된 테이블을 수집하고 출력합니다 
@@ -121,6 +158,11 @@ $> sqoop import -m 1 --connect jdbc:mysql://mysql:3306/testdb --table user \
 $> hadoop fs -cat /user/sqoop/user_append/part-m-00000
 ```
 
+#### 실습#4. 실습#3 에서 생성했던 student 테이블을 클러스터 모드로 하둡 경로에 수집하세요
+* testdb.student 테이블을 /user/sqoop/student/20201124 경로에 tsv 포맷으로 저장하세요
+  - 콤마(,) 구분자가 아니라 탭(\t) 구분자입니다
+
+
 ### 1.6 기본 하둡 명령어 실습
 * 하둡 분산 저장시스템에 존재하는 파일을 읽고, 쓰기 위해서는 hadoop 명령어를 이용해야 합니다
   - hadoop fs -cat <uri> : 경로의 파일을 읽습니다
@@ -134,6 +176,11 @@ $> hadoop fs -mkdir -p /user/sqoop/foo/bar
 $> hadoop fs -cp /user/sqoop/user_append/part-m-00000 /user/sqoop/foo/bar
 $> hadoop fs -cat /user/sqoop/foo/bar/part-m-00000
 ```
+
+#### 실습#5. 실습#4 에서 적재한 하둡 경로에 저장된 tsv 파일을 확인하고 마지막 학생의 이름은?
+* 하둡 ls 명령어를 통해서 저장된 경로에 어떤 이름의 파일이 존재하는지 확인합니다
+* 하둡 cat 명령어를 통해서 마지막에 출력되는 학생의 이름을 확인합니다
+
 
 ### 1.7 조건문을 통한 테이블 수집
 * "--table" 옵션과 더불어 "--where" 옵션을 통해 부분 수집이 가능합니다
@@ -218,6 +265,11 @@ $> sqoop import -m 1 --connect jdbc:mysql://mysql:3306/testdb --table seoul_popu
     --fields-terminated-by '\t' --relaxed-isolation --delete-target-dir
 ```
 
+#### 실습#6 실습#1 에서 생성한 테이블과 동일한 스키마를 가진 student\_exp 테이블을 생성합니다
+* sqoop eval 명령어를 통해서 export 테스트를 위한 student\_exp 테이블을 생성합니다
+* 데이터베이스는 마찬가지로 testdb 입니다
+
+
 ### 2.2 테이블 익스포트 수행
 * 적재된 데이터를 익스포트 명령을 통해서 수행하였으나 실패하였고, 원인을 파악해 봅니다 
 * [Hadoop History Server](http://localhost:19888/jobhistory) 에 접속하여 원인을 파악합니다
@@ -241,6 +293,12 @@ $> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --passwo
 
 $> exit
 ```
+
+#### 실습#7 hdfs:///user/sqoop/student/20201124 경로에 저장된 tsv 파일을 student\_exp 테이블에 export 합니다
+* sqoop export 명령을 통해 student\_exp 테이블에 학생 이름을 적재합니다
+
+#### 실습#8 실습#7 의 export 가 성공하면 sqoop eval 명령으로 테이블 내용을 확인합니다
+* export 가 성공하면 "select count(1) from student\_exp" 질의문을 통해 학생 수를 확인합니다
 
 
 ## 3. TreasureData Fluentd File Collect
