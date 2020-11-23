@@ -634,6 +634,7 @@ $> curl -X POST -d '{ "column1":"1", "column2":"hello-world", "logtime": 1593379
 * 입력 데이터 스키마
 ```bash
 $> curl -X POST -d '{"username":"본인의이름", "email":"my-email-address@gmail.com", "logtime": 1593379470 }' http://localhost:8080/test
+$> curl -X POST -d '{"username":"박수혁", "email":"suhyuk.park@gmail.com", "logtime": 1593379470 }' http://localhost:8080/test
 ```
 
 
