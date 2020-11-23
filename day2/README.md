@@ -10,7 +10,20 @@
   * [3. TreasureData Fluentd File Collect](#3-TreasureData-Fluentd-File-Collect)
 
 
+## 서버 기동 및 프로세스 확인
+```bash
+bash> cd ~/workspace/data-engineer-basic-training/day2
+bash> docker-compose up -d
+bash> docker-compose ps
+```
+
 ## 0. SQL 기초 명령어
+* mysql 서버로 접속
+```bash
+bash> docker-compose exec mysql mysql -usqoop -psqoop
+mysql> use testdb;
+```
+
 * CREATE TABLE
 ```sql
 CREATE TABLE table1 (
