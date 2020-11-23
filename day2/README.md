@@ -50,9 +50,8 @@ UPDATE table1 SET col1 = 100 WHERE col1 = 1;
 * DELETE
 ```sql
 DELETE FROM table1 WHERE col1 = 100;
-DELETE FROM table1;
+DELETE FROM table2;
 ```
-
 
 
 ## 1. Apache Sqoop Table Import
