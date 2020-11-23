@@ -4,7 +4,7 @@
 > 이번 장에서 사용하는 외부 오픈 포트는 22, 80, 5601, 8080, 9880, 50070 입니다
 
 - 목차
-  * [0. SQL 기초](https://velog.io/@matisse/session-SQL%EA%B8%B0%EC%B4%88-20.04.09)
+  * [0. SQL 기초 명령어](#0-SQL-기초-명령어)
   * [1. Apache Sqoop Table Import](#1-Apache-Sqoop-Table-Import)
   * [2. Apache Sqoop Table Export](#2-Apache-Sqoop-Table-Export)
   * [3. TreasureData Fluentd File Collect](#3-TreasureData-Fluentd-File-Collect)
