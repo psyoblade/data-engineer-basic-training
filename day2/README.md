@@ -326,7 +326,7 @@ $> sqoop import -m 1 --connect jdbc:mysql://mysql:3306/testdb --table seoul_popu
     --fields-terminated-by '\t' --relaxed-isolation --delete-target-dir
 ```
 
-#### 실습#6 실습#1 에서 생성한 테이블과 동일한 스키마를 가진 student\_exp 테이블을 생성합니다
+#### 실습#6. 실습#1 에서 생성한 테이블과 동일한 스키마를 가진 student\_exp 테이블을 생성합니다
 * sqoop eval 명령어를 통해서 export 테스트를 위한 student\_exp 테이블을 생성합니다
 * 데이터베이스는 마찬가지로 testdb 입니다
 
@@ -355,10 +355,10 @@ $> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --passwo
 $> exit
 ```
 
-#### 실습#7 hdfs:///user/sqoop/student/20201124 경로에 저장된 tsv 파일을 student\_exp 테이블에 export 합니다
+#### 실습#7. hdfs:///user/sqoop/student/20201124 경로에 저장된 tsv 파일을 student\_exp 테이블에 export 합니다
 * sqoop export 명령을 통해 student\_exp 테이블에 학생 이름을 적재합니다
 
-#### 실습#8 실습#7 의 export 가 성공하면 sqoop eval 명령으로 테이블 내용을 확인합니다
+#### 실습#8. 실습#7 의 export 가 성공하면 sqoop eval 명령으로 테이블 내용을 확인합니다
 * export 가 성공하면 "select count(1) from student\_exp" 질의문을 통해 학생 수를 확인합니다
 
 
@@ -415,6 +415,10 @@ bash> docker-compose exec fluentd bash
 $> curl -i -X POST -d 'json={"action":"login","user":2}' http://localhost:9880/test
 ```
 
+#### 실습#9. 웹서버의 포트를 8000 번으로 변경 후 서버를 기동하고 동일한 테스트를 해보세요
+* ex1.conf 파일을 별도의 편집기서 내용을 수정한 뒤 붙여 넣는 방법을 추천 드립니다
+  - 마찬가지로 curl 을 통해 정상적으로 송.수신 되는 것을 확인합니다
+
 
 ### 예제 2. 더미 에이전트를 통해 생성된 이벤트를 로컬 저장소에 저장
 * 첫 번째 터미널에서, 예제 1번과 동일한 방식으로 ex2.conf 파일을 생성합니다
@@ -468,6 +472,10 @@ $> ./fluentd.sh -c ./ex2.conf
 ```bash
 $> ls -al /tmp/target/ex2/lgde/
 ```
+
+#### 실습#10. 저장되는 경로를 변경하여 저장되도록 수정하세요
+* 예제2 최종 저장 경로는 /tmp/target/ex2/lgde/20201124 경로가 아니라 /tmp/target/de01/20201124 아래에 저장되도록 수정하세요
+  - 힌트는 tag 값이 어떻게 활용되는지 보시기 바랍니다
 
 
 ### 예제 3. 기존 로그에 추가되는 로그를 테일링하며 표준 출력으로 전달합니다
@@ -620,6 +628,12 @@ $> ./fluentd.sh -c ex4.conf
 * 예제 데이터를 전송하고, 정상적으로 시간이 포맷팅된 문자열로 변환이 되는지 확인합니다
 ```bash
 $> curl -X POST -d '{ "column1":"1", "column2":"hello-world", "logtime": 1593379470 }' http://localhost:8080/test
+```
+
+#### 실습#11. 입력 데이터의 스키마가 아래와 같이 변경되는 경우에도 동작하도록 수정하세요
+* 입력 데이터 스키마
+```bash
+$> curl -X POST -d '{"username":"본인의이름", "email":"my-email-address@gmail.com", "logtime": 1593379470 }' http://localhost:8080/test
 ```
 
 
