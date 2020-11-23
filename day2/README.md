@@ -56,6 +56,7 @@ $> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --passwo
 #### 실습#1. 다음과 같은 스키마를 가진 테이블을 sqoop eval 명령어를 통해 student 테이블을 생성하세요
 * 데이터베이스: testdb
 * 테이블 이름: student 
+
 | 컬럼명 | 컬럼유형 | 데이터 예제 |
 | - | - | - |
 | no | int | 1~44 사이의 숫자, 본인의 EC2 인스턴스 번호 |
