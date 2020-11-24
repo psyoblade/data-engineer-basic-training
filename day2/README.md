@@ -75,7 +75,7 @@ DELETE FROM table2;
 bash> cd ~/workspace/data-engineer-basic-training/day2
 bash> git pull
 bash> docker-compose up -d
-bash> docker-comopse ps
+bash> docker-compose ps
 ```
 
 ### 1.1 데이터베이스, 테이블 이름 조회
@@ -88,7 +88,7 @@ $> sqoop list-tables --connect jdbc:mysql://mysql:3306/testdb --username sqoop -
 
 $> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "describe user"
 $> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from user"
-$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from purchse"
+$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from purchase"
 ```
 
 ### 1.2 테이블 조인, DDL, DML 명령어 수행
