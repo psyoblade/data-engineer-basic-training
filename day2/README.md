@@ -119,7 +119,7 @@ $> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --passwo
 
 | 컬럼명 | 컬럼유형 | 데이터 예제 |
 | - | - | - |
-| no | int | 1~44 사이의 숫자, 본인의 EC2 인스턴스 번호 |
+| no | int | 1~10까지의 숫자 |
 | name | varchar(50) | 박수혁 |
 | email | varchar(50) | suhyuk.park@gmail.com |
 | age | int | 30 | 나이 |
