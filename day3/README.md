@@ -3,6 +3,7 @@
 
 ## 스파크 실습을 위해 도커 컨테이너를 기동하고, 노트북 페이지에 접속합니다
 * logs 출력에 localhost:8888 페이지를 크롬 브라우저에서 오픈합니다
+  - ***반드시 git pull 명령을 통해서 최신 데이터를 가져와야 합니다***
 ```bash
 bash> cd ~/workspace/data-engineer-basic-training/day3
 bash> git pull
