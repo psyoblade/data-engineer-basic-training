@@ -637,6 +637,9 @@ $> curl -X POST -d '{"username":"본인의이름", "email":"my-email-address@gma
 $> curl -X POST -d '{"username":"박수혁", "email":"suhyuk.park@gmail.com", "logtime": 1593379470 }' http://localhost:8080/test
 ```
 
+<details>
+<summary> Fluentd 고급 기능 (참고용) </summary>
+<div markdown="1">
 
 ### 예제 5. 외부 도커 컨테이너에서 생성되는 로그를 수집할 수 있습니다
 * 동일한 방식으로 ex5.conf 파일을 생성후, 플루언트디를 기동합니다
@@ -838,6 +841,9 @@ $> chmod +x ./progress.sh
 $> ./progress.sh
 ```
 * 끝으로 /tmp/target 경로에 워커 아이디 별로 경로와 파일이 생성되었는지 확인합니다
+
+</dev>
+</details>
 
 ### 모든 실습이 완료되었다면 컨테이너를 모두 종료합니다
 ```bash
