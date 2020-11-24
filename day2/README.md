@@ -382,12 +382,16 @@ bash> docker-compose ps
 bash> docker-compose logs -f fluentd
 bash> docker-compose exec fluentd bash
 ```
+![ex1](images/ex1.png)
 * vim 와 같은 편집기를 사용하지 않고 실습에 필요한 ex1.conf 파일을 생성합니다
   - 터미널 창에서 "cat > ex1.conf" 명령으로 표준입력을 받을 준비를 합니다
 ```bash
 $> cat > ex1.conf
 ```
 * 다음 설정 정보를 복사하여 붙여 넣은 뒤 Ctrl+C 명령으로 빠져나오면 파일이 생성됩니다
+  - 붙여넣은 다음에 **반드시 Enter**를 쳐서 마지막 줄까지 입력 후에 Ctrl+C 를 누르셔야 정상적으로 파일이 생성됩니다
+  - 생성된 파일을 "bash> more ex1.conf" 명령을 통해서 내용을 확인할 수 있습니다
+  - more 명령의 경우 파일이 긴 경우, 스페이스바를 누르면 페이지 단위로 파일을 읽고, 다 읽으면 more 명령이 종료됩니다
 ```conf
 <source>
     @type http
@@ -431,6 +435,7 @@ $> curl -i -X POST -d 'json={"action":"login","user":2}' http://localhost:9880/t
 ```bash
 $> cat > ex2.conf
 ```
+![ex2](images/ex2.png)
 * 다음 설정 정보를 복사하여 붙여 넣은 뒤 Ctrl+C 명령으로 빠져나오면 파일이 생성됩니다
 ```bash
 <source>
@@ -488,6 +493,7 @@ $> ls -al /tmp/target/ex2/lgde/
 ```bash
 $> cat > ex3.conf
 ```
+![ex3](images/ex3.png)
 * 다음 설정 정보를 복사하여 붙여 넣은 뒤 Ctrl+C 명령으로 빠져나오면 파일이 생성됩니다
 ```bash
 <source>
