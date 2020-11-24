@@ -13336,16 +13336,9 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1-6-&#44396;&#51312;&#54868;&#46108;-API-&#54876;&#50857;">1-6 &#44396;&#51312;&#54868;&#46108; API &#54876;&#50857;<a class="anchor-link" href="#1-6-&#44396;&#51312;&#54868;&#46108;-API-&#54876;&#50857;">&#182;</a></h3>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
@@ -13362,73 +13355,20 @@ div#notebook {
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 스키마 확인 - 3가지 모두 동일한 결과를 얻을 수 있으며 편한 방식을 선택하시면 됩니다</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;json&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;./data/flight-data/json/2015-summary.json&quot;</span><span class="p">)</span> <span class="c1"># 미국 교통통계국이 제공하는 항공운항 데이터</span>
-<span class="n">df</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
-
-<span class="n">df2</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;./data/flight-data/json/2015-summary.json&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
-<span class="n">df2</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
-
-<span class="n">df3</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s2">&quot;./data/flight-data/json/2015-summary.json&quot;</span><span class="p">)</span>
-<span class="n">df3</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>root
- |-- DEST_COUNTRY_NAME: string (nullable = true)
- |-- ORIGIN_COUNTRY_NAME: string (nullable = true)
- |-- count: long (nullable = true)
-
-root
- |-- DEST_COUNTRY_NAME: string (nullable = true)
- |-- ORIGIN_COUNTRY_NAME: string (nullable = true)
- |-- count: long (nullable = true)
-
-root
- |-- DEST_COUNTRY_NAME: string (nullable = true)
- |-- ORIGIN_COUNTRY_NAME: string (nullable = true)
- |-- count: long (nullable = true)
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2-&#45936;&#51060;&#53552;&#54532;&#47112;&#51076;">2 &#45936;&#51060;&#53552;&#54532;&#47112;&#51076;<a class="anchor-link" href="#2-&#45936;&#51060;&#53552;&#54532;&#47112;&#51076;">&#182;</a></h2><h3 id="2.1-&#54028;&#51068;&#47196;-&#48512;&#53552;-&#51069;&#50612;&#49436;-&#45936;&#51060;&#53552;-&#54532;&#47112;&#51076;-&#49373;&#49457;&#54616;&#44592;">2.1 &#54028;&#51068;&#47196; &#48512;&#53552; &#51069;&#50612;&#49436; &#45936;&#51060;&#53552; &#54532;&#47112;&#51076; &#49373;&#49457;&#54616;&#44592;<a class="anchor-link" href="#2.1-&#54028;&#51068;&#47196;-&#48512;&#53552;-&#51069;&#50612;&#49436;-&#45936;&#51060;&#53552;-&#54532;&#47112;&#51076;-&#49373;&#49457;&#54616;&#44592;">&#182;</a></h3>
+<h2 id="2-&#49828;&#54028;&#53356;-&#45936;&#51060;&#53552;-&#45796;&#47336;&#44592;">2 &#49828;&#54028;&#53356; &#45936;&#51060;&#53552; &#45796;&#47336;&#44592;<a class="anchor-link" href="#2-&#49828;&#54028;&#53356;-&#45936;&#51060;&#53552;-&#45796;&#47336;&#44592;">&#182;</a></h2><h3 id="2.1-&#54028;&#51068;&#47196;-&#48512;&#53552;-&#53580;&#51060;&#48660;-&#47564;&#46308;&#50612;-&#49324;&#50857;&#54616;&#44592;">2.1 &#54028;&#51068;&#47196; &#48512;&#53552; &#53580;&#51060;&#48660; &#47564;&#46308;&#50612; &#49324;&#50857;&#54616;&#44592;<a class="anchor-link" href="#2.1-&#54028;&#51068;&#47196;-&#48512;&#53552;-&#53580;&#51060;&#48660;-&#47564;&#46308;&#50612;-&#49324;&#50857;&#54616;&#44592;">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;# 원시 데이터로 부터 읽거나, Spark SQL 통한 결과는 항상 데이터프레임이 생성됩니다&quot;</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;json&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/flight-data/json/2015-summary.json&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s2">&quot;data/flight-data/json/2015-summary.json&quot;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;2015_summary&quot;</span><span class="p">)</span>
 
 <span class="n">sql_result</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM 2015_summary&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -13587,7 +13527,7 @@ only showing top 2 rows
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.3-&#49828;&#54028;&#53356;-&#45936;&#51060;&#53552;-&#53440;&#51077;&#51004;&#47196;-&#48320;&#54872;&#54616;&#44592;">2.3 &#49828;&#54028;&#53356; &#45936;&#51060;&#53552; &#53440;&#51077;&#51004;&#47196; &#48320;&#54872;&#54616;&#44592;<a class="anchor-link" href="#2.3-&#49828;&#54028;&#53356;-&#45936;&#51060;&#53552;-&#53440;&#51077;&#51004;&#47196;-&#48320;&#54872;&#54616;&#44592;">&#182;</a></h3>
+<h3 id="2.3-&#49345;&#49688;&#44050;-&#49324;&#50857;&#54616;&#44592;">2.3 &#49345;&#49688;&#44050; &#49324;&#50857;&#54616;&#44592;<a class="anchor-link" href="#2.3-&#49345;&#49688;&#44050;-&#49324;&#50857;&#54616;&#44592;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13934,8 +13874,8 @@ root
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;# 한 번에 여러 컬럼도 삭제할 수 있습니다&quot;</span><span class="p">)</span>
-<span class="n">dfWithLongColName</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
-<span class="n">dfWithLongColName</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;ORIGIN_COUNTRY_NAME&quot;</span><span class="p">,</span> <span class="s2">&quot;DEST_COUNTRY_NAME&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span> <span class="c1"># 여러 컬럼을 지우기</span>
+<span class="n">df</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;ORIGIN_COUNTRY_NAME&quot;</span><span class="p">,</span> <span class="s2">&quot;DEST_COUNTRY_NAME&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span> <span class="c1"># 여러 컬럼을 지우기</span>
 </pre></div>
 
     </div>
@@ -14180,56 +14120,7 @@ only showing top 2 rows
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.10-&#48337;&#54633;-(UNION)">2.10 &#48337;&#54633; (UNION)<a class="anchor-link" href="#2.10-&#48337;&#54633;-(UNION)">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[97]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;# UNION 함수는 반드시 동일한 스키마와 컬럼 수를 가져야 합니다&quot;</span><span class="p">)</span>
-<span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;count = 1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;ORIGIN_COUNTRY_NAME != &#39;United States&#39;&quot;</span><span class="p">)</span>
-<span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;count = 2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;ORIGIN_COUNTRY_NAME != &#39;United States&#39;&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-<span class="n">c1</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-<span class="n">c2</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-<span class="n">c3</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> + </span><span class="si">{}</span><span class="s2"> = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre># UNION 함수는 반드시 동일한 스키마와 컬럼 수를 가져야 합니다
-[&#39;DEST_COUNTRY_NAME&#39;, &#39;ORIGIN_COUNTRY_NAME&#39;, &#39;count&#39;]
-[&#39;DEST_COUNTRY_NAME&#39;, &#39;ORIGIN_COUNTRY_NAME&#39;, &#39;count&#39;]
-12 + 4 = 16
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.11-&#51221;&#47148;">2.11 &#51221;&#47148;<a class="anchor-link" href="#2.11-&#51221;&#47148;">&#182;</a></h3>
+<h3 id="2.10-&#51221;&#47148;">2.10 &#51221;&#47148;<a class="anchor-link" href="#2.10-&#51221;&#47148;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14409,7 +14300,7 @@ only showing top 2 rows
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.12-&#47196;&#50864;-&#49688;-&#51228;&#54620;-(LIMIT)">2.12 &#47196;&#50864; &#49688; &#51228;&#54620; (LIMIT)<a class="anchor-link" href="#2.12-&#47196;&#50864;-&#49688;-&#51228;&#54620;-(LIMIT)">&#182;</a></h3>
+<h3 id="2.11-&#47196;&#50864;-&#49688;-&#51228;&#54620;-(LIMIT)">2.11 &#47196;&#50864; &#49688; &#51228;&#54620; (LIMIT)<a class="anchor-link" href="#2.11-&#47196;&#50864;-&#49688;-&#51228;&#54620;-(LIMIT)">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14468,7 +14359,7 @@ only showing top 2 rows
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.13-&#54028;&#54000;&#49492;-&#49688;-&#51312;&#51221;-(repartition,-cocalesce)">2.13 &#54028;&#54000;&#49492; &#49688; &#51312;&#51221; (repartition, cocalesce)<a class="anchor-link" href="#2.13-&#54028;&#54000;&#49492;-&#49688;-&#51312;&#51221;-(repartition,-cocalesce)">&#182;</a></h3><blockquote><p><strong>분산 처리를 효과를 높이기 위해 많은 수의 파티션(200개)이 설정</strong>되어 있으나, 최종 파일 저장 시에는 <strong>너무 많은 파일은 비효율적이므로 파일 수를 조정</strong>합니다</p>
+<h3 id="&#49892;&#49845;#3-data/tbl_user.csv-&#54028;&#51068;&#51012;-&#51069;&#44256;,-&#44032;&#51109;-&#52572;&#44540;&#50640;-&#44032;&#51077;(u_signup)&#54620;-5&#47749;&#51012;-&#52636;&#47141;&#54616;&#49464;&#50836;">&#49892;&#49845;#3 data/tbl_user.csv &#54028;&#51068;&#51012; &#51069;&#44256;, &#44032;&#51109; &#52572;&#44540;&#50640; &#44032;&#51077;(u_signup)&#54620; 5&#47749;&#51012; &#52636;&#47141;&#54616;&#49464;&#50836;<a class="anchor-link" href="#&#49892;&#49845;#3-data/tbl_user.csv-&#54028;&#51068;&#51012;-&#51069;&#44256;,-&#44032;&#51109;-&#52572;&#44540;&#50640;-&#44032;&#51077;(u_signup)&#54620;-5&#47749;&#51012;-&#52636;&#47141;&#54616;&#49464;&#50836;">&#182;</a></h3><blockquote><p>참고: sort, desc</p>
 </blockquote>
 
 </div>
@@ -14476,63 +14367,35 @@ only showing top 2 rows
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[107]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;# 데이터프레임의 파티션 수를 조정합니다&quot;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">rdd</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span>
-<span class="n">repart_1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">repartition</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">repart_2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">repartition</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;DEST_COUNTRY_NAME&quot;</span><span class="p">))</span>
-<span class="n">repart_3</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">repartition</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">col</span><span class="p">(</span><span class="s2">&quot;DEST_COUNTRY_NAME&quot;</span><span class="p">))</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"># repartition 숫자 변경 등 실험내용 공유&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">repart_1</span><span class="o">.</span><span class="n">rdd</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">repart_2</span><span class="o">.</span><span class="n">rdd</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">repart_3</span><span class="o">.</span><span class="n">rdd</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">())</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"># 셔플하지 않고 파티션을 병합&quot;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">repartition</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">col</span><span class="p">(</span><span class="s2">&quot;DEST_COUNTRY_NAME&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">coalesce</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">rdd</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="&#49892;&#49845;#4-data/tbl_purchase.csv-&#54028;&#51068;&#51012;-&#51069;&#44256;,-200&#47564;&#50896;-(p_amount)-&#51060;&#49345;-&#44396;&#47588;&#54620;-&#51060;&#50857;&#51088;-&#47785;&#47197;&#51012;-&#52636;&#47141;&#54616;&#49464;&#50836;">&#49892;&#49845;#4 data/tbl_purchase.csv &#54028;&#51068;&#51012; &#51069;&#44256;, 200&#47564;&#50896; (p_amount) &#51060;&#49345; &#44396;&#47588;&#54620; &#51060;&#50857;&#51088; &#47785;&#47197;&#51012; &#52636;&#47141;&#54616;&#49464;&#50836;<a class="anchor-link" href="#&#49892;&#49845;#4-data/tbl_purchase.csv-&#54028;&#51068;&#51012;-&#51069;&#44256;,-200&#47564;&#50896;-(p_amount)-&#51060;&#49345;-&#44396;&#47588;&#54620;-&#51060;&#50857;&#51088;-&#47785;&#47197;&#51012;-&#52636;&#47141;&#54616;&#49464;&#50836;">&#182;</a></h3><blockquote><p>참고: filter</p>
+</blockquote>
 
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre># 데이터프레임의 파티션 수를 조정합니다
-
-# repartition 숫자 변경 등 실험내용 공유
-5
-200
-5
-
-# 셔플하지 않고 파티션을 병합
-</pre>
 </div>
 </div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[107]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>2</pre>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
 
-</div>
-
+    </div>
 </div>
 </div>
 

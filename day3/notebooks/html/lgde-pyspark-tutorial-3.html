@@ -13167,7 +13167,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
@@ -13177,48 +13177,16 @@ div#notebook {
     <span class="o">.</span><span class="n">appName</span><span class="p">(</span><span class="s2">&quot;Data Engineer Basic Day3&quot;</span><span class="p">)</span> \
     <span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;spark.dataengineer.intermediate.day3&quot;</span><span class="p">,</span> <span class="s2">&quot;tutorial-3&quot;</span><span class="p">)</span> \
     <span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
-
-<span class="n">spark</span><span class="o">.</span><span class="n">sparkContext</span><span class="o">.</span><span class="n">getConf</span><span class="p">()</span><span class="o">.</span><span class="n">getAll</span><span class="p">()</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[1]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[(&#39;spark.app.id&#39;, &#39;local-1605360132844&#39;),
- (&#39;spark.driver.host&#39;, &#39;80c22d4d3b47&#39;),
- (&#39;spark.dataengineer.intermediate.day3&#39;, &#39;tutorial-3&#39;),
- (&#39;spark.app.name&#39;, &#39;Data Engineer Intermediate Day3&#39;),
- (&#39;spark.rdd.compress&#39;, &#39;True&#39;),
- (&#39;spark.serializer.objectStreamReset&#39;, &#39;100&#39;),
- (&#39;spark.master&#39;, &#39;local[*]&#39;),
- (&#39;spark.executor.id&#39;, &#39;driver&#39;),
- (&#39;spark.submit.deployMode&#39;, &#39;client&#39;),
- (&#39;spark.ui.showConsoleProgress&#39;, &#39;true&#39;),
- (&#39;spark.driver.port&#39;, &#39;45797&#39;)]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot; DataFrame 생성 &quot;&quot;&quot;</span>
@@ -13260,8 +13228,11 @@ div#notebook {
 +---------+---------+--------------------+--------+-------------------+---------+----------+--------------+
 |   536365|   85123A|WHITE HANGING HEA...|       6|2010-12-01 08:26:00|     2.55|   17850.0|United Kingdom|
 |   536365|    71053| WHITE METAL LANTERN|       6|2010-12-01 08:26:00|     3.39|   17850.0|United Kingdom|
+|   536365|   84406B|CREAM CUPID HEART...|       8|2010-12-01 08:26:00|     2.75|   17850.0|United Kingdom|
+|   536365|   84029G|KNITTED UNION FLA...|       6|2010-12-01 08:26:00|     3.39|   17850.0|United Kingdom|
+|   536365|   84029E|RED WOOLLY HOTTIE...|       6|2010-12-01 08:26:00|     3.39|   17850.0|United Kingdom|
 +---------+---------+--------------------+--------+-------------------+---------+----------+--------------+
-only showing top 2 rows
+only showing top 5 rows
 
 </pre>
 </div>
@@ -13280,7 +13251,7 @@ only showing top 2 rows
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">lit</span>
@@ -13297,7 +13268,7 @@ only showing top 2 rows
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[4]:</div>
+    <div class="prompt output_prompt">Out[6]:</div>
 
 
 
@@ -13321,7 +13292,7 @@ only showing top 2 rows
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[79]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">col</span>
@@ -13381,7 +13352,7 @@ only showing top 2 rows
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[80]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">instr</span>
@@ -13429,7 +13400,7 @@ only showing top 2 rows
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[81]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># SparkSQL 을 이용한 is in 구문 사용</span>
@@ -13476,7 +13447,7 @@ only showing top 2 rows
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[82]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="o">*</span>
@@ -13522,7 +13493,7 @@ only showing top 2 rows
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[83]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">expr</span><span class="p">,</span> <span class="nb">pow</span>
@@ -13568,7 +13539,7 @@ only showing top 2 rows
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[84]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="o">*</span>
@@ -13613,7 +13584,7 @@ only showing top 1 row
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[85]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -13684,7 +13655,7 @@ only showing top 1 row
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">initcap</span>
@@ -13730,11 +13701,11 @@ only showing top 2 rows
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[86]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span>
-<span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;Description&quot;</span><span class="p">),</span> <span class="n">lower</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;Description&quot;</span><span class="p">)),</span> <span class="n">upper</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;Description&quot;</span><span class="p">)))</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">selectExpr</span><span class="p">(</span><span class="s2">&quot;Description&quot;</span><span class="p">,</span> <span class="s2">&quot;lower(Description)&quot;</span><span class="p">,</span> <span class="s2">&quot;upper(Description)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13776,7 +13747,7 @@ only showing top 2 rows
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[87]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">lit</span><span class="p">,</span> <span class="n">ltrim</span><span class="p">,</span> <span class="n">rtrim</span><span class="p">,</span> <span class="n">rpad</span><span class="p">,</span> <span class="n">lpad</span><span class="p">,</span> <span class="n">trim</span>
@@ -13828,7 +13799,7 @@ only showing top 2 rows
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[88]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">regexp_replace</span>
@@ -14297,6 +14268,37 @@ only showing top 1 row
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="&#49892;&#49845;#5-data/tbl_purchase.csv-&#54028;&#51068;&#51012;-&#51069;&#44256;,-&#49345;&#54408;&#47749;(p_name)&#51012;-&#49548;&#47928;&#51088;&#47196;-&#52636;&#47141;&#54616;&#49464;&#50836;">&#49892;&#49845;#5 data/tbl_purchase.csv &#54028;&#51068;&#51012; &#51069;&#44256;, &#49345;&#54408;&#47749;(p_name)&#51012; &#49548;&#47928;&#51088;&#47196; &#52636;&#47141;&#54616;&#49464;&#50836;<a class="anchor-link" href="#&#49892;&#49845;#5-data/tbl_purchase.csv-&#54028;&#51068;&#51012;-&#51069;&#44256;,-&#49345;&#54408;&#47749;(p_name)&#51012;-&#49548;&#47928;&#51088;&#47196;-&#52636;&#47141;&#54616;&#49464;&#50836;">&#182;</a></h3><blockquote><p>참고: lower()</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="&#49892;&#49845;#6-data/tbl_user.csv-&#54028;&#51068;&#51012;-&#51069;&#44256;,-&quot;now&quot;-&#46972;&#44256;-&#54616;&#45716;-&#54788;&#51116;-&#49884;&#44036;&#51012;-&#52636;&#47141;&#54616;&#45716;-&#52972;&#47100;&#51012;-&#52628;&#44032;&#54644;&#49436;-&#52636;&#47141;&#54616;&#49464;&#50836;">&#49892;&#49845;#6 data/tbl_user.csv &#54028;&#51068;&#51012; &#51069;&#44256;, "now" &#46972;&#44256; &#54616;&#45716; &#54788;&#51116; &#49884;&#44036;&#51012; &#52636;&#47141;&#54616;&#45716; &#52972;&#47100;&#51012; &#52628;&#44032;&#54644;&#49436; &#52636;&#47141;&#54616;&#49464;&#50836;<a class="anchor-link" href="#&#49892;&#49845;#6-data/tbl_user.csv-&#54028;&#51068;&#51012;-&#51069;&#44256;,-&quot;now&quot;-&#46972;&#44256;-&#54616;&#45716;-&#54788;&#51116;-&#49884;&#44036;&#51012;-&#52636;&#47141;&#54616;&#45716;-&#52972;&#47100;&#51012;-&#52628;&#44032;&#54644;&#49436;-&#52636;&#47141;&#54616;&#49464;&#50836;">&#182;</a></h3><blockquote><p>참고: withColumn("column", "function"), current_timestamp()</p>
+</blockquote>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
