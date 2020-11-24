@@ -243,6 +243,10 @@ $> hadoop fs -cat /user/sqoop/foo/bar/part-m-00000
 * 하둡 cat 명령어를 통해서 마지막에 출력되는 학생의 이름을 확인합니다
 
 
+<details>
+<summary> 테이블 수집 고급 기능 </summary>
+<div markdown="1">
+
 ### 1.7 조건문을 통한 테이블 수집
 * "--table" 옵션과 더불어 "--where" 옵션을 통해 부분 수집이 가능합니다
   - 사전에 eval 명령으로 데이터 값의 범위를 파악할 수 있습니다
@@ -257,7 +261,6 @@ $> sqoop import -m 1 --connect jdbc:mysql://mysql:3306/testdb --table user \
     --fields-terminated-by '\t' --relaxed-isolation --delete-target-dir
 
 $> hadoop fs -cat /user/sqoop/user_append/part-m-00000
-
 ```
 
 ### 1.8 덮어쓰지 않고 추가하기
@@ -307,6 +310,8 @@ $> sqoop import -m 4 --split-by id --connect jdbc:mysql://mysql:3306/testdb --ta
 
 $> hadoop fs -ls /user/sqoop/seoul_popular_trip/split_by
 ```
+</div>
+</details>
 
 
 ## 2. Apache Sqoop Table Export
