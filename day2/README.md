@@ -379,7 +379,6 @@ bash> pwd
 * 서버가 정상적으로 기동 되어 있는지 확인 후 fluentd 서버로 접속합니다
 ```bash
 bash> docker-compose ps
-bash> docker-compose logs -f fluentd
 bash> docker-compose exec fluentd bash
 ```
 ![ex1](images/ex1.png)
