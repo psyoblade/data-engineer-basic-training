@@ -13212,7 +13212,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <span class="n">user25</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># 데이터 확인</span>
 
 <span class="n">purchase25</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="s2">&quot;purchase/20201025&quot;</span><span class="p">)</span>
-<span class="c1"># 실습) purchase25 테이블생성</span>
+<span class="c1"># 실습1) purchase25 테이블생성</span>
 <span class="c1"># 실습) 스키마 출력</span>
 <span class="c1"># 실습) 데이터 확인</span>
 
@@ -13243,27 +13243,26 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) p_time_condition 값은 p_time 값이 &#39;2020-10-25 00:00:00&#39; 보다 크거나 같고, &#39;2020-10-26 00:00:00&#39; 보다 작은 조건입니다</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습2) p_time_condition 값은 p_time 값이 &#39;2020-10-25 00:00:00&#39; 보다 크거나 같고, &#39;2020-10-26 00:00:00&#39; 보다 작은 조건입니다</span>
 <span class="n">p_time_condition</span> <span class="o">=</span> <span class="s2">&quot;p_time &lt;&gt; &#39;&#39;&quot;</span>
 
 <span class="n">purchase</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select from_unixtime(p_time) as p_time, p_uid, p_id, p_name, p_amount from purchase25&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">p_time_condition</span><span class="p">)</span>
+<span class="n">purchase</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;purchase&quot;</span><span class="p">)</span>
+<span class="n">purchase</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 <span class="n">purchase</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="c1"># 실습) purchase 테이블생성</span>
-<span class="c1"># 실습) 스키마 출력</span>
-<span class="c1"># 실습) 데이터 확인</span>
 
-<span class="c1"># 실습) u_signup_condition 값은 u_signup 값이 &#39;20201025&#39; 보다 크거나 같고, &#39;20201026&#39; 보다 작은 조건입니다</span>
+<span class="c1"># 실습3) u_signup_condition 값은 u_signup 값이 &#39;20201025&#39; 보다 크거나 같고, &#39;20201026&#39; 보다 작은 조건입니다</span>
 <span class="n">u_signup_condition</span> <span class="o">=</span> <span class="s2">&quot;u_signup &lt;&gt; &#39;&#39;&quot;</span>
 
 <span class="n">user</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select u_id, u_name, u_gender from user25&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">u_signup_condition</span><span class="p">)</span>
-<span class="c1"># 실습) user 테이블생성</span>
-<span class="c1"># 실습) 스키마 출력</span>
-<span class="c1"># 실습) 데이터 확인</span>
+<span class="n">user</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
+<span class="n">user</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">user</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="n">access</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select a_id, a_tag, a_timestamp, a_uid from access25&quot;</span><span class="p">)</span>
-<span class="c1"># 실습) access 테이블생성</span>
-<span class="c1"># 실습) 스키마 출력</span>
-<span class="c1"># 실습) 데이터 확인</span>
+<span class="n">access</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;access&quot;</span><span class="p">)</span>
+<span class="n">access</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">access</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13290,7 +13289,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select a_timestamp as a_time, a_uid from access&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="c1"># 실습) distinctAccessUser 는 access 테이블에 대해 &#39;count(distinct column) as DAU&#39; 명령을 이용하여 distinct user 지표를 생성합니다</span>
+<span class="c1"># 실습4) distinctAccessUser 는 access 테이블에 대해 &#39;count(distinct column) as DAU&#39; 명령을 이용하여 distinct user 지표를 생성합니다</span>
 <span class="n">distinctAccessUser</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
 <span class="n">dau</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">distinctAccessUser</span><span class="p">)</span>
@@ -13321,7 +13320,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select p_time, p_uid from purchase&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 실습) distinctPayingUser 는 purchase 테이블에 대해 &#39;count(distinct column) as PU&#39; 함수를 통해 구매유저 수를 구합니다</span>
+<span class="c1"># 실습5) distinctPayingUser 는 purchase 테이블에 대해 &#39;count(distinct column) as PU&#39; 함수를 통해 구매유저 수를 구합니다</span>
 <span class="n">distinctPayingUser</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> 
 
 <span class="n">pu</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">distinctPayingUser</span><span class="p">)</span>
@@ -13352,7 +13351,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select p_amount as daily_revenue from purchase&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 실습) sumOfDailyRevenue 는 sum(column) as DR 함수를 통해 p_amount 의 합을 구하시오</span>
+<span class="c1"># 실습6) sumOfDailyRevenue 는 sum(column) as DR 함수를 통해 p_amount 의 합을 구하시오</span>
 <span class="n">sumOfDailyRevenue</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> 
 
 <span class="n">dr</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">sumOfDailyRevenue</span><span class="p">)</span>
@@ -13391,7 +13390,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <span class="n">v_dr</span> <span class="o">=</span> <span class="n">dr</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;DR&quot;</span><span class="p">]</span>
 <span class="n">v_unknown</span> <span class="o">=</span> <span class="mi">1</span>
 
-<span class="c1"># 실습) ARPU 계산을 위한 v_unknown 를 각 각 다른 변수로 치환하세요</span>
+<span class="c1"># 실습7) ARPU 계산을 위한 v_unknown 를 각 각 다른 변수로 치환하세요</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|             ARPU |&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
@@ -13428,7 +13427,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 7. Average Revenue Per Paying User</span>
 
-<span class="c1"># 실습) ARPPU 계산을 위한 v_unknown 를 각 각 다른 변수로 치환하세요</span>
+<span class="c1"># 실습8) ARPPU 계산을 위한 v_unknown 를 각 각 다른 변수로 치환하세요</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|            ARPPU |&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
@@ -13507,7 +13506,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">access</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 
-<span class="c1"># 실습) countOfAccess 는 access 테이블로부터 a_id 가 &#39;login&#39; 인 a_uid 값의 빈도수를 group by a_uid 집계를 통해 구하시오</span>
+<span class="c1"># 실습9) countOfAccess 는 access 테이블로부터 a_id 가 &#39;login&#39; 인 a_uid 값의 빈도수를 group by a_uid 집계를 통해 구하시오</span>
 <span class="n">countOfAccess</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> 
 
 <span class="n">uids</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">countOfAccess</span><span class="p">)</span>
@@ -13533,7 +13532,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">purchase</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 
-<span class="c1"># 실습) sumOfCountAndAmount 는 purchase 테이블로 부터 p_uid 별 매출 횟수(count)와, 매출 금액의 합(sum)을 구하는 집계 쿼리를 생성 하시오</span>
+<span class="c1"># 실습10) sumOfCountAndAmount 는 purchase 테이블로 부터 p_uid 별 매출 횟수(count)와, 매출 금액의 합(sum)을 구하는 집계 쿼리를 생성 하시오</span>
 <span class="n">sumOfCountAndAmount</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> 
 
 <span class="n">amts</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">sumOfCountAndAmount</span><span class="p">)</span>
@@ -13557,10 +13556,10 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) joinCondition 는 uids 와 amts 데이터프레임의 uid 컬럼이 일치하는 조건을 작성하시오</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습11) joinCondition 는 uids 와 amts 데이터프레임의 uid 컬럼이 일치하는 조건을 작성하시오</span>
 <span class="n">joinCondition</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-<span class="c1"># 실습) joinHow 는 어떤 조인을 할 지 결정합니다</span>
+<span class="c1"># 실습12) joinHow 는 어떤 조인을 할 지 결정합니다</span>
 <span class="n">joinHow</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
 <span class="n">dim1</span> <span class="o">=</span> <span class="n">uids</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">amts</span><span class="p">,</span> <span class="n">joinCondition</span><span class="p">,</span> <span class="n">joinHow</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">uids</span><span class="p">[</span><span class="s2">&quot;a_uid&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">asc</span><span class="p">())</span>  <span class="c1"># 이렇게 Left Outer Join 연산으로 계속 붙여 나갑니다</span>
@@ -13585,10 +13584,10 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) joinCondition 는 dim1 과 user 의 uid 값이 일치하는 조건을 작성하시오</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습13) joinCondition 는 dim1 과 user 의 uid 값이 일치하는 조건을 작성하시오</span>
 <span class="n">joinCondition</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-<span class="c1"># 실습) joinHow 는 어떤 조인을 할 지 결정합니다</span>
+<span class="c1"># 실습14) joinHow 는 어떤 조인을 할 지 결정합니다</span>
 <span class="n">joinHow</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
 <span class="n">dim2</span> <span class="o">=</span> <span class="n">dim1</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">joinCondition</span><span class="p">,</span> <span class="n">joinHow</span><span class="p">)</span>
@@ -13615,7 +13614,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dim3</span> <span class="o">=</span> <span class="n">dim2</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;p_uid&quot;</span><span class="p">,</span> <span class="s2">&quot;u_id&quot;</span><span class="p">)</span>
 
-<span class="c1"># 실습) p_amount, p_count 필드의 기본값을 0으로 넣도록 작성합니다</span>
+<span class="c1"># 실습15) p_amount, p_count 필드의 기본값을 0으로 넣도록 작성합니다</span>
 <span class="n">fillDefaultValue</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="n">dim4</span> <span class="o">=</span> <span class="n">dim3</span><span class="o">.</span><span class="n">na</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">fillDefaultValue</span><span class="p">)</span>
@@ -13642,7 +13641,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dim4</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 
-<span class="c1"># 실습) d_ 로 시작하는 컬럼으로 모두 rename 합니다.</span>
+<span class="c1"># 실습16) d_ 로 시작하는 컬럼으로 모두 rename 합니다.</span>
 <span class="c1"># withColumnRenamed(&quot;a_uid&quot;, &quot;d_acount&quot;) 라인을 반복해서 a_count ~ u_gender 컬럼을 rename 합니다</span>
 <span class="c1"># a_uid -&gt; d_uid</span>
 <span class="c1"># a_count -&gt; d_acount</span>
@@ -13651,10 +13650,10 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <span class="c1"># u_name -&gt; d_name</span>
 <span class="c1"># u_gender -&gt; d_gender</span>
 
-<span class="c1"># 실습) d_ 로 시작하지 않는 컬럼은 모두 drop 합니다</span>
+<span class="c1"># 실습17) d_ 로 시작하지 않는 컬럼은 모두 drop 합니다</span>
 <span class="c1"># drop   : 사용하지 않는 컬럼을 데이터프레임에서 제거합니다 - &quot;a_uid&quot;, &quot;a_count&quot;, &quot;p_amount&quot;, &quot;p_count&quot;, &quot;u_name&quot;, &quot;u_gender&quot;</span>
 
-<span class="c1"># 실습) 혹은 d_ 로 시작하는 컬럼만 select 합니다</span>
+<span class="c1"># 실습18) 혹은 d_ 로 시작하는 컬럼만 select 합니다</span>
 <span class="c1"># select : 컬럼명을 변경한 이후에 d_ 로 시작하는 컬럼만 select 할 수 있도록 컬럼을 명시합니다 - &quot;d_uid&quot;, &quot;d_name&quot;, &quot;d_gender&quot;, &quot;d_acount&quot;, &quot;d_pamount&quot;, &quot;d_pcount&quot;</span>
 
 <span class="c1"># drop 혹은 select 어느 하나의 방식을 사용해도 됩니다</span>
@@ -13686,13 +13685,13 @@ expr<span class="o">(</span><span class="s2">&quot;case when column1 is null the
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) selectFirstPurchaseTime 는 하루에 여러번 구매가 있을 수 있으므로 가장 먼저 구매한 일시를 min 함수를 써서 선택합니다</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습19) selectFirstPurchaseTime 는 하루에 여러번 구매가 있을 수 있으므로 가장 먼저 구매한 일시를 min 함수를 써서 선택합니다</span>
 <span class="n">selectFirstPurchaseTime</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
 <span class="n">first_purchase</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">selectFirstPurchaseTime</span><span class="p">)</span>
 <span class="n">dim6</span> <span class="o">=</span> <span class="n">dim5</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;d_first_purchase&quot;</span><span class="p">,</span> <span class="n">lit</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
 
-<span class="c1"># 실습) exprFirstPurchase 는 d_first_purchase 컬럼이 널이면 p_time 을 사용하고 그렇지 않으면 d_first_purchase 컬럼을 사용하도록 expr 의 null 값을 치환하시오</span>
+<span class="c1"># 실습20) exprFirstPurchase 는 d_first_purchase 컬럼이 널이면 p_time 을 사용하고 그렇지 않으면 d_first_purchase 컬럼을 사용하도록 expr 의 null 값을 치환하시오</span>
 <span class="n">exprFirstPurchase</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;d_first_purchase&quot;</span><span class="p">)</span>
 
 <span class="n">dimension</span> <span class="o">=</span> <span class="n">dim6</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">first_purchase</span><span class="p">,</span> <span class="n">dim5</span><span class="o">.</span><span class="n">d_uid</span> <span class="o">==</span> <span class="n">first_purchase</span><span class="o">.</span><span class="n">p_uid</span><span class="p">,</span> <span class="s2">&quot;left_outer&quot;</span><span class="p">)</span> \
@@ -13721,7 +13720,7 @@ expr<span class="o">(</span><span class="s2">&quot;case when column1 is null the
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) dim_users/dt=20201025 경로에 저장합니다</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습21) dim_users/dt=20201025 경로에 저장합니다</span>
 <span class="n">today_dimension</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
 <span class="n">dimension</span><span class="o">.</span><span class="n">write</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="s2">&quot;overwrite&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="n">today_dimension</span><span class="p">)</span>
