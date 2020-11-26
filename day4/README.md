@@ -346,7 +346,7 @@ select * from imdb_orc_imported;
 
 
 <details>
-<summary> Fluentd 고급 기능 (참고용) </summary>
+<summary> 하이브 트러블슈팅 가이드 (참고용) </summary>
 <div markdown="1">
 
 ## 3 하이브 트러블슈팅 가이드
