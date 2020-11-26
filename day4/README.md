@@ -345,6 +345,10 @@ select * from imdb_orc_imported;
 ```
 
 
+<details>
+<summary> Fluentd 고급 기능 (참고용) </summary>
+<div markdown="1">
+
 ## 3 하이브 트러블슈팅 가이드
 > IMDB 영화 예제를 통해 테이블을 생성하고, 다양한 성능 개선 방법을 시도해보면서 왜 그리고 얼마나 성능에 영향을 미치는 지 파악합니다
 
@@ -666,6 +670,9 @@ explain select rank, metascore, title from imdb_parquet_bucketed where year = '2
 explain select rank, metascore, title from imdb_movies where year = '2006' and rank < 101 order by metascore desc;
 # Statistics: Num rows: 1488 Data size: 309656 Basic stats: COMPLETE Column stats: NONE
 ```
+
+</div>
+</details>
 
 ## 4. 하이브 외부 저장소 테이블
 > 하이브의 경우 local 데이터를 하둡에 load 하여 Managed 테이블을 생성할 수도 있지만, 대게 외부 데이터 수집 및 적재의 경우 External 테이블로 생성합니다
