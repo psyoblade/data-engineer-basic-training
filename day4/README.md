@@ -118,6 +118,7 @@ CREATE TABLE [IF NOT EXISTS] [db_name.] table_name [(col_name data_type [COMMENT
 [LOCATION hdfs_path];
 
 beeline> 
+use testdb;
 create table if not exists employee (emp_id string comment 'employee id',
 emp_name string comment 'employee name', 
 emp_salary bigint comment 'employee salary')
@@ -688,6 +689,7 @@ message purchase_20201025 {
 
 $> tree /tmp/source
 $> hadoop fs -mkdir -p /user/lgde/purchase/dt=20201025
+$> hadoop fs -mkdir -p /user/lgde/purchase/dt=20201026
 $> hadoop fs -put /tmp/source/purchase/20201025/* /user/lgde/purchase/dt=20201025
 $> hadoop fs -put /tmp/source/purchase/20201026/* /user/lgde/purchase/dt=20201026
 ```
