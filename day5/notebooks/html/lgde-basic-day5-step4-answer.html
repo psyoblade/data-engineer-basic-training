@@ -13208,17 +13208,11 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <span class="n">user26</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;user26&quot;</span><span class="p">)</span>
 <span class="n">user26</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 <span class="n">user26</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1"># user26 테이블생성</span>
-<span class="c1"># 스키마 출력</span>
-<span class="c1"># 데이터 확인</span>
 
 <span class="n">purchase26</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="s2">&quot;purchase/20201026&quot;</span><span class="p">)</span>
 <span class="n">purchase26</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;purchase26&quot;</span><span class="p">)</span>
 <span class="n">purchase26</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 <span class="n">purchase26</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1"># purchase26 테이블생성</span>
-<span class="c1"># 스키마 출력</span>
-<span class="c1"># 데이터 확인</span>
 
 <span class="n">accesslog</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;inferSchema&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s2">&quot;access/20201026&quot;</span><span class="p">)</span>
 <span class="n">accesslog</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;accesslog&quot;</span><span class="p">)</span>
@@ -13226,9 +13220,6 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <span class="n">access26</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;access26&quot;</span><span class="p">)</span>
 <span class="n">access26</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 <span class="n">access26</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1"># access26 테이블생성</span>
-<span class="c1"># 스키마 출력</span>
-<span class="c1"># 데이터 확인</span>
 </pre></div>
 
     </div>
@@ -13350,9 +13341,6 @@ only showing top 20 rows
 <span class="n">purchase</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;purchase&quot;</span><span class="p">)</span>
 <span class="n">purchase</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 <span class="n">purchase</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1"># purchase 테이블생성</span>
-<span class="c1"># 스키마 출력</span>
-<span class="c1"># 데이터 확인</span>
 
 <span class="n">u_signup_condition</span> <span class="o">=</span> <span class="s2">&quot;u_signup &lt;&gt; &#39;&#39;&quot;</span>
 <span class="n">u_signup_condition</span> <span class="o">=</span> <span class="s2">&quot;u_signup &gt;= &#39;20201026&#39; and u_signup &lt; &#39;20201027&#39;&quot;</span>
@@ -13360,17 +13348,11 @@ only showing top 20 rows
 <span class="n">user</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 <span class="n">user</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
 <span class="n">user</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1"># user 테이블생성</span>
-<span class="c1"># 스키마 출력</span>
-<span class="c1"># 데이터 확인</span>
 
 <span class="n">access</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select a_id, a_tag, a_timestamp, a_uid from access26&quot;</span><span class="p">)</span>
 <span class="n">access</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 <span class="n">access</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;access&quot;</span><span class="p">)</span>
 <span class="n">access</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1"># access 테이블생성</span>
-<span class="c1"># 스키마 출력</span>
-<span class="c1"># 데이터 확인</span>
 </pre></div>
 
     </div>
