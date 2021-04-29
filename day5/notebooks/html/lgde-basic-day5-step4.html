@@ -13171,7 +13171,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
@@ -13199,21 +13199,20 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 1. 오늘은 2020/10/27 이고, 어제가 서비스 둘째 날인 2020/10/26 날짜의 기준 지표를 생성합니다</span>
 
 <span class="n">user26</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="s2">&quot;user/20201026&quot;</span><span class="p">)</span>
-<span class="n">user26</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;user26&quot;</span><span class="p">)</span> <span class="c1"># 테이블생성</span>
-<span class="n">user26</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span> <span class="c1"># 스키마 출력</span>
-<span class="n">user26</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># 데이터 확인</span>
+<span class="n">user26</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;user26&quot;</span><span class="p">)</span>
+<span class="n">user26</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">user26</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">purchase26</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="s2">&quot;purchase/20201026&quot;</span><span class="p">)</span>
 <span class="n">purchase26</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;purchase26&quot;</span><span class="p">)</span>
 <span class="n">purchase26</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 <span class="n">purchase26</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
 
 <span class="n">accesslog</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;inferSchema&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s2">&quot;access/20201026&quot;</span><span class="p">)</span>
 <span class="n">accesslog</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;accesslog&quot;</span><span class="p">)</span>
@@ -13224,6 +13223,99 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>root
+ |-- u_id: integer (nullable = true)
+ |-- u_name: string (nullable = true)
+ |-- u_gender: string (nullable = true)
+ |-- u_signup: integer (nullable = true)
+
++----+----------+--------+--------+
+|u_id|u_name    |u_gender|u_signup|
++----+----------+--------+--------+
+|1   |정휘센    |남      |20201025|
+|2   |김싸이언  |남      |20201025|
+|3   |박트롬    |여      |20201025|
+|4   |청소기    |남      |20201025|
+|5   |유코드제로|여      |20201025|
+|6   |윤디오스  |남      |20201026|
+|7   |임모바일  |남      |20201026|
+|8   |조노트북  |여      |20201026|
+|9   |최컴퓨터  |남      |20201026|
++----+----------+--------+--------+
+
+root
+ |-- p_time: string (nullable = true)
+ |-- p_uid: integer (nullable = true)
+ |-- p_id: integer (nullable = true)
+ |-- p_name: string (nullable = true)
+ |-- p_amount: integer (nullable = true)
+
++----------+-----+----+-----------+--------+
+|p_time    |p_uid|p_id|p_name     |p_amount|
++----------+-----+----+-----------+--------+
+|1603571550|1    |2000|LG DIOS    |2000000 |
+|1603614755|1    |2000|LG Gram    |1800000 |
+|1603593500|2    |2001|LG Cyon    |1400000 |
+|1603572155|3    |2002|LG TV      |1000000 |
+|1603585955|5    |2004|LG Gram    |3500000 |
+|1603586155|5    |2004|LG TV      |2500000 |
+|1603651550|1    |2001|LG Cyon    |1400000 |
+|1603652155|5    |2002|LG TV      |1000000 |
+|1603674500|6    |2003|LG Computer|4500000 |
+|1603665955|7    |2004|LG Gram    |3500000 |
+|1603666155|9    |2004|LG TV      |2500000 |
++----------+-----+----+-----------+--------+
+
+root
+ |-- a_id: string (nullable = true)
+ |-- a_tag: string (nullable = true)
+ |-- a_time: string (nullable = true)
+ |-- a_timestamp: string (nullable = true)
+ |-- a_uid: long (nullable = true)
+
++------+------+----------+-----------------------+-----+
+|a_id  |a_tag |a_time    |a_timestamp            |a_uid|
++------+------+----------+-----------------------+-----+
+|logout|access|1603647200|2020-10-26 02:33:20.000|1    |
+|logout|access|1603650200|2020-10-26 03:23:20.000|2    |
+|logout|access|1603659200|2020-10-26 05:53:20.000|3    |
+|logout|access|1603664200|2020-10-26 07:16:40.000|4    |
+|logout|access|1603669500|2020-10-26 08:45:00.000|5    |
+|login |access|1603645200|2020-10-26 02:00:00.000|1    |
+|login |access|1603649200|2020-10-26 03:06:40.000|2    |
+|login |access|1603653200|2020-10-26 04:13:20.000|2    |
+|login |access|1603657200|2020-10-26 05:20:00.000|3    |
+|login |access|1603660200|2020-10-26 06:10:00.000|4    |
+|login |access|1603664500|2020-10-26 07:21:40.000|4    |
+|login |access|1603666500|2020-10-26 07:55:00.000|5    |
+|login |access|1603670500|2020-10-26 09:01:40.000|6    |
+|login |access|1603673500|2020-10-26 09:51:40.000|7    |
+|login |access|1603674500|2020-10-26 10:08:20.000|8    |
+|login |access|1603675500|2020-10-26 10:25:00.000|9    |
+|logout|access|1603647200|2020-10-26 02:33:20.000|1    |
+|logout|access|1603647200|2020-10-26 02:33:20.000|1    |
+|logout|access|1603650200|2020-10-26 03:23:20.000|2    |
+|logout|access|1603650200|2020-10-26 03:23:20.000|2    |
++------+------+----------+-----------------------+-----+
+only showing top 20 rows
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13239,30 +13331,111 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p_time_condition</span> <span class="o">=</span> <span class="s2">&quot;p_time &gt;= &#39;2020-10-26 00:00:00&#39; and p_time &lt; &#39;2020-10-27 00:00:00&#39;&quot;</span>
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p_time_condition</span> <span class="o">=</span> <span class="s2">&quot;p_time &lt;&gt; &#39;&#39;&quot;</span>
+<span class="n">p_time_condition</span> <span class="o">=</span> <span class="s2">&quot;p_time &gt;= &#39;2020-10-26 00:00:00&#39; and p_time &lt; &#39;2020-10-27 00:00:00&#39;&quot;</span>
+<span class="c1"># p_time_condition 값은 p_time 값이 &#39;2020-10-26 00:00:00&#39; 보다 크거나 같고, &#39;2020-10-27 00:00:00&#39; 보다 작은 조건입니다</span>
 <span class="n">purchase</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select from_unixtime(p_time) as p_time, p_uid, p_id, p_name, p_amount from purchase26&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">p_time_condition</span><span class="p">)</span>
 <span class="n">purchase</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;purchase&quot;</span><span class="p">)</span>
 <span class="n">purchase</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 <span class="n">purchase</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
+<span class="n">u_signup_condition</span> <span class="o">=</span> <span class="s2">&quot;u_signup &lt;&gt; &#39;&#39;&quot;</span>
 <span class="n">u_signup_condition</span> <span class="o">=</span> <span class="s2">&quot;u_signup &gt;= &#39;20201026&#39; and u_signup &lt; &#39;20201027&#39;&quot;</span>
-
 <span class="n">user</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select u_id, u_name, u_gender from user26&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">u_signup_condition</span><span class="p">)</span>
-<span class="n">user</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
 <span class="n">user</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">user</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
 <span class="n">user</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">access</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select a_id, a_tag, a_timestamp, a_uid from access26&quot;</span><span class="p">)</span>
-<span class="n">access</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;access&quot;</span><span class="p">)</span>
 <span class="n">access</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">access</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;access&quot;</span><span class="p">)</span>
 <span class="n">access</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>root
+ |-- p_time: string (nullable = true)
+ |-- p_uid: integer (nullable = true)
+ |-- p_id: integer (nullable = true)
+ |-- p_name: string (nullable = true)
+ |-- p_amount: integer (nullable = true)
+
++-------------------+-----+----+-----------+--------+
+|p_time             |p_uid|p_id|p_name     |p_amount|
++-------------------+-----+----+-----------+--------+
+|2020-10-26 03:45:50|1    |2001|LG Cyon    |1400000 |
+|2020-10-26 03:55:55|5    |2002|LG TV      |1000000 |
+|2020-10-26 10:08:20|6    |2003|LG Computer|4500000 |
+|2020-10-26 07:45:55|7    |2004|LG Gram    |3500000 |
+|2020-10-26 07:49:15|9    |2004|LG TV      |2500000 |
++-------------------+-----+----+-----------+--------+
+
+root
+ |-- u_id: integer (nullable = true)
+ |-- u_name: string (nullable = true)
+ |-- u_gender: string (nullable = true)
+
++----+--------+--------+
+|u_id|u_name  |u_gender|
++----+--------+--------+
+|6   |윤디오스|남      |
+|7   |임모바일|남      |
+|8   |조노트북|여      |
+|9   |최컴퓨터|남      |
++----+--------+--------+
+
+root
+ |-- a_id: string (nullable = true)
+ |-- a_tag: string (nullable = true)
+ |-- a_timestamp: string (nullable = true)
+ |-- a_uid: long (nullable = true)
+
++------+------+-----------------------+-----+
+|a_id  |a_tag |a_timestamp            |a_uid|
++------+------+-----------------------+-----+
+|logout|access|2020-10-26 02:33:20.000|1    |
+|logout|access|2020-10-26 03:23:20.000|2    |
+|logout|access|2020-10-26 05:53:20.000|3    |
+|logout|access|2020-10-26 07:16:40.000|4    |
+|logout|access|2020-10-26 08:45:00.000|5    |
+|login |access|2020-10-26 02:00:00.000|1    |
+|login |access|2020-10-26 03:06:40.000|2    |
+|login |access|2020-10-26 04:13:20.000|2    |
+|login |access|2020-10-26 05:20:00.000|3    |
+|login |access|2020-10-26 06:10:00.000|4    |
+|login |access|2020-10-26 07:21:40.000|4    |
+|login |access|2020-10-26 07:55:00.000|5    |
+|login |access|2020-10-26 09:01:40.000|6    |
+|login |access|2020-10-26 09:51:40.000|7    |
+|login |access|2020-10-26 10:08:20.000|8    |
+|login |access|2020-10-26 10:25:00.000|9    |
+|logout|access|2020-10-26 02:33:20.000|1    |
+|logout|access|2020-10-26 02:33:20.000|1    |
+|logout|access|2020-10-26 03:23:20.000|2    |
+|logout|access|2020-10-26 03:23:20.000|2    |
++------+------+-----------------------+-----+
+only showing top 20 rows
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13281,18 +13454,67 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select a_timestamp as a_time, a_uid from access&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
+<span class="n">distinctAccessUser</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 <span class="n">distinctAccessUser</span> <span class="o">=</span> <span class="s2">&quot;select count(distinct a_uid) as DAU from access&quot;</span>
-
+<span class="c1"># access 테이블에 대해 &#39;count(distinct column) as DAU&#39; 명령을 이용하여 distinct user 지표를 생성합니다</span>
 <span class="n">dau</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">distinctAccessUser</span><span class="p">)</span>
 <span class="n">dau</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>+-----------------------+-----+
+|a_time                 |a_uid|
++-----------------------+-----+
+|2020-10-26 02:33:20.000|1    |
+|2020-10-26 03:23:20.000|2    |
+|2020-10-26 05:53:20.000|3    |
+|2020-10-26 07:16:40.000|4    |
+|2020-10-26 08:45:00.000|5    |
+|2020-10-26 02:00:00.000|1    |
+|2020-10-26 03:06:40.000|2    |
+|2020-10-26 04:13:20.000|2    |
+|2020-10-26 05:20:00.000|3    |
+|2020-10-26 06:10:00.000|4    |
+|2020-10-26 07:21:40.000|4    |
+|2020-10-26 07:55:00.000|5    |
+|2020-10-26 09:01:40.000|6    |
+|2020-10-26 09:51:40.000|7    |
+|2020-10-26 10:08:20.000|8    |
+|2020-10-26 10:25:00.000|9    |
+|2020-10-26 02:33:20.000|1    |
+|2020-10-26 02:33:20.000|1    |
+|2020-10-26 03:23:20.000|2    |
+|2020-10-26 03:23:20.000|2    |
++-----------------------+-----+
+only showing top 20 rows
+
++---+
+|DAU|
++---+
+|  9|
++---+
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13311,18 +13533,50 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select p_time, p_uid from purchase&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="n">distinctPayingUser</span> <span class="o">=</span> <span class="s2">&quot;select count(distinct p_uid) as PU from purchase&quot;</span> 
-
+<span class="n">distinctPayingUser</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="c1"># purchase 테이블에 대해 &#39;count(distinct column) as PU&#39; 함수를 통해 구매유저 수를 구합니다</span>
+<span class="n">distinctPayingUser</span> <span class="o">=</span> <span class="s2">&quot;select count(distinct p_uid) as PU from purchase&quot;</span>
 <span class="n">pu</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">distinctPayingUser</span><span class="p">)</span>
 <span class="n">pu</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>+-------------------+-----+
+|             p_time|p_uid|
++-------------------+-----+
+|2020-10-26 03:45:50|    1|
+|2020-10-26 03:55:55|    5|
+|2020-10-26 10:08:20|    6|
+|2020-10-26 07:45:55|    7|
+|2020-10-26 07:49:15|    9|
++-------------------+-----+
+
++---+
+| PU|
++---+
+|  5|
++---+
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13341,18 +13595,50 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select p_amount as daily_revenue from purchase&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="n">sumOfDailyRevenue</span> <span class="o">=</span> <span class="s2">&quot;select sum(p_amount) as DR from purchase&quot;</span> 
-
+<span class="n">sumOfDailyRevenue</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="c1"># sum(column) as DR 함수를 통해 p_amount 의 합을 구하시오</span>
+<span class="n">sumOfDailyRevenue</span> <span class="o">=</span> <span class="s2">&quot;select sum(p_amount) as DR from purchase&quot;</span>
 <span class="n">dr</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">sumOfDailyRevenue</span><span class="p">)</span>
 <span class="n">dr</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>+-------------+
+|daily_revenue|
++-------------+
+|      1400000|
+|      1000000|
+|      4500000|
+|      3500000|
+|      2500000|
++-------------+
+
++--------+
+|      DR|
++--------+
+|12900000|
++--------+
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13376,21 +13662,44 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">v_dau</span> <span class="o">=</span> <span class="n">dau</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;DAU&quot;</span><span class="p">]</span>
 <span class="n">v_pu</span> <span class="o">=</span> <span class="n">pu</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;PU&quot;</span><span class="p">]</span>
 <span class="n">v_dr</span> <span class="o">=</span> <span class="n">dr</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;DR&quot;</span><span class="p">]</span>
+<span class="n">v_unknown</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|             ARPU |&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|        </span><span class="si">{}</span><span class="s2"> |&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v_dr</span> <span class="o">/</span> <span class="n">v_dau</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|        </span><span class="si">{}</span><span class="s2"> |&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v_unknown</span> <span class="o">/</span> <span class="n">v_unknown</span><span class="p">))</span>  <span class="c1"># ARPU 계산을 위한 v_unknown 를 다른 변수로 치환하세요</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>+------------------+
+|             ARPU |
++------------------+
+|        1.0 |
++------------------+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13414,19 +13723,40 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 7. Average Revenue Per Paying User</span>
-
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|            ARPPU |&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|        </span><span class="si">{}</span><span class="s2"> |&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v_dr</span> <span class="o">/</span> <span class="n">v_pu</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|        </span><span class="si">{}</span><span class="s2"> |&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v_unknown</span> <span class="o">/</span> <span class="n">v_unknown</span><span class="p">))</span>  <span class="c1"># ARPPU 계산을 위한 v_unknown 를 다른 변수로 치환하세요</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>+------------------+
+|            ARPPU |
++------------------+
+|        1.0 |
++------------------+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13492,7 +13822,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">yesterday_dimension</span><span class="o">=</span><span class="s2">&quot;dim_users/dt=20201025&quot;</span>
@@ -13502,6 +13832,42 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>root
+ |-- d_uid: long (nullable = true)
+ |-- d_name: string (nullable = true)
+ |-- d_gender: string (nullable = true)
+ |-- d_acount: long (nullable = true)
+ |-- d_pamount: long (nullable = true)
+ |-- d_pcount: long (nullable = true)
+ |-- d_first_purchase: string (nullable = true)
+
++-----+----------+--------+--------+---------+--------+-------------------+
+|d_uid|    d_name|d_gender|d_acount|d_pamount|d_pcount|   d_first_purchase|
++-----+----------+--------+--------+---------+--------+-------------------+
+|    1|    정휘센|      남|       2|  3800000|       2|2020-10-25 05:32:30|
+|    2|  김싸이언|      남|       4|  1400000|       1|2020-10-25 11:38:20|
+|    3|    박트롬|      여|       2|  1000000|       1|2020-10-25 05:42:35|
+|    4|    청소기|      남|       4|        0|       0|               null|
+|    5|유코드제로|      여|       2|  6000000|       2|2020-10-25 09:32:35|
++-----+----------+--------+--------+---------+--------+-------------------+
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13515,17 +13881,16 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">yesterday_uids</span> <span class="o">=</span> <span class="n">yesterday</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;d_uid&quot;</span><span class="p">)</span>
 <span class="n">today_uids</span> <span class="o">=</span> <span class="n">access</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;a_uid&quot;</span><span class="p">)</span>
 
-<span class="c1"># 실습22) joinCondition 는 어제 uid 와 오늘 uid 값이 일치하는 조건</span>
-<span class="n">joinCondition</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
-<span class="c1"># 실습23) 양쪽 테이블이 모두 존재해야 하는 조인 방식</span>
-<span class="n">joinHow</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">joinCondition</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="c1"># 어제 uid 와 오늘 uid 값이 일치하는 조건</span>
+<span class="n">joinCondition</span> <span class="o">=</span> <span class="n">yesterday_uids</span><span class="o">.</span><span class="n">d_uid</span> <span class="o">==</span> <span class="n">today_uids</span><span class="o">.</span><span class="n">a_uid</span>
+<span class="n">joinHow</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="c1"># 양쪽 테이블이 모두 존재해야 하는 조인 조건</span>
+<span class="n">joinHow</span> <span class="o">=</span> <span class="s2">&quot;full_outer&quot;</span>
 
 <span class="n">uid</span> <span class="o">=</span> <span class="n">yesterday_uids</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">today_uids</span><span class="p">,</span> <span class="n">joinCondition</span><span class="p">,</span> <span class="n">joinHow</span><span class="p">)</span> \
 <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;uid&quot;</span><span class="p">,</span> <span class="n">when</span><span class="p">(</span><span class="n">yesterday</span><span class="o">.</span><span class="n">d_uid</span><span class="o">.</span><span class="n">isNull</span><span class="p">(),</span> <span class="n">access</span><span class="o">.</span><span class="n">a_uid</span><span class="p">)</span><span class="o">.</span><span class="n">otherwise</span><span class="p">(</span><span class="n">yesterday</span><span class="o">.</span><span class="n">d_uid</span><span class="p">))</span> \
@@ -13539,6 +13904,40 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>root
+ |-- uid: long (nullable = true)
+
++---+
+|uid|
++---+
+|  1|
+|  2|
+|  3|
+|  4|
+|  5|
+|  6|
+|  7|
+|  8|
+|  9|
++---+
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -13549,14 +13948,15 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습24) uid 와 yesterday 의 uid 가 일치하는 조건</span>
-<span class="n">joinCondition</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">joinCondition</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="c1"># uid 와 yesterday 의 uid 가 일치하는 조건</span>
+<span class="n">joinCondition</span> <span class="o">=</span> <span class="n">uid</span><span class="o">.</span><span class="n">uid</span> <span class="o">==</span> <span class="n">yesterday</span><span class="o">.</span><span class="n">d_uid</span>
+<span class="n">joinHow</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 <span class="n">joinHow</span> <span class="o">=</span> <span class="s2">&quot;left_outer&quot;</span>
 
-<span class="c1"># uid 에서 생성된 id 값이 모든 user_id 이므로</span>
+<span class="c1"># uid 에서 생성된 id 값이 모든 user_id 이므로 </span>
 <span class="c1"># drop 함수를 통해 기존의 d_uid 는 제거하고</span>
 <span class="c1"># withColumnRenamed 함수를 통해, uid 를 d_uid 로 변경 합니다</span>
 <span class="n">uids</span> <span class="o">=</span> <span class="n">uid</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">yesterday</span><span class="p">,</span> <span class="n">joinCondition</span><span class="p">,</span> <span class="n">joinHow</span><span class="p">)</span> \
@@ -13572,26 +13972,64 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>root
+ |-- d_uid: long (nullable = true)
+ |-- d_name: string (nullable = true)
+ |-- d_gender: string (nullable = true)
+ |-- d_acount: long (nullable = true)
+ |-- d_pamount: long (nullable = true)
+ |-- d_pcount: long (nullable = true)
+ |-- d_first_purchase: string (nullable = true)
+
++-----+----------+--------+--------+---------+--------+-------------------+
+|d_uid|d_name    |d_gender|d_acount|d_pamount|d_pcount|d_first_purchase   |
++-----+----------+--------+--------+---------+--------+-------------------+
+|1    |정휘센    |남      |2       |3800000  |2       |2020-10-25 05:32:30|
+|2    |김싸이언  |남      |4       |1400000  |1       |2020-10-25 11:38:20|
+|3    |박트롬    |여      |2       |1000000  |1       |2020-10-25 05:42:35|
+|4    |청소기    |남      |4       |0        |0       |null               |
+|5    |유코드제로|여      |2       |6000000  |2       |2020-10-25 09:32:35|
+|6    |null      |null    |null    |null     |null    |null               |
+|7    |null      |null    |null    |null     |null    |null               |
+|8    |null      |null    |null    |null     |null    |null               |
+|9    |null      |null    |null    |null     |null    |null               |
++-----+----------+--------+--------+---------+--------+-------------------+
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="7-4.-uid-&#44592;&#51456;&#51004;&#47196;-&#51060;&#47492;,-&#49457;&#48324;&#51012;-&#51312;&#51064;&#54633;&#45768;&#45796;">7-4. uid &#44592;&#51456;&#51004;&#47196; &#51060;&#47492;, &#49457;&#48324;&#51012; &#51312;&#51064;&#54633;&#45768;&#45796;<a class="anchor-link" href="#7-4.-uid-&#44592;&#51456;&#51004;&#47196;-&#51060;&#47492;,-&#49457;&#48324;&#51012;-&#51312;&#51064;&#54633;&#45768;&#45796;">&#182;</a></h3><div class="highlight"><pre><span></span>expr<span class="o">(</span><span class="s2">&quot;case when column1 is null then column2 else column1 end&quot;</span><span class="o">)</span> 구문을 사용합니다.
-</pre></div>
-
+<h3 id="7-4.-uid-&#44592;&#51456;&#51004;&#47196;-&#51060;&#47492;,-&#49457;&#48324;&#51012;-&#51312;&#51064;&#54633;&#45768;&#45796;">7-4. uid &#44592;&#51456;&#51004;&#47196; &#51060;&#47492;, &#49457;&#48324;&#51012; &#51312;&#51064;&#54633;&#45768;&#45796;<a class="anchor-link" href="#7-4.-uid-&#44592;&#51456;&#51004;&#47196;-&#51060;&#47492;,-&#49457;&#48324;&#51012;-&#51312;&#51064;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습25) d_name 이 null 이면 u_name 을 사용하고 그렇지 않으면 d_name 을 사용합니다</span>
-<span class="n">exprName</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;d_name&quot;</span><span class="p">)</span>
-
-<span class="c1"># 실습26) d_gender 이 null 이면 u_gender 을 사용하고 그렇지 않으면 d_gender 을 사용합니다</span>
-<span class="n">exprGender</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;d_gender&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># expr(&quot;case when column1 is null then column2 else column1 end&quot;) 구문을 사용합니다.</span>
+<span class="n">exprName</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;d_name&quot;</span><span class="p">)</span> <span class="c1"># d_name 이 null 이면 u_name 을 사용하고 그렇지 않으면 d_name 을 사용합니다</span>
+<span class="n">exprName</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;case when d_name is null then u_name else d_name end&quot;</span><span class="p">)</span>
+<span class="n">exprGender</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;d_gender&quot;</span><span class="p">)</span> <span class="c1"># d_gender 이 null 이면 u_gender 을 사용하고 그렇지 않으면 d_gender 을 사용합니다</span>
+<span class="n">exprGender</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;case when d_gender is null then u_gender else d_gender end&quot;</span><span class="p">)</span>
 
 <span class="n">dim1</span> <span class="o">=</span> <span class="n">uids</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">uids</span><span class="o">.</span><span class="n">d_uid</span> <span class="o">==</span> <span class="n">user</span><span class="o">.</span><span class="n">u_id</span><span class="p">,</span> <span class="s2">&quot;left_outer&quot;</span><span class="p">)</span> \
 <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">exprName</span><span class="p">)</span> \
@@ -13606,6 +14044,37 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>+-----+--------+---------+--------+-------------------+----------+--------+
+|d_uid|d_acount|d_pamount|d_pcount|   d_first_purchase|    d_name|d_gender|
++-----+--------+---------+--------+-------------------+----------+--------+
+|    1|       2|  3800000|       2|2020-10-25 05:32:30|    정휘센|      남|
+|    2|       4|  1400000|       1|2020-10-25 11:38:20|  김싸이언|      남|
+|    3|       2|  1000000|       1|2020-10-25 05:42:35|    박트롬|      여|
+|    4|       4|        0|       0|               null|    청소기|      남|
+|    5|       2|  6000000|       2|2020-10-25 09:32:35|유코드제로|      여|
+|    6|    null|     null|    null|               null|  윤디오스|      남|
+|    7|    null|     null|    null|               null|  임모바일|      남|
+|    8|    null|     null|    null|               null|  조노트북|      여|
+|    9|    null|     null|    null|               null|  최컴퓨터|      남|
++-----+--------+---------+--------+-------------------+----------+--------+
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -13616,17 +14085,47 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습27) d_acount, d_pamount, d_pcount 필드의 기본값을 0으로 넣도록 작성합니다</span>
-<span class="n">fillDefaultValue</span> <span class="o">=</span> <span class="p">{}</span>
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fillDefaultValue</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># d_acount, d_pamount, d_pcount 필드의 기본값을 0으로 넣도록 작성합니다</span>
+<span class="n">fillDefaultValue</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;d_acount&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;d_pamount&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;d_pcount&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">}</span>
 <span class="n">dim2</span> <span class="o">=</span> <span class="n">dim1</span><span class="o">.</span><span class="n">na</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">fillDefaultValue</span><span class="p">)</span>
 <span class="n">dim2</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>+-----+--------+---------+--------+-------------------+----------+--------+
+|d_uid|d_acount|d_pamount|d_pcount|d_first_purchase   |d_name    |d_gender|
++-----+--------+---------+--------+-------------------+----------+--------+
+|1    |2       |3800000  |2       |2020-10-25 05:32:30|정휘센    |남      |
+|2    |4       |1400000  |1       |2020-10-25 11:38:20|김싸이언  |남      |
+|3    |2       |1000000  |1       |2020-10-25 05:42:35|박트롬    |여      |
+|4    |4       |0        |0       |null               |청소기    |남      |
+|5    |2       |6000000  |2       |2020-10-25 09:32:35|유코드제로|여      |
+|6    |0       |0        |0       |null               |윤디오스  |남      |
+|7    |0       |0        |0       |null               |임모바일  |남      |
+|8    |0       |0        |0       |null               |조노트북  |여      |
+|9    |0       |0        |0       |null               |최컴퓨터  |남      |
++-----+--------+---------+--------+-------------------+----------+--------+
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13640,15 +14139,16 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">access_sum</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select a_uid, count(a_uid) as a_count from access where a_id = &#39;login&#39; group by a_uid&quot;</span><span class="p">)</span>
 <span class="n">access_sum</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 <span class="n">access_sum</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 실습28) 오늘 접속 수치(a_count)가 null 이면 디멘젼의 d_acount 값을 사용하고, 그렇지 않으면 d_acount + a_count 를 사용합니다</span>
-<span class="n">sumOfAccess</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="s2">&quot;a_count&quot;</span><span class="p">)</span>
+<span class="n">sumOfAccess</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="c1"># 오늘 접속 수치(a_count)가 null 이면 디멘젼의 d_acount 값을 사용하고, 그렇지 않으면 d_acount + a_count 를 사용합니다</span>
+<span class="n">sumOfAccess</span> <span class="o">=</span> <span class="n">dim2</span><span class="o">.</span><span class="n">d_acount</span> <span class="o">+</span> <span class="n">when</span><span class="p">(</span><span class="n">access_sum</span><span class="o">.</span><span class="n">a_count</span><span class="o">.</span><span class="n">isNull</span><span class="p">(),</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">otherwise</span><span class="p">(</span><span class="n">access_sum</span><span class="o">.</span><span class="n">a_count</span><span class="p">)</span>
+<span class="n">sumOfAccess</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;case when a_count is null then d_acount else d_acount + a_count end&quot;</span><span class="p">)</span>
 
 <span class="n">dim3</span> <span class="o">=</span> <span class="n">dim2</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">access_sum</span><span class="p">,</span> <span class="n">dim2</span><span class="o">.</span><span class="n">d_uid</span> <span class="o">==</span> <span class="n">access_sum</span><span class="o">.</span><span class="n">a_uid</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span> \
 <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;sum_of_access&quot;</span><span class="p">,</span> <span class="n">sumOfAccess</span><span class="p">)</span> \
@@ -13662,6 +14162,64 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>root
+ |-- a_uid: long (nullable = true)
+ |-- a_count: long (nullable = false)
+
++-----+-------+
+|a_uid|a_count|
++-----+-------+
+|    7|      3|
+|    6|      3|
+|    9|      3|
+|    5|      3|
+|    1|      3|
+|    3|      3|
+|    8|      3|
+|    2|      6|
+|    4|      6|
++-----+-------+
+
+root
+ |-- d_uid: long (nullable = true)
+ |-- d_pamount: long (nullable = false)
+ |-- d_pcount: long (nullable = false)
+ |-- d_first_purchase: string (nullable = true)
+ |-- d_name: string (nullable = true)
+ |-- d_gender: string (nullable = true)
+ |-- d_acount: long (nullable = true)
+
++-----+---------+--------+-------------------+----------+--------+--------+
+|d_uid|d_pamount|d_pcount|   d_first_purchase|    d_name|d_gender|d_acount|
++-----+---------+--------+-------------------+----------+--------+--------+
+|    1|  3800000|       2|2020-10-25 05:32:30|    정휘센|      남|       5|
+|    2|  1400000|       1|2020-10-25 11:38:20|  김싸이언|      남|      10|
+|    3|  1000000|       1|2020-10-25 05:42:35|    박트롬|      여|       5|
+|    4|        0|       0|               null|    청소기|      남|      10|
+|    5|  6000000|       2|2020-10-25 09:32:35|유코드제로|      여|       5|
+|    6|        0|       0|               null|  윤디오스|      남|       3|
+|    7|        0|       0|               null|  임모바일|      남|       3|
+|    8|        0|       0|               null|  조노트북|      여|       3|
+|    9|        0|       0|               null|  최컴퓨터|      남|       3|
++-----+---------+--------+-------------------+----------+--------+--------+
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -13672,17 +14230,18 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">purchase_sum</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select p_uid, sum(p_amount) as pamount, count(p_uid) as pcount from purchase group by p_uid&quot;</span><span class="p">)</span>
 <span class="n">purchase_sum</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 실습29) 오늘 발생한 매출(pamount)이 null 이면 디멘젼 매출(d_pamount)를 그렇지 않으면 둘의 합(d_pamount + pamount)을 구합니다</span>
-<span class="n">sumOfAmount</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;d_pamount&quot;</span><span class="p">)</span>
-
-<span class="c1"># 실습30) 오늘 발생한 매출빈도(pcount)가 null 이면 디멘젼 매출빈도(d_pcount)를 그렇지 않으면 둘의 합(d_pcount + pcount)을 구합니다</span>
-<span class="n">sumOfCount</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;pcount&quot;</span><span class="p">)</span>
+<span class="n">sumOfAmount</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;d_pamount&quot;</span><span class="p">)</span> <span class="c1"># 오늘 발생한 매출(pamount)이 null 이면 디멘젼 매출(d_pamount)를 그렇지 않으면 둘의 합(d_pamount + pamount)을 구합니다</span>
+<span class="n">sumOfAmount</span> <span class="o">=</span> <span class="n">dim3</span><span class="o">.</span><span class="n">d_pamount</span> <span class="o">+</span> <span class="n">when</span><span class="p">(</span><span class="n">purchase_sum</span><span class="o">.</span><span class="n">pamount</span><span class="o">.</span><span class="n">isNull</span><span class="p">(),</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">otherwise</span><span class="p">(</span><span class="n">purchase_sum</span><span class="o">.</span><span class="n">pamount</span><span class="p">)</span>
+<span class="n">sumOfAmount</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;case when pamount is null then d_pamount else d_pamount + pamount end&quot;</span><span class="p">)</span>
+<span class="n">sumOfCount</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;pcount&quot;</span><span class="p">)</span> <span class="c1"># 오늘 발생한 매출빈도(pcount)가 null 이면 디멘젼 매출빈도(d_pcount)를 그렇지 않으면 둘의 합(d_pcount + pcount)을 구합니다</span>
+<span class="n">sumOfCount</span> <span class="o">=</span> <span class="n">dim3</span><span class="o">.</span><span class="n">d_pcount</span> <span class="o">+</span> <span class="n">when</span><span class="p">(</span><span class="n">purchase_sum</span><span class="o">.</span><span class="n">pcount</span><span class="o">.</span><span class="n">isNull</span><span class="p">(),</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">otherwise</span><span class="p">(</span><span class="n">purchase_sum</span><span class="o">.</span><span class="n">pcount</span><span class="p">)</span>
+<span class="n">sumOfCount</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;case when pcount is null then d_pcount else d_pcount + pcount end&quot;</span><span class="p">)</span>
 
 <span class="n">dim4</span> <span class="o">=</span> <span class="n">dim3</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">purchase_sum</span><span class="p">,</span> <span class="n">dim3</span><span class="o">.</span><span class="n">d_uid</span> <span class="o">==</span> <span class="n">purchase_sum</span><span class="o">.</span><span class="n">p_uid</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span> \
 <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;sum_of_amount&quot;</span><span class="p">,</span> <span class="n">sumOfAmount</span><span class="p">)</span> \
@@ -13699,6 +14258,56 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>+-----+-------+------+
+|p_uid|pamount|pcount|
++-----+-------+------+
+|    1|1400000|     1|
+|    6|4500000|     1|
+|    5|1000000|     1|
+|    9|2500000|     1|
+|    7|3500000|     1|
++-----+-------+------+
+
+root
+ |-- d_uid: long (nullable = true)
+ |-- d_first_purchase: string (nullable = true)
+ |-- d_name: string (nullable = true)
+ |-- d_gender: string (nullable = true)
+ |-- d_acount: long (nullable = true)
+ |-- d_pamount: long (nullable = true)
+ |-- d_pcmount: long (nullable = true)
+
++-----+-------------------+----------+--------+--------+---------+---------+
+|d_uid|   d_first_purchase|    d_name|d_gender|d_acount|d_pamount|d_pcmount|
++-----+-------------------+----------+--------+--------+---------+---------+
+|    1|2020-10-25 05:32:30|    정휘센|      남|       5|  5200000|        3|
+|    2|2020-10-25 11:38:20|  김싸이언|      남|      10|  1400000|        1|
+|    3|2020-10-25 05:42:35|    박트롬|      여|       5|  1000000|        1|
+|    4|               null|    청소기|      남|      10|        0|        0|
+|    5|2020-10-25 09:32:35|유코드제로|      여|       5|  7000000|        3|
+|    6|               null|  윤디오스|      남|       3|  4500000|        1|
+|    7|               null|  임모바일|      남|       3|  3500000|        1|
+|    8|               null|  조노트북|      여|       3|        0|        0|
+|    9|               null|  최컴퓨터|      남|       3|  2500000|        1|
++-----+-------------------+----------+--------+--------+---------+---------+
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -13709,18 +14318,17 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습31) 하루에 여러번 구매가 있을 수 있으므로 group by p_uid 집계를 통해 가장 먼저 구매한 정보 즉, min(p_time)함수를 통해 일시를 선택합니다</span>
-<span class="n">selectFirstPurchase</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">selectFirstPurchase</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="c1"># 하루에 여러번 구매가 있을 수 있으므로 group by p_uid 집계를 통해 가장 먼저 구매한 정보 즉, min(p_time)함수를 통해 일시를 선택합니다</span>
+<span class="n">selectFirstPurchase</span> <span class="o">=</span> <span class="s2">&quot;select p_uid, min(p_time) as p_time from purchase group by p_uid&quot;</span>
 <span class="n">first_purchase</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">selectFirstPurchase</span><span class="p">)</span>
 <span class="n">first_purchase</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 <span class="n">first_purchase</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 실습32) 디멘젼의 최초구매일(d_first_purchase)이 null 이라면 p_time 을 사용하고 그렇지 않으면 d_first_purchase 를 사용합니다</span>
-<span class="n">exprFirstPurchase</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;d_first_purchase&quot;</span><span class="p">)</span>
+<span class="n">exprFirstPurchase</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;d_first_purchase&quot;</span><span class="p">)</span> <span class="c1"># 디멘젼의 최초구매일(d_first_purchase)이 null 이라면 p_time 을 사용하고 그렇지 않으면 d_first_purchase 를 사용합니다</span>
+<span class="n">exprFirstPurchase</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;case when d_first_purchase is null then p_time else d_first_purchase end&quot;</span><span class="p">)</span>
 
 <span class="n">today</span> <span class="o">=</span> <span class="n">dim4</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">first_purchase</span><span class="p">,</span> <span class="n">dim4</span><span class="o">.</span><span class="n">d_uid</span> <span class="o">==</span> <span class="n">first_purchase</span><span class="o">.</span><span class="n">p_uid</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span> \
 <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;first_purchase&quot;</span><span class="p">,</span> <span class="n">exprFirstPurchase</span><span class="p">)</span> \
@@ -13735,6 +14343,60 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>root
+ |-- p_uid: integer (nullable = true)
+ |-- p_time: string (nullable = true)
+
++-----+-------------------+
+|p_uid|             p_time|
++-----+-------------------+
+|    1|2020-10-26 03:45:50|
+|    6|2020-10-26 10:08:20|
+|    5|2020-10-26 03:55:55|
+|    9|2020-10-26 07:49:15|
+|    7|2020-10-26 07:45:55|
++-----+-------------------+
+
+root
+ |-- d_uid: long (nullable = true)
+ |-- d_name: string (nullable = true)
+ |-- d_gender: string (nullable = true)
+ |-- d_acount: long (nullable = true)
+ |-- d_pamount: long (nullable = true)
+ |-- d_pcmount: long (nullable = true)
+ |-- d_first_purchase: string (nullable = true)
+
++-----+----------+--------+--------+---------+---------+-------------------+
+|d_uid|    d_name|d_gender|d_acount|d_pamount|d_pcmount|   d_first_purchase|
++-----+----------+--------+--------+---------+---------+-------------------+
+|    1|    정휘센|      남|       5|  5200000|        3|2020-10-25 05:32:30|
+|    2|  김싸이언|      남|      10|  1400000|        1|2020-10-25 11:38:20|
+|    3|    박트롬|      여|       5|  1000000|        1|2020-10-25 05:42:35|
+|    4|    청소기|      남|      10|        0|        0|               null|
+|    5|유코드제로|      여|       5|  7000000|        3|2020-10-25 09:32:35|
+|    6|  윤디오스|      남|       3|  4500000|        1|2020-10-26 10:08:20|
+|    7|  임모바일|      남|       3|  3500000|        1|2020-10-26 07:45:55|
+|    8|  조노트북|      여|       3|        0|        0|               null|
+|    9|  최컴퓨터|      남|       3|  2500000|        1|2020-10-26 07:49:15|
++-----+----------+--------+--------+---------+---------+-------------------+
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -13745,7 +14407,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">today_uids</span> <span class="o">=</span> <span class="n">today</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;d_uid&quot;</span><span class="p">)</span>
@@ -13768,6 +14430,40 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>root
+ |-- d_uid: long (nullable = true)
+
++-----+
+|d_uid|
++-----+
+|    6|
+|    7|
+|    8|
+|    9|
++-----+
+
++------------------+
+|               NU |
++------------------+
+|                4 |
++------------------+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -13778,11 +14474,11 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">today_dimension</span> <span class="o">=</span> <span class="s2">&quot;dim_users/dt=20201026&quot;</span>
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">today_dimension</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">today_dimension</span> <span class="o">=</span> <span class="s2">&quot;dim_users/dt=20201026&quot;</span>
 <span class="n">today</span><span class="o">.</span><span class="n">write</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="s2">&quot;overwrite&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="n">today_dimension</span><span class="p">)</span>
 </pre></div>
 
@@ -13800,7 +14496,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
@@ -13831,6 +14527,48 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>+------------------+
+|              DAU |
++------------------+
+|                9 |
++------------------+
++------------------+
+|               PU |
++------------------+
+|                5 |
++------------------+
++------------------+
+|                DR |
++------------------+
+|        12900000 |
++------------------+
++------------------+
+|             ARPU |
++------------------+
+|        1433333.3333333333 |
++------------------+
++------------------+
+|            ARPPU |
++------------------+
+|        2580000.0 |
++------------------+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
