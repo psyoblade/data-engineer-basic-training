@@ -22,10 +22,10 @@
 > 스파크 실습을 위한 도커 컨테이너를 기동하고, 하이브 서버가 정상적으로 떠 있는지 확인 후 서버에 접속합니다
 ```bash
 bash> cd ~/workspace/data-engineer-basic-training/day4
-bash> git pull
-bash> docker-compose up -d
-bash> docker-compose logs -f  # 명령으로 모든 서버가 정상적으로 기동 될 때 까지 기다립니다
-bash> docker-compose exec hive-server bash
+git pull
+docker-compose up -d
+docker-compose logs -f  # 명령으로 모든 서버가 정상적으로 기동 될 때 까지 기다립니다
+docker-compose exec hive-server bash
 ```
 
 ## 2 하이브 기본 명령어 가이드 
@@ -318,8 +318,7 @@ export table imdb_orc to '/user/ubuntu/archive/imdb_orc';
 ```
 * 익스포트 된 결과를 확인합니다
 ```bash
-bash>
-docker-compose exec hive-server hadoop fs -ls /user/ubuntu/archive/imdb_orc
+bash> docker-compose exec hive-server hadoop fs -ls /user/ubuntu/archive/imdb_orc
 -rwxr-xr-x   3 root supergroup       1244 2020-08-23 14:17 /user/ubuntu/archive/imdb_orc/_metadata
 drwxr-xr-x   - root supergroup          0 2020-08-23 14:17 /user/ubuntu/archive/imdb_orc/data
 ```
@@ -353,8 +352,7 @@ select * from imdb_orc_imported;
 #### 1.1. 하이브 서버로 접속합니다
 * 하이브 터미널을 통해 JDBC Client 로 하이브 서버에 접속합니다
 ```bash
-bash>
-docker-compose exec hive-server bash
+bash> docker-compose exec hive-server bash
 
 beeline> 
 !connect jdbc:hive2://localhost:10000 scott tiger
@@ -529,13 +527,13 @@ diff sort.imdb_parquet.out sort.imdb_parquet_small.out
 
 * 리눅스 명령어를 통해 중복제거된 레코드를 생성합니다
 ```bash
-bash>
+bash> 
 docker-compose exec hive-server bash
 
-#> cd /opt/hive/examples/files
-#> cat emp.txt
-#> cat emp.txt | sort | uniq > emp.uniq.txt
-#> cat emp.uniq.txt
+$ cd /opt/hive/examples/files
+cat emp.txt
+cat emp.txt | sort | uniq > emp.uniq.txt
+cat emp.uniq.txt
 John|31|6
 Jones|33|2
 Rafferty|31|1
