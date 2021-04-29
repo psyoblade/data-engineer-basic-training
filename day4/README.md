@@ -26,7 +26,8 @@ git pull
 docker-compose up -d
 docker-compose logs -f  # 명령으로 모든 서버가 정상적으로 기동 될 때 까지 기다립니다
 
-bash> docker-compose exec hive-server bash
+bash> cd ~/workspace/data-engineer-basic-training/day4  # 별도의 터미널에서 다시 접속합니다
+docker-compose exec hive-server bash
 ```
 
 ## 2 하이브 기본 명령어 가이드 
