@@ -7,12 +7,6 @@
     * [1. 하이브 데이터베이스 DDL 가이드](#2-1-하이브-데이터베이스-DDL-가이드)
     * [2. 하이브 테이블 DDL 가이드](#2-2-하이브-테이블-DDL-가이드)
     * [3. 하이브 DML 가이드](#2-3-하이브-DML-가이드)
-  * [하이브 트러블슈팅 가이드](#3-하이브-트러블슈팅-가이드)
-    * [1. 파티셔닝을 통한 성능 개선](#3-1-파티셔닝을-통한-성능-개선)
-    * [2. 파일포맷 변경을 통한 성능 개선](#3-2-파일포맷-변경을-통한-성능-개선)
-    * [3. 비정규화를 통한 성능 개선](#3-3-비정규화를-통한-성능-개선)
-    * [4. 테이블 생성 예제 퀴즈](#3-4-테이블-생성-예제-퀴즈)
-    * [5. 버킷팅을 통한 성능 개선](#3-5-버킷팅을-통한-성능-개선)
   * [하이브 외부 저장소 테이블](#4-하이브-외부-저장소-테이블)
 
 * 참고 자료
@@ -124,6 +118,7 @@ CREATE TABLE [IF NOT EXISTS] [db_name.] table_name [(col_name data_type [COMMENT
 [LOCATION hdfs_path];
 
 beeline> 
+use testdb;
 create table if not exists employee (emp_id string comment 'employee id',
 emp_name string comment 'employee name', 
 emp_salary bigint comment 'employee salary')
@@ -344,6 +339,10 @@ select * from imdb_orc_imported;
 +---------------------------+----------------------------+
 ```
 
+
+<details>
+<summary> 하이브 트러블슈팅 가이드 (참고용) </summary>
+<div markdown="1">
 
 ## 3 하이브 트러블슈팅 가이드
 > IMDB 영화 예제를 통해 테이블을 생성하고, 다양한 성능 개선 방법을 시도해보면서 왜 그리고 얼마나 성능에 영향을 미치는 지 파악합니다
@@ -667,6 +666,9 @@ explain select rank, metascore, title from imdb_movies where year = '2006' and r
 # Statistics: Num rows: 1488 Data size: 309656 Basic stats: COMPLETE Column stats: NONE
 ```
 
+</div>
+</details>
+
 ## 4. 하이브 외부 저장소 테이블
 > 하이브의 경우 local 데이터를 하둡에 load 하여 Managed 테이블을 생성할 수도 있지만, 대게 외부 데이터 수집 및 적재의 경우 External 테이블로 생성합니다
 
@@ -687,6 +689,7 @@ message purchase_20201025 {
 
 $> tree /tmp/source
 $> hadoop fs -mkdir -p /user/lgde/purchase/dt=20201025
+$> hadoop fs -mkdir -p /user/lgde/purchase/dt=20201026
 $> hadoop fs -put /tmp/source/purchase/20201025/* /user/lgde/purchase/dt=20201025
 $> hadoop fs -put /tmp/source/purchase/20201026/* /user/lgde/purchase/dt=20201026
 ```

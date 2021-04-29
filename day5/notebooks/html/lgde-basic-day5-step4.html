@@ -13210,16 +13210,17 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <span class="n">user26</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># 데이터 확인</span>
 
 <span class="n">purchase26</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="s2">&quot;purchase/20201026&quot;</span><span class="p">)</span>
-<span class="c1"># 실습) purchase26 테이블생성</span>
-<span class="c1"># 실습) 스키마 출력</span>
-<span class="c1"># 실습) 데이터 확인</span>
+<span class="n">purchase26</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;purchase26&quot;</span><span class="p">)</span>
+<span class="n">purchase26</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">purchase26</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
 
 <span class="n">accesslog</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;inferSchema&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s2">&quot;access/20201026&quot;</span><span class="p">)</span>
 <span class="n">accesslog</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;accesslog&quot;</span><span class="p">)</span>
 <span class="n">access26</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select a_id, a_tag, a_time, a_timestamp, a_uid from accesslog&quot;</span><span class="p">)</span>
-<span class="c1"># 실습) access26 테이블생성</span>
-<span class="c1"># 실습) 스키마 출력</span>
-<span class="c1"># 실습) 데이터 확인</span>
+<span class="n">access26</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;access26&quot;</span><span class="p">)</span>
+<span class="n">access26</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">access26</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13241,26 +13242,24 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) p_time_condition 값은 p_time 값이 &#39;2020-10-25 00:00:00&#39; 보다 크거나 같고, &#39;2020-10-26 00:00:00&#39; 보다 작은 조건입니다</span>
-<span class="n">p_time_condition</span> <span class="o">=</span> <span class="s2">&quot;p_time &lt;&gt; &#39;&#39;&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p_time_condition</span> <span class="o">=</span> <span class="s2">&quot;p_time &gt;= &#39;2020-10-26 00:00:00&#39; and p_time &lt; &#39;2020-10-27 00:00:00&#39;&quot;</span>
 
 <span class="n">purchase</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select from_unixtime(p_time) as p_time, p_uid, p_id, p_name, p_amount from purchase26&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">p_time_condition</span><span class="p">)</span>
-<span class="c1"># 실습) purchase 테이블생성</span>
-<span class="c1"># 실습) 스키마 출력</span>
-<span class="c1"># 실습) 데이터 확인</span>
+<span class="n">purchase</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;purchase&quot;</span><span class="p">)</span>
+<span class="n">purchase</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">purchase</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="c1"># 실습) u_signup_condition 값은 u_signup 값이 &#39;20201026&#39; 보다 크거나 같고, &#39;20201027&#39; 보다 작은 조건입니다</span>
-<span class="n">u_signup_condition</span> <span class="o">=</span> <span class="s2">&quot;u_signup &lt;&gt; &#39;&#39;&quot;</span>
+<span class="n">u_signup_condition</span> <span class="o">=</span> <span class="s2">&quot;u_signup &gt;= &#39;20201026&#39; and u_signup &lt; &#39;20201027&#39;&quot;</span>
 
 <span class="n">user</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select u_id, u_name, u_gender from user26&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">u_signup_condition</span><span class="p">)</span>
-<span class="c1"># 실습) user 테이블생성</span>
-<span class="c1"># 실습) 스키마 출력</span>
-<span class="c1"># 실습) 데이터 확인</span>
+<span class="n">user</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
+<span class="n">user</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">user</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">access</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select a_id, a_tag, a_timestamp, a_uid from access26&quot;</span><span class="p">)</span>
-<span class="c1"># 실습) access 테이블생성</span>
-<span class="c1"># 실습) 스키마 출력</span>
-<span class="c1"># 실습) 데이터 확인</span>
+<span class="n">access</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;access&quot;</span><span class="p">)</span>
+<span class="n">access</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">access</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13287,8 +13286,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select a_timestamp as a_time, a_uid from access&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="c1"># 실습) distinctAccessUser 는 access 테이블에 대해 &#39;count(distinct column) as DAU&#39; 명령을 이용하여 distinct user 지표를 생성합니다</span>
-<span class="n">distinctAccessUser</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">distinctAccessUser</span> <span class="o">=</span> <span class="s2">&quot;select count(distinct a_uid) as DAU from access&quot;</span>
 
 <span class="n">dau</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">distinctAccessUser</span><span class="p">)</span>
 <span class="n">dau</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -13318,8 +13316,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select p_time, p_uid from purchase&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 실습) distinctPayingUser 는 purchase 테이블에 대해 &#39;count(distinct column) as PU&#39; 함수를 통해 구매유저 수를 구합니다</span>
-<span class="n">distinctPayingUser</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> 
+<span class="n">distinctPayingUser</span> <span class="o">=</span> <span class="s2">&quot;select count(distinct p_uid) as PU from purchase&quot;</span> 
 
 <span class="n">pu</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">distinctPayingUser</span><span class="p">)</span>
 <span class="n">pu</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -13349,8 +13346,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select p_amount as daily_revenue from purchase&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 실습) sumOfDailyRevenue 는 sum(column) as DR 함수를 통해 p_amount 의 합을 구하시오</span>
-<span class="n">sumOfDailyRevenue</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> 
+<span class="n">sumOfDailyRevenue</span> <span class="o">=</span> <span class="s2">&quot;select sum(p_amount) as DR from purchase&quot;</span> 
 
 <span class="n">dr</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">sumOfDailyRevenue</span><span class="p">)</span>
 <span class="n">dr</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -13386,13 +13382,11 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">v_dau</span> <span class="o">=</span> <span class="n">dau</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;DAU&quot;</span><span class="p">]</span>
 <span class="n">v_pu</span> <span class="o">=</span> <span class="n">pu</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;PU&quot;</span><span class="p">]</span>
 <span class="n">v_dr</span> <span class="o">=</span> <span class="n">dr</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;DR&quot;</span><span class="p">]</span>
-<span class="n">v_unknown</span> <span class="o">=</span> <span class="mi">1</span>
 
-<span class="c1"># 실습) ARPU 계산을 위한 v_unknown 를 각 각 다른 변수로 치환하세요</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|             ARPU |&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|        </span><span class="si">{}</span><span class="s2"> |&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v_unknown</span> <span class="o">/</span> <span class="n">v_unknown</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|        </span><span class="si">{}</span><span class="s2"> |&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v_dr</span> <span class="o">/</span> <span class="n">v_dau</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -13425,11 +13419,10 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 7. Average Revenue Per Paying User</span>
 
-<span class="c1"># 실습) ARPPU 계산을 위한 v_unknown 를 각 각 다른 변수로 치환하세요</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|            ARPPU |&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|        </span><span class="si">{}</span><span class="s2"> |&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v_unknown</span> <span class="o">/</span> <span class="n">v_unknown</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|        </span><span class="si">{}</span><span class="s2"> |&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v_dr</span> <span class="o">/</span> <span class="n">v_pu</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -13528,10 +13521,10 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">yesterday_uids</span> <span class="o">=</span> <span class="n">yesterday</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;d_uid&quot;</span><span class="p">)</span>
 <span class="n">today_uids</span> <span class="o">=</span> <span class="n">access</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;a_uid&quot;</span><span class="p">)</span>
 
-<span class="c1"># 실습) joinCondition 는 어제 uid 와 오늘 uid 값이 일치하는 조건</span>
+<span class="c1"># 실습22) joinCondition 는 어제 uid 와 오늘 uid 값이 일치하는 조건</span>
 <span class="n">joinCondition</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-<span class="c1"># 실습) 양쪽 테이블이 모두 존재해야 하는 조인 방식</span>
+<span class="c1"># 실습23) 양쪽 테이블이 모두 존재해야 하는 조인 방식</span>
 <span class="n">joinHow</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
 <span class="n">uid</span> <span class="o">=</span> <span class="n">yesterday_uids</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">today_uids</span><span class="p">,</span> <span class="n">joinCondition</span><span class="p">,</span> <span class="n">joinHow</span><span class="p">)</span> \
@@ -13559,7 +13552,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) uid 와 yesterday 의 uid 가 일치하는 조건</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습24) uid 와 yesterday 의 uid 가 일치하는 조건</span>
 <span class="n">joinCondition</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 <span class="n">joinHow</span> <span class="o">=</span> <span class="s2">&quot;left_outer&quot;</span>
 
@@ -13594,10 +13587,10 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) d_name 이 null 이면 u_name 을 사용하고 그렇지 않으면 d_name 을 사용합니다</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습25) d_name 이 null 이면 u_name 을 사용하고 그렇지 않으면 d_name 을 사용합니다</span>
 <span class="n">exprName</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;d_name&quot;</span><span class="p">)</span>
 
-<span class="c1"># 실습) d_gender 이 null 이면 u_gender 을 사용하고 그렇지 않으면 d_gender 을 사용합니다</span>
+<span class="c1"># 실습26) d_gender 이 null 이면 u_gender 을 사용하고 그렇지 않으면 d_gender 을 사용합니다</span>
 <span class="n">exprGender</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;d_gender&quot;</span><span class="p">)</span>
 
 <span class="n">dim1</span> <span class="o">=</span> <span class="n">uids</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">uids</span><span class="o">.</span><span class="n">d_uid</span> <span class="o">==</span> <span class="n">user</span><span class="o">.</span><span class="n">u_id</span><span class="p">,</span> <span class="s2">&quot;left_outer&quot;</span><span class="p">)</span> \
@@ -13626,7 +13619,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) d_acount, d_pamount, d_pcount 필드의 기본값을 0으로 넣도록 작성합니다</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습27) d_acount, d_pamount, d_pcount 필드의 기본값을 0으로 넣도록 작성합니다</span>
 <span class="n">fillDefaultValue</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="n">dim2</span> <span class="o">=</span> <span class="n">dim1</span><span class="o">.</span><span class="n">na</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">fillDefaultValue</span><span class="p">)</span>
@@ -13654,7 +13647,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <span class="n">access_sum</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 <span class="n">access_sum</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 실습) 오늘 접속 수치(a_count)가 null 이면 디멘젼의 d_acount 값을 사용하고, 그렇지 않으면 d_acount + a_count 를 사용합니다</span>
+<span class="c1"># 실습28) 오늘 접속 수치(a_count)가 null 이면 디멘젼의 d_acount 값을 사용하고, 그렇지 않으면 d_acount + a_count 를 사용합니다</span>
 <span class="n">sumOfAccess</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="s2">&quot;a_count&quot;</span><span class="p">)</span>
 
 <span class="n">dim3</span> <span class="o">=</span> <span class="n">dim2</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">access_sum</span><span class="p">,</span> <span class="n">dim2</span><span class="o">.</span><span class="n">d_uid</span> <span class="o">==</span> <span class="n">access_sum</span><span class="o">.</span><span class="n">a_uid</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span> \
@@ -13685,10 +13678,10 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">purchase_sum</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select p_uid, sum(p_amount) as pamount, count(p_uid) as pcount from purchase group by p_uid&quot;</span><span class="p">)</span>
 <span class="n">purchase_sum</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 실습) 오늘 발생한 매출(pamount)이 null 이면 디멘젼 매출(d_pamount)를 그렇지 않으면 둘의 합(d_pamount + pamount)을 구합니다</span>
+<span class="c1"># 실습29) 오늘 발생한 매출(pamount)이 null 이면 디멘젼 매출(d_pamount)를 그렇지 않으면 둘의 합(d_pamount + pamount)을 구합니다</span>
 <span class="n">sumOfAmount</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;d_pamount&quot;</span><span class="p">)</span>
 
-<span class="c1"># 실습) 오늘 발생한 매출빈도(pcount)가 null 이면 디멘젼 매출빈도(d_pcount)를 그렇지 않으면 둘의 합(d_pcount + pcount)을 구합니다</span>
+<span class="c1"># 실습30) 오늘 발생한 매출빈도(pcount)가 null 이면 디멘젼 매출빈도(d_pcount)를 그렇지 않으면 둘의 합(d_pcount + pcount)을 구합니다</span>
 <span class="n">sumOfCount</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;pcount&quot;</span><span class="p">)</span>
 
 <span class="n">dim4</span> <span class="o">=</span> <span class="n">dim3</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">purchase_sum</span><span class="p">,</span> <span class="n">dim3</span><span class="o">.</span><span class="n">d_uid</span> <span class="o">==</span> <span class="n">purchase_sum</span><span class="o">.</span><span class="n">p_uid</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span> \
@@ -13719,14 +13712,14 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) 하루에 여러번 구매가 있을 수 있으므로 group by p_uid 집계를 통해 가장 먼저 구매한 정보 즉, min(p_time)함수를 통해 일시를 선택합니다</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습31) 하루에 여러번 구매가 있을 수 있으므로 group by p_uid 집계를 통해 가장 먼저 구매한 정보 즉, min(p_time)함수를 통해 일시를 선택합니다</span>
 <span class="n">selectFirstPurchase</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
 <span class="n">first_purchase</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">selectFirstPurchase</span><span class="p">)</span>
 <span class="n">first_purchase</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 <span class="n">first_purchase</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 실습) 디멘젼의 최초구매일(d_first_purchase)이 null 이라면 p_time 을 사용하고 그렇지 않으면 d_first_purchase 를 사용합니다</span>
+<span class="c1"># 실습32) 디멘젼의 최초구매일(d_first_purchase)이 null 이라면 p_time 을 사용하고 그렇지 않으면 d_first_purchase 를 사용합니다</span>
 <span class="n">exprFirstPurchase</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;d_first_purchase&quot;</span><span class="p">)</span>
 
 <span class="n">today</span> <span class="o">=</span> <span class="n">dim4</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">first_purchase</span><span class="p">,</span> <span class="n">dim4</span><span class="o">.</span><span class="n">d_uid</span> <span class="o">==</span> <span class="n">first_purchase</span><span class="o">.</span><span class="n">p_uid</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span> \
@@ -13788,8 +13781,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) dim_users/dt=20201026 경로에 저장합니다</span>
-<span class="n">today_dimension</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">today_dimension</span> <span class="o">=</span> <span class="s2">&quot;dim_users/dt=20201026&quot;</span>
 
 <span class="n">today</span><span class="o">.</span><span class="n">write</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="s2">&quot;overwrite&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="n">today_dimension</span><span class="p">)</span>
 </pre></div>

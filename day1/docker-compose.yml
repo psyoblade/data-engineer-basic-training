@@ -10,8 +10,6 @@ services:
       MYSQL_DATABASE: testdb
       MYSQL_USER: sqoop
       MYSQL_PASSWORD: sqoop
-    command:
-      --skip-grant-tables
     ports:
       - '3306:3306'
     networks:
@@ -99,6 +97,7 @@ services:
     ports:
       - "10000:10000"
     volumes:
+      - ./tmp:/tmp/source
       - ./notebooks:/tmp/target
   hive-metastore:
     container_name: hive-metastore

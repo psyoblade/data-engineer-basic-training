@@ -50,6 +50,7 @@ services:
     volumes:
       - ./tmp/source:/tmp/source
       - ./tmp/target:/tmp/target
+      - ./tmp/access_log:/tmp/access_log
 networks:
   default:
     name: default_network

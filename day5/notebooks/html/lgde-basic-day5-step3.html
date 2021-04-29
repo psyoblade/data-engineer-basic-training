@@ -13165,7 +13165,8 @@ bash&gt; docker-compose logs notebook <span class="p">|</span> grep http
 or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab6781b1fd18b9ca5066664df
 ...
 </pre></div>
-<h3 id="1-1.-&#53356;&#47212;&#51012;-&#53685;&#54644;&#49436;-http://aws-hostname:8888/?token=...-&#50640;-&#51217;&#49549;&#54633;&#45768;&#45796;">1-1. &#53356;&#47212;&#51012; &#53685;&#54644;&#49436; <a href="http://&lt;aws-hostname&gt;:8888/?token=ad4f43203ac46f7f7f58807ab6781b1fd18b9ca5066664df">http://aws-hostname:8888/?token=...</a> &#50640; &#51217;&#49549;&#54633;&#45768;&#45796;<a class="anchor-link" href="#1-1.-&#53356;&#47212;&#51012;-&#53685;&#54644;&#49436;-http://aws-hostname:8888/?token=...-&#50640;-&#51217;&#49549;&#54633;&#45768;&#45796;">&#182;</a></h3>
+<h3>1-1. 웹 브라우저에서 <span style="color:blue"> "http://<호스트>.aiffelbiz.co.kr:8888/?token=<토큰정보>" </span> 에 접속합니다</h3>
+<h3 id="&#50500;&#47000;&#51032;-&#45432;&#53944;&#48513;-&#54868;&#47732;&#50640;&#49436;--[&#44284;&#51228;]--&#44032;-&#50630;&#45716;-&#45432;&#53944;&#45716;-Shift-+-Enter-&#47484;-&#53685;&#54644;-&#49688;&#54665;&#54616;&#44256;,--[&#44284;&#51228;]--&#44032;-&#51080;&#45716;-&#45432;&#53944;&#45716;-&#44284;&#51228;&#51032;-&#44032;&#51060;&#46300;&#47484;-&#46384;&#46972;-&#52292;&#50892;-&#49688;&#54665;&#54616;&#49464;&#50836;">&#50500;&#47000;&#51032; &#45432;&#53944;&#48513; &#54868;&#47732;&#50640;&#49436; <span style="color:red"> [&#44284;&#51228;] </span> &#44032; &#50630;&#45716; &#45432;&#53944;&#45716; Shift + Enter &#47484; &#53685;&#54644; &#49688;&#54665;&#54616;&#44256;, <span style="color:red"> [&#44284;&#51228;] </span> &#44032; &#51080;&#45716; &#45432;&#53944;&#45716; &#44284;&#51228;&#51032; &#44032;&#51060;&#46300;&#47484; &#46384;&#46972; &#52292;&#50892; &#49688;&#54665;&#54616;&#49464;&#50836;<a class="anchor-link" href="#&#50500;&#47000;&#51032;-&#45432;&#53944;&#48513;-&#54868;&#47732;&#50640;&#49436;--[&#44284;&#51228;]--&#44032;-&#50630;&#45716;-&#45432;&#53944;&#45716;-Shift-+-Enter-&#47484;-&#53685;&#54644;-&#49688;&#54665;&#54616;&#44256;,--[&#44284;&#51228;]--&#44032;-&#51080;&#45716;-&#45432;&#53944;&#45716;-&#44284;&#51228;&#51032;-&#44032;&#51060;&#46300;&#47484;-&#46384;&#46972;-&#52292;&#50892;-&#49688;&#54665;&#54616;&#49464;&#50836;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13190,12 +13191,24 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">user</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="s2">&quot;user/20201025&quot;</span><span class="p">)</span>
+<span class="n">user</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="2.-&#54596;&#50836;&#54620;-&#47784;&#46304;-&#45936;&#51060;&#53552;&#47484;-&#51069;&#50612;&#49436;-&#45936;&#51060;&#53552;&#54532;&#47112;&#51076;&#51004;&#47196;-&#49373;&#49457;&#54633;&#45768;&#45796;">2. &#54596;&#50836;&#54620; &#47784;&#46304; &#45936;&#51060;&#53552;&#47484; &#51069;&#50612;&#49436; &#45936;&#51060;&#53552;&#54532;&#47112;&#51076;&#51004;&#47196; &#49373;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#2.-&#54596;&#50836;&#54620;-&#47784;&#46304;-&#45936;&#51060;&#53552;&#47484;-&#51069;&#50612;&#49436;-&#45936;&#51060;&#53552;&#54532;&#47112;&#51076;&#51004;&#47196;-&#49373;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h1><h3 id="2-1.-&#44033;-&#44221;&#47196;&#50640;&#49436;-10/25-&#44592;&#51456;-&#45936;&#51060;&#53552;&#47484;-&#51069;&#44256;-&#49828;&#53412;&#47560;&#50752;-&#45936;&#51060;&#53552;&#47484;-&#54869;&#51064;&#54633;&#45768;&#45796;">2-1. &#44033; &#44221;&#47196;&#50640;&#49436; 10/25 &#44592;&#51456; &#45936;&#51060;&#53552;&#47484; &#51069;&#44256; &#49828;&#53412;&#47560;&#50752; &#45936;&#51060;&#53552;&#47484; &#54869;&#51064;&#54633;&#45768;&#45796;<a class="anchor-link" href="#2-1.-&#44033;-&#44221;&#47196;&#50640;&#49436;-10/25-&#44592;&#51456;-&#45936;&#51060;&#53552;&#47484;-&#51069;&#44256;-&#49828;&#53412;&#47560;&#50752;-&#45936;&#51060;&#53552;&#47484;-&#54869;&#51064;&#54633;&#45768;&#45796;">&#182;</a></h3><blockquote><p>경로에서 데이터를 읽어서 TABLENAME_25 와 같이 날짜가 붙은 테이블을 생성합니다</p>
-</blockquote>
-
+<h1 id="2.-&#54596;&#50836;&#54620;-&#47784;&#46304;-&#45936;&#51060;&#53552;&#47484;-&#51069;&#50612;&#49436;-&#45936;&#51060;&#53552;&#54532;&#47112;&#51076;&#51004;&#47196;-&#49373;&#49457;&#54633;&#45768;&#45796;">2. &#54596;&#50836;&#54620; &#47784;&#46304; &#45936;&#51060;&#53552;&#47484; &#51069;&#50612;&#49436; &#45936;&#51060;&#53552;&#54532;&#47112;&#51076;&#51004;&#47196; &#49373;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#2.-&#54596;&#50836;&#54620;-&#47784;&#46304;-&#45936;&#51060;&#53552;&#47484;-&#51069;&#50612;&#49436;-&#45936;&#51060;&#53552;&#54532;&#47112;&#51076;&#51004;&#47196;-&#49373;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h1><h3 id="2-1.-&#44033;-&#44221;&#47196;&#50640;&#49436;-10/25-&#44592;&#51456;-&#45936;&#51060;&#53552;&#47484;-&#51069;&#44256;-&#49828;&#53412;&#47560;&#50752;-&#45936;&#51060;&#53552;&#47484;-&#54869;&#51064;&#54633;&#45768;&#45796;">2-1. &#44033; &#44221;&#47196;&#50640;&#49436; 10/25 &#44592;&#51456; &#45936;&#51060;&#53552;&#47484; &#51069;&#44256; &#49828;&#53412;&#47560;&#50752; &#45936;&#51060;&#53552;&#47484; &#54869;&#51064;&#54633;&#45768;&#45796;<a class="anchor-link" href="#2-1.-&#44033;-&#44221;&#47196;&#50640;&#49436;-10/25-&#44592;&#51456;-&#45936;&#51060;&#53552;&#47484;-&#51069;&#44256;-&#49828;&#53412;&#47560;&#50752;-&#45936;&#51060;&#53552;&#47484;-&#54869;&#51064;&#54633;&#45768;&#45796;">&#182;</a></h3><h3 id="-[&#44284;&#51228;.1]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-purchase25-&#53580;&#51060;&#48660;&#51012;-&#49373;&#49457;&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.1] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; purchase25 &#53580;&#51060;&#48660;&#51012; &#49373;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.1]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-purchase25-&#53580;&#51060;&#48660;&#51012;-&#49373;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13207,21 +13220,22 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 1. 오늘은 2020/10/26 이고, 어제가 서비스 첫 날인 2020/10/25 날짜의 기준 지표를 생성합니다</span>
 
 <span class="n">user25</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="s2">&quot;user/20201025&quot;</span><span class="p">)</span>
-<span class="n">user25</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;user25&quot;</span><span class="p">)</span> <span class="c1"># 테이블생성</span>
+<span class="n">user25</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;user25&quot;</span><span class="p">)</span> <span class="c1"># user25 테이블생성</span>
 <span class="n">user25</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span> <span class="c1"># 스키마 출력</span>
 <span class="n">user25</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># 데이터 확인</span>
 
 <span class="n">purchase25</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="s2">&quot;purchase/20201025&quot;</span><span class="p">)</span>
-<span class="c1"># 실습) purchase25 테이블생성</span>
-<span class="c1"># 실습) 스키마 출력</span>
-<span class="c1"># 실습) 데이터 확인</span>
+<span class="c1"># 과제 1) purchase25 테이블생성 구문 작성</span>
+<span class="n">purchase25</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">purchase25</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">accesslog</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;inferSchema&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s2">&quot;access/20201025&quot;</span><span class="p">)</span>
 <span class="n">accesslog</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;accesslog&quot;</span><span class="p">)</span>
+
 <span class="n">access25</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select a_id, a_tag, a_time, a_timestamp, a_uid from accesslog&quot;</span><span class="p">)</span>
-<span class="c1"># 실습) access25 테이블생성</span>
-<span class="c1"># 실습) 스키마 출력</span>
-<span class="c1"># 실습) 데이터 확인</span>
+<span class="n">access25</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;access25&quot;</span><span class="p">)</span>
+<span class="n">access25</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">access25</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13234,7 +13248,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="2-2.-&#49324;&#50857;&#50640;-&#50857;&#51060;&#54616;&#44172;-&#54616;&#44592;-&#50948;&#54644;-2020/10/25-&#51068;&#51088;&#51032;-&#45936;&#51060;&#53552;&#47564;-&#54596;&#53552;&#54616;&#50668;-&#45936;&#51060;&#53552;&#54532;&#47112;&#51076;&#51012;-&#49373;&#49457;&#54633;&#45768;&#45796;">2-2. &#49324;&#50857;&#50640; &#50857;&#51060;&#54616;&#44172; &#54616;&#44592; &#50948;&#54644; 2020/10/25 &#51068;&#51088;&#51032; &#45936;&#51060;&#53552;&#47564; &#54596;&#53552;&#54616;&#50668; &#45936;&#51060;&#53552;&#54532;&#47112;&#51076;&#51012; &#49373;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#2-2.-&#49324;&#50857;&#50640;-&#50857;&#51060;&#54616;&#44172;-&#54616;&#44592;-&#50948;&#54644;-2020/10/25-&#51068;&#51088;&#51032;-&#45936;&#51060;&#53552;&#47564;-&#54596;&#53552;&#54616;&#50668;-&#45936;&#51060;&#53552;&#54532;&#47112;&#51076;&#51012;-&#49373;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h3><blockquote><p>unixtime 을 문자열 시간으로 변경하는 함수는 from_unixtime 입니다</p>
 </blockquote>
-
+<h3 id="-[&#44284;&#51228;.2]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-&#44033;&#51333;-p_time_condition-&#51312;&#44148;&#47928;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.2] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; &#44033;&#51333; p_time_condition &#51312;&#44148;&#47928;&#51012; &#50756;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.2]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-&#44033;&#51333;-p_time_condition-&#51312;&#44148;&#47928;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13243,27 +13257,25 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) p_time_condition 값은 p_time 값이 &#39;2020-10-25 00:00:00&#39; 보다 크거나 같고, &#39;2020-10-26 00:00:00&#39; 보다 작은 조건입니다</span>
-<span class="n">p_time_condition</span> <span class="o">=</span> <span class="s2">&quot;p_time &lt;&gt; &#39;&#39;&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 과제 2) p_time_condition 값은 p_time 값이 &#39;2020-10-25 00:00:00&#39; 보다 크거나 같고, &#39;2020-10-26 00:00:00&#39; 보다 작은 조건입니다</span>
+<span class="n">p_time_condition</span> <span class="o">=</span> <span class="s2">&quot;p_time 컬럼의 범위를 지정하는 조건문을 완성합니다&quot;</span>
 
 <span class="n">purchase</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select from_unixtime(p_time) as p_time, p_uid, p_id, p_name, p_amount from purchase25&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">p_time_condition</span><span class="p">)</span>
-<span class="n">purchase</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="c1"># 실습) purchase 테이블생성</span>
-<span class="c1"># 실습) 스키마 출력</span>
-<span class="c1"># 실습) 데이터 확인</span>
+<span class="n">purchase</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;purchase&quot;</span><span class="p">)</span>
+<span class="n">purchase</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">purchase</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="c1"># 실습) u_signup_condition 값은 u_signup 값이 &#39;20201025&#39; 보다 크거나 같고, &#39;20201026&#39; 보다 작은 조건입니다</span>
-<span class="n">u_signup_condition</span> <span class="o">=</span> <span class="s2">&quot;u_signup &lt;&gt; &#39;&#39;&quot;</span>
+<span class="n">u_signup_condition</span> <span class="o">=</span> <span class="s2">&quot;u_signup &gt;= &#39;20201025&#39; and u_signup &lt; &#39;20201026&#39;&quot;</span>
 
 <span class="n">user</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select u_id, u_name, u_gender from user25&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">u_signup_condition</span><span class="p">)</span>
-<span class="c1"># 실습) user 테이블생성</span>
-<span class="c1"># 실습) 스키마 출력</span>
-<span class="c1"># 실습) 데이터 확인</span>
+<span class="n">user</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
+<span class="n">user</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">user</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">access</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select a_id, a_tag, a_timestamp, a_uid from access25&quot;</span><span class="p">)</span>
-<span class="c1"># 실습) access 테이블생성</span>
-<span class="c1"># 실습) 스키마 출력</span>
-<span class="c1"># 실습) 데이터 확인</span>
+<span class="n">access</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;access&quot;</span><span class="p">)</span>
+<span class="n">access</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">access</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13279,7 +13291,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 입력형태 : access 테이블
 출력형태 : number
 </pre></div>
-
+<h3 id="-[&#44284;&#51228;.3]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-&#44033;&#51333;-distinctAccessUser-&#44396;&#47928;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.3] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; &#44033;&#51333; distinctAccessUser &#44396;&#47928;&#51012; &#50756;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.3]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-&#44033;&#51333;-distinctAccessUser-&#44396;&#47928;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13290,11 +13302,11 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select a_timestamp as a_time, a_uid from access&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="c1"># 실습) distinctAccessUser 는 access 테이블에 대해 &#39;count(distinct column) as DAU&#39; 명령을 이용하여 distinct user 지표를 생성합니다</span>
-<span class="n">distinctAccessUser</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="c1"># 과제 3) distinctAccessUser 는 access 테이블에 대해 &#39;count(distinct column) as DAU&#39; 명령을 이용하여 distinct user 지표를 생성합니다</span>
+<span class="n">distinctAccessUser</span> <span class="o">=</span> <span class="s2">&quot;select &lt;유일값의 빈도수 함수&gt; as DAU from access&quot;</span>
 
 <span class="n">dau</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">distinctAccessUser</span><span class="p">)</span>
-<span class="n">dau</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">dau</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13310,7 +13322,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 입력형태 : purchase 테이블
 출력형태 : number
 </pre></div>
-
+<h3 id="-[&#44284;&#51228;.4]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-&#44033;&#51333;-distinctPayingUser-&#44396;&#47928;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.4] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; &#44033;&#51333; distinctPayingUser &#44396;&#47928;&#51012; &#50756;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.4]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-&#44033;&#51333;-distinctPayingUser-&#44396;&#47928;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13321,8 +13333,8 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select p_time, p_uid from purchase&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 실습) distinctPayingUser 는 purchase 테이블에 대해 &#39;count(distinct column) as PU&#39; 함수를 통해 구매유저 수를 구합니다</span>
-<span class="n">distinctPayingUser</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> 
+<span class="c1"># 과제 4) distinctPayingUser 는 purchase 테이블에 대해 &#39;count(distinct column) as PU&#39; 함수를 통해 구매유저 수를 구합니다</span>
+<span class="n">distinctPayingUser</span> <span class="o">=</span> <span class="s2">&quot;select &lt;유일값 빈도수 함수&gt; as PU from purchase&quot;</span>
 
 <span class="n">pu</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">distinctPayingUser</span><span class="p">)</span>
 <span class="n">pu</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -13341,7 +13353,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 입력형태 : access 테이블
 출력형태 : number
 </pre></div>
-
+<h3 id="-[&#44284;&#51228;.5]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-&#44033;&#51333;-sumOfDailyRevenue-&#44396;&#47928;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.5] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; &#44033;&#51333; sumOfDailyRevenue &#44396;&#47928;&#51012; &#50756;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.5]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-&#44033;&#51333;-sumOfDailyRevenue-&#44396;&#47928;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13352,8 +13364,8 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select p_amount as daily_revenue from purchase&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 실습) sumOfDailyRevenue 는 sum(column) as DR 함수를 통해 p_amount 의 합을 구하시오</span>
-<span class="n">sumOfDailyRevenue</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> 
+<span class="c1"># 과제 5) sumOfDailyRevenue 는 sum(column) as DR 함수를 통해 p_amount 의 합을 구하시오</span>
+<span class="n">sumOfDailyRevenue</span> <span class="o">=</span> <span class="s2">&quot;select &lt;합계함수&gt; as DR from purchase&quot;</span>
 
 <span class="n">dr</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">sumOfDailyRevenue</span><span class="p">)</span>
 <span class="n">dr</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -13372,12 +13384,12 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <span class="n">v_dau</span> <span class="o">=</span> <span class="n">dau</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;DAU&quot;</span><span class="p">]</span>
 </pre></div>
 </blockquote>
-<h3 id="5-1.-daily-revenue-&#50752;-daily-user-&#51221;&#48372;&#47484;-&#51060;&#50857;&#54616;&#50668;-ARPU-&#47484;-&#44396;&#54616;&#49464;&#50836;">5-1. daily revenue &#50752; daily user &#51221;&#48372;&#47484; &#51060;&#50857;&#54616;&#50668; ARPU &#47484; &#44396;&#54616;&#49464;&#50836;<a class="anchor-link" href="#5-1.-daily-revenue-&#50752;-daily-user-&#51221;&#48372;&#47484;-&#51060;&#50857;&#54616;&#50668;-ARPU-&#47484;-&#44396;&#54616;&#49464;&#50836;">&#182;</a></h3><div class="highlight"><pre><span></span>지표정의 : 유저 당 평균 발생 매출 금액
+<h3 id="6-1.-daily-revenue-&#50752;-daily-user-&#51221;&#48372;&#47484;-&#51060;&#50857;&#54616;&#50668;-ARPU-&#47484;-&#44396;&#54616;&#49464;&#50836;">6-1. daily revenue &#50752; daily user &#51221;&#48372;&#47484; &#51060;&#50857;&#54616;&#50668; ARPU &#47484; &#44396;&#54616;&#49464;&#50836;<a class="anchor-link" href="#6-1.-daily-revenue-&#50752;-daily-user-&#51221;&#48372;&#47484;-&#51060;&#50857;&#54616;&#50668;-ARPU-&#47484;-&#44396;&#54616;&#49464;&#50836;">&#182;</a></h3><div class="highlight"><pre><span></span>지표정의 : 유저 당 평균 발생 매출 금액
 지표산식 : 총 매출 / 전체 유저 수 = DR / DAU
 입력형태 : Daily Revenue, Daily Active User
 출력형태 : number
 </pre></div>
-
+<h3 id="-[&#44284;&#51228;.6]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-&#44033;&#51333;-v_unknown-/-v_unknown-&#48320;&#49688;-&#44050;&#51012;-&#52824;&#54872;-&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.6] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; &#44033;&#51333; v_unknown / v_unknown &#48320;&#49688; &#44050;&#51012; &#52824;&#54872; &#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.6]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-&#44033;&#51333;-v_unknown-/-v_unknown-&#48320;&#49688;-&#44050;&#51012;-&#52824;&#54872;-&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13391,7 +13403,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <span class="n">v_dr</span> <span class="o">=</span> <span class="n">dr</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;DR&quot;</span><span class="p">]</span>
 <span class="n">v_unknown</span> <span class="o">=</span> <span class="mi">1</span>
 
-<span class="c1"># 실습) ARPU 계산을 위한 v_unknown 를 각 각 다른 변수로 치환하세요</span>
+<span class="c1"># 과제 6) ARPU (= DR / DAU) 계산을 위한 v_unknown 를 각 각 다른 변수로 치환하세요</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|             ARPU |&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
@@ -13407,17 +13419,17 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="6.-ARPPU---Average-Revenue-Per-Paying-User-&#51648;&#54364;&#47484;-&#49373;&#49457;&#54616;&#49464;&#50836;">6. ARPPU - Average Revenue Per Paying User &#51648;&#54364;&#47484; &#49373;&#49457;&#54616;&#49464;&#50836;<a class="anchor-link" href="#6.-ARPPU---Average-Revenue-Per-Paying-User-&#51648;&#54364;&#47484;-&#49373;&#49457;&#54616;&#49464;&#50836;">&#182;</a></h1><blockquote><p>이미 생성된 데이터프레임으로부터 이름으로 하나의 값을 가져오는 방법은 아래와 같습니다</p>
+<h1 id="7.-ARPPU---Average-Revenue-Per-Paying-User-&#51648;&#54364;&#47484;-&#49373;&#49457;&#54616;&#49464;&#50836;">7. ARPPU - Average Revenue Per Paying User &#51648;&#54364;&#47484; &#49373;&#49457;&#54616;&#49464;&#50836;<a class="anchor-link" href="#7.-ARPPU---Average-Revenue-Per-Paying-User-&#51648;&#54364;&#47484;-&#49373;&#49457;&#54616;&#49464;&#50836;">&#182;</a></h1><blockquote><p>이미 생성된 데이터프레임으로부터 이름으로 하나의 값을 가져오는 방법은 아래와 같습니다</p>
 <div class="highlight"><pre><span></span><span class="n">변수명</span> <span class="o">=</span> <span class="n">데이터프레임</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;이름&quot;</span><span class="p">]</span>
 <span class="n">v_dau</span> <span class="o">=</span> <span class="n">dau</span><span class="o">.</span><span class="n">collect</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;DAU&quot;</span><span class="p">]</span>
 </pre></div>
 </blockquote>
-<h3 id="6-1.-daily-revenue-&#50752;-daily-paying-user-&#51221;&#48372;&#47484;-&#51060;&#50857;&#54616;&#50668;-ARPU-&#47484;-&#44396;&#54616;&#49464;&#50836;">6-1. daily revenue &#50752; daily paying user &#51221;&#48372;&#47484; &#51060;&#50857;&#54616;&#50668; ARPU &#47484; &#44396;&#54616;&#49464;&#50836;<a class="anchor-link" href="#6-1.-daily-revenue-&#50752;-daily-paying-user-&#51221;&#48372;&#47484;-&#51060;&#50857;&#54616;&#50668;-ARPU-&#47484;-&#44396;&#54616;&#49464;&#50836;">&#182;</a></h3><div class="highlight"><pre><span></span>지표정의 : 유저 당 평균 발생 매출 금액
-지표산식 : 총 매출 / 전체 유저 수 = DR / DPU
+<h3 id="7-1.-daily-revenue-&#50752;-daily-paying-user-&#51221;&#48372;&#47484;-&#51060;&#50857;&#54616;&#50668;-ARPU-&#47484;-&#44396;&#54616;&#49464;&#50836;">7-1. daily revenue &#50752; daily paying user &#51221;&#48372;&#47484; &#51060;&#50857;&#54616;&#50668; ARPU &#47484; &#44396;&#54616;&#49464;&#50836;<a class="anchor-link" href="#7-1.-daily-revenue-&#50752;-daily-paying-user-&#51221;&#48372;&#47484;-&#51060;&#50857;&#54616;&#50668;-ARPU-&#47484;-&#44396;&#54616;&#49464;&#50836;">&#182;</a></h3><div class="highlight"><pre><span></span>지표정의 : 유저 당 평균 발생 매출 금액
+지표산식 : 총 매출 / 전체 유저 수 = DR / PU
 입력형태 : Daily Revenue, Daily Paying User
 출력형태 : number
 </pre></div>
-
+<h3 id="-[&#44284;&#51228;.7]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-&#44033;&#51333;-v_unknown-/-v_unknown-&#48320;&#49688;-&#44050;&#51012;-&#52824;&#54872;-&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.7] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; &#44033;&#51333; v_unknown / v_unknown &#48320;&#49688; &#44050;&#51012; &#52824;&#54872; &#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.7]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-&#44033;&#51333;-v_unknown-/-v_unknown-&#48320;&#49688;-&#44050;&#51012;-&#52824;&#54872;-&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13428,7 +13440,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 7. Average Revenue Per Paying User</span>
 
-<span class="c1"># 실습) ARPPU 계산을 위한 v_unknown 를 각 각 다른 변수로 치환하세요</span>
+<span class="c1"># 과제 7) ARPPU (= DR / PU) 계산을 위한 v_unknown 를 각 각 다른 변수로 치환하세요</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|            ARPPU |&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
@@ -13444,7 +13456,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="7.-&#46356;&#47704;&#51260;-&#53580;&#51060;&#48660;&#51012;-&#49373;&#49457;&#54616;&#49464;&#50836;">7. &#46356;&#47704;&#51260; &#53580;&#51060;&#48660;&#51012; &#49373;&#49457;&#54616;&#49464;&#50836;<a class="anchor-link" href="#7.-&#46356;&#47704;&#51260;-&#53580;&#51060;&#48660;&#51012;-&#49373;&#49457;&#54616;&#49464;&#50836;">&#182;</a></h1><blockquote><p>디멘젼 테이블을 스키마는 아래와 같습니다.</p>
+<h1 id="8.-&#46356;&#47704;&#51260;-&#53580;&#51060;&#48660;&#51012;-&#49373;&#49457;&#54616;&#49464;&#50836;">8. &#46356;&#47704;&#51260; &#53580;&#51060;&#48660;&#51012; &#49373;&#49457;&#54616;&#49464;&#50836;<a class="anchor-link" href="#8.-&#46356;&#47704;&#51260;-&#53580;&#51060;&#48660;&#51012;-&#49373;&#49457;&#54616;&#49464;&#50836;">&#182;</a></h1><blockquote><p>디멘젼 테이블을 스키마는 아래와 같습니다.</p>
 </blockquote>
 <table>
 <thead><tr>
@@ -13491,12 +13503,12 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 </tr>
 </tbody>
 </table>
-<h3 id="7-1.-&#49436;&#48708;&#49828;-&#50724;&#54536;-&#52395;-&#45216;&#51060;&#48064;&#47196;-&#50724;&#45720;-&#47196;&#44536;&#47564;-&#51060;&#50857;&#54616;&#50668;-&#51204;&#52404;-&#50976;&#51200;&#50500;&#51060;&#46356;&#50752;-&#51217;&#49549;-&#54943;&#49688;&#47484;-&#44396;&#54633;&#45768;&#45796;">7-1. &#49436;&#48708;&#49828; &#50724;&#54536; &#52395; &#45216;&#51060;&#48064;&#47196; &#50724;&#45720; &#47196;&#44536;&#47564; &#51060;&#50857;&#54616;&#50668; &#51204;&#52404; &#50976;&#51200;&#50500;&#51060;&#46356;&#50752; &#51217;&#49549; &#54943;&#49688;&#47484; &#44396;&#54633;&#45768;&#45796;<a class="anchor-link" href="#7-1.-&#49436;&#48708;&#49828;-&#50724;&#54536;-&#52395;-&#45216;&#51060;&#48064;&#47196;-&#50724;&#45720;-&#47196;&#44536;&#47564;-&#51060;&#50857;&#54616;&#50668;-&#51204;&#52404;-&#50976;&#51200;&#50500;&#51060;&#46356;&#50752;-&#51217;&#49549;-&#54943;&#49688;&#47484;-&#44396;&#54633;&#45768;&#45796;">&#182;</a></h3><div class="highlight"><pre><span></span>지표정의 : 이용자 누적 상태 정보
+<h3 id="8-1.-&#49436;&#48708;&#49828;-&#50724;&#54536;-&#52395;-&#45216;&#51060;&#48064;&#47196;-&#50724;&#45720;-&#47196;&#44536;&#47564;-&#51060;&#50857;&#54616;&#50668;-&#51204;&#52404;-&#50976;&#51200;&#50500;&#51060;&#46356;&#50752;-&#51217;&#49549;-&#54943;&#49688;&#47484;-&#44396;&#54633;&#45768;&#45796;">8-1. &#49436;&#48708;&#49828; &#50724;&#54536; &#52395; &#45216;&#51060;&#48064;&#47196; &#50724;&#45720; &#47196;&#44536;&#47564; &#51060;&#50857;&#54616;&#50668; &#51204;&#52404; &#50976;&#51200;&#50500;&#51060;&#46356;&#50752; &#51217;&#49549; &#54943;&#49688;&#47484; &#44396;&#54633;&#45768;&#45796;<a class="anchor-link" href="#8-1.-&#49436;&#48708;&#49828;-&#50724;&#54536;-&#52395;-&#45216;&#51060;&#48064;&#47196;-&#50724;&#45720;-&#47196;&#44536;&#47564;-&#51060;&#50857;&#54616;&#50668;-&#51204;&#52404;-&#50976;&#51200;&#50500;&#51060;&#46356;&#50752;-&#51217;&#49549;-&#54943;&#49688;&#47484;-&#44396;&#54633;&#45768;&#45796;">&#182;</a></h3><div class="highlight"><pre><span></span>지표정의 : 이용자 누적 상태 정보
 지표산식 : 오늘까지 접속한 모든 유저의 정보를 저장하는 테이블
 입력형태 : user, purchase, access
 출력형태 : 아래와 같이 설계합니다
 </pre></div>
-
+<h3 id="-[&#44284;&#51228;.8-1]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-countOfAccess-&#51665;&#44228;-&#51656;&#51032;&#47928;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.8-1] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; countOfAccess &#51665;&#44228; &#51656;&#51032;&#47928;&#51012; &#50756;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.8-1]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-countOfAccess-&#51665;&#44228;-&#51656;&#51032;&#47928;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13507,8 +13519,8 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">access</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 
-<span class="c1"># 실습) countOfAccess 는 access 테이블로부터 a_id 가 &#39;login&#39; 인 a_uid 값의 빈도수를 group by a_uid 집계를 통해 구하시오</span>
-<span class="n">countOfAccess</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> 
+<span class="c1"># 과제 8-1) countOfAccess 는 access 테이블로부터 a_id 가 &#39;login&#39; 인 a_uid 값의 빈도수를 group by a_uid 집계를 통해 구하시오</span>
+<span class="n">countOfAccess</span> <span class="o">=</span> <span class="s2">&quot;select a_uid, &lt;집계함수&gt; as a_count from access where a_id = &#39;login&#39; &lt;집계구문&gt;&quot;</span> 
 
 <span class="n">uids</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">countOfAccess</span><span class="p">)</span>
 <span class="n">uids</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -13522,7 +13534,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="7-2.-&#51068;-&#48324;-&#51060;&#50857;&#51088;-&#48324;-&#52509;-&#47588;&#52636;-&#44552;&#50529;&#44284;,-&#44396;&#47588;-&#54943;&#49688;&#47484;-&#52628;&#52636;&#54633;&#45768;&#45796;">7-2. &#51068; &#48324; &#51060;&#50857;&#51088; &#48324; &#52509; &#47588;&#52636; &#44552;&#50529;&#44284;, &#44396;&#47588; &#54943;&#49688;&#47484; &#52628;&#52636;&#54633;&#45768;&#45796;<a class="anchor-link" href="#7-2.-&#51068;-&#48324;-&#51060;&#50857;&#51088;-&#48324;-&#52509;-&#47588;&#52636;-&#44552;&#50529;&#44284;,-&#44396;&#47588;-&#54943;&#49688;&#47484;-&#52628;&#52636;&#54633;&#45768;&#45796;">&#182;</a></h3>
+<h3 id="8-2.-&#51068;-&#48324;-&#51060;&#50857;&#51088;-&#48324;-&#52509;-&#47588;&#52636;-&#44552;&#50529;&#44284;,-&#44396;&#47588;-&#54943;&#49688;&#47484;-&#52628;&#52636;&#54633;&#45768;&#45796;">8-2. &#51068; &#48324; &#51060;&#50857;&#51088; &#48324; &#52509; &#47588;&#52636; &#44552;&#50529;&#44284;, &#44396;&#47588; &#54943;&#49688;&#47484; &#52628;&#52636;&#54633;&#45768;&#45796;<a class="anchor-link" href="#8-2.-&#51068;-&#48324;-&#51060;&#50857;&#51088;-&#48324;-&#52509;-&#47588;&#52636;-&#44552;&#50529;&#44284;,-&#44396;&#47588;-&#54943;&#49688;&#47484;-&#52628;&#52636;&#54633;&#45768;&#45796;">&#182;</a></h3><h3 id="-[&#44284;&#51228;.8-2]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-sumOfCountAndAmount-&#51665;&#44228;-&#51656;&#51032;&#47928;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.8-2] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; sumOfCountAndAmount &#51665;&#44228; &#51656;&#51032;&#47928;&#51012; &#50756;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.8-2]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-sumOfCountAndAmount-&#51665;&#44228;-&#51656;&#51032;&#47928;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13533,8 +13545,8 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">purchase</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 
-<span class="c1"># 실습) sumOfCountAndAmount 는 purchase 테이블로 부터 p_uid 별 매출 횟수(count)와, 매출 금액의 합(sum)을 구하는 집계 쿼리를 생성 하시오</span>
-<span class="n">sumOfCountAndAmount</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> 
+<span class="c1"># 과제 8-2) sumOfCountAndAmount 는 purchase 테이블로 부터 p_uid 별 매출 횟수(count)와, 매출 금액의 합(sum)을 구하는 집계 쿼리를 생성 하시오</span>
+<span class="n">sumOfCountAndAmount</span> <span class="o">=</span> <span class="s2">&quot;select p_uid, &lt;합-집계함수&gt; as p_amount, &lt;카운트-집계함수&gt; as p_count from purchase &lt;집계구문&gt;&quot;</span> 
 
 <span class="n">amts</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">sumOfCountAndAmount</span><span class="p">)</span>
 <span class="n">amts</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -13548,7 +13560,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="7-3.-&#51060;&#50857;&#51088;-&#51221;&#48372;&#50752;-&#44396;&#47588;-&#51221;&#48372;&#50752;-&#51312;&#51064;&#54633;&#45768;&#45796;">7-3. &#51060;&#50857;&#51088; &#51221;&#48372;&#50752; &#44396;&#47588; &#51221;&#48372;&#50752; &#51312;&#51064;&#54633;&#45768;&#45796;<a class="anchor-link" href="#7-3.-&#51060;&#50857;&#51088;-&#51221;&#48372;&#50752;-&#44396;&#47588;-&#51221;&#48372;&#50752;-&#51312;&#51064;&#54633;&#45768;&#45796;">&#182;</a></h3>
+<h3 id="8-3.-&#51060;&#50857;&#51088;-&#51221;&#48372;&#50752;-&#44396;&#47588;-&#51221;&#48372;&#50752;-&#51312;&#51064;&#54633;&#45768;&#45796;">8-3. &#51060;&#50857;&#51088; &#51221;&#48372;&#50752; &#44396;&#47588; &#51221;&#48372;&#50752; &#51312;&#51064;&#54633;&#45768;&#45796;<a class="anchor-link" href="#8-3.-&#51060;&#50857;&#51088;-&#51221;&#48372;&#50752;-&#44396;&#47588;-&#51221;&#48372;&#50752;-&#51312;&#51064;&#54633;&#45768;&#45796;">&#182;</a></h3><h3 id="-[&#44284;&#51228;.8-3]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-joinHow-&#51312;&#51064;-&#51312;&#44148;&#47928;&#51012;-&#51089;&#49457;&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.8-3] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; joinHow &#51312;&#51064; &#51312;&#44148;&#47928;&#51012; &#51089;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.8-3]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-joinHow-&#51312;&#51064;-&#51312;&#44148;&#47928;&#51012;-&#51089;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13557,13 +13569,12 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) joinCondition 는 uids 와 amts 데이터프레임의 uid 컬럼이 일치하는 조건을 작성하시오</span>
-<span class="n">joinCondition</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">joinCondition</span> <span class="o">=</span> <span class="n">uids</span><span class="o">.</span><span class="n">a_uid</span> <span class="o">==</span> <span class="n">amts</span><span class="o">.</span><span class="n">p_uid</span>
 
-<span class="c1"># 실습) joinHow 는 어떤 조인을 할 지 결정합니다</span>
-<span class="n">joinHow</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="c1"># 과제 8-3) Left Outer Join 연산을 위한 키워드를 입력합니다</span>
+<span class="n">joinHow</span> <span class="o">=</span> <span class="s2">&quot;&lt;조인조건&gt;&quot;</span>
 
-<span class="n">dim1</span> <span class="o">=</span> <span class="n">uids</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">amts</span><span class="p">,</span> <span class="n">joinCondition</span><span class="p">,</span> <span class="n">joinHow</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">uids</span><span class="p">[</span><span class="s2">&quot;a_uid&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">asc</span><span class="p">())</span>  <span class="c1"># 이렇게 Left Outer Join 연산으로 계속 붙여 나갑니다</span>
+<span class="n">dim1</span> <span class="o">=</span> <span class="n">uids</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">amts</span><span class="p">,</span> <span class="n">joinCondition</span><span class="p">,</span> <span class="n">joinHow</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">uids</span><span class="p">[</span><span class="s2">&quot;a_uid&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">asc</span><span class="p">())</span>
 <span class="n">dim1</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 <span class="n">dim1</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -13576,7 +13587,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="7-4.-&#44256;&#44061;-&#51221;&#48372;&#47484;-&#52628;&#44032;&#54633;&#45768;&#45796;">7-4. &#44256;&#44061; &#51221;&#48372;&#47484; &#52628;&#44032;&#54633;&#45768;&#45796;<a class="anchor-link" href="#7-4.-&#44256;&#44061;-&#51221;&#48372;&#47484;-&#52628;&#44032;&#54633;&#45768;&#45796;">&#182;</a></h3>
+<h3 id="8-4.-&#44256;&#44061;-&#51221;&#48372;&#47484;-&#52628;&#44032;&#54633;&#45768;&#45796;">8-4. &#44256;&#44061; &#51221;&#48372;&#47484; &#52628;&#44032;&#54633;&#45768;&#45796;<a class="anchor-link" href="#8-4.-&#44256;&#44061;-&#51221;&#48372;&#47484;-&#52628;&#44032;&#54633;&#45768;&#45796;">&#182;</a></h3><h3 id="-[&#44284;&#51228;.8-4]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-joinCondition-&#51312;&#51064;-&#51312;&#44148;&#51012;-&#51089;&#49457;&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.8-4] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; joinCondition &#51312;&#51064; &#51312;&#44148;&#51012; &#51089;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.8-4]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-joinCondition-&#51312;&#51064;-&#51312;&#44148;&#51012;-&#51089;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13585,11 +13596,10 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) joinCondition 는 dim1 과 user 의 uid 값이 일치하는 조건을 작성하시오</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 과제 8-4) joinCondition 는 dim1 의 a_uid 컬럼과 user 의 u_id 컬럼이 일치하는 조건을 작성합니다</span>
 <span class="n">joinCondition</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-<span class="c1"># 실습) joinHow 는 어떤 조인을 할 지 결정합니다</span>
-<span class="n">joinHow</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">joinHow</span> <span class="o">=</span> <span class="s2">&quot;left_outer&quot;</span>
 
 <span class="n">dim2</span> <span class="o">=</span> <span class="n">dim1</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">joinCondition</span><span class="p">,</span> <span class="n">joinHow</span><span class="p">)</span>
 <span class="n">dim2</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
@@ -13604,7 +13614,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="7-5.-&#51473;&#48373;&#46104;&#45716;-ID-&#52972;&#47100;&#51008;-&#51228;&#44144;&#54616;&#44256;,-&#49707;&#51088;-&#54596;&#46300;&#50640;-&#45328;&#44050;&#51008;-0&#51004;&#47196;-&#44592;&#48376;&#44050;&#51012;-&#45347;&#50612;&#51469;&#45768;&#45796;">7-5. &#51473;&#48373;&#46104;&#45716; ID &#52972;&#47100;&#51008; &#51228;&#44144;&#54616;&#44256;, &#49707;&#51088; &#54596;&#46300;&#50640; &#45328;&#44050;&#51008; 0&#51004;&#47196; &#44592;&#48376;&#44050;&#51012; &#45347;&#50612;&#51469;&#45768;&#45796;<a class="anchor-link" href="#7-5.-&#51473;&#48373;&#46104;&#45716;-ID-&#52972;&#47100;&#51008;-&#51228;&#44144;&#54616;&#44256;,-&#49707;&#51088;-&#54596;&#46300;&#50640;-&#45328;&#44050;&#51008;-0&#51004;&#47196;-&#44592;&#48376;&#44050;&#51012;-&#45347;&#50612;&#51469;&#45768;&#45796;">&#182;</a></h3>
+<h3 id="8-5.-&#51473;&#48373;&#46104;&#45716;-ID-&#52972;&#47100;&#51008;-&#51228;&#44144;&#54616;&#44256;,-&#49707;&#51088;-&#54596;&#46300;&#50640;-&#45328;&#44050;&#51008;-0&#51004;&#47196;-&#44592;&#48376;&#44050;&#51012;-&#45347;&#50612;&#51469;&#45768;&#45796;">8-5. &#51473;&#48373;&#46104;&#45716; ID &#52972;&#47100;&#51008; &#51228;&#44144;&#54616;&#44256;, &#49707;&#51088; &#54596;&#46300;&#50640; &#45328;&#44050;&#51008; 0&#51004;&#47196; &#44592;&#48376;&#44050;&#51012; &#45347;&#50612;&#51469;&#45768;&#45796;<a class="anchor-link" href="#8-5.-&#51473;&#48373;&#46104;&#45716;-ID-&#52972;&#47100;&#51008;-&#51228;&#44144;&#54616;&#44256;,-&#49707;&#51088;-&#54596;&#46300;&#50640;-&#45328;&#44050;&#51008;-0&#51004;&#47196;-&#44592;&#48376;&#44050;&#51012;-&#45347;&#50612;&#51469;&#45768;&#45796;">&#182;</a></h3><h3 id="-[&#44284;&#51228;.8-5]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-fillDefaultValue-&#51032;-&#45236;&#50857;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.8-5] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; fillDefaultValue &#51032; &#45236;&#50857;&#51012; &#50756;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.8-5]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-fillDefaultValue-&#51032;-&#45236;&#50857;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13615,8 +13625,8 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dim3</span> <span class="o">=</span> <span class="n">dim2</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;p_uid&quot;</span><span class="p">,</span> <span class="s2">&quot;u_id&quot;</span><span class="p">)</span>
 
-<span class="c1"># 실습) p_amount, p_count 필드의 기본값을 0으로 넣도록 작성합니다</span>
-<span class="n">fillDefaultValue</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1"># 과제 8-5) p_amount, p_count 필드의 기본값을 0으로 넣도록 작성합니다</span>
+<span class="n">fillDefaultValue</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;p_amount&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;&lt;기본값입력구문&gt;&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">}</span>
 
 <span class="n">dim4</span> <span class="o">=</span> <span class="n">dim3</span><span class="o">.</span><span class="n">na</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">fillDefaultValue</span><span class="p">)</span>
 <span class="n">dim4</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
@@ -13631,7 +13641,7 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="7-6.-&#49373;&#49457;&#46108;-&#50976;&#51200;-&#53580;&#51060;&#48660;&#51012;-&#51116;&#49324;&#50857;-&#44032;&#45733;&#54616;&#46020;&#47197;-&#52972;&#47100;-&#47749;&#51012;-&#48320;&#44221;&#54633;&#45768;&#45796;">7-6. &#49373;&#49457;&#46108; &#50976;&#51200; &#53580;&#51060;&#48660;&#51012; &#51116;&#49324;&#50857; &#44032;&#45733;&#54616;&#46020;&#47197; &#52972;&#47100; &#47749;&#51012; &#48320;&#44221;&#54633;&#45768;&#45796;<a class="anchor-link" href="#7-6.-&#49373;&#49457;&#46108;-&#50976;&#51200;-&#53580;&#51060;&#48660;&#51012;-&#51116;&#49324;&#50857;-&#44032;&#45733;&#54616;&#46020;&#47197;-&#52972;&#47100;-&#47749;&#51012;-&#48320;&#44221;&#54633;&#45768;&#45796;">&#182;</a></h3>
+<h3 id="8-6.-&#49373;&#49457;&#46108;-&#50976;&#51200;-&#53580;&#51060;&#48660;&#51012;-&#51116;&#49324;&#50857;-&#44032;&#45733;&#54616;&#46020;&#47197;-&#52972;&#47100;-&#47749;&#51012;-&#48320;&#44221;&#54633;&#45768;&#45796;">8-6. &#49373;&#49457;&#46108; &#50976;&#51200; &#53580;&#51060;&#48660;&#51012; &#51116;&#49324;&#50857; &#44032;&#45733;&#54616;&#46020;&#47197; &#52972;&#47100; &#47749;&#51012; &#48320;&#44221;&#54633;&#45768;&#45796;<a class="anchor-link" href="#8-6.-&#49373;&#49457;&#46108;-&#50976;&#51200;-&#53580;&#51060;&#48660;&#51012;-&#51116;&#49324;&#50857;-&#44032;&#45733;&#54616;&#46020;&#47197;-&#52972;&#47100;-&#47749;&#51012;-&#48320;&#44221;&#54633;&#45768;&#45796;">&#182;</a></h3><h3 id="-[&#44284;&#51228;.8-6]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-withColumnRenamed-&#44396;&#47928;&#51012;-&#51089;&#49457;&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.8-6] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; withColumnRenamed &#44396;&#47928;&#51012; &#51089;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.8-6]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-withColumnRenamed-&#44396;&#47928;&#51012;-&#51089;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13642,26 +13652,17 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dim4</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 
-<span class="c1"># 실습) d_ 로 시작하는 컬럼으로 모두 rename 합니다.</span>
-<span class="c1"># withColumnRenamed(&quot;a_uid&quot;, &quot;d_acount&quot;) 라인을 반복해서 a_count ~ u_gender 컬럼을 rename 합니다</span>
-<span class="c1"># a_uid -&gt; d_uid</span>
-<span class="c1"># a_count -&gt; d_acount</span>
-<span class="c1"># p_amount -&gt; d_pamount</span>
-<span class="c1"># p_count -&gt; d_pcount</span>
-<span class="c1"># u_name -&gt; d_name</span>
-<span class="c1"># u_gender -&gt; d_gender</span>
-
-<span class="c1"># 실습) d_ 로 시작하지 않는 컬럼은 모두 drop 합니다</span>
-<span class="c1"># drop   : 사용하지 않는 컬럼을 데이터프레임에서 제거합니다 - &quot;a_uid&quot;, &quot;a_count&quot;, &quot;p_amount&quot;, &quot;p_count&quot;, &quot;u_name&quot;, &quot;u_gender&quot;</span>
-
-<span class="c1"># 실습) 혹은 d_ 로 시작하는 컬럼만 select 합니다</span>
-<span class="c1"># select : 컬럼명을 변경한 이후에 d_ 로 시작하는 컬럼만 select 할 수 있도록 컬럼을 명시합니다 - &quot;d_uid&quot;, &quot;d_name&quot;, &quot;d_gender&quot;, &quot;d_acount&quot;, &quot;d_pamount&quot;, &quot;d_pcount&quot;</span>
-
-<span class="c1"># drop 혹은 select 어느 하나의 방식을 사용해도 됩니다</span>
-<span class="n">dim5</span> <span class="o">=</span> <span class="n">dim4</span> \
-<span class="o">.</span><span class="n">withColumnRenamed</span><span class="p">(</span><span class="s2">&quot;a_uid&quot;</span><span class="p">,</span> <span class="s2">&quot;d_uid&quot;</span><span class="p">)</span> \
-<span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;사용하지 않는 컬럼 목록&quot;</span><span class="p">)</span> \
-<span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;사용하는 컬럼 목록&quot;</span><span class="p">)</span>
+<span class="n">dim5</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">dim4</span>
+    <span class="o">.</span><span class="n">withColumnRenamed</span><span class="p">(</span><span class="s2">&quot;a_uid&quot;</span><span class="p">,</span> <span class="s2">&quot;d_uid&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">withColumnRenamed</span><span class="p">(</span><span class="s2">&quot;a_count&quot;</span><span class="p">,</span> <span class="s2">&quot;d_acount&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">withColumnRenamed</span><span class="p">(</span><span class="s2">&quot;p_amount&quot;</span><span class="p">,</span> <span class="s2">&quot;d_pamount&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">withColumnRenamed</span><span class="p">(</span><span class="s2">&quot;p_count&quot;</span><span class="p">,</span> <span class="s2">&quot;d_pcount&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">withColumnRenamed</span><span class="p">(</span><span class="s2">&quot;u_name&quot;</span><span class="p">,</span> <span class="s2">&quot;d_name&quot;</span><span class="p">)</span>
+    <span class="c1"># 과제 8-6) u_gender 컬럼을 d_gender 컬럼으로 rename 하는 구문을 추가합니다</span>
+    <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;a_uid&quot;</span><span class="p">,</span> <span class="s2">&quot;a_count&quot;</span><span class="p">,</span> <span class="s2">&quot;p_amount&quot;</span><span class="p">,</span> <span class="s2">&quot;p_count&quot;</span><span class="p">,</span> <span class="s2">&quot;u_name&quot;</span><span class="p">,</span> <span class="s2">&quot;u_gender&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;d_uid&quot;</span><span class="p">,</span> <span class="s2">&quot;d_name&quot;</span><span class="p">,</span> <span class="s2">&quot;d_gender&quot;</span><span class="p">,</span> <span class="s2">&quot;d_acount&quot;</span><span class="p">,</span> <span class="s2">&quot;d_pamount&quot;</span><span class="p">,</span> <span class="s2">&quot;d_pcount&quot;</span><span class="p">)</span>
+<span class="p">)</span>
 
 <span class="n">dim5</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -13674,10 +13675,10 @@ or http://127.0.0.1:8888/?token<span class="o">=</span>ad4f43203ac46f7f7f58807ab
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="7-7.-&#52572;&#52488;-&#44396;&#47588;-&#50976;&#51200;-&#51221;&#48372;&#47484;-&#52628;&#44032;&#54633;&#45768;&#45796;">7-7. &#52572;&#52488; &#44396;&#47588; &#50976;&#51200; &#51221;&#48372;&#47484; &#52628;&#44032;&#54633;&#45768;&#45796;<a class="anchor-link" href="#7-7.-&#52572;&#52488;-&#44396;&#47588;-&#50976;&#51200;-&#51221;&#48372;&#47484;-&#52628;&#44032;&#54633;&#45768;&#45796;">&#182;</a></h3><div class="highlight"><pre><span></span><span class="c1"># 아래의 구문을 통해 특정 컬럼이 널인 경우의 값을 선택할 수 있습니다 </span>
+<h3 id="8-7.-&#52572;&#52488;-&#44396;&#47588;-&#50976;&#51200;-&#51221;&#48372;&#47484;-&#52628;&#44032;&#54633;&#45768;&#45796;">8-7. &#52572;&#52488; &#44396;&#47588; &#50976;&#51200; &#51221;&#48372;&#47484; &#52628;&#44032;&#54633;&#45768;&#45796;<a class="anchor-link" href="#8-7.-&#52572;&#52488;-&#44396;&#47588;-&#50976;&#51200;-&#51221;&#48372;&#47484;-&#52628;&#44032;&#54633;&#45768;&#45796;">&#182;</a></h3><div class="highlight"><pre><span></span><span class="c1"># 아래의 구문을 통해 특정 컬럼이 널인 경우의 값을 선택할 수 있습니다 </span>
 expr<span class="o">(</span><span class="s2">&quot;case when column1 is null then column2 else column1 end&quot;</span><span class="o">)</span>
 </pre></div>
-
+<h3 id="-[&#44284;&#51228;.8-7]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-selectFirstPurchaseTime-&#44396;&#47928;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.8-7] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; selectFirstPurchaseTime &#44396;&#47928;&#51012; &#50756;&#49457;&#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.8-7]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-selectFirstPurchaseTime-&#44396;&#47928;&#51012;-&#50756;&#49457;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13686,14 +13687,13 @@ expr<span class="o">(</span><span class="s2">&quot;case when column1 is null the
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) selectFirstPurchaseTime 는 하루에 여러번 구매가 있을 수 있으므로 가장 먼저 구매한 일시를 min 함수를 써서 선택합니다</span>
-<span class="n">selectFirstPurchaseTime</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 과제 8-7) selectFirstPurchaseTime 는 하루에 여러번 구매가 있을 수 있으므로 가장 먼저 구매한 일시를 min 함수를 p_time 의 최소값을 구합니다</span>
+<span class="n">selectFirstPurchaseTime</span> <span class="o">=</span> <span class="s2">&quot;select p_uid, &lt;최소값함수&gt; as p_time from purchase &lt;집계구문&gt;&quot;</span>
 
 <span class="n">first_purchase</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">selectFirstPurchaseTime</span><span class="p">)</span>
 <span class="n">dim6</span> <span class="o">=</span> <span class="n">dim5</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;d_first_purchase&quot;</span><span class="p">,</span> <span class="n">lit</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
 
-<span class="c1"># 실습) exprFirstPurchase 는 d_first_purchase 컬럼이 널이면 p_time 을 사용하고 그렇지 않으면 d_first_purchase 컬럼을 사용하도록 expr 의 null 값을 치환하시오</span>
-<span class="n">exprFirstPurchase</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;d_first_purchase&quot;</span><span class="p">)</span>
+<span class="n">exprFirstPurchase</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;case when d_first_purchase is null then p_time else d_first_purchase end&quot;</span><span class="p">)</span>
 
 <span class="n">dimension</span> <span class="o">=</span> <span class="n">dim6</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">first_purchase</span><span class="p">,</span> <span class="n">dim5</span><span class="o">.</span><span class="n">d_uid</span> <span class="o">==</span> <span class="n">first_purchase</span><span class="o">.</span><span class="n">p_uid</span><span class="p">,</span> <span class="s2">&quot;left_outer&quot;</span><span class="p">)</span> \
 <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;first_purchase&quot;</span><span class="p">,</span> <span class="n">exprFirstPurchase</span><span class="p">)</span> \
@@ -13712,7 +13712,7 @@ expr<span class="o">(</span><span class="s2">&quot;case when column1 is null the
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="7-8.-&#50724;&#45720;-&#46356;&#47704;&#51260;-&#53580;&#51060;&#48660;&#51012;-dim_users/dt=20201025-&#44221;&#47196;&#50640;-&#51200;&#51109;&#54633;&#45768;&#45796;.">7-8. &#50724;&#45720; &#46356;&#47704;&#51260; &#53580;&#51060;&#48660;&#51012; dim_users/dt=20201025 &#44221;&#47196;&#50640; &#51200;&#51109;&#54633;&#45768;&#45796;.<a class="anchor-link" href="#7-8.-&#50724;&#45720;-&#46356;&#47704;&#51260;-&#53580;&#51060;&#48660;&#51012;-dim_users/dt=20201025-&#44221;&#47196;&#50640;-&#51200;&#51109;&#54633;&#45768;&#45796;.">&#182;</a></h3>
+<h3 id="8-8.-&#50724;&#45720;-&#46356;&#47704;&#51260;-&#53580;&#51060;&#48660;&#51012;-dim_users/dt=20201025-&#44221;&#47196;&#50640;-&#51200;&#51109;&#54633;&#45768;&#45796;.">8-8. &#50724;&#45720; &#46356;&#47704;&#51260; &#53580;&#51060;&#48660;&#51012; dim_users/dt=20201025 &#44221;&#47196;&#50640; &#51200;&#51109;&#54633;&#45768;&#45796;.<a class="anchor-link" href="#8-8.-&#50724;&#45720;-&#46356;&#47704;&#51260;-&#53580;&#51060;&#48660;&#51012;-dim_users/dt=20201025-&#44221;&#47196;&#50640;-&#51200;&#51109;&#54633;&#45768;&#45796;.">&#182;</a></h3><h3 id="-[&#44284;&#51228;.8-8]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-today_dimension-&#51200;&#51109;&#44221;&#47196;&#47484;-&#51077;&#47141;&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.8-8] </span> &#50500;&#47000;&#51032; <span style="color:green"> &#44284;&#51228;) </span> &#53076;&#47704;&#53944;&#50640; &#47749;&#49884;&#46108; &#45236;&#50857;&#51012; &#52280;&#44256;&#54616;&#50668; today_dimension &#51200;&#51109;&#44221;&#47196;&#47484; &#51077;&#47141;&#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.8-8]--&#50500;&#47000;&#51032;--&#44284;&#51228;)--&#53076;&#47704;&#53944;&#50640;-&#47749;&#49884;&#46108;-&#45236;&#50857;&#51012;-&#52280;&#44256;&#54616;&#50668;-today_dimension-&#51200;&#51109;&#44221;&#47196;&#47484;-&#51077;&#47141;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13721,7 +13721,7 @@ expr<span class="o">(</span><span class="s2">&quot;case when column1 is null the
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실습) dim_users/dt=20201025 경로에 저장합니다</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 과제 8-8) dim_users/dt=20201025 경로에 저장합니다</span>
 <span class="n">today_dimension</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
 <span class="n">dimension</span><span class="o">.</span><span class="n">write</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="s2">&quot;overwrite&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="n">today_dimension</span><span class="p">)</span>
@@ -13735,7 +13735,7 @@ expr<span class="o">(</span><span class="s2">&quot;case when column1 is null the
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="7-9.-&#50724;&#45720;&#51032;-&#51452;&#50836;-&#51648;&#54364;&#47484;-&#52636;&#47141;&#54633;&#45768;&#45796;">7-9. &#50724;&#45720;&#51032; &#51452;&#50836; &#51648;&#54364;&#47484; &#52636;&#47141;&#54633;&#45768;&#45796;<a class="anchor-link" href="#7-9.-&#50724;&#45720;&#51032;-&#51452;&#50836;-&#51648;&#54364;&#47484;-&#52636;&#47141;&#54633;&#45768;&#45796;">&#182;</a></h3>
+<h3 id="8-9.-&#50724;&#45720;&#51032;-&#51452;&#50836;-&#51648;&#54364;&#47484;-&#52636;&#47141;&#54633;&#45768;&#45796;">8-9. &#50724;&#45720;&#51032; &#51452;&#50836; &#51648;&#54364;&#47484; &#52636;&#47141;&#54633;&#45768;&#45796;<a class="anchor-link" href="#8-9.-&#50724;&#45720;&#51032;-&#51452;&#50836;-&#51648;&#54364;&#47484;-&#52636;&#47141;&#54633;&#45768;&#45796;">&#182;</a></h3><h3 id="-[&#44284;&#51228;.8-9]--&#49892;&#54665;-&#44208;&#44284;&#44032;-&#50500;&#47000;&#50752;-&#44057;&#51008;&#51648;-&#54869;&#51064;&#54633;&#45768;&#45796;"><span style="color:red"> [&#44284;&#51228;.8-9] </span> &#49892;&#54665; &#44208;&#44284;&#44032; &#50500;&#47000;&#50752; &#44057;&#51008;&#51648; &#54869;&#51064;&#54633;&#45768;&#45796;<a class="anchor-link" href="#-[&#44284;&#51228;.8-9]--&#49892;&#54665;-&#44208;&#44284;&#44032;-&#50500;&#47000;&#50752;-&#44057;&#51008;&#51648;-&#54869;&#51064;&#54633;&#45768;&#45796;">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13744,7 +13744,9 @@ expr<span class="o">(</span><span class="s2">&quot;case when column1 is null the
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 과제 8-9) 최종 결과가 아래의 값과 일치하는지 확인합니다</span>
+<span class="c1"># DAU:5, PU:4, DR: 12200000, ARPU: 2440000.0, ARPPU: 3050000.0</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|              DAU |&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;+------------------+&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;|                </span><span class="si">{}</span><span class="s2"> |&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v_dau</span><span class="p">))</span>
