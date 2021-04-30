@@ -22,10 +22,9 @@ chrome> http://<aws-hostname-or-ip>:8888/?token=ad4f43203ac46f7f7f58807ab6781b1f
 
 ## 3. 서비스 지표 생성
   * [3-1. LGDE.com 1일차 지표 실습](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/lgde-basic-day5-step3.html)
-<!--
   * [3-2. LGDE.com 2일차 지표 실습](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/lgde-basic-day5-step4.html)
 
 ## 4. 서비스 지표 검증
   * [4-1. LGDE.com 1일차 지표 검증](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/lgde-basic-day5-step3-answer.html)
   * [4-2. LGDE.com 2일차 지표 검증](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/lgde-basic-day5-step4-answer.html)
--->
+
