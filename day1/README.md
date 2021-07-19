@@ -3,11 +3,63 @@
 > 가상의 인터넷 쇼핑몰 "LGDE" 사이트에서 발생하는 다양한 로그를 통해 고객을 분석하고, 의사결정을 위한 지표를 생성하는 시나리오를 경험합니다.
 
 - 목차
+  * [0. SQL 기초 명령어](#0-SQL-기초-명령어)
   * [1. AWS 환경 구성](#1-AWS-및-로컬환경-구성)
   * [2. Git 명령어 실습](#2-Git-명령어-실습)
   * [3. Docker 명령어 실습](#3-Docker-명령어-실습)
   * [4. LGDE 서비스 시나리오](#4-LGDE-서비스-시나리오)
 
+
+## 0. SQL 기초 명령어
+* mysql 서버로 접속
+```bash
+bash> docker-compose exec mysql mysql -usqoop -psqoop
+
+mysql> use testdb;
+mysql> show tables;
+```
+
+* CREATE TABLE
+```sql
+CREATE TABLE table1 (
+    col1 INT NOT NULL,
+    col2 VARCHAR(10)
+);
+
+CREATE TABLE table2 (
+    col1 INT NOT NULL AUTO_INCREMENT,
+    col2 VARCHAR(10) NOT NULL,
+    PRIMARY KEY (col1)
+);
+```
+
+* SELECT
+```sql
+SELECT col1, col2
+FROM table1;
+
+SELECT col2
+FROM table2
+WHERE col1 = '찾는값'
+```
+
+* INSERT
+```sql
+INSERT INTO table1 ( col1 ) VALUES ( 1 );
+INSERT INTO table2 VALUES ( 1, 'one' );
+INSERT INTO table2 VALUES ( 2, 'two' ), ( 3, 'three' );
+```
+
+* UPDATE
+```sql
+UPDATE table1 SET col1 = 100 WHERE col1 = 1;
+```
+
+* DELETE
+```sql
+DELETE FROM table1 WHERE col1 = 100;
+DELETE FROM table2;
+```
 ## 1. AWS 및 로컬환경 구성
 
 ### 1.1 AWS 접속 및 포트 오픈 확인
