@@ -23,7 +23,7 @@
 ### 1-1. 최신 소스를 내려 받습니다
 ```bash
 # terminal
-cd /home/ubuntu/work/data-engineer-intermediate-training
+cd /home/ubuntu/work/data-engineer-basic-training
 git pull
 ```
 
@@ -47,7 +47,7 @@ docker rm -f `docker ps -aq`
 ### 1-3. 실습을 위한 이미지를 내려받고 컨테이너를 기동합니다
 ```bash
 # terminal
-cd /home/ubuntu/work/data-engineer-intermediate-training/day2
+cd /home/ubuntu/work/data-engineer-basic-training/day2
 
 docker compose pull
 docker compose up -d
@@ -635,7 +635,7 @@ cmd "SELECT COUNT(1) FROM seoul_popular_exp"
 ### 3-4. 컨테이너 정리
 * 테스트 작업이 완료되었으므로 모든 컨테이너를 종료합니다 (한번에 실행중인 모든 컨테이너를 종료합니다)
 ```bash
-cd /home/ubuntu/work/data-engineer-intermediate-training/day2
+cd /home/ubuntu/work/data-engineer-basic-training/day2
 docker compose down
 ```
 
@@ -650,7 +650,7 @@ docker compose down
 ### 1-1. 최신 소스를 내려 받습니다
 ```bash
 # terminal
-cd /home/ubuntu/work/data-engineer-intermediate-training
+cd /home/ubuntu/work/data-engineer-basic-training
 git pull
 ```
 
@@ -673,12 +673,12 @@ docker rm -f `docker ps -aq`
 
 ### 1-3. 이번 실습은 예제 별로 다른 컨테이너를 사용합니다
 
-> `cd /home/ubuntu/work/data-engineer-intermediate-training/day3/`<kbd>ex1</kbd> 와 같이 마지막 경로가 다른 점에 유의 하시기 바랍니다
+> `cd /home/ubuntu/work/data-engineer-basic-training/day2/`<kbd>ex1</kbd> 와 같이 마지막 경로가 다른 점에 유의 하시기 바랍니다
 
 * 1번 실습의 경로는 <kbd>ex1</kbd>이므로 아래와 같습니다
 ```bash
 # terminal
-cd /home/ubuntu/work/data-engineer-intermediate-training/day3/ex1
+cd /home/ubuntu/work/data-engineer-basic-training/day2/ex1
 ```
 <br>
 
@@ -695,7 +695,7 @@ cd /home/ubuntu/work/data-engineer-intermediate-training/day3/ex1
 
 ### 2-1. 도커 컨테이너 기동
 ```bash
-cd /home/ubuntu/work/data-engineer-intermediate-training/day3/ex1
+cd /home/ubuntu/work/data-engineer-basic-training/day2/ex1
 docker compose pull
 docker compose up -d
 ```
@@ -842,10 +842,10 @@ Content-Length: 0
 > 이전 실습에서 기동된 컨테이너를 종료 후, 기동합니다.
 
 ```bash
-cd /home/ubuntu/work/data-engineer-intermediate-training/day3/ex1
+cd /home/ubuntu/work/data-engineer-basic-training/day2/ex1
 docker compose down
 
-cd /home/ubuntu/work/data-engineer-intermediate-training/day3/ex2
+cd /home/ubuntu/work/data-engineer-basic-training/day2/ex2
 docker compose pull
 docker compose up -d
 ```
@@ -1013,10 +1013,10 @@ root@7d33f313cc13:~#
 > 이전 실습에서 기동된 컨테이너를 종료 후, 기동합니다.
 
 ```bash
-cd /home/ubuntu/work/data-engineer-intermediate-training/day3/ex2
+cd /home/ubuntu/work/data-engineer-basic-training/day2/ex2
 docker compose down
 
-cd /home/ubuntu/work/data-engineer-intermediate-training/day3/ex3
+cd /home/ubuntu/work/data-engineer-basic-training/day2/ex3
 docker compose pull
 docker compose up -d
 ```
@@ -1237,6 +1237,6 @@ root@2cf7c79e8367:~# for x in $(seq 1 100); do tree -L 1 /fluentd/source; tree -
 ### 4-4. 컨테이너 정리
 * 테스트 작업이 완료되었으므로 모든 컨테이너를 종료합니다 (한번에 실행중인 모든 컨테이너를 종료합니다)
 ```bash
-cd /home/ubuntu/work/data-engineer-intermediate-training/day2
+cd /home/ubuntu/work/data-engineer-basic-training/day2
 docker compose down
 ```
