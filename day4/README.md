@@ -802,7 +802,6 @@ message purchase_20201025 {
 ```
 * 경로 확인 및 생성
 ```bash
-tree /tmp/source
 hadoop fs -mkdir -p /user/lgde/purchase/dt=20201025
 hadoop fs -mkdir -p /user/lgde/purchase/dt=20201026
 hadoop fs -put /tmp/source/purchase/20201025/* /user/lgde/purchase/dt=20201025
@@ -857,6 +856,12 @@ select dt, count(1) as cnt from purchase group by dt;
 
 > 마찬가지로 유사한 방식으로 적재 및 테이블 생성을 수행합니다
 
+* 하이브 컨테이너로 접속합니다
+```bash
+# terminal
+docker-compose exec hive-server bash
+```
+
 * 파일 업로드 및 스키마 확인, 경로 생성 및 업로드
 
 ```bash
@@ -876,6 +881,10 @@ message user_20201025 {
 }
 ```
 
+* 하이브 명령 수행을 위해 beeline 을 실행합니다
+```bash
+beeline
+```
 * 하이브 테이블 생성 및 조회
 ```bash
 # beeline>
