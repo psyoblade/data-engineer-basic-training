@@ -49,9 +49,9 @@ docker rm -f `docker ps -aq`
 # terminal
 cd /home/ubuntu/work/data-engineer-basic-training/day2
 
-docker compose pull
-docker compose up -d
-docker compose ps
+docker-compose pull
+docker-compose up -d
+docker-compose ps
 ```
 <br>
 
@@ -80,7 +80,7 @@ done
 #### 2-1-1. 스쿱 명령어 실습을 위해 컨테이너에 접속합니다
 ```bash
 # terminal
-docker compose exec sqoop bash
+docker-compose exec sqoop bash
 ```
 
 * 간단한 출력 명령을 수행합니다
@@ -198,7 +198,7 @@ ask sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --passw
 
 ```bash
 # terminal
-docker compose exec mysql mysql -usqoop -psqoop
+docker-compose exec mysql mysql -usqoop -psqoop
 ```
 ```sql
 # mysql>
@@ -336,7 +336,7 @@ ask cat /home/sqoop/target/student/part-m-00000
 * 컨테이너에 접속되어 있지 않다면 접속합니다
 ```bash
 # terminal
-docker compose exec mysql mysql -usqoop -psqoop
+docker-compose exec mysql mysql -usqoop -psqoop
 ```
 * 스쿱 명령어로 테이블을 수집합니다
 ```bash
@@ -364,7 +364,7 @@ ls /home/sqoop/target/student_tab
 * 컨테이너에 접속되어 있지 않다면 접속합니다
 ```bash
 # terminal
-docker compose exec mysql mysql -usqoop -psqoop
+docker-compose exec mysql mysql -usqoop -psqoop
 ```
 * 스쿱 명령어로 테이블을 수집합니다
 ```bash
@@ -413,7 +413,7 @@ hadoop jar /jdbc/parquet-tools-1.8.1.jar head file://${filename}
 * 컨테이너에 접속되어 있지 않다면 접속합니다
 ```bash
 # terminal
-docker compose exec mysql mysql -usqoop -psqoop
+docker-compose exec mysql mysql -usqoop -psqoop
 ```
 * 상위 3개 문서 반환
 ```
@@ -474,7 +474,7 @@ ask hadoop fs -cat /user/sqoop/target/seoul_popular_trip/part-m-00000
 
 ```bash
 # terminal
-docker compose exec mysql mysql -usqoop -psqoop
+docker-compose exec mysql mysql -usqoop -psqoop
 ```
 * 테스트 적재를 위한 테이블을 생성합니다
 ```sql
@@ -636,7 +636,7 @@ cmd "SELECT COUNT(1) FROM seoul_popular_exp"
 * 테스트 작업이 완료되었으므로 모든 컨테이너를 종료합니다 (한번에 실행중인 모든 컨테이너를 종료합니다)
 ```bash
 cd /home/ubuntu/work/data-engineer-basic-training/day2
-docker compose down
+docker-compose down
 ```
 
 
@@ -696,15 +696,15 @@ cd /home/ubuntu/work/data-engineer-basic-training/day2/ex1
 ### 2-1. 도커 컨테이너 기동
 ```bash
 cd /home/ubuntu/work/data-engineer-basic-training/day2/ex1
-docker compose pull
-docker compose up -d
+docker-compose pull
+docker-compose up -d
 ```
 
 ### 2-2. 도커 및 플루언트디 설정파일 확인
 
 > 기본 설정은 /etc/fluentd/fluent.conf 파일을 바라보는데 예제 환경에서는 `docker-compose.yml` 설정에서 해당 위치에 ex1/fluent.conf 파일을 마운트해 두었기 때문에 컨테이너 환경 내에서 바로 실행을 해도 잘 동작합니다. 별도로 `fluentd -c /etc/fluentd/fluent.conf` 로 실행해도 동일하게 동작합니다
 
-#### 2-2-1 도커 컴포즈 파일 구성 `docker compose.yml`
+#### 2-2-1 도커 컴포즈 파일 구성 `docker-compose.yml`
 
 ```yml
 version: "3"
@@ -748,7 +748,7 @@ networks:
 #### 2-3-1. 에이전트 기동을 위해 컨테이너로 접속 후, 에이전트를 기동합니다
 ```bash
 # terminal
-docker compose exec fluentd bash
+docker-compose exec fluentd bash
 ```
 ```bash
 # docker
@@ -792,7 +792,7 @@ fluentd
   - 클라우드 터미널에 curl 설치가 되어있지 않을 수도 있으므로 도커 컨테이너에 접속합니다
 ```bash
 # terminal
-docker compose exec fluentd bash
+docker-compose exec fluentd bash
 ```
 ```bash
 # docker
@@ -843,16 +843,16 @@ Content-Length: 0
 
 ```bash
 cd /home/ubuntu/work/data-engineer-basic-training/day2/ex1
-docker compose down
+docker-compose down
 
 cd /home/ubuntu/work/data-engineer-basic-training/day2/ex2
-docker compose pull
-docker compose up -d
+docker-compose pull
+docker-compose up -d
 ```
 <br>
 
 
-#### 3-1-1 도커 컴포즈 파일 구성 `docker compose.yml`
+#### 3-1-1 도커 컴포즈 파일 구성 `docker-compose.yml`
 
 ```yml
 version: "3"
@@ -942,7 +942,7 @@ networks:
 
 ```bash
 # terminal
-docker compose exec fluentd bash
+docker-compose exec fluentd bash
 ```
 ```bash
 # docker
@@ -961,7 +961,7 @@ fluentd
 
 ```bash
 # terminal
-docker compose exec fluentd bash
+docker-compose exec fluentd bash
 ```
 ```bash
 # docker
@@ -1014,16 +1014,16 @@ root@7d33f313cc13:~#
 
 ```bash
 cd /home/ubuntu/work/data-engineer-basic-training/day2/ex2
-docker compose down
+docker-compose down
 
 cd /home/ubuntu/work/data-engineer-basic-training/day2/ex3
-docker compose pull
-docker compose up -d
+docker-compose pull
+docker-compose up -d
 ```
 <br>
 
 
-#### 4-1-1 도커 컴포즈 파일 구성 `docker compose.yml`
+#### 4-1-1 도커 컴포즈 파일 구성 `docker-compose.yml`
 
 ```yml
 version: "3"
@@ -1152,7 +1152,7 @@ fr.close()
 
 ```bash
 # terminal
-docker compose exec fluentd bash
+docker-compose exec fluentd bash
 ```
 ```bash
 # docker
@@ -1169,7 +1169,7 @@ fluentd
 
 ```bash
 # terminal
-docker compose exec fluentd bash
+docker-compose exec fluentd bash
 ```
 ```bash
 python flush_logs.py
@@ -1238,5 +1238,5 @@ root@2cf7c79e8367:~# for x in $(seq 1 100); do tree -L 1 /fluentd/source; tree -
 * 테스트 작업이 완료되었으므로 모든 컨테이너를 종료합니다 (한번에 실행중인 모든 컨테이너를 종료합니다)
 ```bash
 cd /home/ubuntu/work/data-engineer-basic-training/day2
-docker compose down
+docker-compose down
 ```
