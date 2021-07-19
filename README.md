@@ -10,5 +10,4 @@
         
 ## [4일차. 데이터 적재 - 하이브](https://github.com/psyoblade/data-engineer-basic-training/tree/master/day4)
         
-## [5일차. 데이터 엔지니어링 - 데이터 고급 지표 과제](https://github.com/psyoblade/data-engineer-basic-training/tree/master/day5)
-
+## [5일차. LGDE.com 지표 - 프로젝트](https://github.com/psyoblade/data-engineer-basic-training/tree/master/day5/README.md)
