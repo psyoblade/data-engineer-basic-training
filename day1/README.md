@@ -3,18 +3,70 @@
 > 가상의 인터넷 쇼핑몰 "LGDE" 사이트에서 발생하는 다양한 로그를 통해 고객을 분석하고, 의사결정을 위한 지표를 생성하는 시나리오를 경험합니다.
 
 - 목차
+  * [0. SQL 기초 명령어](#0-SQL-기초-명령어)
   * [1. AWS 환경 구성](#1-AWS-및-로컬환경-구성)
   * [2. Git 명령어 실습](#2-Git-명령어-실습)
   * [3. Docker 명령어 실습](#3-Docker-명령어-실습)
   * [4. LGDE 서비스 시나리오](#4-LGDE-서비스-시나리오)
 
+
+## 0. SQL 기초 명령어
+* mysql 서버로 접속
+```bash
+bash> docker-compose exec mysql mysql -usqoop -psqoop
+
+mysql> use testdb;
+mysql> show tables;
+```
+
+* CREATE TABLE
+```sql
+CREATE TABLE table1 (
+    col1 INT NOT NULL,
+    col2 VARCHAR(10)
+);
+
+CREATE TABLE table2 (
+    col1 INT NOT NULL AUTO_INCREMENT,
+    col2 VARCHAR(10) NOT NULL,
+    PRIMARY KEY (col1)
+);
+```
+
+* SELECT
+```sql
+SELECT col1, col2
+FROM table1;
+
+SELECT col2
+FROM table2
+WHERE col1 = '찾는값'
+```
+
+* INSERT
+```sql
+INSERT INTO table1 ( col1 ) VALUES ( 1 );
+INSERT INTO table2 VALUES ( 1, 'one' );
+INSERT INTO table2 VALUES ( 2, 'two' ), ( 3, 'three' );
+```
+
+* UPDATE
+```sql
+UPDATE table1 SET col1 = 100 WHERE col1 = 1;
+```
+
+* DELETE
+```sql
+DELETE FROM table1 WHERE col1 = 100;
+DELETE FROM table2;
+```
 ## 1. AWS 및 로컬환경 구성
 
 ### 1.1 AWS 접속 및 포트 오픈 확인
 > 각자 개인 계정으로 AWS 컨테이너에 접속이 가능한지, 기본 도구들이 설치되어 있는지 확인합니다
 * AWS 인스턴스에 개인 계정으로 접속합니다
 ```bash
-bash> ssh ubuntu@lgde # 할당 받은 IP 혹은 AWS HOSTNAME 으로 접속하시면 됩니다
+bash> ssh ubuntu@lgde # 개인별로 할당 받은 IP 혹은 DNS 로 접속하시면 됩니다
 ```
 
 * 서버에 접속하여 기본 도구들이 설치되어 있는지 버전은 맞는지 확인합니다
@@ -41,7 +93,6 @@ bash> git clone https://github.com/psyoblade/helloworld.git
 bash> cd helloworld
 
 bash> sudo ./init.sh  # 명령을 통해 tree 패키지 및 rc 파일을 복사합니다
-
 bash> d # alias 로 docker-compose 를 등록되어 --help 가 뜨면 정상입니다
 bash> source ~/.bashrc  # d 명령어 오류가 나는 경우 .bashrc 를 다시 로딩합니다
 ```
@@ -145,6 +196,7 @@ bash> docker-compose down  # 모든 서비스 컨테이너를 종료합니다
 
 ### 4.1 데이터 수집을 위한 예제 프로젝트를 다운로드 합니다 (git)
 * 모든 서비스(mysql, sqoop, fluentd, notebook)가 전부 기동되었는지 확인합니다
+  - 도커 이미지 다운로드 시간이 약 2~3분 소요됩니다
 ```bash
 bash> cd ~/workspace
 bash> git clone https://github.com/psyoblade/data-engineer-basic-training.git 
