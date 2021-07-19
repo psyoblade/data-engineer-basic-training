@@ -796,11 +796,11 @@ docker-compose exec fluentd bash
 ```
 ```bash
 # docker
-curl -i -X POST -d json={"action":"login","user":2} http://localhost:9880/test
-HTTP/1.1 200 OK
-Content-Type: text/plain
-Connection: Keep-Alive
-Content-Length: 0
+curl -i -X POST -d 'json={"action":"login","user":2}' http://localhost:9880/test
+# HTTP/1.1 200 OK
+# Content-Type: text/plain
+# Connection: Keep-Alive
+# Content-Length: 0
 ```
 > 사전에 배포된 `send_http.sh` 를 실행해도 동일한 결과를 얻습니다
 
