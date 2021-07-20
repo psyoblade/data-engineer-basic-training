@@ -38,6 +38,18 @@ git clone https://github.com/psyoblade/data-engineer-basic-training.git
 ```
 <br>
 
+<details><summary>[실습] 터미널에 접속하여 /home/ubuntu/work 경로 아래에 https://github.com/psyoblade/data-engineer-basic-training.git 을 clone 하세요 </summary>
+
+> 출력 결과가 오류가 발생하지 않고, 아래와 유사하다면 성공입니다
+
+```bash
+
+```
+
+</details>
+<br>
+
+
 
 #### 2-2. 스테이징
 * status : 현재 경로의 스테이징 상태를 보여줍니다
