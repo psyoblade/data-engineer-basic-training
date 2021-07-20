@@ -155,28 +155,64 @@ tmp/
 ```
 
 * push : 로컬 저장소의 커밋된 내역을 원격 저장소에 반영합니다
+  - 원격 저장소에 브랜치가 존재하지 않는 경우에 업스트림 옵션(--set-upstream origin lgde/2021)을 활용합니다
 ```bash
-#
+# git push (--set-upstream <remote> <branch>)
 ```
+<br>
 
-* :
+
+#### 2-7. 이력 관리
+* reset : 스테이징된 모든 내역을 제거 혹은 제거된 내역을 롤백합니다
+  - git log 명령을 통해 확인된 commit 해시 값으로 해당 시점으로 돌릴 수 있습니다
+  - git reflog 명령을 통해 모든 이력을 확인할 수 있고, reset 을 undo 할 수 있습니다
 ```bash
-#
-```
+# git reset --hard [commit]
+git reset --hard 7e5e3e54e400228cbdb12ab00b13c4af22305a0d
 
-* :
+# git reflog (show master)
+git reset 'HEAD@{1}'
+```
+<br>
+
+
+#### 2-8. 임시 저장
+
+* stash : 현재 수정내역을 커밋하기는 애매하지만, 다른 브랜치로 체크아웃 하고 싶을 때 임시로 수정 내역 전체를 저장합니다
 ```bash
-#
-```
+# 임시로 저장
+git stash
 
-* :
+# 임시 저장 리스트
+git stash list
+
+# 가장 마지막에 저장한 것을 복원
+git stash pop
+
+# 가장 마지막에 저장된 것을 삭제
+git stash drop
+
+# 혹은 stash 값을 바로 사용
+git stash apply stash@{0}
+
+# 내역을 보고 싶다면
+git stash show stash@{1}
+```
+<br>
+
+
+#### 2-9. 깃 명령어 톱 6
+
+> 가장 많이 사용하는 명령어 입니다
+
 ```bash
-#
+git clone
+git status -sb                    # 브랜치 + 상태
+git commit -am "[수정] 메시지"    # 스테이징 + 커밋
+git pull
+git push
+git checkout -- .                 # 수정한 내역 버리고 마지막 커밋 시점으로 롤백
 ```
-
-
-
-
 
 
 
