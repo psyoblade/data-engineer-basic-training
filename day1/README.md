@@ -1,6 +1,185 @@
 # 데이터 엔지니어링 초급 1일차
-> AWS 환경 구성, Git 및 Docker 명령어 실습을 통해 기본적인 도구를 손에 익힙니다.
-> 가상의 인터넷 쇼핑몰 "LGDE" 사이트에서 발생하는 다양한 로그를 통해 고객을 분석하고, 의사결정을 위한 지표를 생성하는 시나리오를 경험합니다.
+> 전체 과정에서 사용하는 기본적인 명령어 혹은 서비스 등에 대해 실습하고 사용법을 익힙니다
+
+git, docker, linux CLI tools, hdfs, sql 
+
+
+### 2. Git 명령어 실습
+
+* Git ?
+  - 분산 버전관리 시스템
+  - 프로젝트에 형상관리 시스템
+  - 리소스(코드, 파일, 메타데이터, 이미지  등)의 이력 및 변경관리
+* [Git 용어](https://cupjoo.tistory.com/6)
+  - Remote Repository (원격 저장소) : 원격 서버에서 관리되는 저장소, 다수의 사람이 공유 및 사용
+  - Local Repository (로컬 저장소) : 개인 PC 내에 관리되는 저장소, PC 사용자가 관리하는 저장소
+  - Index : 변경 사항이 로컬 저장소에 저장(Commit)되기 전에 임시로 기록되는 공간이며, 이 공간에 기록하는 행위를 Staging 이라고 합니다. 이 때에 저장을 원하지 않는 내역을 제외할 수도 있는데 이것을 Unstage 라고 합니다.
+  - Commit : 프로젝트의 변경된 이력(Staged)을 로컬 저장소에 저장하는 행위를 말합니다.
+  - Branch : 여러번의 Commmit 이 모여 하나의 큰 애플리케이션 구현 혹은 버그 수정 등의 작업 단위가 만들어지는데, 이러한 의도된 작업의 변경사항의 그룹을 Branch 라고 합니다.
+  - Checkout : 여러개의 Commit 혹은 Branch 의 Commit 사이를 이동하는 행위를 말합니다
+  - Merge : 변경 사항이 적용된 다른 Branch 를 현재 Branch 에 병합하는 행위를 말하며, 상충되는 코드나 메시지가 있는 경우 Conflict 가 나며, 이를 해결 후, Commit 되어야 합니다
+  - Clone : 원격 저장소로부터 특정 프로젝트를 로컬 저장소에 다운로드 하는 행위를 말합니다
+  - Pull : 원격 저장소로 부터 변경된 내역을 로컬 저장소에 반영하는 과정을 말합니다. 
+  - Push : 로컬 저장소에 수정된 내역을 원격 저장소로 반영하는 과정을 말합니다.
+* GitHub - [Git Cheat-sheet](https://education.github.com/git-cheat-sheet-education.pdf)
+
+#### 2-1. 초기화
+* init : 현재 디렉토리를 Git 레포지토리로 초기화 하고, 로컬 레포지토리로 관리됩니다
+  - `.git` 경로가 생성되고, 하위에 index 및 object 들이 존재합니다
+```bash
+# git init
+git init
+```
+* clone : 원격 저장소의 내용을 로컬 저장소에 다운로드 합니다
+  - target directory 를 지정하지 않으면 프로젝트이름(`data-engineer-basic-training`)이 자동으로 생성됩니다
+```bash
+# git clone [uri]
+git clone https://github.com/psyoblade/data-engineer-basic-training.git <target-directory>
+```
+<br>
+
+
+#### 2-2. 스테이징
+* status : 현재 경로의 스테이징 상태를 보여줍니다
+```bash
+# git status (-s, --short)
+git status -s
+```
+
+* add : 저장 대상 파일(들)을 인덱스에 스테이징 합니다
+  - 빈 디렉토리는 추가되지 않으며, 하나라도 파일이 존재해야 추가됩니다
+  - 모든 Unstage 된 파일을 추가하는 옵션(-A)은 주의해서 사용해야 하며 .gitignore 파일을 잘 활용합니다
+```bash
+# git add (-A, --all) [file]
+git add README.md
+```
+
+* reset : 스테이징 된 파일을 언스테이징 합니다
+```bash
+# git reset [file]
+git reset README.md
+```
+
+* diff : 스테이징 된 파일에 따라 발생하는 이전 상태와 차이점을 보여줍니다
+```bash
+# git diff (--name-only)
+git diff
+```
+
+* commit : 스테이징(add) 된 내역을 스냅샷으로 저장합니다
+  - 스테이징 된 내역이 없다면 커밋되지 않습니다
+```bash
+# git commit -m "descriptive message"
+git commit -m "[수정] 초기화 완료"
+```
+
+> 수정된 파일은 " M" 으로 표현되고, 스테이징된 파일은  "M " 으로 표현되며, 커밋된 파일은 status 에서 보이지 않습니다.
+
+![git.1](images/git.1.png)
+
+<br>
+
+
+#### 2-3. 브랜치
+
+* branch : 로컬(-r:리모트, -a:전체) 브랜치 목록을 출력, 생성, 삭제 작업을 수행합니다
+```bash
+# git branch (-r, --remotes | -a, --all)
+git branch -a
+
+# git branch [create-branch]
+git branch lgde/2021
+
+# git branch (-d, --delete) [delete-branch]
+git branch -d lgde/2021
+```
+
+* checkout : 해당 브랜치로 이동합니다
+  - 존재하는 브랜치로만 체크아웃이 됩니다 (-b 옵션을 주면 생성하면서 이동합니다)
+```bash
+# git checkout (-b) [branch-name]
+git checkout -b lgde/2021
+```
+
+* merge : 대상 브랜치와 병합합니다. **대상 브랜치는 영향이 없고, 현재 브랜치가 변경**됩니다.
+  - 변경하고자 하는 브랜치를 먼저 체크아웃하는 습관을 가지시면 좋습니다
+```bash
+# git merge [merge-branch]
+git merge master
+```
+
+* log : 커밋 메시지를 브랜치 히스토리 별로 확인할 수 있습니다
+```bash
+git log
+```
+<br>
+
+
+#### 2-4. 경로 관리
+
+* rm : 커밋된 파일을 삭제합니다
+```bash
+# git rm [file]
+git rm README.md
+```
+
+* mv : 파일 혹은 경로를 새로운 경로로 이동합니다
+```bash
+# git mv [source-path] [target-path]
+git mv REAMDE.md tmp
+```
+<br>
+
+
+#### 2-5. 예외 처리
+
+> 깃으로 관리되지 않는 파일 혹은 경로를 패턴을 통해 관리합니다 - [gitignore.io](https://www.toptal.com/developers/gitignore)
+
+* .gitignore : 해당 파일을 생성하고 내부 파일을 아래와 같이 관리합니다
+```bash
+# cat .gitignore
+logs/
+*.notes
+tmp/
+```
+<br>
+
+
+#### 2-6. 저장소 관리
+
+> 원격 저장소와 동기화 하는 방법이며, pull, push 는 항상 conflict 에 유의해야 하며, 로컬 저장소에서 merge 및 conflict 해결하는 습관을 들여야만 합니다
+
+* pull : 원격 저장소에서 변경된 내역을 로컬 저장소에 반영합니다
+```bash
+# git pull (--dry-run)
+```
+
+* push : 로컬 저장소의 커밋된 내역을 원격 저장소에 반영합니다
+```bash
+#
+```
+
+* :
+```bash
+#
+```
+
+* :
+```bash
+#
+```
+
+* :
+```bash
+#
+```
+
+
+
+
+
+
+
 
 - 목차
   * [0. SQL 기초 명령어](#0-SQL-기초-명령어)
