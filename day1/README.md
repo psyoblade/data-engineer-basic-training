@@ -370,9 +370,9 @@ docker rm busy_herschel
 
 * run : 컨테이너의 생성과 시작을 같이 합니다 (create + start)
   - <kbd>--rm</kbd> : 종료 시에 컨테이너까지 같이 삭제합니다
-  - <kbd>-d</kbd>, <kbd>--detach<kbd> : 터미널을 붙지않고 데몬 처럼 백그라운드 실행이 되게 합니다
-  - <kbd>-i</kbd>, <kbd>--interactive<kbd> : 인터액티브하게 표준 입출력을 키보드로 동작하게 합니다
-  - <kbd>-t</kbd>, <kbd>--tty<kbd> : 텍스트 기반의 터미널을 에뮬레이션 하게 합니다
+  - <kbd>-d, --detach</kbd> : 터미널을 붙지않고 데몬 처럼 백그라운드 실행이 되게 합니다
+  - <kbd>-i, --interactive</kbd> : 인터액티브하게 표준 입출력을 키보드로 동작하게 합니다
+  - <kbd>-t, --tty</kbd> : 텍스트 기반의 터미널을 에뮬레이션 하게 합니다
 ```bash
 # docker run <options> <image>:<tag>
 docker run --rm --name ubuntu -dit ubuntu:20.04
