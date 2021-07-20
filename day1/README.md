@@ -59,23 +59,7 @@ git clone https://github.com/psyoblade/helloworld.git
 
 ## 2. Git 명령어 실습
 
-* Git ?
-  - 분산 버전관리 시스템
-  - 프로젝트에 형상관리 시스템
-  - 리소스(코드, 파일, 메타데이터, 이미지  등)의 이력 및 변경관리
-* [Git 용어](https://cupjoo.tistory.com/6)
-  - Remote Repository (원격 저장소) : 원격 서버에서 관리되는 저장소, 다수의 사람이 공유 및 사용
-  - Local Repository (로컬 저장소) : 개인 PC 내에 관리되는 저장소, PC 사용자가 관리하는 저장소
-  - Index : 변경 사항이 로컬 저장소에 저장(Commit)되기 전에 임시로 기록되는 공간이며, 이 공간에 기록하는 행위를 Staging 이라고 합니다. 이 때에 저장을 원하지 않는 내역을 제외할 수도 있는데 이것을 Unstage 라고 합니다.
-  - Commit : 프로젝트의 변경된 이력(Staged)을 로컬 저장소에 저장하는 행위를 말합니다.
-  - Branch : 여러번의 Commmit 이 모여 하나의 큰 애플리케이션 구현 혹은 버그 수정 등의 작업 단위가 만들어지는데, 이러한 의도된 작업의 변경사항의 그룹을 Branch 라고 합니다.
-  - Checkout : 여러개의 Commit 혹은 Branch 의 Commit 사이를 이동하는 행위를 말합니다
-  - Merge : 변경 사항이 적용된 다른 Branch 를 현재 Branch 에 병합하는 행위를 말하며, 상충되는 코드나 메시지가 있는 경우 Conflict 가 나며, 이를 해결 후, Commit 되어야 합니다
-  - Clone : 원격 저장소로부터 특정 프로젝트를 로컬 저장소에 다운로드 하는 행위를 말합니다
-  - Pull : 원격 저장소로 부터 변경된 내역을 로컬 저장소에 반영하는 과정을 말합니다. 
-  - Push : 로컬 저장소에 수정된 내역을 원격 저장소로 반영하는 과정을 말합니다.
-* GitHub - [Git Cheat-sheet](https://education.github.com/git-cheat-sheet-education.pdf)
-<br>
+> [Git Cheat-sheet](https://education.github.com/git-cheat-sheet-education.pdf) 를 참고하여 작성 되었습니다
 
 ### 2-1. 초기화
 * init : 현재 디렉토리를 Git 레포지토리로 초기화 하고, 로컬 레포지토리로 관리됩니다
@@ -348,6 +332,7 @@ ls -al
 
 ## 3. Docker 명령어 실습
 
+> [Docker Cheat Sheet](https://dockerlabs.collabnix.com/docker/cheatsheet/)를 참고하여 작성 되었습니다
 
 ### 3-1. 컨테이너 생성관리
 
@@ -385,9 +370,9 @@ docker rm busy_herschel
 
 * run : 컨테이너의 생성과 시작을 같이 합니다 (create + start)
   - <kbd>--rm</kbd> : 종료 시에 컨테이너까지 같이 삭제합니다
-  - <kbd>-d, --detach<kbd> : 터미널을 붙지않고 데몬 처럼 백그라운드 실행이 되게 합니다
-  - <kbd>-i, --interactive<kbd> : 인터액티브하게 표준 입출력을 키보드로 동작하게 합니다
-  - <kbd>-t, --tty<kbd> : 텍스트 기반의 터미널을 에뮬레이션 하게 합니다
+  - <kbd>-d</kbd>, <kbd>--detach<kbd> : 터미널을 붙지않고 데몬 처럼 백그라운드 실행이 되게 합니다
+  - <kbd>-i</kbd>, <kbd>--interactive<kbd> : 인터액티브하게 표준 입출력을 키보드로 동작하게 합니다
+  - <kbd>-t</kbd>, <kbd>--tty<kbd> : 텍스트 기반의 터미널을 에뮬레이션 하게 합니다
 ```bash
 # docker run <options> <image>:<tag>
 docker run --rm --name ubuntu -dit ubuntu:20.04
