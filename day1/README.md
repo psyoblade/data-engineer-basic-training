@@ -34,7 +34,7 @@ git init
   - target directory 를 지정하지 않으면 프로젝트이름(`data-engineer-basic-training`)이 자동으로 생성됩니다
 ```bash
 # git clone [uri]
-git clone https://github.com/psyoblade/data-engineer-basic-training.git <target-directory>
+git clone https://github.com/psyoblade/data-engineer-basic-training.git
 ```
 <br>
 
