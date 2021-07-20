@@ -1,10 +1,63 @@
 # 데이터 엔지니어링 초급 1일차
-> 전체 과정에서 사용하는 기본적인 명령어 혹은 서비스 등에 대해 실습하고 사용법을 익힙니다
+> 전체 과정에서 사용하는 기본적인 명령어 혹은 서비스(git, docker, linux, hdfs, sql) 등에 대해 실습하고 사용법을 익힙니다
 
-git, docker, linux CLI tools, hdfs, sql 
+- 목차
+  * [ssh](#ssh)
+  * [git](#)
+  * [docker](#)
+  * [linux](#)
+  * [hdfs](#)
+  * [sql](#)
 
 
-### 2. Git 명령어 실습
+
+## 1. 클라우드 장비에 접속
+
+> 개인 별로 할당 받은 `ubuntu@vm<number>.aiffelbiz.co.kr` 에 putty 혹은 terminal 을 이용하여 접속합니다
+
+### 1-1. 원격 서버로 접속합니다
+```bash
+# terminal
+# ssh ubuntu@vm<number>.aiffelbiz.co.kr
+# password: ******
+```
+
+### 1-2. 패키지 설치 여부를 확인합니다
+```bash
+docker --version
+docker-compose --version
+git --version
+```
+
+<details><summary>[실습] 출력 결과 확인</summary>
+
+> 출력 결과가 오류가 발생하지 않고, 아래와 유사하다면 성공입니다
+
+```text
+Docker version 20.10.6, build 370c289
+docker-compose version 1.29.1, build c34c88b2
+git version 2.17.1
+```
+
+</details>
+<br>
+
+
+#### 1-3. 실습을 위한 예제 프로젝트를 가져옵니다
+
+> 아래에서 학습할 예정이지만, 원격지에 저장된 프로젝트를 로컬로 다운로드 하는 작업이 git clone 입니다
+
+```bash
+# terminal
+mkdir -p /home/ubuntu/work
+cd /home/ubuntu/work
+git clone https://github.com/psyoblade/data-engineer-basic-training.git
+git clone https://github.com/psyoblade/helloworld.git
+```
+<br>
+
+
+## 2. Git 명령어 실습
 
 * Git ?
   - 분산 버전관리 시스템
@@ -22,8 +75,9 @@ git, docker, linux CLI tools, hdfs, sql
   - Pull : 원격 저장소로 부터 변경된 내역을 로컬 저장소에 반영하는 과정을 말합니다. 
   - Push : 로컬 저장소에 수정된 내역을 원격 저장소로 반영하는 과정을 말합니다.
 * GitHub - [Git Cheat-sheet](https://education.github.com/git-cheat-sheet-education.pdf)
+<br>
 
-#### 2-1. 초기화
+### 2-1. 초기화
 * init : 현재 디렉토리를 Git 레포지토리로 초기화 하고, 로컬 레포지토리로 관리됩니다
   - `.git` 경로가 생성되고, 하위에 index 및 object 들이 존재합니다
 ```bash
@@ -31,27 +85,45 @@ git, docker, linux CLI tools, hdfs, sql
 git init
 ```
 * clone : 원격 저장소의 내용을 로컬 저장소에 다운로드 합니다
-  - target directory 를 지정하지 않으면 프로젝트이름(`data-engineer-basic-training`)이 자동으로 생성됩니다
+  - target directory 를 지정하지 않으면 프로젝트이름(`helloworld`)이 자동으로 생성됩니다
 ```bash
 # git clone [uri]
-git clone https://github.com/psyoblade/data-engineer-basic-training.git
+git clone https://github.com/psyoblade/helloworld.git
 ```
 <br>
 
-<details><summary>[실습] 터미널에 접속하여 /home/ubuntu/work 경로 아래에 https://github.com/psyoblade/data-engineer-basic-training.git 을 clone 하세요 </summary>
+<details><summary>[실습] 터미널에 접속하여 /home/ubuntu/work 경로 아래에 https://github.com/psyoblade/helloworld.git 을 clone 하세요 </summary>
 
 > 출력 결과가 오류가 발생하지 않고, 아래와 유사하다면 성공입니다
 
 ```bash
-
+Cloning into 'helloworld'...
+remote: Enumerating objects: 86, done.
+remote: Counting objects: 100% (40/40), done.
+remote: Compressing objects: 100% (29/29), done.
+remote: Total 86 (delta 14), reused 34 (delta 8), pack-reused 46
+Unpacking objects: 100% (86/86), done.
 ```
 
 </details>
 <br>
 
 
+#### 2-1-1. 기본 환경 구성
 
-#### 2-2. 스테이징
+> 기본 실습 환경 구성 및 단축 명령어를 등록합니다 
+
+```bash
+cd /home/ubuntu/work/helloworld
+
+sudo ./init.sh  # 명령을 통해 tree 패키지 및 rc 파일을 복사합니다
+d # alias 로 docker-compose 를 등록되어 --help 가 뜨면 정상입니다
+source ~/.bashrc  # .bashrc 내용을 현재 세션에 다시 로딩합니다
+```
+<br>
+
+
+### 2-2. 스테이징
 * status : 현재 경로의 스테이징 상태를 보여줍니다
 ```bash
 # git status (-s, --short)
@@ -92,7 +164,7 @@ git commit -m "[수정] 초기화 완료"
 <br>
 
 
-#### 2-3. 브랜치
+### 2-3. 브랜치
 
 * branch : 로컬(-r:리모트, -a:전체) 브랜치 목록을 출력, 생성, 삭제 작업을 수행합니다
 ```bash
@@ -127,7 +199,7 @@ git log
 <br>
 
 
-#### 2-4. 경로 관리
+### 2-4. 경로 관리
 
 * rm : 커밋된 파일을 삭제합니다
 ```bash
@@ -143,7 +215,7 @@ git mv REAMDE.md tmp
 <br>
 
 
-#### 2-5. 예외 처리
+### 2-5. 예외 처리
 
 > 깃으로 관리되지 않는 파일 혹은 경로를 패턴을 통해 관리합니다 - [gitignore.io](https://www.toptal.com/developers/gitignore)
 
@@ -157,7 +229,7 @@ tmp/
 <br>
 
 
-#### 2-6. 저장소 관리
+### 2-6. 저장소 관리
 
 > 원격 저장소와 동기화 하는 방법이며, pull, push 는 항상 conflict 에 유의해야 하며, 로컬 저장소에서 merge 및 conflict 해결하는 습관을 들여야만 합니다
 
@@ -174,7 +246,7 @@ tmp/
 <br>
 
 
-#### 2-7. 이력 관리
+### 2-7. 이력 관리
 * reset : 스테이징된 모든 내역을 제거 혹은 제거된 내역을 롤백합니다
   - git log 명령을 통해 확인된 commit 해시 값으로 해당 시점으로 돌릴 수 있습니다
   - git reflog 명령을 통해 모든 이력을 확인할 수 있고, reset 을 undo 할 수 있습니다
@@ -188,7 +260,7 @@ git reset 'HEAD@{1}'
 <br>
 
 
-#### 2-8. 임시 저장
+### 2-8. 임시 저장
 
 * stash : 현재 수정내역을 커밋하기는 애매하지만, 다른 브랜치로 체크아웃 하고 싶을 때 임시로 수정 내역 전체를 저장합니다
 ```bash
@@ -213,7 +285,7 @@ git stash show stash@{1}
 <br>
 
 
-#### 2-9. 깃 명령어 톱 6
+### 2-9. 깃 명령어 톱 6
 
 > 가장 많이 사용하는 명령어 입니다
 
@@ -226,18 +298,285 @@ git push
 git checkout -- .                 # 수정한 내역 버리고 마지막 커밋 시점으로 롤백
 ```
 
+#### 2-9-1. 파일생성 및 스테이징
+
+<details><summary>[실습] LGDE.txt 파일생성 후에 스테이징 후에 상태를 확인하세요 </summary>
+
+```bash
+touch LGDE.txt
+git add LGDE.txt
+git status
+```
+
+> 출력 결과가 오류가 발생하지 않고, 아래와 유사하다면 성공입니다
+
+```text
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+  	new file:   LGDE.txt
+```
+
+</details>
+<br>
+
+
+#### 2-9-2. 실수로 삭제된 파일을 복구하기
+
+```bash
+cd /home/ubuntu/work/helloworld
+rm *
+ls -al
+```
+
+<details><summary>[실습] 모든 코드를 원래 상태로 복구해 보세요</summary>
+
+> 출력 결과가 오류가 발생하지 않고, 아래와 유사하다면 성공입니다
+
+```bash
+git checkout -- .
+git statusb -sb
+ls -al
+```
+
+</details>
+<br>
+
+
+## 3. Docker 명령어 실습
+
+
+### 3-1. 컨테이너 생성관리
+
+> 도커 이미지로 만들어져 있는 컨테이너를 생성, 실행 종료하는 명령어를 학습합니다
+
+* create : 컨테이너를 생성합니다 
+  - <kbd>--name <container_name></kbd> : 컨테이너 이름을 직접 지정합니다 (지정하지 않으면 임의의 이름이 명명됩니다)
+  - 로컬에 이미지가 없다면 다운로드(pull) 후 컨테이너를 생성까지만 합니다
+  - 생성된 컨테이너는 실행 중이 아니라면 `docker ps -a` 실행으로만 확인이 가능합니다
+```bash
+# docker create <image>:<tag>
+docker create -name ubuntu ubuntu:18.04
+```
+
+* start : 생성된 컨테이너를 기동합니다
+  - 예제의 `busy_herschel` 는 자동으로 생성된 컨테이너 이름입니다
+```bash
+# docker start <container_name> 
+docker start busy_herschel
+```
+
+* stop : 컨테이너를 잠시 중지시킵니다
+  - 해당 컨테이너가 삭제되는 것이 아니라 잠시 실행만 멈추게 됩니다
+```bash
+# docker stop <container_name>
+docker stop busy_herschel
+```
+
+* rm : 중단된 컨테이너를 삭제합니다
+  - <kbd>-f, --force</kbd> : 실행 중인 컨테이너도 강제로 종료합니다 (실행 중인 컨테이너는 삭제되지 않습니다)
+```bash
+# docker rm <container_name>
+docker rm busy_herschel
+```
+
+* run : 컨테이너의 생성과 시작을 같이 합니다 (create + start)
+  - <kbd>--rm</kbd> : 종료 시에 컨테이너까지 같이 삭제합니다
+  - <kbd>-d, --detach<kbd> : 터미널을 붙지않고 데몬 처럼 백그라운드 실행이 되게 합니다
+  - <kbd>-i, --interactive<kbd> : 인터액티브하게 표준 입출력을 키보드로 동작하게 합니다
+  - <kbd>-t, --tty<kbd> : 텍스트 기반의 터미널을 에뮬레이션 하게 합니다
+```bash
+# docker run <options> <image>:<tag>
+docker run --rm --name ubuntu -dit ubuntu:20.04
+```
+
+* kill : 컨테이너를 종료합니다
+```bash
+# docker kill <container_name>
+docker kill ubuntu
+```
+<br>
+
+
+### 3-2. 컨테이너 모니터링
+
+* ps : 실행 중인 컨테이너를 확인합니다
+  - <kbd>-a</kbd> : 실행 중이지 않은 컨테이너까지 출력합니다
+```bash
+docker ps
+```
+
+* logs : 컨테이너 로그를 표준 출력으로 보냅니다
+  - <kbd>-f</kbd> : 로그를 지속적으로 tailing 합니다
+```bash
+# docker logs <container_name>
+docker logs -f mysql
+```
+
+* top : 컨테이너에 떠 있는 프로세스를 확인합니다
+```bash
+# docker top <container_name> <ps options>
+docker ps ubuntu
+```
+<br>
+
+
+### 3-3. 컨테이너 상호작용
+
+* cp :  호스트에서 컨테이너로 혹은 반대로 파일을 복사합니다
+```bash
+# docker cp <container_name>:<path> <host_path> and vice-versa
+touch README.md
+docker cp ./README.md ubuntu:/home/ubuntu/
+```
+
+* exec : 컨테이너 내부에 명령을 실행합니다 
+```bash
+# docker exec <container_name> <args>
+docker exec ubuntu echo 'hello world'
+```
+<br>
+
+
+### 3-4. 컨테이너 이미지 생성관리
+
+* images : 현재 로컬에 저장된 이미지 목록을 출력합니다 
+```bash
+docker images
+```
+
+* docker commit : 현재 컨테이너를 별도의 이미지로 저장합니다 
+```bash
+# docker commit <container_name>:<tag>
+docker commit ubuntu:latest
+```
+
+* rmi : 해당 이미지를 삭제합니다
+```bash
+docker rmi ubuntu:latest
+```
+<br>
+
+
+### 3-5. 컨테이너 이미지 전송관리
+
+> 본 명령은 dockerhub.com 과 같은 docker registry 계정이 있어야 실습이 가능합니다
+
+* pull : 대상 이미지를 레포지토리에서 로컬로 다운로드합니다
+```bash
+# docker pull repository[:tag]
+docker pull psyoblade/data-engineer-ubuntu:18.04
+```
+
+* push : 대상 이미지를 레포지토리로 업로드합니다
+```bash
+# docker push repository[:tag]
+docker push psyoblade/data-engineer-ubuntu:18.04
+```
+
+* login : 레지스트리에 로그인 합니다
+```bash
+docker login
+```
+
+* logout : 레지스트리에 로그아웃 합니다
+```bash
+docker logout
+```
+<br>
+
+
+### 3-6. 컨테이너 이미지 빌드
+
+> 별도의 Dockerfile 을 생성하고 해당 이미지를 바탕으로 새로운 이미지를 생성할 수 있습니다
+
+#### 3-6-1. Dockerfile 생성
+
+* Ubuntu:18.04 LTS 이미지를 한 번 빌드하기로 합니다
+  - <kbd>FROM image:tag</kbd> : 기반이 되는 이미지와 태그를 명시합니다
+  - <kbd>MAINTAINER email</kbd> : 컨테이너 이미지 관리자
+  - <kbd>COPY path dst</kbd> : 호스트의 `path` 를 게스트의 `dst`로 복사합니다
+  - <kbd>ADD src dst</kbd> : COPY 와 동일하지만 추가 기능 (untar archives 기능, http url 지원)이 있습니다
+  - <kbd>RUN args</kbd> : 임의의 명령어를 수행합니다
+  - <kbd>USER name</kbd> : 기본 이용자를 지정합니다 (ex_ root, ubuntu)
+  - <kbd>WORKDIR path</kbd> : 워킹 디렉토리를 지정합니다
+  - <kbd>ENTRYPOINT args</kbd> : 메인 프로그램을 지정합니다
+  - <kbd>CMD args</kbd> : 메인 프로그램의 파라메터를 지정합니다
+  - <kbd>ENV name value</kbd> : 환경변수를 지정합니다
+
+* 아래와 같이 터미널에서 입력하고
+```bash
+cat > Dockerfile
+```
+* 아래의 내용을 복사해서 붙여넣은 다음 <kbd><samp>Ctrl</samp>+<samp>C</samp></kbd> 명령으로 나오면 파일이 생성됩니다
+```bash
+FROM ubuntu:18.04
+LABEL maintainer="park.suhyuk@gmail.com"
+
+RUN apt-get update && apt-get install -y rsync tree
+
+EXPOSE 22 873
+CMD ["/bin/bash"]
+```
+
+#### 3-6-2. 이미지 빌드
+
+> 위의 이미지를 통해서 베이스라인 우분투 이미지에 rsync 와 tree 가 설치된 새로운 이미지를 생성할 수 있습니다
+
+* 도커 이미지를 빌드합니다
+  - <kbd>-f, --file</kbd> : default 는 현재 경로의 Dockerfile 을 이용하지만 별도로 지정할 수 있습니다
+  - <kbd>-t, --tag</kbd> : 도커 이미지의 이름과 태그를 지정합니다
+  - <kbd>-q, --quiet</kbd> : 빌드 로그의 출력을 하지 않습니다
+  - <kbd>.</kbd> : 현재 경로에서 빌드를 합니다 
+```bash
+# terminal
+docker build -t ubuntu:local .
+```
+
+<details><summary>[실습] 출력 결과 확인</summary>
+
+> 출력 결과가 오류가 발생하지 않고, 아래와 유사하다면 성공입니다
+
+```bash
+Sending build context to Docker daemon  202.8kB
+Step 1/5 : FROM ubuntu:18.04
+18.04: Pulling from library/ubuntu
+e7ae86ffe2df: Pull complete
+Digest: sha256:3b8692dc4474d4f6043fae285676699361792ce1828e22b1b57367b5c05457e3
+Status: Downloaded newer image for ubuntu:18.04
+...
+Step 5/5 : CMD ["/bin/bash"]
+ ---> Running in 88f12333612b
+Removing intermediate container 88f12333612b
+ ---> da9a0e997fc0
+Successfully built da9a0e997fc0
+Successfully tagged ubuntu:local
+
+```
+
+</details>
+<br>
 
 
 
-- 목차
-  * [0. SQL 기초 명령어](#0-SQL-기초-명령어)
-  * [1. AWS 환경 구성](#1-AWS-및-로컬환경-구성)
-  * [2. Git 명령어 실습](#2-Git-명령어-실습)
-  * [3. Docker 명령어 실습](#3-Docker-명령어-실습)
-  * [4. LGDE 서비스 시나리오](#4-LGDE-서비스-시나리오)
 
 
-## 0. SQL 기초 명령어
+
+
+
+
+
+## 4. Linux 커맨드라인 명령어 실습
+
+
+## 5. Hadoop 커맨드라인 명령어 실습
+
+
+## 6. SQL 명령어 실습
+
 * mysql 서버로 접속
 ```bash
 bash> docker-compose exec mysql mysql -usqoop -psqoop
@@ -286,281 +625,5 @@ UPDATE table1 SET col1 = 100 WHERE col1 = 1;
 ```sql
 DELETE FROM table1 WHERE col1 = 100;
 DELETE FROM table2;
-```
-## 1. AWS 및 로컬환경 구성
-
-### 1.1 AWS 접속 및 포트 오픈 확인
-> 각자 개인 계정으로 AWS 컨테이너에 접속이 가능한지, 기본 도구들이 설치되어 있는지 확인합니다
-* AWS 인스턴스에 개인 계정으로 접속합니다
-```bash
-bash> ssh ubuntu@lgde # 개인별로 할당 받은 IP 혹은 DNS 로 접속하시면 됩니다
-```
-
-* 서버에 접속하여 기본 도구들이 설치되어 있는지 버전은 맞는지 확인합니다
-```bash
-bash> docker --version
-Docker version 19.03.13, build 4484c46d9d
-
-bash> docker-compose version
-docker-compose version 1.27.4, build 40524192
-```
-
-
-## 2. Git 명령어 실습
-> 이번 강좌에서 사용하게 될 주요 Git 명령어에 대해 실습합니다 
-
-### 2.1 헬로월드 레포지토리를 복제합니다
-* [psyoblade/hellowolrld](https://github.com/psyoblade/helloworld) 사이트에 접속하여 Code 버튼을 클릭하고 주소를 복사합니다
-![LGDE1.1](images/lgde.1.1.png)
-```bash
-bash> mkdir -p ~/workspace
-bash> cd ~/workspace
-
-bash> git clone https://github.com/psyoblade/helloworld.git
-bash> cd helloworld
-
-bash> sudo ./init.sh  # 명령을 통해 tree 패키지 및 rc 파일을 복사합니다
-bash> d # alias 로 docker-compose 를 등록되어 --help 가 뜨면 정상입니다
-bash> source ~/.bashrc  # d 명령어 오류가 나는 경우 .bashrc 를 다시 로딩합니다
-```
-
-### 2.2 helloworld.py 파일을 수정하고, 원래 파일의 상태로 되돌립니다
-```bash
-bash> echo "print('helloworld')" >> helloworld.py
-bash> python3 helloworld.py
-
-bash> git status -sb
-bash> git diff
-
-bash> git checkout -- .
-bash> python3 helloworld.py
-```
-
-### 2.3 임의의 파일을 추가하고 스테이징 상태까지 갔다가 다시 원래 상태로 되돌립니다
-```bash
-bash> touch XXX
-bash> git add XXX  # 지정한 하나의 파일만 스테이징 합니다
-bash> git status -sb
-
-bash> git reset -- .
-bash> git status -sb
-bash> rm XXX
-```
-
-### 2.4 임의의 가비지 파일을 10개 생성하고, 깃 클린 명령어를 통해 정리합니다
-```bash
-bash> mkdir -p tmp
-bash> for x in $(seq 1 10); do touch tmp/XXX_$x; done
-bash> tree
-
-bash> git clean -d -n  # 명령으로 삭제될 대상 디렉토리/파일을 확인하고
-bash> git clean -d -f  # 명령으로 삭제합니다
-bash> git status -sb
-bash> tree
-```
-
-### 2.5 컨테이너 시작, 종료가 정상적으로 되지 않는 경우
-> 이미 기동되어 있는 컨테이너와 이름이 동일하거나, 컨테이너에 오류가 있어 기동되지 않은 경우에도 컨테이너 정보는 여전히 남아있어 다음 실행 시에 문제가 될 수 있습니다.
-* 모든 도커 컨테이너를 확인 및 삭제하는 명령어
-```bash
-bash> docker ps      # Running 중인 모든 컨테이너를 확인합니다
-bash> docker ps -a   # 모든 컨테이너를 확인합니다
-bash> docker ps -aq  # 모든 컨테이너의 ID 값만 출력합니다
-
-bash> docker rm -f `docker ps -aq`  # 로컬에 존재하는 모든 컨테이너를 강제로 종료합니다
-bash> docker container prune  # 사용되지 않는 모든 가비지 컨테이너를 정리합니다
-bash> docker network prune  # 사용되지 않는 모든 네트워크를 정리합니다
-```
-
-### 2.6 깃 패스워드를 캐시
-```bash
-bash> git config --global credential.helper cache
-```
-
-
-## 3. Docker 명령어 실습
-
-### 3.1 예제 코드를 다운로드 받습니다
-
-* [docker-compose](https://github.com/psyoblade/docker-compose-for-dummies.git) 로부터 코드를 다운로드 받습니다
-```bash
-bash> cd ~/workspace
-bash> git clone https://github.com/psyoblade/docker-compose-for-dummies.git
-```
-
-### 3.2 Ubuntu 컨테이너를 기동하고 fortune 명령어를 실행합니다
-```bash
-bash> cd ~/workspace/docker-compose-for-dummies/ubuntu
-bash> docker-compose up -d
-bash> docker-compose ps ubuntu # ubuntu /bin/bash 가 기동 되었는지 확인합니다
-
-bash> docker-compose exec ubuntu bash  # 우분투 컨테이너로 접속합니다
-$> fortune
-$> exit  # 명령어 실행에 성공했다면, Ctrl+D 혹은 exit 명령어로 빠져나옵니다
-
-bash> docker-compose down  # 컨테이너를 종료합니다
-```
-
-### 3.3 MySQL + phpMyAdmin 서비스를 기동하고 테스트 합니다
-```bash
-bash> cd ~/workspace/docker-compose-for-dummies/mysql
-bash> docker-compose up -d
-bash> docker-compose ps  # mysql 과 phpmyadmin 이 기동 되었음을 확인합니다
-bash> docker-compose top  # 서비스명을 입력하지 않으면 2개 서비스의 프로세스를 모두 확인합니다
-```
-
-### 3.4 phpMyAdmin 웹 페이지에 접속합니다
-* 로그인 전후에 로그가 정상적으로 출력됨을 확인할 수 있습니다
-```bash
-bash> docker-compose logs -f phpmyadmin  # 서비스 로그를 확인할 수 있도록 로그를 모니터링 합니다
-bash> # 브라우저를 통해서 http://<aws-ec2-instance-url-or-ip>:8183 으로 접속하여 user / user 로 로그인합니다
-bash> docker-compose down  # 모든 서비스 컨테이너를 종료합니다
-```
-
-
-## 4. LGDE 서비스 시나리오
-> 가상의 인터넷 쇼핑몰 "LGDE.com" 지표 개발 시나리오
-
-### 4.1 데이터 수집을 위한 예제 프로젝트를 다운로드 합니다 (git)
-* 모든 서비스(mysql, sqoop, fluentd, notebook)가 전부 기동되었는지 확인합니다
-  - 도커 이미지 다운로드 시간이 약 2~3분 소요됩니다
-```bash
-bash> cd ~/workspace
-bash> git clone https://github.com/psyoblade/data-engineer-basic-training.git 
-bash> cd ~/workspace/data-engineer-basic-training/day1
-
-bash> docker-compose up -d
-bash> docker-compose ps --services
-```
-
-### 4.2 고객 정보(user) 및 매출 정보(purchase) 테이블을 오픈소스 Sqoop 을 통해 수집합니다 (sqoop)
-* exec 명령을 통해서 sqoop 이 설치된 우분투 서버에 접속합니다
-* 터미널 종료 시에는 exit 혹은 Ctrl+D 로 빠져나옵니다
-```bash
-bash> docker-compose exec sqoop bash
-$> sqoop list-databases --connect jdbc:mysql://mysql:3306 --username sqoop --password sqoop
-$> sqoop list-tables --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop
-
-$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "describe user"
-$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from user"
-$> sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop -e "select * from purchase"
-
-$> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table user \
-    --target-dir file:///tmp/target/user/20201025 --username sqoop --password sqoop \
-    --relaxed-isolation --as-parquetfile --delete-target-dir
-$> sqoop import -jt local -m 1 --connect jdbc:mysql://mysql:3306/testdb --table purchase \
-    --target-dir file:///tmp/target/purchase/20201025 --username sqoop --password sqoop \
-    --relaxed-isolation --as-parquetfile --delete-target-dir
-
-$> ls /tmp/target/*/20201025/*.parquet
-
-$> # parquet 파일을 확인합니다
-$> hadoop jar /jdbc/parquet-tools-1.8.1.jar schema file://<target-parquet-file>
-$> exit
-
-bash> tree notebooks
-```
-
-### 4.3 고객 접속 정보(access)를 오픈소스 Fluentd 를 통해 수집합니다 (fluentd)
-* exec 명령을 통해서 fluentd 가 설치된 우분투 서버에 접속합니다
-* #1. 사전에 작성된 /tmp/source/access.csv 파일이 생성되면 tailing 하면서 수집하는 fluent.tail 파일을 이용하여 수집서버를 기동시킵니다
-```bash
-bash> docker-compose exec fluentd bash
-
-$> more /etc/fluentd/fluent.tail
-$> rm -rf /tmp/source/access.*
-$> ./fluentd.sh -c /etc/fluentd/fluent.tail
-```
-
-* 정상적으로 fluentd 서버가 기동된 것을 확인하고 별도의 창을 하나 더 띄워서 /etc/fluentd/access.csv 파일을 복사합니다
-  - 별도의 탭을 이용하여 서버에 접속하여, 테스트 과정에 발생할 수 있는 임시파일을 삭제합니다
-```bash
-bash> cd ~/workspace/data-engineer-basic-training/day1/
-bash> docker-compose exec fluentd bash
-
-$> head /etc/fluentd/access.csv
-
-$> touch /tmp/source/access.csv  # 명령 이후에 #1 터미널에서 파일을 인지한 것을 확인합니다
-$> cat /etc/fluentd/access.csv >> /tmp/source/access.csv 
-$> ls -al /tmp/target/access/20201025/*.json
-
-$> exit
-```
-* 첫 번째로 띄웠던 터미널도 접속 종료합니다
-```bash
-#1> exit  # Ctrl+C 를 통해 fluentd.sh 종료 후 터미널을 종료합니다
-
-bash> ls -al ~/workspace/data-engineer-basic-training/day1/notebooks  # 수집된 3개의 테이블이 존재하는지 확인합니다
-bash> tree ~/workspace/data-engineer-basic-training/day1/notebooks
-```
-
-
-### 4.4 수집된 고객, 매출 및 접속 정보를 오픈소스 Spark 를 통해 탐색합니다 (spark+notebook)
-* 노트북 접속을 위한 URL을 확인하여, http://127.0.0.1:8888 로 시작하는 URL을 아래와 같이 변경하여 접속합니다
-  - [1일차 - LGDE.com 인터넷 쇼핑몰 지표 설계 및 개발](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day1/notebooks/html/lgde-basic-day1.html)
-  - AS-IS: http://127.0.0.1:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6
-  - TO-BE: http://{ec2-instance-ip}:8888/?token={notebook-token-copied}
-* 테이블 수집 및 변환작업이 완료되었다면, 하이브 작업을 위해 기존의 모든 프로세스는 종료합니다
-  - 하이브의 경우 의존성이 있는 컴포넌트가 많아서 별도의 컨테이너에서 띄우는 것이 좋습니다
-```bash
-bash> docker-compose logs notebook | grep localhost
-or http://127.0.0.1:8888/?token=270cc209f2aeba4d95f91c3d22b78acacf3428e06bd2cff6
-```
-
-
-### 4.5 원본 로그를 통해 추출 가능한 기본 지표를 추출합니다 (spark+notebook)
-> 크롬을 통해서 http://{ec2-instance-ip}:8888/?token={notebook-token-copied} 사이트에 접속합니다
-  
-
-### 4.6 추출된 기본지표를 하이브 테이블로 작성하고 제공합니다 (hive)
-* 테이블을 생성한 이후에 로컬 파일을 로딩하여 생성하는 방법이 가장 간편합니다
-```bash
-bash> docker-compose exec hive-server bash
-bash> beeline
-
-beeline> 
-!connect jdbc:hive2://localhost:10000 scott tiger
-
-beeline> 
-create database if not exists testdb comment 'test database' location '/user/hive/warehouse/testdb' with dbproperties ('createdBy' = 'psyoblade');
-use testdb;
-drop table if exists local_users;
-
-create table if not exists local_users 
-(a_uid string, a_count bigint, p_amount bigint, p_count bigint, u_name string, u_gender string, u_signup string)
-partitioned by (dt int)
-row format delimited
-stored as parquet;
-
-load data local inpath '/tmp/target/dim_users/dt=20201025' overwrite into table local_users partition (dt = 20201025);
-select dt, u_gender, count(1) from local_users group by dt, u_gender;
-```
-* 대상 테이블을 분산 저장소에 저장하여 하이브 테이블을 생성할 수도 있습니다
-  - 스파크를 통해 생성된 파일을 하둡 클러스터에 업로드합니다 (기존에는 로컬에 저장했습니다)
-```bash
-bash> docker-compose exec hive-server bash
-
-bash> hadoop fs -mkdir -p /user/lgde/dim_users
-bash> hadoop fs -put /tmp/target/dim_users/* /user/lgde/dim_users 
-bash> hadoop fs -ls /user/lgde/dim_users
-
-bash> beeline
-beeline> !connect jdbc:hive2://localhost:10000 scott tiger
-
-beeline> 
-create database if not exists testdb comment 'test database' location '/user/hive/warehouse/testdb' with dbproperties ('createdBy' = 'psyoblade');
-use testdb;
-drop table if exists dim_users;
-
-create table if not exists dim_users 
-(a_uid string, a_count bigint, p_amount bigint, p_count bigint, u_name string, u_gender string, u_signup string)
-partitioned by (dt int)
-row format delimited
-stored as parquet
-location 'hdfs://namenode:8020/user/lgde/dim_users';
-
-alter table dim_users add if not exists partition (dt = 20201025);
-describe extended dim_users partition (dt = '20201025');
-select dt, u_gender, count(1) from dim_users group by dt, u_gender;
 ```
 
