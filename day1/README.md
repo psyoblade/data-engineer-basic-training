@@ -269,7 +269,7 @@ git stash show stash@{1}
 <br>
 
 
-### 2-9. 깃 명령어 톱 6
+### 2-9. 깃 명령어 `톱 6`
 
 > 가장 많이 사용하는 명령어 입니다
 
@@ -546,21 +546,371 @@ Successfully tagged ubuntu:local
 <br>
 
 
+## 4. 도커 컴포즈 명령어 실습
+
+> [docker-compose cheatsheet](https://devhints.io/docker-compose) 와 [Cheatsheet](https://buildvirtual.net/docker-compose-cheat-sheet/)를 참고하여 작성 되었습니다. 도커 컴포즈는 **도커의 명령어들을 반복적으로 수행되지 않도록 yml 파일로 저장해두고 활용**하기 위해 구성되었고, *여러개의 컴포넌트를 동시에 기동하여, 하나의 네트워크에서 동작하도록 구성*한 것이 특징입니다. 내부 서비스들 간에는 컨테이너 이름으로 통신할 수 있어 테스트 환경을 구성하기에 용이합니다. 
+
+
+### 4-1. 컨테이너 관리
+
+> 도커 컴포즈는 **컨테이너를 기동하고 작업의 실행, 종료 등의 명령어**를 주로 다룬다는 것을 알 수 있습니다. 아래에 명시한 커맨드 외에도 도커 수준의 명령어들(pull, create, start, stop, rm)이 존재하지만 잘 사용되지 않으며 일부 deprecated 되어 자주 사용하는 명령어 들로만 소개해 드립니다
+
+* up : `docker-compose.yml` 파일을 이용하여 컨테이너를 이미지 다운로드(pull), 생성(create) 및 시작(start) 시킵니다
+  - <kbd>-f <filename></kbd> : 별도 yml 파일을 통해 기동시킵니다 (default: `-f docker-compose.yml`)
+  - <kbd>-d, --detach <filename></kbd> : 서비스들을 백그라운드 모드에서 수행합니다
+  - <kbd>-e, --env `KEY=VAL`</kbd> : 환경변수를 전달합니다
+  - <kbd>--scale <service>=<num></kbd> : 특정 서비스를 복제하여 기동합니다 (`container_name` 충돌나지 않도록 주의)
+```bash
+# docker-compose up <options> <services>
+docker-compose up -d ubuntu
+docker-compose up -d
+```
+
+* down : 컨테이너를 종료 시킵니다
+  - <kbd>-t, --timeout <int> <filename></kbd> : 셧다운 타임아웃을 지정하여 무한정 대기(SIGTERM)하지 않고 종료(SIGKILL)합니다 (default: 10초)
+```bash
+# docker-compose down <options> <services>
+docker-compose down
+```
+<br>
+
+
+### 4-2. 기타 자주 사용되는 명령어
+
+* exec : 컨테이너에 커맨드를 실행합니다
+  - <kbd>-d, --detach</kbd> : 백그라운드 모드에서 실행합니다
+  - <kbd>-e, --env `KEY=VAL`</kbd> : 환경변수를 전달합니다
+  - <kbd>-u, --user <string></kbd> : 이용자를 지정합니다
+  - <kbd>-w, --workdir <string></kbd> : 워킹 디렉토리를 지정합니다
+```bash
+# docker compose exec [options] [-e KEY=VAL...] [--] SERVICE COMMAND [ARGS...]
+docker-compose exec ubuntu echo hello world
+```
+
+* logs : 컨테이너의 로그를 출력합니다
+  - <kbd>-f, --follow</kbd> : 출력로그를 이어서 tailing 합니다
+```bash
+# terminal
+docker-compose logs -f ubuntu
+```
+
+* pull : 컨테이너의 모든 이미지를 다운로드 받습니다
+  - <kbd>-q, --quiet</kbd> : 다운로드 메시지를 출력하지 않습니다 
+```bash
+# terminal
+docker-compose pull
+```
+
+* ps : 컨테이너 들의 상태를 확인합니다
+  - <kbd>-a, --all</kbd> : 모든 서비스의 프로세스를 확인합니다
+```bash
+# terminal
+docker-compose ps -a
+```
+
+* top : 컨테이너 내부에 실행되고 있는 프로세스를 출력합니다
+```bash
+# docker-compose top <services>
+docker-compose top ubuntu
+```
+
+### 4-3. 컴포즈 파일을 통한 실습
+
+* image, conatainer
+* volume
+* network
+* cpu, memory
+
+
+<br>
+
+
+## 5. Linux 커맨드라인 명령어 실습
+
+> 리눅스 터미널 환경에서 활용할 수 있는 CLI 도구들을 소개하고 실습합니다
+
+* 대부분의 오픈소스 인프라 및 서비스는 리눅스 서버 환경에서 운영
+* 장애 혹은 서비스 모니터링 환경에서 디버깅 및 
+
+
+* 환경 구성 및 예제 데이터 다운로드
+```
+cd work/
+git clone https://github.com/psyoblade/linux-for-dummies
+```
+
+### 5-1. 수집 및 적재
+
+* wget
+* curl
+* w3m / lynx
+
+
+### 5-2. 출력 및 확인
+
+* cat : 텍스트 파일의 내용을 출력
+  - <kbd>-n, --number</kbd> : 라인 번호를 출력
+```bash
+# cat [OPTION] ... [FILE] ... 
+cat -n helloworld.py
+```
+
+* more : 텍스트 파일의 일부를 지속적으로 출력
+  - <kbd>-p</kbd> : 화면을 지우고 위에서부터 출력합니다
+  - <kbd>-s</kbd> : 여러 줄의 빈 라인을 하나의 빈 라인으로 대체합니다
+  - <kbd>-number</kbd> : 한 번에 출력하는 라인 수를 지정합니다
+  - <kbd>+number</kbd> : 지정된 라인 부터 출력합니다
+  - <kbd>+/string</kbd> : 지정된 문자열을 찾은 라인부터 출력합니다
+
+```bash
+# more [OPTIONS] ... [FILE] ... 
+more -5 data/apache-access.log
+```
+
+* 퀴즈
+```
+more -p -5 data/apache-access.log    # 스페이스 바를 누를 때마다 스크롤 되지 않고, 첫 번째 라인부터 5줄씩 출력합니다
+more +/Exception -10 data/hadoop-hdfs-secondarynamenode.log     # 파일에서 exception 문자열이 발견된 위치부터 10줄씩 출력합니다
+```
+
+* head : 텍스트 파일의 처음부터 일부를 출력
+  - <kbd>-c, --bytes=[-]NUM</kbd> : 첫 번째 NUM bytes 크기 만큼 출력하되, NUM 이 음수인 경우는 마지막 NUM bytes 를 제외한 전체를 출력합니다
+    - `b: 512, kB 1000, K 1024, MB 1000*1000, M 1024*1024, GB 1000*1000*1000, G 1024*1024*1024, T, P, E, Z, Y`.
+  - <kbd>-n, --lines=[-]NUM</kbd> : 파일의 처음부터 NUM 라인 수만큼 출력하고, 마찬가지로 음수 NUM 은 마지막 NUM 라인을 제외한 전체를 출력합니다
+```bash
+# head [OPTION] ... [FILE] ... 
+```
+
+* 실습
+```bash
+$ head -c 1K data/apache-access.log > 1k.log    # 로그의 처음부터 1024 bytes 만큼 읽어서 파일을 생성합니다
+$ head -n 30 data/apache-access.log    # 로그의 첫 번째 30라인만 출력합니다
+```
+
+* tail : 텍스트 파일의 마지막부터 일부를 출력
+  - <kbd>-c, --bytes=[+]NUM</kbd> : 첫 번째 NUM bytes 크기 만큼 출력하되, NUM 이 양수인 경우는 처음 NUM bytes 를 제외한 전체를 출력합니다
+    - `b: 512, kB 1000, K 1024, MB 1000*1000, M 1024*1024, GB 1000*1000*1000, G 1024*1024*1024, T, P, E, Z, Y`.
+  - <kbd>-f, --follow</kbd> : 파일에 추가되는 내용을 계속 출력합니다
+  - <kbd>-F</kbd> : 파일이 접근되지 않는 경우에도 계속 재시도 합니다 (-f --retry 와 같은 효과)
+  - <kbd>-n, --lines=[+]NUM</kbd> : 파일의 끝에서 NUM 라인 수만큼 출력하고, 마찬가지로 양수 NUM 은 처음 NUM 라인을 제외한 전체를 출력합니다
+```bash
+# tail [OPTION] ... [FILE] ...
+
+```
+```bash
+$ tail -F data/notexist.log    # noexists.log 로그 없어도 계속 tail 하고 해당 파일에 로그가 추가되면 계속 tailing 합니다 $ tail -n 30 data/apache-access.log    # 로그의 마지막 30라인만 출력합니다
+```
+<br>
+
+
+### 5-3. 계산 및 정렬
+
+* wc : 텍스트 파일의 단어의 수를 계산합니다
+  - <kbd>-c, --bytes</kbd> :
+  - <kbd>-m, --chars</kbd> :
+  - <kbd>-l, --lines</kbd> :
+  - <kbd>-w, --words</kbd> :
+```bash
+# wc [OPTION] ... [FILE] ...
+
+```
+```bash
+$ wc -l data/apache-access.log    # 로그의 라인 수를 출력합니다 $ wc -w data/apache-access.log  # 로그에 포함된 단어의 수를 출력합니다
+$ wc -l data/*    # 모든 파일의 라인 수와 전체 라인 수를 출력합니다
+```
+
+* nl : 라인 수를 계산합니다
+  - <kbd>-b, --body-numbering=STYLE</kbd> : 라인 수를 출력합니다
+  - <kbd>-n, --number-format=FORMAT</kbd> : 포맷을 지정하여 라인 수를 출력합니다
+    - ` - ln : 좌측 정렬, rn : 우측 정렬,  rz : 0을 패딩 후 출력`
+  - <kbd>-s, --number-separator=STRING</kbd> : 라인 수와 내용을 구분자로 분리하여 출력합니다
+```bash
+# nl [OPTION] ... [FILE] ...
+
+```
+```bash
+$ nl -b data/apache-access.log    # 로그를 라인 수와 함께 출력합니다 $ nl -n rz data/apache-access.log   # 000123 과 같이 0을 패딩 후 출력합니다
+$ nl -s ',<tab>' data/apache-access.log     # 000123,<line> 와 같이 구분자를 넣어 출력합니다
+```
+
+* sort : 데이터를 정렬합니다
+  - <kbd>-d, --dictionary-order</kbd> : 사전에 표기된 순서대로 정렬 즉, 공백, 알파벳 및 숫자 순으로 정렬
+  - <kbd>-f, --ignore-case</kbd> : 대소문자를 구분하지 않고 정렬
+  - <kbd>-n, --numeric-sort</kbd> : 숫자로 인식하여 정렬
+  - <kbd>-R, --random-sort</kbd> : 랜덤 순서대로 정렬
+  - <kbd>-r, --reverse</kbd> : 역순으로 정렬
+  - <kbd>--debug</kbd> : 정렬 기준에 대해 디버깅 정보를 같이 출력
+  - <kbd>-k, --key=KEYDEF</kbd> : 구분자 (SEP)에 의해 구분된 컬럼 (KEYDEF)을 기준으로 정렬 (ex order by k1, k2)
+    - `KEYDEF -> F[.C][OPTS][,F[.C][OPTS]], OPTS -> [bdfgiMhnRrV]`
+  - <kbd>-t, --field-separator=SEP</kbd> : 구분자에 의해 컬럼을 구분
+  - <kbd>-u, --unique</kbd> : 동일한 라인이 여러개 등장하는 경우 첫 번째 라인만 출력합니다
+```bash
+# sort [OPTION] ... [FILE] ...
+$ cat data/corona.body.tsv | sed 's/,//g' | cut --output-delimiter=',' -f1,2,3 | sort -t, -k3nr | head     # 사망자 톱 10
+$ cat data/corona.body.tsv | sed 's/,//g' | cut --output-delimiter=',' -f1,2,3 | sort -t, -k2nr | head     # 확진자 톱 10
+
+```
+
+* uniq : 유일한 값을 추출합니다
+  - <kbd>-c, --count</kbd> : 중복 횟수와 라인을 같이 출력 합니다
+  - <kbd>-d, --repeated</kbd> : 중복이 발생한 라인만 출력하되, 같은 문장은 한 번만 출력합니다
+  - <kbd>-D</kbd> : 중복된 모든 라인을 출력합니다
+  - <kbd>-i --ignore-case</kbd> : 대소문자 구분을 하지 않고 중복 여부를 판단합니다
+  - <kbd>-u, --unique</kbd> : 중복되지 않은 유일한 라인만 출력합니다
+```bash
+# uniq [OPTION] ... [INPUT [OUTPUT]] ...
+
+$ cat /etc/passwd | cut -d: -f4 | sort | uniq -d    # 패스워드 파일에서 중복 그룹만 출력합니다
+$ cat /etc/passwd | cut -d: -f6 | sort | uniq -c | sort -nr | head -3    #  패스워드 파일에서 로그인 쉘 가운데 톱 3을 출력합니다
+
+```
+
+<br>
+
+
+### 5-4. 변환 및 기타
+
+* cut : 
+  - <kbd>-b, --bytes=LIST	</kbd> : 지정한 바이트 수 만큼의 컬럼 값들을 출력합니다
+    - N : 첫 번째 컬럼을 1로 계산하여 N 번째 바이트만 출력 
+    - N- : N번째 바이트 부터 라인 끝까지 출력  
+    - N-M : N~M 바이트까지 출력 
+    - -M : 라인 처음부터 M 바이트까지 출력 
+  - <kbd>-d, --delimiter=DELIM</kbd> :	기본 구분자 TAB 대신 지정한 문자를 구분자로 동작합니다
+  - <kbd>-f, --fields=LIST</kbd> :	구분자를 기준으로 컬럼을 지정하여 지정된 컬럼만 출력합니다
+  - <kbd>--complement</kbd> :	선택한 조건의 컬럼을 제외한 나머지를 출력합니다
+  - <kbd>--output-delimiter=STRING</kbd> : 출력시에 사용할 구분자를 지정합니다
+```bash
+# cut OPTION ... [FILE] ...
+
+$ cut -f 2 cut_txt    # 탭으로 구분된 라인들의 2번째 컬럼만 출력합니다
+$ cut -f1- --output-delimiter=',' cut_text    # 탭으로 구분된 라인을 콤마로 구분된 라인으로 변경하여 출력합니다
+$ ls -al | cut -b -10 --complement    # ls -al 결과의 앞 10바이트를 제외한 나머지 컬럼 들만 출력합니다
+```
+
+* tr : 
+  - <kbd>-c, --complement</kbd> : SET1 에 지정한 범위 외의 문자를 선택합니다
+  - <kbd>-d, --delete</kbd> : SET1 에 지정한 범위 외의 문자를 삭제합니다 (단, 변환은 -d 옵션이 없을 경우에만 발생합니다)
+    - CHAR1-CHAR2 : CHAR1 부터 CHAR2 까지를 선택합니다 (ex_ a-z)
+    - [:alnum:] : 알파벳 + 숫자
+    - [:alpha:] : 알파벳
+    - [:blank:] : 공백
+    - [:space:] : 공백 + 줄바꿈
+    - [:lower:] / [:upper:] : 소문자 / 대문자
+
+```bash
+# tr [OPTION] ... SET1 [SET2]
+$ head /etc/passwd | tr ':' ' '    # 패스워드 파일의 구분자 콜론을 공백으로 치환합니다
+$ head /etc/passwd | cut -d : -f 1 | tr [:lower:] [:upper:]   # 패스워드 파일의 계정 이름만 대문자로 출력합니다
+$ ls -al | tr -d [:space:]    # ls -al 결과의 한 줄의 문자열로 출력합니다
+```
+
+* sed : 
+  - <kbd>-n, --quiet, --silent</kbd> : 패턴에 만족하는 기본 출력을 하지 않습니다
+  - <kbd>-i[SUFFIX], --in-place[=SUFFIX]</kbd> : 파일을 직접 수정합니다. SUFFIX 가 주어진 경우는 백업 파일을 생성해 둡니다
+  - <kbd>-E, -r, --regexp-extended</kbd> : SET1 에 지정한 범위 외의 문자를 삭제합니다 (단, 변환은 -d 옵션이 없을 경우에만 발생합니다)
+    - {RANGE}p : range 내의 라인을 출력합니다 (단, 패턴에 만족하는 출력까지 포함하면 2번 출력될 수 있습니다)
+    - {RANGE}d : range 내의 라인을 삭제합니다
+    - /pattern/p : pattern 에 만족하는 라인을 출력합니다
+    - /pattern/d : pattern 에 만족하는 라인을 제거합니다
+    - s/pattern/replaced/g : pattern 에 만족하는 부분을 replaced 로 교체합니다
+```bash
+# sed [OPTION] ... {script-only-if-no-other-script} [FILE]
+$ sed -n '3,5p' /etc/passwd    # 패스워드 파일의 3~5번째 줄을 출력합니다
+$ sed '/^bin/p' /etc/passwd    # 패스워드 파일에서 bin 으로 시작하는 라인을 출력합니다
+$ sed 's/before/after/g' -i\.bak sed_text    # 파일의 before 를 after 로 모두 치환하고 원본 파일을 .bak 파일로 저장합니다
+
+```
+
+
+* awk : 
+  - <kbd>-F</kbd> : 필드 구분자
+  - <kbd>-f</kbd> : 입력 파일 명을 지정합니다 (-f 옵션을 여러번 사용할 수 있습니다)
+  - <kbd>-v VAR=VALUE</kbd> : 변수(VAR)를 할당(VALUE)하여 사용할 수 있습니다
+  - <kbd>pattern { action }</kbd> : 
+    - NR (Number of Records) : 레코드 수
+    - NF (Number of Fields) : 필드 수
+    - FS (Field Separator, default: 공백) : 필드 구분자
+    - RS (Record Separator, default: 줄바꿈) : 레코드 구분자
+    - OFS (Output Field Separator) : 출력시 필드 구분자
+    - ORS (Output Record Separator) : 출력시 레코드 구분자
+
+```bash
+# awk [-W OPTION] [-F VALUE] [-v VAR=VALUE] [--] 'PATTERN { ACTION }' [FILE ...]
+$ awk '/1200/ { print $0 }' /etc/passwd    # 패스워드 파일의 root 문자가 존재하는 라인을 출력합니다
+$ awk '{$7 = $1 * $3 ; print $3, $1, "*", $2, "=", $1 * $2}' address    # 주소록에서 1번 숫자와 2번 숫자의 곱과 3번째 컬럼을 출력합니다
+$ awk -F: '{ print NR, $1 }'    #  패스워드 파일을 읽어서 레코드 수와 아이디를 출력합니다
+
+```
+
+
+* rsync : 
+  - <kbd>-v, --verbose</kbd> : 상세하게 내용을 출력합니다
+  - <kbd>-q, --quiet</kbd> : 에러가 아닌 메시지 출력을 하지 않습니다
+  - <kbd>-a, --archive</kbd> : -rlptgoD 옵션과 동일하며, symlink, permission, group, owner 등을 완전히 동일하게 유지합니다
+  - <kbd>-r, --recursive</kbd> : 디렉토리 하위까지 재귀적으로 복사합니다
+  - <kbd>-u, --update</kbd> : 새로운 파일 들만 복사합니다
+  - <kbd>-n, --dry-run</kbd> : 실제 복사가 이루어지지 않고 복사될 파일 목록을 체크합니다
+  - <kbd>-z, --compress</kbd> : 전송 시에 압축하여 전송합니다
+  - <kbd>-F, --exclude=PATTERN</kbd> : PATTERN에 해당하는 파일을 제외하고 복사합니다
+  - <kbd>    --include=PATTERN</kbd> : PATTERN에 해당하는 파일만 복사합니다
+```bash
+# rsync [OPTION ...] SRC ... [DEST]
+$ apt-get install ssh rsync    # 기본 패키지에 포함되어 있지 않으므로 ssh 및 rsync 는 별도로 설치되어야 합니다
+$ rsync -av ./data ubuntu@hostname:/home/ubuntu/archive    # 같은 네트워크의 원격지 ubuntu 계정의 archive 경로에 현재 data 경로 전체를 백업합니다
+$ rsync --dry-run -rave "ssh -i ~/.ssh/personal.pem" ubuntu@ec2.amazonaws.com:/home/ubuntu/data .    # EC2 장비의 data 경로를 로컬에 복사합니다
+```
+
+
+### 5-5. 운영 도구
+
+* top, htop
+* ps
+* find
+* df, du
+* sar
+* iostat
+* netstat
+* telnet, ping
+
+<br>
 
 
 
 
 
+## 6. Hadoop 커맨드라인 명령어 실습
+
+> [Hadoop HDFS Commands Cheatsheet](https://images.linoxide.com/hadoop-hdfs-commands-cheatsheet.pdf)를 참고 하였습니다
+
+*
+
+
+### 6-1. 
+
+*  : 
+  - <kbd></kbd> : 
+```bash
+#
+```
+
+*  : 
+  - <kbd></kbd> : 
+```bash
+#
+```
+
+*  : 
+  - <kbd></kbd> : 
+```bash
+#
+```
+<br>
 
 
 
-## 4. Linux 커맨드라인 명령어 실습
 
-
-## 5. Hadoop 커맨드라인 명령어 실습
-
-
-## 6. SQL 명령어 실습
+## 7. SQL 명령어 실습
 
 * mysql 서버로 접속
 ```bash

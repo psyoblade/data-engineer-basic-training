@@ -3,7 +3,7 @@ version: "3"
 services:
   mysql:
     container_name: mysql
-    image: psyoblade/data-engineer-intermediate-day1-mysql:1.2
+    image: psyoblade/data-engineer-mysql:1.1
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -23,11 +23,12 @@ services:
       - ./mysql/etc:/etc/mysql/conf.d
   sqoop:
     container_name: sqoop
-    image: psyoblade/data-engineer-intermediate-day1-sqoop:1.0
+    image: psyoblade/data-engineer-sqoop:1.1
     tty: true
     environment:
       LANG: ko_KR.UTF-8
     ports:
+      - '8042:8042'
       - '8088:8088'
       - '10020:10020'
       - '19888:19888'
@@ -42,7 +43,7 @@ services:
       - ./notebooks:/tmp/target
   fluentd:
     container_name: fluentd
-    image: psyoblade/data-engineer-basic-fluentd:1.1
+    image: psyoblade/data-engineer-fluentd:2.0
     user: root
     tty: true
     ports:
@@ -54,7 +55,7 @@ services:
     container_name: notebook
     user: root
     privileged: true
-    image: psyoblade/data-engineer-intermediate-day3-notebook:1.0
+    image: psyoblade/data-engineer-notebook:1.4
     restart: always
     volumes:
       - ./notebooks:/home/jovyan/work

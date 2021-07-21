@@ -3,7 +3,7 @@ version: '3'
 services:
   mysql:
     container_name: mysql
-    image: psyoblade/data-engineer-intermediate-day1-mysql:1.1
+    image: psyoblade/data-engineer-mysql:1.1
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -25,7 +25,7 @@ services:
     container_name: notebook
     user: root
     privileged: true
-    image: psyoblade/data-engineer-intermediate-day3-notebook:1.0
+    image: psyoblade/data-engineer-notebook:1.4
     restart: always
     depends_on:
       - mysql
