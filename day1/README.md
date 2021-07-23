@@ -883,30 +883,175 @@ $ rsync --dry-run -rave "ssh -i ~/.ssh/personal.pem" ubuntu@ec2.amazonaws.com:/h
 
 > [Hadoop HDFS Commands Cheatsheet](https://images.linoxide.com/hadoop-hdfs-commands-cheatsheet.pdf)를 참고 하였습니다
 
-*
+* 모든 Hadoop Filesystem 명령어는 hdfs 명령어를 사용합니다
 
 
-### 6-1. 
+### 6-1. 파일/디렉토리 관리
 
-*  : 
-  - <kbd></kbd> : 
+* ls : 경로의 파일/디렉토리 목록을 출력합니다
+  - <kbd>-d</kbd> : 디렉토리 목록만 출력합니다
+  - <kbd>-h</kbd> : 파일크기를 읽기쉽게 출력합니다
+  - <kbd>-R</kbd> : 하위노드까지 모두 출력합니다
 ```bash
-#
+# -ls [-d] [-h] [-R] [<path> ...]
+
 ```
 
-*  : 
-  - <kbd></kbd> : 
+<br>
+
+
+### 6-2. 파일 읽고/쓰기
+
+* text : 텍스트 파일(zip 압축)을 읽어서 출력합니다
+  - <kbd>-ignoreCrc</kbd> : CRC 체크를 하지 않습니다
 ```bash
-#
+# -text [-ignoreCrc] <src>
+
 ```
 
-*  : 
-  - <kbd></kbd> : 
+* cat : 텍스트 파일(plain)을 읽어서 출력합니다
+  - <kbd>-ignoreCrc</kbd> : CRC 체크를 하지 않습니다
 ```bash
-#
+# -cat [-ignoreCrc] <src>
+
+```
+
+* appendToFile : 소스 데이터를 읽어서 타겟 데이터 파일에 append 하며, 존재하지 않는 파일의 경우 생성됩니다
+```bash
+# -appendToFile <localsrc> ... <dst>
 ```
 <br>
 
+
+### 6-3. 파일 업/다운 로드
+
+* put : 분산 저장소로 파일을 저장합니다
+  - <kbd>-f</kbd> : 존재하는 파일을 덮어씁니다
+  - <kbd>-p</kbd> : 소유자 및 변경시간을 수정하지 않고 유지합니다 (preserve)
+  - <kbd>-l</kbd> : 복제수를 1개로 강제합니다 (lazily persist)
+```bash
+# -put [-f] [-p] [-l] <localsrc> ... <dst>
+```
+
+* moveFromLocal : put 과 동일하지만 저장이 성공한 이후에 로컬 파일이 삭제됩니다
+```bash
+# -moveFromLocal <localsrc> ... <dst> 
+```
+
+* get : 분산 저장소로부터 파일을 가져옵니다 
+  - <kbd>-p</kbd> : 소유자 및 변경시간을 유지합니다 (preserve)
+  - <kbd>-ignoreCrc</kbd> : CRC 체크를 하지 않습니다
+  - <kbd>-crc</kbd> : CRC 체크썸을 같이 다운로드 합니다
+```bash
+# -get [-p] [-ignoreCrc] [-crc] <src> ... <localdst>
+```
+
+* getmerge : 디렉토리의 모든 파일을 하나로 묶어서 가져옵니다
+  - <kbd>-nl</kbd> : 매 파일의 마지막에 줄바꿈 문자를 넣습니다
+```bash
+# -getmerge [-nl] <src> <localdst>
+hdfs dfs -getmerge /tmp/manyfiles
+```
+
+* copyToLocal : get 과 동일합니다
+```bash
+# -copyToLocal [-f] [-p] [-l] <localsrc> ... <dst>
+```
+<br>
+
+
+### 6-4. 파일 복사/이동/삭제
+
+* cp : 소스 데이터를 타겟으로 복사합니다
+  - <kbd>-f</kbd> : 존재하는 파일을 덮어씁니다
+  - <kbd>-p[topax]</kbd> : 소유자 및 수정시간을 유지합니다 (preserve)
+    - `[topax] (timestamps, ownership, permission, ACLs, XAttr)`
+    - `[topax]` 옵션을 주지 않은 경우 timestamps, ownership 만 유지됩니다
+```bash
+# -cp [-f] [-p | -p[topax]] <src> ... <dst>
+```
+
+* mv : 소스 데이터를 타겟으로 이동합니다
+```bash
+# -mv <src> ... <dst>
+```
+
+* rm : 지정한 패턴에 매칭되는 모든 파일을 삭제합니다
+  - <kbd>-f</kbd> : 파일이 존재하지 않아도 에러 메시지를 출력하지 않습니다
+  - <kbd>-r|-R</kbd> : 하위 디렉토리까지 삭제합니다 (dfs -rmr 과 동일)
+  - <kbd>-skipTrash</kbd> : trash 로 이동하지 않고 바로 삭제합니다
+```bash
+# -rm [-f] [-r|-R] [-skipTrash] <src> ...
+
+```
+
+* rmdir : 
+  - <kbd>--ignore-fail-on-non-empty</kbd> : 와일드카드 삭제 시에 파일을 가진 디렉토리가 존재해도 오류를 출력하지 않습니다
+```bash
+# -rmdir [--ignore-fail-on-non-empty] <dir> ...
+```
+
+* mkdir : 디렉토리를 생성합니다
+  - <kbd>-p</kbd> : 중간경로가 없어도 생성합니다
+```bash
+# -mkdir [-p] <path>
+hdfs -mkdir -p /create/also/mid/path
+```
+
+* touchz : 파일 크기가 0인 파일을 생성합니다
+  - <kbd></kbd> :
+```bash
+# -touchz <path> ...
+hdfs -touchz  /tmp/zero_size_file
+```
+
+<br>
+
+
+### 6-5. 파일 권한 관리
+
+* chmod : 파일의 퍼미션(RWX)을 설정합니다 
+  - <kbd>-R</kbd> : 하위 경로의 파일도 동일하게 적용합니다
+  - <kbd>MODE</kbd> : e.g. +t,a+r,g-w,+rwx,o=r
+  - <kbd>OCTALMODE</kbd> : e.g. 754 is same as u=rwx,g=rx,o=r.
+```bash
+# -chmod [-R] <MODE[,MODE]... | OCTALMODE> PATH...
+hdfs -chmod 777 /tmp/zero_size_file
+```
+
+* chown : 파일의 오너/그룹을 변경합니다
+  - <kbd>-R</kbd> : 하위 경로의 파일도 동일하게 적용합니다
+```bash
+# -chown [-R] [OWNER][:[GROUP]] PATH...
+hdfs -chown lguser:lggroup /tmp/zero_size_file
+```
+
+* chgrp : 파일의 그룹을 변경합니다. chown 의 그룹변경과 동일합니다
+  - <kbd>-R</kbd> : 하위 경로의 파일도 동일하게 적용합니다
+```bash
+# -chgrp [-R] GROUP PATH...
+hdfs -chown lgde /tmp/zero_size_file
+```
+<br>
+
+
+### 6-6. 파일 시스템
+
+* df : 디스크 여유 공간을 확인합니다 (멀티 파티션 구성이 아니거나, 경로를 지정하지 않으면 전체 용량이 측정됩니다)
+  - <kbd>-h</kbd> : 바이트수가 아니라 포맷을 적용하여 출력합니다 (KB, MB, GB)
+```bash
+# -df [-h] [<path> ...]
+hdfs -du -h /tmp/*
+```
+
+* du : 디스크 사용 용량을 확인합니다
+  - <kbd>-s</kbd> : 개별 파일은 생략하고 매칭된 전체의 집계(summary)된 용량을 출력
+  - <kbd>-h</kbd> : 바이트수가 아니라 포맷을 적용하여 출력합니다 (KB, MB, GB)
+```bash
+# -du [-s] [-h] <path> ...
+du -sh /*
+```
+<br>
 
 
 
