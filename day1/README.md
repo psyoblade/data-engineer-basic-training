@@ -208,6 +208,9 @@ git branch lgde/2021
 # git branch (-d, --delete) [delete-branch]
 git branch -d lgde/2021
 ```
+```bash
+git branch -a
+```
 <br>
 
 
