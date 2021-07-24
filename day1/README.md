@@ -186,7 +186,7 @@ git diff
 ```bash
 # git commit -m "descriptive message"
 git status -s
-git add REAMDE.md
+git add README.md
 git status -s
 git commit -m "[수정] README 추가"
 git status -s
