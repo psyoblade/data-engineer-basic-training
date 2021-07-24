@@ -48,9 +48,9 @@ docker rm -f `docker ps -aq`
 ```bash
 # terminal
 cd /home/ubuntu/work/data-engineer-${course}-training/day4
-docker compose pull
-docker compose up -d
-docker compose ps
+docker-compose pull
+docker-compose up -d
+docker-compose ps
 ```
 <br>
 
@@ -58,8 +58,8 @@ docker compose ps
 #### 1-2-4. 실습에 필요한 IMDB 데이터를 컨테이너로 복사합니다
 ```bash
 # terminal
-docker compose cp data/imdb.tsv hive:/opt/hive/examples/imdb.tsv
-docker compose exec hive-serverls /opt/hive/examples
+docker-compose cp data/imdb.tsv hive:/opt/hive/examples/imdb.tsv
+docker-compose exec hive-serverls /opt/hive/examples
 ```
 
 > 마지막 ls /opt/hive/examples 명령어 결과로 imdb.tsv 파일이 확인되면 정상입니다
@@ -69,7 +69,7 @@ docker compose exec hive-serverls /opt/hive/examples
 #### 1-2-5. 하이브 컨테이너로 접속합니다
 ```bash
 # terminal
-docker compose exec hive-serverbash
+docker-compose exec hive-serverbash
 ```
 <br>
 
@@ -542,7 +542,7 @@ load data local inpath '/opt/hive/examples/imdb.tsv' into table imdb_movies;
 
 ```bash
 # terminal
-docker compose exec hive-server bash
+docker-compose exec hive-server bash
 hadoop fs -ls /user/hive/warehouse/testdb/
 ```
 > 적재된 테이블이 출력되면 정답입니다
@@ -759,7 +759,7 @@ export table imdb_orc to '/user/ubuntu/archive/imdb_orc';
 
 ```bash
 bash>
-docker compose exec hive-server bash
+docker-compose exec hive-server bash
 hadoop fs -ls /user/ubuntu/archive/imdb_orc
 -rwxr-xr-x   3 root supergroup       1244 2020-08-23 14:17 /user/ubuntu/archive/imdb_orc/_metadata
 drwxr-xr-x   - root supergroup          0 2020-08-23 14:17 /user/ubuntu/archive/imdb_orc/data
@@ -996,7 +996,7 @@ select dt, count(1) as cnt from `user` group by dt;
 * 테스트 작업이 완료되었으므로 모든 컨테이너를 종료합니다 (한번에 실행중인 모든 컨테이너를 종료합니다)
 ```bash
 cd /home/ubuntu/work/data-engineer-${course}-training/day4
-docker compose down
+docker-compose down
 ```
 <br>
 
