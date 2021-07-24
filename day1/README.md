@@ -272,7 +272,7 @@ git log
 
 #### 2-3-5. 변경 상태 확인하기
 
-<details><summary>[실습] LGDE.txt 파일생성 후에 스테이징 후에 상태를 확인하세요 </summary>
+<details><summary>[실습] LGDE.txt 파일생성 후에 스테이징(add) 후에 상태를 확인하세요 </summary>
 
 ```bash
 git checkout master
@@ -304,18 +304,13 @@ cd /home/ubuntu/work/helloworld
 rm *
 ls -al
 ```
-
-<details><summary>[실습] 모든 코드를 원래 상태로 복구해 보세요</summary>
-
-> 출력 결과가 오류가 발생하지 않고, 아래와 유사하다면 성공입니다
-
+* 다음과 같이 `--` 키워드와 함께 대상을 지정하면 stage/commit 외의 수정 사항을 되돌립니다
+  - `--` : 이 키워드 이후에 나오는 항목을 파일명으로 인식합니다
 ```bash
 git checkout -- .
 git statusb -sb
 ls -al
 ```
-
-</details>
 
 #### 2-3-7. 브랜치가 꼬여서 난감할 때
 
