@@ -25,7 +25,7 @@ services:
       - "50075:50075"
   hive-server:
     container_name: hive-server
-    image: psyoblade/data-engineer-basic-hive-server:1.0
+    image: psyoblade/data-engineer-hive-server:1.0
     volumes:
       - ./tmp:/tmp/source
     env_file:
