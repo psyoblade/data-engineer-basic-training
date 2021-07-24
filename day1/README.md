@@ -175,8 +175,8 @@ git add README.md
 git commit -am "[수정] 초기"
 ```
 ```bash
+echo "hello again" >> README.md
 git diff
-git status -s
 ```
 <br>
 
@@ -185,8 +185,11 @@ git status -s
   - 스테이징 된 내역이 없다면 커밋되지 않습니다
 ```bash
 # git commit -m "descriptive message"
-git commit -am "[수정] README 추가"
-git status -sb
+git status -s
+git add REAMDE.md
+git status -s
+git commit -m "[수정] README 추가"
+git status -s
 ```
 <br>
 
