@@ -129,8 +129,12 @@ source ~/.bashrc  # .bashrc 내용을 현재 세션에 다시 로딩합니다
 ```
 * 로컬에 기본 정보를 입력합니다
 ```bash
-git config --global user.name "Your Name"
-git config --global user.email you@example.com
+name="lgde"
+email="engineer@lgde.com"
+```
+```bash
+git config --global user.name $name
+git config --global user.email $email
 ```
 <br>
 
@@ -168,6 +172,7 @@ git status -s
 # git diff (--name-only)
 echo "hello lgde" >> README.md
 git add README.md
+git commit -am "[수정] 초기"
 ```
 ```bash
 git diff
