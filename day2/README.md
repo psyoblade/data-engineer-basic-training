@@ -467,7 +467,7 @@ hadoop fs -ls /user/sqoop/target/seoul_popular_trip
 ask hadoop fs -cat /user/sqoop/target/seoul_popular_trip/part-m-00000
 ```
 
-#### 2-4-2. 번 예제 실습이 모두 종료되었으므로 <kbd><samp>Ctrl</samp>+<samp>D</samp></kbd> 혹은 <kbd>exit</kbd> 명령으로 컨테이너를 종료합니다
+#### 2-4-2. 예제 실습이 종료되었으므로 <kbd><samp>Ctrl</samp>+<samp>D</samp></kbd> 혹은 <kbd>exit</kbd> 명령으로 컨테이너를 종료합니다
 <br>
 
 [목차로 돌아가기](#2일차-데이터-엔지니어링-수집)
@@ -504,7 +504,8 @@ CREATE TABLE testdb.seoul_popular_exp (
   , tel VARCHAR(20)
   , tag VARCHAR(500)
 ) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI;
-
+```
+```sql
 show tables;
 ```
 <br>
@@ -525,10 +526,13 @@ ask sqoop export -m 1 --connect jdbc:mysql://mysql:3306/testdb --username sqoop 
 <br>
 
 ![RM](images/RM.png)
-* 오류 확인은 리소스매니저 (http://`<cloud-public-ip>`:8088) 사이트에서 할 수 있습니다
+* 오류 확인은 리소스매니저 (`http://vm<student-id>.aiffelbiz.co.kr:8088/`) 사이트에서 할 수 있습니다
   * `application_id` 링크를 클릭하고 logs 경로를 클릭하면 http://9e48393c5f39:8042/ 와 같이 docker-container 아이로 redirect 됩니다
   * 해당 문자열을 자신의 클라우드 장비의 IP 혹은 DNS 주소로 변경하면 됩니다
   * 해당 로그 페이지에서 "syslog : Total file length is 49301 bytes." 링크를 클릭하고 "here" 링크를 클릭하면 전체 로그를 한 번에 확인할 수 있습니다
+* 포트가 변경되어 접근이 불가능한 경우는 아래와 같이 직접 확인할 수 있습니다
+  * `http://vm<student-id>.aiffelbiz.co.kr:8088/logs/userlogs/`
+  * 해당 디렉토리 내의 stdout 로그를 확인하면 오류를 확인할 수 있습니다
 <br>
 
 
@@ -604,7 +608,8 @@ CREATE TABLE testdb.seoul_popular_stg (
   , tel VARCHAR(20)
   , tag VARCHAR(500)
 ) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI;
-
+```
+```sql
 show tables;
 ```
 <br>
@@ -614,6 +619,7 @@ show tables;
 * 이미 적재된 테이블에 다시 적재하는 경우는 중복 데이터가 생성되므로  삭제 혹은 TRUNCATE 는 수작업으로 수행되어야만 합니다
 
 ```bash
+# docker
 sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop \
   -e "TRUNCATE seoul_popular_exp"
 
@@ -652,6 +658,15 @@ cmd "SELECT COUNT(1) FROM seoul_popular_exp"
 ```
 
 </details>
+
+#### 3-3-4. 테이블 수집 실습이 종료되었으므로 <kbd><samp>Ctrl</samp>+<samp>D</samp></kbd> 혹은 <kbd>exit</kbd> 명령으로 컨테이너를 종료합니다
+
+* 테이블 수집 관련 컨테이너를 종료합니다
+
+```bash
+cd /home/ubuntu/work/data-engineer-${course}-training/day2
+docker-compose down
+```
 
 [목차로 돌아가기](#2일차-데이터-엔지니어링-수집)
 
@@ -723,8 +738,8 @@ cd /home/ubuntu/work/data-engineer-${course}-training/day2/ex1
 ### 2-1. 도커 컨테이너 기동
 ```bash
 cd /home/ubuntu/work/data-engineer-${course}-training/day2/ex1
-docker compose pull
-docker compose up -d
+docker-compose pull
+docker-compose up -d
 ```
 <br>
 
@@ -733,7 +748,7 @@ docker compose up -d
 
 > 기본 설정은 /etc/fluentd/fluent.conf 파일을 바라보는데 예제 환경에서는 `docker-compose.yml` 설정에서 해당 위치에 ex1/fluent.conf 파일을 마운트해 두었기 때문에 컨테이너 환경 내에서 바로 실행을 해도 잘 동작합니다. 별도로 `fluentd -c /etc/fluentd/fluent.conf` 로 실행해도 동일하게 동작합니다
 
-#### 2-2-1 도커 컴포즈 파일 구성 `docker compose.yml`
+#### 2-2-1 도커 컴포즈 파일 구성 `docker-compose.yml`
 
 ```yml
 version: "3"
@@ -777,7 +792,7 @@ networks:
 #### 2-3-1. 에이전트 기동을 위해 컨테이너로 접속 후, 에이전트를 기동합니다
 ```bash
 # terminal
-docker compose exec fluentd bash
+docker-compose exec fluentd bash
 ```
 ```bash
 # docker
@@ -821,7 +836,7 @@ fluentd
   - 클라우드 터미널에 curl 설치가 되어있지 않을 수도 있으므로 도커 컨테이너에 접속합니다
 ```bash
 # terminal
-docker compose exec fluentd bash
+docker-compose exec fluentd bash
 ```
 ```bash
 # docker
@@ -879,16 +894,16 @@ curl -i -X POST -d 'json={"action":"login","user":2}' http://localhost:9880/test
 
 ```bash
 cd /home/ubuntu/work/data-engineer-${course}-training/day2/ex1
-docker compose down
+docker-compose down
 
 cd /home/ubuntu/work/data-engineer-${course}-training/day2/ex2
-docker compose pull
-docker compose up -d
+docker-compose pull
+docker-compose up -d
 ```
 <br>
 
 
-#### 3-1-1 도커 컴포즈 파일 구성 `docker compose.yml`
+#### 3-1-1 도커 컴포즈 파일 구성 `docker-compose.yml`
 
 ```yml
 version: "3"
@@ -980,7 +995,7 @@ networks:
 
 ```bash
 # terminal
-docker compose exec fluentd bash
+docker-compose exec fluentd bash
 ```
 ```bash
 # docker
@@ -1001,7 +1016,8 @@ fluentd
 
 ```bash
 # terminal
-docker compose exec fluentd bash
+cd /home/ubuntu/work/data-engineer-basic-training/day2/ex2
+docker-compose exec fluentd bash
 ```
 ```bash
 # docker
@@ -1058,16 +1074,16 @@ root@7d33f313cc13:~#
 
 ```bash
 cd /home/ubuntu/work/data-engineer-${course}-training/day2/ex2
-docker compose down
+docker-compose down
 
 cd /home/ubuntu/work/data-engineer-${course}-training/day2/ex3
-docker compose pull
-docker compose up -d
+docker-compose pull
+docker-compose up -d
 ```
 <br>
 
 
-#### 4-1-1 도커 컴포즈 파일 구성 `docker compose.yml`
+#### 4-1-1 도커 컴포즈 파일 구성 `docker-compose.yml`
 
 ```yml
 version: "3"
@@ -1199,7 +1215,7 @@ fr.close()
 
 ```bash
 # terminal
-docker compose exec fluentd bash
+docker-compose exec fluentd bash
 ```
 ```bash
 # docker
@@ -1218,7 +1234,7 @@ fluentd
 
 ```bash
 # terminal
-docker compose exec fluentd bash
+docker-compose exec fluentd bash
 ```
 ```bash
 python flush_logs.py
