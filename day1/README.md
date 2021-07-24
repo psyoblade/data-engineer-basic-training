@@ -160,7 +160,8 @@ git status -s
 #### 2-2-5. diff : 스테이징 된 파일에 따라 발생하는 이전 상태와 차이점을 보여줍니다
 ```bash
 # git diff (--name-only)
-echo "hello world" > README.md
+echo "hello lgde" >> README.md
+git add README.md
 git diff
 git status -s
 ```
