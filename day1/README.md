@@ -127,6 +127,11 @@ sudo ./init.sh  # 명령을 통해 tree 패키지 및 rc 파일을 복사합니�
 d # alias 로 docker-compose 를 등록되어 --help 가 뜨면 정상입니다
 source ~/.bashrc  # .bashrc 내용을 현재 세션에 다시 로딩합니다
 ```
+* 로컬에 기본 정보를 입력합니다
+```bash
+git config --global user.name "Your Name"
+git config --global user.email you@example.com
+```
 <br>
 
 
@@ -137,6 +142,7 @@ source ~/.bashrc  # .bashrc 내용을 현재 세션에 다시 로딩합니다
 # git add (-A, --all) [file]
 touch README.md
 git add README.md
+git status
 ```
 <br>
 
@@ -162,6 +168,8 @@ git status -s
 # git diff (--name-only)
 echo "hello lgde" >> README.md
 git add README.md
+```
+```bash
 git diff
 git status -s
 ```
@@ -176,24 +184,6 @@ git commit -am "[수정] README 추가"
 git status -sb
 ```
 <br>
-
-
-* 아래와 같은 경고 메시지는 현재 clone 한 원격지 레포지토리에 로그인이 되지 않았다는 의미이므로 신경쓰지 않으셔도 됩니다
-```bash
-Committer: Ubuntu <ubuntu@vm001.m0f4rvh4gmxe1gyfukcq2hpioc.syx.internal.cloudapp.net>
-Your name and email address were configured automatically based
-on your username and hostname. Please check that they are accurate.
-You can suppress this message by setting them explicitly:
-
-    git config --global user.name "Your Name"
-    git config --global user.email you@example.com
-
-After doing this, you may fix the identity used for this commit with:
-
-    git commit --amend --reset-author
-
- 1 file changed, 1 insertion(+)
-```
 
 > 수정된 파일은 " M" 으로 표현되고, 스테이징된 파일은  "M " 으로 표현되며, 커밋된 파일은 status 에서 보이지 않습니다.
 
