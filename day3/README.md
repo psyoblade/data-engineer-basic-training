@@ -13,7 +13,7 @@
 ### 1-1. 최신 소스를 내려 받습니다
 ```bash
 # terminal
-cd /home/ubuntu/work/data-engineer-basic-training
+cd /home/ubuntu/work/data-engineer-${course}-training
 git pull
 ```
 <br>
@@ -21,7 +21,7 @@ git pull
 ### 1-2. 실습을 위한 이미지를 내려받고 컨테이너를 기동합니다
 ```bash
 # terminal
-cd ~/workspace/data-engineer-basic-training/day3
+cd ~/workspace/data-engineer-${course}-training/day3
 git pull
 docker-compose pull
 docker-compose up -d
@@ -41,18 +41,18 @@ docker-compose logs notebook
 
 ## 2. 데이터 변환 기본
 
-### [2-1. 스파크 기본 명령어 이해](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-1.html)
-### [2-2. 기본 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-2.html)
-### [2-3. 데이터 타입 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-3.html)
-### [2-4. 조인 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-4.html)
-### [2-5. 집계 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-5.html)
-### [2-6. 스파크 JDBC to MySQL](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-6.html)
+### [2-1. 스파크 기본 명령어 이해](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-${course}-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-1.html)
+### [2-2. 기본 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-${course}-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-2.html)
+### [2-3. 데이터 타입 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-${course}-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-3.html)
+### [2-4. 조인 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-${course}-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-4.html)
+### [2-5. 집계 연산 다루기](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-${course}-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-5.html)
+### [2-6. 스파크 JDBC to MySQL](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-${course}-training/blob/master/day3/notebooks/html/lgde-pyspark-tutorial-6.html)
 <br>
 
 
 ### 3. 컨테이너 정리
 * 테스트 작업이 완료되었으므로 모든 컨테이너를 종료합니다 (한번에 실행중인 모든 컨테이너를 종료합니다)
 ```bash
-cd /home/ubuntu/work/data-engineer-basic-training/day2
+cd /home/ubuntu/work/data-engineer-${course}-training/day3
 docker-compose down
 ```
