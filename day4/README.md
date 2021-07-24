@@ -69,7 +69,7 @@ docker-compose exec hive-serverls /opt/hive/examples
 #### 1-2-5. 하이브 컨테이너로 접속합니다
 ```bash
 # terminal
-docker-compose exec hive-serverbash
+docker-compose exec hive-server bash
 ```
 <br>
 
@@ -81,6 +81,9 @@ docker-compose exec hive-serverbash
 * 도커 컨테이너에서 beeline 명령을 수행하면 프롬프트가 `beeline>` 으로 변경되고, SQL 명령의 수행이 가능합니다
 ```bash
 # docker
+echo "하이브 서버가 기동 되는데에 시간이 좀 걸립니다... 30초 후에 접속합니다"
+sleep 30 
+
 beeline
 ```
 <br>
@@ -574,6 +577,8 @@ hadoop fs -ls /user/hive/warehouse/testdb/
 ```sql
 # beeline> 
 describe formatted imdb_movies;
+```
+```sql
 select genre, title from imdb_movies order by title asc;
 ```
 
@@ -615,6 +620,8 @@ select title from imdb_title;
 ```sql
 insert into table imdb_title select title from imdb_movies order by title asc limit 5;
 select title from imdb_title;
+```
+```sql
 insert into table imdb_title select title from imdb_movies order by title desc limit 5;
 select title from imdb_title;
 ```
@@ -637,6 +644,8 @@ select title from imdb_title;
 ```sql
 # beeline> 
 create table if not exists imdb_title (title string);
+```
+```sql
 insert overwrite table imdb_title select description from imdb_movies;
 select title from imdb_title limit 5;
 ```
@@ -715,6 +724,8 @@ insert into table imdb_orc values (1, 'psyoblade'), (2, 'psyoblade suhyuk'), (3,
 
 ```sql
 delete from imdb_orc where rank = 2;
+```
+```sql
 select * from imdb_orc;
 ```
 
@@ -735,6 +746,8 @@ select * from imdb_orc;
 ```sql
 # beeline> 
 update imdb_orc set title = 'modified title' where rank = 1;
+```
+```sql
 select * from imdb_orc;
 ```
 <br>
@@ -758,11 +771,17 @@ export table imdb_orc to '/user/ubuntu/archive/imdb_orc';
 <details><summary>[실습] 별도의 터미널을 통해 익스포트 된 결과를 확인합니다 </summary>
 
 ```bash
-bash>
+# terminal
+cd /home/ubuntu/work/data-engineer-basic-training/day4
 docker-compose exec hive-server bash
+```
+```bash
+# docker
 hadoop fs -ls /user/ubuntu/archive/imdb_orc
--rwxr-xr-x   3 root supergroup       1244 2020-08-23 14:17 /user/ubuntu/archive/imdb_orc/_metadata
-drwxr-xr-x   - root supergroup          0 2020-08-23 14:17 /user/ubuntu/archive/imdb_orc/data
+```
+```bash
+# -rwxr-xr-x   3 root supergroup       1244 2020-08-23 14:17 /user/ubuntu/archive/imdb_orc/_metadata
+# drwxr-xr-x   - root supergroup          0 2020-08-23 14:17 /user/ubuntu/archive/imdb_orc/data
 ```
 
 </details>
@@ -783,6 +802,8 @@ drwxr-xr-x   - root supergroup          0 2020-08-23 14:17 /user/ubuntu/archive/
 ```sql
 # beeline> 
 import table imdb_orc_imported from '/user/ubuntu/archive/imdb_orc';
+```
+```sql
 select * from imdb_orc_imported;
 ```
 
@@ -790,7 +811,11 @@ select * from imdb_orc_imported;
 
 ```sql
 export table imdb_title to '/user/ubuntu/archive/imdb_title';
+```
+```sql
 import table imdb_recover from '/user/ubuntu/archive/imdb_title';
+```
+```sql
 select * from imdb_recover;
 ```
 * 아래와 유사한 결과가 나오면 정답입니다
@@ -853,6 +878,8 @@ message purchase_20201025 {
 ```bash
 hadoop fs -mkdir -p /user/lgde/purchase/dt=20201025
 hadoop fs -mkdir -p /user/lgde/purchase/dt=20201026
+```
+```sql
 hadoop fs -put /tmp/source/purchase/20201025/* /user/lgde/purchase/dt=20201025
 hadoop fs -put /tmp/source/purchase/20201026/* /user/lgde/purchase/dt=20201026
 ```
@@ -923,8 +950,12 @@ docker-compose exec hive-server bash
 # docker
 hadoop fs -mkdir -p /user/lgde/user/dt=20201025
 hadoop fs -mkdir -p /user/lgde/user/dt=20201026
+```
+```sql
 hadoop fs -put /tmp/source/user/20201025/* /user/lgde/user/dt=20201025
 hadoop fs -put /tmp/source/user/20201026/* /user/lgde/user/dt=20201026
+```
+```sql
 hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema file:///tmp/source/purchase/20201025/38dc1f5b-d49d-436d-a84a-4e5c2a4022a5.parquet
 ```
 ```text
@@ -971,6 +1002,8 @@ alter table `user` add if not exists partition (dt = '20201026') location 'hdfs:
 ```sql
 # beeline>
 select * from `user` where dt = '20201025';
+```
+```sql
 select dt, count(1) as cnt from `user` group by dt;
 ```
 <br>
