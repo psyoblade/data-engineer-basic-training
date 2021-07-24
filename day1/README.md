@@ -211,6 +211,7 @@ git branch -a
 ```bash
 # git branch [create-branch]
 git branch lgde/2021
+git branch -a
 ```
 ```bash
 # git branch (-d, --delete) [delete-branch]
@@ -240,7 +241,10 @@ git checkout -b lgde/2021
 git checkout master
 echo "modified" >> README.md
 cat README.md
-git commit -am "[수정]"
+git status -s
+```
+```bash
+git commit -am "[수정] add modified"
 ```
 ```bash
 git checkout lgde/2021
@@ -249,8 +253,8 @@ cat README.md
 ```bash
 # git merge [merge-branch]
 git merge master
+git commit -am "[병합] master"
 cat README.md
-git commit -am "[병합]"
 ```
 ```bash
 # master 브랜치로 돌아옵니다
