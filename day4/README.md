@@ -18,9 +18,10 @@
 ### 1-1. 최신 소스를 내려 받습니다
 ```bash
 # terminal
-cd /home/ubuntu/work/data-engineer-basic-training
+cd /home/ubuntu/work/data-engineer-intermediate-training
 git pull
 ```
+<br>
 
 ### 1-2. 현재 기동되어 있는 도커 컨테이너를 확인하고, 종료합니다
 
@@ -44,10 +45,10 @@ docker rm -f `docker ps -aq`
 #### 1-2-3. 하이브 실습을 위한 컨테이너를 기동합니다
 ```bash
 # terminal
-cd /home/ubuntu/work/data-engineer-basic-training/day4
-docker-compose pull
-docker-compose up -d
-docker-compose ps
+cd /home/ubuntu/work/data-engineer-intermediate-training/day8
+docker compose pull
+docker compose up -d
+docker compose ps
 ```
 <br>
 
@@ -55,8 +56,8 @@ docker-compose ps
 #### 1-2-4. 실습에 필요한 IMDB 데이터를 컨테이너로 복사합니다
 ```bash
 # terminal
-docker-compose cp data/imdb.tsv hive:/opt/hive/examples/imdb.tsv
-docker-compose exec hive-server ls /opt/hive/examples
+docker compose cp data/imdb.tsv hive:/opt/hive/examples/imdb.tsv
+docker compose exec hive-serverls /opt/hive/examples
 ```
 
 > 마지막 ls /opt/hive/examples 명령어 결과로 imdb.tsv 파일이 확인되면 정상입니다
@@ -66,7 +67,7 @@ docker-compose exec hive-server ls /opt/hive/examples
 #### 1-2-5. 하이브 컨테이너로 접속합니다
 ```bash
 # terminal
-docker-compose exec hive-server bash
+docker compose exec hive-serverbash
 ```
 <br>
 
@@ -80,6 +81,8 @@ docker-compose exec hive-server bash
 # docker
 beeline
 ```
+<br>
+
 
 * beeline 프롬프트가 뜨면 Hive Server 에 접속하기 위해 대상 서버로 connect 명령을 수행합니다
 ```bash
@@ -94,7 +97,12 @@ Connected to: Apache Hive (version 2.3.2)
 Driver: Hive JDBC (version 2.3.2)
 Transaction isolation: TRANSACTION_REPEATABLE_READ
 ```
+
+[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+
 <br>
+<br>
+
 
 
 ## 2 하이브 기본 명령어 가이드 
@@ -198,6 +206,8 @@ show databases;
 create database if not exists testdb comment 'test database' 
 location '/user/hive/warehouse/testdb' with dbproperties ('createdBy' = 'psyoblade');
 ```
+<br>
+
 * 이미 생성된 데이터베이스는 ALTER 명령어로 수정이 가능합니다
 ```sql
 alter database testdb set dbproperties ('createdfor'='park.suhyuk');
@@ -222,6 +232,8 @@ describe database extended testdb;
 # beeline> 
 alter database testdb set owner role admin;
 ```
+<br>
+
 * 수정된 OWNER 정보를 확인합니다 
 ```sql
 describe database extended testdb;
@@ -297,6 +309,8 @@ describe database extended testdb;
       | INPUTFORMAT input_format_classname OUTPUTFORMAT output_format_classname
 */
 ```
+<br>
+
 
 * 실습을 위한 고객 테이블 (employee)을 생성합니다
 ```sql
@@ -325,6 +339,8 @@ create table if not exists employee (
 # beeline> 
 show tables;
 ```
+<br>
+
 * 부분일치 하는 테이블 목록을 조회합니다
   - like 연산자와 유사하게 동작합니다
 ```sql
@@ -505,6 +521,8 @@ create table imdb_movies (
   , metascore int
 ) row format delimited fields terminated by '\t';
 ```
+<br>
+
 * 생성된 테이블에 로컬에 존재하는 파일을 업로드합니다
 ```sql
 load data local inpath '/opt/hive/examples/imdb.tsv' into table imdb_movies;
@@ -514,7 +532,7 @@ load data local inpath '/opt/hive/examples/imdb.tsv' into table imdb_movies;
 
 ```bash
 # terminal
-docker-compose exec hive-server bash
+docker compose exec hive-server bash
 hadoop fs -ls /user/hive/warehouse/testdb/
 ```
 > 적재된 테이블이 출력되면 정답입니다
@@ -535,6 +553,8 @@ hadoop fs -ls /user/hive/warehouse/testdb/
     [LIMIT [offset,] rows]
 */
 ```
+<br>
+
 * 테이블에 저장된 레코드를 SQL 구문을 통해서 조회합니다
   - SELECT : 출력하고자 하는 컬럼을 선택 
   - GROUP BY : 집계 연산을 위한 컬럼을 선택
@@ -572,6 +592,8 @@ select rank, genre, title from imdb_movies order by rank asc limit 10;
 # beeline> 
 create table if not exists imdb_title (title string);
 ```
+<br>
+
 * INSERT ... FROM 구문을 이용하여 `imdb_movies` 테이블로부터 제목만 읽어와서 저장합니다
 ```sql
 insert into table imdb_title select title from imdb_movies limit 5;
@@ -599,6 +621,8 @@ select title from imdb_title;
     INSERT OVERWRITE TABLE tablename1 [PARTITION (partcol1=val1, ..) [IF NOT EXISTS]] select_statement FROM from_statement;
 */
 ```
+<br>
+
 * 제목만 가진 테이블에 OVERWRITE 키워드로 입력합니다
 ```sql
 # beeline> 
@@ -606,6 +630,8 @@ create table if not exists imdb_title (title string);
 insert overwrite table imdb_title select description from imdb_movies;
 select title from imdb_title limit 5;
 ```
+<br>
+
 
 * 임의의 데이터를 직접 입력합니다 - INSERT VALUES
 ```sql
@@ -619,6 +645,8 @@ select title from imdb_title limit 5;
 # beeline> 
 insert into imdb_title values ('1 my first hive table record'), ('2 my second records'), ('3 third records');
 ```
+<br>
+
 * like 연산을 이용하여 특정 레코드만 가져옵니다
 ```sql
 select title from imdb_title where title like '%record%';
@@ -657,6 +685,8 @@ set hive.txn.manager=org.apache.hadoop.hive.ql.lockmgr.DbTxnManager;
 set hive.compactor.initiator.on=true;
 set hive.compactor.worker.threads=1;
 ```
+<br>
+
 * 해당 테이블에 2개의 레코드를 아래와 같이 입력합니다
 ```sql
 insert into table imdb_orc values (1, 'psyoblade'), (2, 'psyoblade suhyuk'), (3, 'lgde course');
@@ -719,7 +749,7 @@ export table imdb_orc to '/user/ubuntu/archive/imdb_orc';
 
 ```bash
 bash>
-docker-compose exec hive-server bash
+docker compose exec hive-server bash
 hadoop fs -ls /user/ubuntu/archive/imdb_orc
 -rwxr-xr-x   3 root supergroup       1244 2020-08-23 14:17 /user/ubuntu/archive/imdb_orc/_metadata
 drwxr-xr-x   - root supergroup          0 2020-08-23 14:17 /user/ubuntu/archive/imdb_orc/data
@@ -788,6 +818,8 @@ select * from imdb_recover;
 # terminal
 docker-compose exec hive-server bash
 ```
+<br>
+
 * 원본 파일의 스키마를 확인 및 파일을 하둡 클러스터에 업로드합니다
 ```
 hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema file:///tmp/source/user/20201025/2e3738ff-5e2b-4bec-bdf4-278fe21daa3b.parquet
@@ -801,6 +833,8 @@ message purchase_20201025 {
   optional int32 p_amount;
 }
 ```
+<br>
+
 * 경로 확인 및 생성
 ```bash
 hadoop fs -mkdir -p /user/lgde/purchase/dt=20201025
@@ -823,7 +857,8 @@ beeline
 create database if not exists testdb comment 'test database' 
   location '/user/lgde/warehouse/testdb'
   with dbproperties ('createdBy' = 'lgde');
-
+```
+```sql
 use testdb;
 
 create external table if not exists purchase (
@@ -836,10 +871,13 @@ create external table if not exists purchase (
 row format delimited 
 stored as parquet 
 location 'hdfs:///user/lgde/purchase';
-
+```
+```sql
 alter table purchase add if not exists partition (dt = '20201025') location 'hdfs:///user/lgde/purchase/dt=20201025';
 alter table purchase add if not exists partition (dt = '20201026') location 'hdfs:///user/lgde/purchase/dt=20201026';
 ```
+<br>
+
 
 * 생성된 하이브 테이블을 조회합니다
 ```sql
@@ -847,6 +885,8 @@ alter table purchase add if not exists partition (dt = '20201026') location 'hdf
 show partitions purchase;
 select * from purchase where dt = '20201025';
 ```
+<br>
+
 * 일자별 빈도를 조회합니다
 ```sql
 # beeline>
@@ -881,6 +921,8 @@ message user_20201025 {
   optional int32 u_signup;
 }
 ```
+<br>
+
 
 * 하이브 명령 수행을 위해 beeline 을 실행합니다
 ```bash
@@ -904,16 +946,21 @@ create external table if not exists `user` (
 row format delimited 
 stored as parquet 
 location 'hdfs:///user/lgde/user';
-
+```
+```sql
 alter table `user` add if not exists partition (dt = '20201025') location 'hdfs:///user/lgde/user/dt=20201025';
 alter table `user` add if not exists partition (dt = '20201026') location 'hdfs:///user/lgde/user/dt=20201026';
 ```
+<br>
+
 * 생성된 결과를 확인합니다
 ```sql
 # beeline>
 select * from `user` where dt = '20201025';
 select dt, count(1) as cnt from `user` group by dt;
 ```
+<br>
+
 
 ### 2-4-3. Parquet 포맷과 Hive 테이블 데이터 타입
 | Parquet | Hive | Description |
@@ -923,6 +970,11 @@ select dt, count(1) as cnt from `user` group by dt;
 | float | float | 실수형 |
 | double | double | 실수형 |
 | binary | string | 문자열 |
+<br>
+
+[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+
+<br>
 <br>
 
 
