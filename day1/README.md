@@ -10,6 +10,7 @@
   * [5. Linux 커맨드라인 명령어 실습](#5-Linux-커맨드라인-명령어-실습)
   * [6. Hadoop 커맨드라인 명령어 실습](#6-Hadoop-커맨드라인-명령어-실습)
   * [7. SQL 기본 실습](#7-SQL-기본-실습)
+  * [8. 참고 자료](#8-참고-자료)
 <br>
 
 
@@ -43,29 +44,16 @@ git version 2.17.1
 ```
 
 </details>
-<br>
-
-
-#### 1-3. 실습을 위한 예제 프로젝트를 가져옵니다
-
-> 아래에서 학습할 예정이지만, 원격지에 저장된 프로젝트를 로컬로 다운로드 하는 작업이 git clone 입니다
-
-```bash
-# terminal
-mkdir -p /home/ubuntu/work
-cd /home/ubuntu/work
-git clone https://github.com/psyoblade/data-engineer-basic-training.git
-git clone https://github.com/psyoblade/helloworld.git
-```
 
 [목차로 돌아가기](#1일차-데이터-엔지니어링-기본)
+
 <br>
 <br>
 
 
 ## 2. Git 명령어 실습
 
-> [Git Cheat-sheet](https://education.github.com/git-cheat-sheet-education.pdf) 를 참고하여 작성 되었습니다
+> 코드 및 리소스 형상관리를 위한 git 명령어를 실습합니다
 
 ### 2-1. 초기화
 
@@ -359,7 +347,19 @@ ls -al
 
 ## 3. Docker 명령어 실습
 
-> [Docker Cheat Sheet](https://dockerlabs.collabnix.com/docker/cheatsheet/)를 참고하여 작성 되었습니다
+> 컨테이너 관리를 위한 도커 명령어를 실습합니다
+
+
+* 먼저 실습을 위한 예제 프로젝트를 가져옵니다
+
+```bash
+# terminal
+mkdir -p /home/ubuntu/work
+cd /home/ubuntu/work
+git clone https://github.com/psyoblade/helloworld.git
+```
+<br>
+
 
 ### 3-1. 컨테이너 생성관리
 
@@ -826,7 +826,7 @@ docker exec -it mysql-bind mysql --port=3308 -uuser -ppass
 
 ## 4. 도커 컴포즈 명령어 실습
 
-> [docker-compose cheatsheet](https://devhints.io/docker-compose) 와 [Cheatsheet](https://buildvirtual.net/docker-compose-cheat-sheet/)를 참고하여 작성 되었습니다. 도커 컴포즈는 **도커의 명령어들을 반복적으로 수행되지 않도록 yml 파일로 저장해두고 활용**하기 위해 구성되었고, *여러개의 컴포넌트를 동시에 기동하여, 하나의 네트워크에서 동작하도록 구성*한 것이 특징입니다. 내부 서비스들 간에는 컨테이너 이름으로 통신할 수 있어 테스트 환경을 구성하기에 용이합니다. 
+> 도커 컴포즈는 **도커의 명령어들을 반복적으로 수행되지 않도록 yml 파일로 저장해두고 활용**하기 위해 구성되었고, *여러개의 컴포넌트를 동시에 기동하여, 하나의 네트워크에서 동작하도록 구성*한 것이 특징입니다. 내부 서비스들 간에는 컨테이너 이름으로 통신할 수 있어 테스트 환경을 구성하기에 용이합니다. 
 <br>
 
 ### 4-1. 컨테이너 관리
@@ -1464,10 +1464,16 @@ rsync --dry-run -rave "ssh -i ~/.ssh/personal.pem" ubuntu@ec2.amazonaws.com:/hom
 
 ## 6. Hadoop 커맨드라인 명령어 실습
 
-> [Hadoop HDFS Commands Cheatsheet](https://images.linoxide.com/hadoop-hdfs-commands-cheatsheet.pdf)를 참고 하였습니다
+> 모든 Hadoop Filesystem 명령어는 hdfs 명령어를 사용해야만 분산저장소에 읽고, 쓰는 작업이 가능합니다
 
-* 모든 Hadoop Filesystem 명령어는 hdfs 명령어를 사용합니다
+* 실습을 위한 기본 환경을 가져옵니다
 
+```bash
+# terminal
+cd /home/ubuntu/work
+git clone https://github.com/psyoblade/data-engineer-basic-training.git
+cd /home/ubuntu/work/data-engineer-basic-training
+```
 
 ### 6-1. 파일/디렉토리 관리
 
@@ -1797,4 +1803,12 @@ drop database foo;
 [목차로 돌아가기](#1일차-데이터-엔지니어링-기본)
 <br>
 <br>
+
+
+## 8. 참고 자료
+* [Git Cheatsheet](https://education.github.com/git-cheat-sheet-education.pdf)
+* [Docker Cheatsheet](https://dockerlabs.collabnix.com/docker/cheatsheet/)
+* [Docker Compose Cheatsheet](https://devhints.io/docker-compose)
+* [Compose Cheatsheet](https://buildvirtual.net/docker-compose-cheat-sheet/)
+* [Hadoop Commands Cheatsheet](https://images.linoxide.com/hadoop-hdfs-commands-cheatsheet.pdf)
 
