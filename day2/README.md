@@ -1,18 +1,17 @@
-# 데이터 엔지니어링 초급 2일차
-> 데이터 처리 및 분석의 가장 처음 과정인 데이터 수집 도구를 이용한 데이터 적재를 실습합니다.
-> 관계형 데이터베이스 수집을 위한 Apache Sqoop, 파일 데이터 수집을 위한 TreasureData Fluentd 를 이용해 실습합니다
-> 이번 장에서 사용하는 외부 오픈 포트는 22, 80, 5601, 8080, 9880, 50070 입니다
+# 2일차 데이터 엔지니어링 수집
+
+> 데이터 처리 및 분석의 가장 처음 과정인 데이터 수집 도구를 이용한 데이터 적재를 실습합니다. 관계형 데이터베이스 수집을 위한 Apache Sqoop, 파일 데이터 수집을 위한 TreasureData Fluentd 를 이용해 실습합니다. 이번 장에서 사용하는 외부 오픈 포트는 22, 80, 5601, 8080, 9880, 50070 입니다
 
 - 목차
   * [1. 테이블 수집 기본](#테이블-수집-기본)
     - [1-1. 최신버전 업데이트 테이블](#1-최신버전-업데이트-테이블)
     - [1-2. 테이블 임포트 실습](#2-테이블-임포트-실습)
     - [1-3. 테이블 익스포트 실습](#3-테이블-익스포트-실습)
-  * [2. 파일 수집 실습](#파일-수집-실습)
-    - [2-1. 최신버전 업데이트 파일](#1-최신버전-업데이트-파일)
-    - [2-2. 플루언트디를 웹서버처럼 사용하기](#2-플루언트디를-웹서버처럼-사용하기)
-    - [2-3. 수신된 로그를 로컬에 저장하는 예제](#3-수신된-로그를-로컬에-저장하는-예제)
-    - [2-4. 서버에 남는 로그를 지속적으로 모니터링하기](#4-서버에-남는-로그를-지속적으로-모니터링하기)
+  * [2. 파일 수집 기본](#파일-수집-기본)
+    - [1-1. 최신버전 업데이트](#1-최신버전-업데이트)
+    - [1-2. 플루언트디를 웹서버처럼 사용하기](#2-플루언트디를-웹서버처럼-사용하기)
+    - [1-3. 수신된 로그를 로컬에 저장하는 예제](#3-수신된-로그를-로컬에-저장하는-예제)
+    - [1-4. 서버에 남는 로그를 지속적으로 모니터링하기](#4-서버에-남는-로그를-지속적으로-모니터링하기)
 <br>
 
 ## 테이블 수집 기본
@@ -57,7 +56,7 @@ docker-compose up -d
 docker-compose ps
 ```
 
-[목차로 돌아가기](#2일차-아파치-스쿱-테이블-수집)
+[목차로 돌아가기](#2일차-데이터-엔지니어링-수집)
 
 <br>
 <br>
@@ -433,17 +432,17 @@ hadoop jar /jdbc/parquet-tools-1.8.1.jar head file://${filename}
 docker-compose exec mysql mysql -usqoop -psqoop
 ```
 * 상위 3개 문서 반환
-```
+```bash
 # docker
 ask hadoop jar /jdbc/parquet-tools-1.8.1.jar head -n 3 file://${filename}
 ```
 * 스키마 출력 
-```
+```bash
 # docker
 ask hadoop jar /jdbc/parquet-tools-1.8.1.jar schema file://${filename}
 ```
 * 메타정보 출력
-```
+```bash
 # docker
 ask hadoop jar /jdbc/parquet-tools-1.8.1.jar meta file://${filename}
 ```
@@ -479,7 +478,7 @@ hadoop fs -ls /user/sqoop/target/seoul_popular_trip
 ask hadoop fs -cat /user/sqoop/target/seoul_popular_trip/part-m-00000
 ```
 
-[목차로 돌아가기](#2일차-아파치-스쿱-테이블-수집)
+[목차로 돌아가기](#2일차-데이터-엔지니어링-수집)
 
 <br>
 <br>
@@ -662,7 +661,7 @@ cmd "SELECT COUNT(1) FROM seoul_popular_exp"
 
 </details>
 
-[목차로 돌아가기](#2일차-아파치-스쿱-테이블-수집)
+[목차로 돌아가기](#2일차-데이터-엔지니어링-수집)
 
 <br>
 <br>
@@ -671,17 +670,18 @@ cmd "SELECT COUNT(1) FROM seoul_popular_exp"
 
 ---
 
-## 파일 수집 실습
+## 파일 수집 기본
 
-## 1. 최신버전 업데이트 파일
+## 1. 최신버전 업데이트
 > 원격 터미널에 접속하여 관련 코드를 최신 버전으로 내려받고, 과거에 실행된 컨테이너가 없는지 확인하고 종료합니다
 
 ### 1-1. 최신 소스를 내려 받습니다
 ```bash
 # terminal
-cd /home/ubuntu/work/data-engineer-basic-training
+cd /home/ubuntu/work/data-engineer-intermediate-training
 git pull
 ```
+<br>
 
 ### 1-2. 현재 기동되어 있는 도커 컨테이너를 확인하고, 종료합니다
 
@@ -690,6 +690,8 @@ git pull
 # terminal
 docker ps -a
 ```
+<br>
+
 
 #### 1-2-2. 기동된 컨테이너가 있다면 강제 종료합니다
 ```bash
@@ -702,13 +704,17 @@ docker rm -f `docker ps -aq`
 
 ### 1-3. 이번 실습은 예제 별로 다른 컨테이너를 사용합니다
 
-> `cd /home/ubuntu/work/data-engineer-basic-training/day2/`<kbd>ex1</kbd> 와 같이 마지막 경로가 다른 점에 유의 하시기 바랍니다
+> `cd /home/ubuntu/work/data-engineer-intermediate-training/day3/`<kbd>ex1</kbd> 와 같이 마지막 경로가 다른 점에 유의 하시기 바랍니다
 
 * 1번 실습의 경로는 <kbd>ex1</kbd>이므로 아래와 같습니다
 ```bash
 # terminal
-cd /home/ubuntu/work/data-engineer-basic-training/day2/ex1
+cd /home/ubuntu/work/data-engineer-intermediate-training/day3/ex1
 ```
+
+[목차로 돌아가기](#2일차-데이터-엔지니어링-수집)
+
+<br>
 <br>
 
 
@@ -724,16 +730,18 @@ cd /home/ubuntu/work/data-engineer-basic-training/day2/ex1
 
 ### 2-1. 도커 컨테이너 기동
 ```bash
-cd /home/ubuntu/work/data-engineer-basic-training/day2/ex1
-docker-compose pull
-docker-compose up -d
+cd /home/ubuntu/work/data-engineer-intermediate-training/day3/ex1
+docker compose pull
+docker compose up -d
 ```
+<br>
+
 
 ### 2-2. 도커 및 플루언트디 설정파일 확인
 
 > 기본 설정은 /etc/fluentd/fluent.conf 파일을 바라보는데 예제 환경에서는 `docker-compose.yml` 설정에서 해당 위치에 ex1/fluent.conf 파일을 마운트해 두었기 때문에 컨테이너 환경 내에서 바로 실행을 해도 잘 동작합니다. 별도로 `fluentd -c /etc/fluentd/fluent.conf` 로 실행해도 동일하게 동작합니다
 
-#### 2-2-1 도커 컴포즈 파일 구성 `docker-compose.yml`
+#### 2-2-1 도커 컴포즈 파일 구성 `docker compose.yml`
 
 ```yml
 version: "3"
@@ -777,7 +785,7 @@ networks:
 #### 2-3-1. 에이전트 기동을 위해 컨테이너로 접속 후, 에이전트를 기동합니다
 ```bash
 # terminal
-docker-compose exec fluentd bash
+docker compose exec fluentd bash
 ```
 ```bash
 # docker
@@ -821,7 +829,7 @@ fluentd
   - 클라우드 터미널에 curl 설치가 되어있지 않을 수도 있으므로 도커 컨테이너에 접속합니다
 ```bash
 # terminal
-docker-compose exec fluentd bash
+docker compose exec fluentd bash
 ```
 ```bash
 # docker
@@ -854,7 +862,12 @@ curl -i -X POST -d 'json={"action":"login","user":2}' http://localhost:9880/test
 
 > 컨테이너가 종료된 터미널의 프롬프트(도커의 경우 root@2a50c30293829 형식)를 통해 확인할 수 있습니다
 
+
+[목차로 돌아가기](#2일차-데이터-엔지니어링-수집)
+
 <br>
+<br>
+
 
 
 ## 3. 수신된 로그를 로컬에 저장하는 예제
@@ -865,23 +878,25 @@ curl -i -X POST -d 'json={"action":"login","user":2}' http://localhost:9880/test
 * 발생된 로그(이벤트)를 로컬 저장소에 임의의 경로에 저장합니다
 
 ![ex2](images/ex2.png)
+<br>
+
 
 ### 3-1. 이전 컨테이너 종료 및 컨테이너 기동
 
 > 이전 실습에서 기동된 컨테이너를 종료 후, 기동합니다.
 
 ```bash
-cd /home/ubuntu/work/data-engineer-basic-training/day2/ex1
-docker-compose down
+cd /home/ubuntu/work/data-engineer-intermediate-training/day3/ex1
+docker compose down
 
-cd /home/ubuntu/work/data-engineer-basic-training/day2/ex2
-docker-compose pull
-docker-compose up -d
+cd /home/ubuntu/work/data-engineer-intermediate-training/day3/ex2
+docker compose pull
+docker compose up -d
 ```
 <br>
 
 
-#### 3-1-1 도커 컴포즈 파일 구성 `docker-compose.yml`
+#### 3-1-1 도커 컴포즈 파일 구성 `docker compose.yml`
 
 ```yml
 version: "3"
@@ -904,6 +919,8 @@ networks:
     name: default_network
 ```
 > 저장되는 로그를 호스트 장비의 볼륨에 마운트하여 컨테이너가 종료되는 경우에도 유지될 수 있도록 구성합니다
+<br>
+
 
 #### 3-1-2 플루언트디 파일 구성 `fluent.conf`
 ```xml
@@ -971,7 +988,7 @@ networks:
 
 ```bash
 # terminal
-docker-compose exec fluentd bash
+docker compose exec fluentd bash
 ```
 ```bash
 # docker
@@ -985,12 +1002,14 @@ fluentd
 2021-07-18 11:52:25.081705098 +0000 lgde.debug: {"debug":"hello-world"}
 2021-07-18 11:52:25.081710640 +0000 lgde.debug: {"debug":"hello-world"}
 ```
+<br>
+
 
 #### 3-2-2. 별도의 터미널에서 생성되는 로그 파일을 확인합니다
 
 ```bash
 # terminal
-docker-compose exec fluentd bash
+docker compose exec fluentd bash
 ```
 ```bash
 # docker
@@ -1026,6 +1045,10 @@ root@7d33f313cc13:~#
 
 #### 3-3-2. 1번 예제 실습이 모두 종료되었으므로 <kbd><samp>Ctrl</samp>+<samp>D</samp></kbd> 혹은 <kbd>exit</kbd> 명령으로 컨테이너를 종료합니다
 
+
+[목차로 돌아가기](#2일차-데이터-엔지니어링-수집)
+
+<br>
 <br>
 
 
@@ -1042,17 +1065,17 @@ root@7d33f313cc13:~#
 > 이전 실습에서 기동된 컨테이너를 종료 후, 기동합니다.
 
 ```bash
-cd /home/ubuntu/work/data-engineer-basic-training/day2/ex2
-docker-compose down
+cd /home/ubuntu/work/data-engineer-intermediate-training/day3/ex2
+docker compose down
 
-cd /home/ubuntu/work/data-engineer-basic-training/day2/ex3
-docker-compose pull
-docker-compose up -d
+cd /home/ubuntu/work/data-engineer-intermediate-training/day3/ex3
+docker compose pull
+docker compose up -d
 ```
 <br>
 
 
-#### 4-1-1 도커 컴포즈 파일 구성 `docker-compose.yml`
+#### 4-1-1 도커 컴포즈 파일 구성 `docker compose.yml`
 
 ```yml
 version: "3"
@@ -1076,6 +1099,8 @@ networks:
     name: default_network
 ```
 > 아파치 웹서버의 로그가 생성될 source 경로와 수집된 로그가 저장될 target 경로를 호스트 경로에 마운트 되었습니다.
+<br>
+
 
 
 #### 4-1-2 플루언트디 파일 구성 `fluent.conf`
@@ -1129,6 +1154,7 @@ networks:
   - 즉각적인 확인을 위해 최대한 자주 플러시 하도록 설정 했습니다
 <br>
 
+
 #### 4-1-3. 아파치 로그 생성기 (`flush_logs.py`) 코드를 분석합니다
 
 > 아파치 웹서버의 로그를 실제와 유사하게 저장하고, 롤링까지 하게 만들기 위해서 별도의 파이썬 스크립트가 필요합니다.
@@ -1181,13 +1207,15 @@ fr.close()
 
 ```bash
 # terminal
-docker-compose exec fluentd bash
+docker compose exec fluentd bash
 ```
 ```bash
 # docker
 fluentd
 ```
 > 플루언트디의 경우 기동 시에 오류가 없었다면 정상적으로 기동 되었다고 보시면 됩니다
+<br>
+
 
 
 #### 4-2-2. 시스템 로그를 임의로 생성
@@ -1198,11 +1226,13 @@ fluentd
 
 ```bash
 # terminal
-docker-compose exec fluentd bash
+docker compose exec fluentd bash
 ```
 ```bash
 python flush_logs.py
 ```
+<br>
+
 ```
 for x in $(seq 1 100); do tree -L 1 /fluentd/source; tree -L 2 /fluentd/target; sleep 10; done
 ```
@@ -1260,6 +1290,10 @@ root@2cf7c79e8367:~# for x in $(seq 1 100); do tree -L 1 /fluentd/source; tree -
 
 #### 4-3-2. 1번 예제 실습이 모두 종료되었으므로 <kbd><samp>Ctrl</samp>+<samp>D</samp></kbd> 혹은 <kbd>exit</kbd> 명령으로 컨테이너를 종료합니다
 
+
+[목차로 돌아가기](#2일차-데이터-엔지니어링-수집)
+
+<br>
 <br>
 
 
@@ -1269,3 +1303,6 @@ root@2cf7c79e8367:~# for x in $(seq 1 100); do tree -L 1 /fluentd/source; tree -
 cd /home/ubuntu/work/data-engineer-basic-training/day2
 docker-compose down
 ```
+
+[목차로 돌아가기](#2일차-데이터-엔지니어링-수집)
+
