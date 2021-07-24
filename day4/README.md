@@ -9,6 +9,8 @@
     * [2-2. 하이브 테이블 DDL 가이드](#2-2-하이브-테이블-DDL-가이드)
     * [2-3. 하이브 DML 가이드](#2-3-하이브-DML-가이드)
     * [2-4. 하이브 외부 저장소 테이블](#2-4-하이브-외부-저장소-테이블)
+  * [3 참고 자료](#참고 자료)
+
 <br>
 
 
@@ -238,6 +240,10 @@ alter database testdb set owner role admin;
 ```sql
 describe database extended testdb;
 ```
+
+[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+
+<br>
 <br>
 
 
@@ -486,6 +492,10 @@ select count(1) from renamed_emp;
 > 결과가 0으로 나오면 정답입니다
 
 </details>
+
+[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+
+<br>
 <br>
 
 
@@ -802,6 +812,10 @@ select * from imdb_recover;
 ```
 
 </details>
+
+[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+
+<br>
 <br>
 
 
@@ -987,7 +1001,7 @@ docker compose down
 <br>
 
 
-* 참고 자료
+### 참고 자료
   * [Hive Language Manual DDL](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL)
   * [Hive Language Manual DML](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DML)
   * [Top 7 Hive DDL Commands](https://data-flair.training/blogs/hive-ddl-commands/)
