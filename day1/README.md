@@ -123,7 +123,7 @@ git clone https://github.com/psyoblade/helloworld.git
 ```bash
 cd /home/ubuntu/work/helloworld
 
-sudo ./init.sh  # 명령을 통해 tree 패키지 및 rc 파일을 복사합니다
+sudo ./init.sh basic  # 명령을 통해 tree 패키지 및 rc 파일을 복사합니다
 d # alias 로 docker-compose 를 등록되어 --help 가 뜨면 정상입니다
 source ~/.bashrc  # .bashrc 내용을 현재 세션에 다시 로딩합니다
 ```
@@ -311,14 +311,16 @@ git checkout -- .
 git statusb -sb
 ls -al
 ```
+<br>
+
 
 #### 2-3-7. 브랜치가 꼬여서 난감할 때
 
-> 복잡한 작업을 하다보면 꼬여서 곤란한 경우가 있는데 이 때에 아예 처음으로 돌리고 싶다면 clone 시점으로 reset 하시는 편이 좋습니다
+> 복잡한 작업을 하다보면 꼬여서 곤란한 경우가 있는데 이 때에 해당 시점으로 reset 할 수 있습니다
 
 ```bash
 cd /home/ubuntu/work/helloworld
-git reflog | grep clone
+git reflog
 ```
 ```bash
 # clone 한 시점의 HEAD 번호로 리셋 후, 일부 수정된 사항은 checkout 하시면 정리가 됩니다
@@ -381,18 +383,22 @@ docker create -it ubuntu:18.04
 ```bash
 # 아래 명령으로 현재 생성된 컨테이너의 이름을 확인합니다
 docker ps -a
-
+```
+  - 아래와 같이 임의의 이름이 생성되므로 변수명으로 지정해 둡니다
+```bash
 # CONTAINER ID   IMAGE          COMMAND   CREATED         STATUS    PORTS     NAMES
-# e8f66e162fdd   ubuntu:18.04   "bash"    2 seconds ago   Created             sad_mayer
+# e8f66e162fdd   ubuntu:18.04   "bash"    2 seconds ago   Created             busy_herschel
+container_name="busy_herschel"
 ```
 ```bash
 # docker start <container_name> 
-# docker start busy_herschel
+docker start ${container_name}
 ```
 ```bash
-# 터미널에 접속하여 우분투 버전을 확인합니다
-docker exec -it busy_herschel bash
+# 해당 컨테이너의 우분투 버전을 확인합니다
+docker exec -it ${container_name} bash
 cat /etc/issue
+exit
 ```
 <br>
 
@@ -401,7 +407,7 @@ cat /etc/issue
   - 해당 컨테이너가 삭제되는 것이 아니라 잠시 실행만 멈추게 됩니다
 ```bash
 # docker stop <container_name>
-# docker stop busy_herschel
+docker stop ${container_name} 
 ```
 <br>
 
@@ -410,7 +416,7 @@ cat /etc/issue
   - <kbd>-f, --force</kbd> : 실행 중인 컨테이너도 강제로 종료합니다 (실행 중인 컨테이너는 삭제되지 않습니다)
 ```bash
 # docker rm <container_name>
-# docker rm busy_herschel
+docker rm ${container_name} 
 ```
 <br>
 
@@ -422,11 +428,11 @@ cat /etc/issue
   - <kbd>-t, --tty</kbd> : 텍스트 기반의 터미널을 에뮬레이션 하게 합니다
 ```bash
 # docker run <options> <image>:<tag>
-docker run --rm --name ubuntu -dit ubuntu:20.04
+docker run --rm --name ubuntu20 -dit ubuntu:20.04
 ```
 ```bash
 # 터미널에 접속하여 우분투 버전을 확인합니다
-docker exec -it ubuntu bash
+docker exec -it ubuntu20 bash
 cat /etc/issue
 ```
 <br>
@@ -450,13 +456,19 @@ docker ps
 
 #### 3-2-2. logs : 컨테이너 로그를 표준 출력으로 보냅니다
   - <kbd>-f</kbd> : 로그를 지속적으로 tailing 합니다
+  - <kbd>-p</kbd> : 호스트 PORT : 게스트 PORT 맵핑
+```bash
+docker run --rm -p 8888:80 --name nginx -dit nginx
+```
 ```bash
 # docker logs <container_name>
-docker run --rm --name nginx -dit nginx
-```
-```bash
 docker logs -f nginx
 ```
+```bash
+# terminal
+curl localhost:8888
+```
+> 혹은 `http://vm001.aiffelbiz.co.kr:8888` 브라우저로 접속하셔도 됩니다 (여기서 vm001 은 개인 클라우드 컴퓨터의 호스트 이름이므로 각자의 호스트 이름으로 접근하셔야 합니다)
 <br>
 
 
@@ -475,14 +487,21 @@ docker top nginx
 #### 3-3-1. cp :  호스트에서 컨테이너로 혹은 반대로 파일을 복사합니다
 ```bash
 # docker cp <container_name>:<path> <host_path> and vice-versa
-touch README.md
+docker run --rm --name ubuntu20 -dit ubuntu:20.04
 docker cp ./helloworld.sh ubuntu:/tmp
 ```
 
 #### 3-3-2. exec : 컨테이너 내부에 명령을 실행합니다 
 ```bash
 # docker exec <container_name> <args>
-docker exec ubuntu /tmp/helloworld.sh
+docker exec ubuntu20 /tmp/helloworld.sh
+```
+
+#### 3-3-3. 사용한 모든 컨테이너를 종료합니다
+
+* 직접 도커로 실행한 작업은 도커 명령을 이용해 종료합니다
+```bash
+docker rm -f `docker ps -a | grep -v CONTAINER | awk '{ print $1 }'`
 ```
 
 [목차로 돌아가기](#1일차-데이터-엔지니어링-기본)
@@ -501,8 +520,8 @@ docker exec ubuntu /tmp/helloworld.sh
 ```bash
 # terminal
 cd /home/ubuntu/work
-git clone https://github.com/psyoblade/data-engineer-basic-training.git
-cd /home/ubuntu/work/data-engineer-basic-training/day1
+git clone https://github.com/psyoblade/data-engineer-${course}-training.git
+cd /home/ubuntu/work/data-engineer-${course}-training/day1
 ```
 <br>
 
@@ -541,6 +560,7 @@ docker-compose down
   - <kbd>-w, --workdir <string></kbd> : 워킹 디렉토리를 지정합니다
 ```bash
 # docker-compose exec [options] [-e KEY=VAL...] [--] SERVICE COMMAND [ARGS...]
+docker-compose up -d
 docker-compose exec ubuntu echo hello world
 ```
 <br>
@@ -575,6 +595,14 @@ docker-compose ps -a
 docker-compose top mysql
 docker-compose top namenode
 ```
+
+#### 4-2-6. 사용한 모든 컨테이너를 종료합니다
+
+* 컴포즈를 통해 실행한 작업은 컴포즈를 이용해 종료합니다
+```bash
+docker-compose down
+```
+
 
 [목차로 돌아가기](#1일차-데이터-엔지니어링-기본)
 
@@ -627,7 +655,7 @@ cat -n helloworld.py
 # more [OPTIONS] ... [FILE] ... 
 more -5 data/apache-access.log
 ```
-> 스페이스 바를 누를 때마다 스크롤 되지 않고, 첫 번째 라인부터 5줄씩 출력합니다
+> more 명령어는 <kbd>Q</kbd> 키를 통해서 빠져나올 수 있습니다
 
 <details><summary>[실습] data/hadoop-hdfs-secondarynamenode.log 파일에서 exception 문자열이 발견된 위치부터 10줄씩 출력하세요 </summary>
 
@@ -703,7 +731,7 @@ echo "hello world" >> data/notexist.log
 
 ```bash
 # terminal
-cd /home/ubuntu/work/data-engineer-basic-training/day1
+cd /home/ubuntu/work/data-engineer-${course}-training/day1
 docker-compose pull
 docker-compose up -d
 ```
@@ -739,6 +767,8 @@ hdfs dfs -ls /user
 rm -rf helloworld*
 echo "hello world" > helloworld
 gzip helloworld
+```
+```bash
 hdfs dfs -put helloworld.gz /tmp/
 hdfs dfs -text /tmp/helloworld.gz
 ```
@@ -751,6 +781,8 @@ hdfs dfs -text /tmp/helloworld.gz
 # -cat [-ignoreCrc] <src>
 rm -rf helloworld*
 echo "hello world" > helloworld
+```
+```bash
 hdfs dfs -put helloworld /tmp/
 hdfs dfs -cat /tmp/helloworld
 ```
@@ -762,6 +794,7 @@ hdfs dfs -cat /tmp/helloworld
 # -appendToFile <localsrc> ... <dst>
 echo "hello lgde" > appended
 hdfs dfs -appendToFile appended /tmp/helloworld
+hdfs dfs -cat /tmp/helloworld
 ```
 > 참고로 append 옵션은 설정상 적용되지 않을 수 있으며, 아래의 2가지 설정이 되어 있어야 동작합니다
 
@@ -781,7 +814,7 @@ hdfs dfs -appendToFile appended /tmp/helloworld
   - <kbd>-l</kbd> : 복제수를 1개로 강제합니다 (lazily persist)
 ```bash
 # -put [-f] [-p] [-l] <localsrc> ... <dst>
-echo "lgde basic course" > uploaded.txt
+echo "lgde ${course} course" > uploaded.txt
 ```
 ```bash
 hdfs dfs -put ./uploaded.txt /tmp
@@ -856,6 +889,10 @@ hdfs dfs -mv hdfs:///tmp/uploaded.* /user/root
 ```
 > 기본적으로 FileSystem 의 Scheme 명시하지 않으면 hdfs 를 바라보지만, Local FileSystem 에도 동일한 경로가 있는 경우 문제가 될 수 있으므로 명시적으로 hdfs:// 를 넣어주는 것이 좋습니다
 
+```bash
+hdfs dfs -ls hdfs:///user/root
+```
+
 <br>
 
 
@@ -866,6 +903,7 @@ hdfs dfs -mv hdfs:///tmp/uploaded.* /user/root
 ```bash
 # -rm [-f] [-r|-R] [-skipTrash] <src> ...
 # hdfs dfs -rm -f -r hdfs:///user/root
+hdfs dfs -ls hdfs:///tmp
 hdfs dfs -rm hdfs:///tmp/hello*
 ```
 ```bash
@@ -879,6 +917,9 @@ hdfs dfs -ls hdfs:///tmp
 ```bash
 # -mkdir [-p] <path>
 hdfs -mkdir -p /create/also/mid/path
+hdfs dfs -ls hdfs:///user/root
+```
+```bash
 hdfs dfs -mkdir -p hdfs:///user/root/foo
 ```
 <br>
@@ -897,7 +938,9 @@ hdfs dfs -rmdir hdfs:///user/root/foo
 ```bash
 # -touchz <path> ...
 hdfs dfs -touchz  /user/root/zero_size_file
+hdfs dfs -ls hdfs:///user/root
 ```
+> <kbd><samp>Ctrl</samp>+<samp>D</samp></kbd> 혹은 <kbd>exit</kbd> 명령으로 컨테이너에서 빠져나옵니다
 
 [목차로 돌아가기](#1일차-데이터-엔지니어링-기본)
 
