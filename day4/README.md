@@ -20,7 +20,7 @@
 ### 1-1. 최신 소스를 내려 받습니다
 ```bash
 # terminal
-cd /home/ubuntu/work/data-engineer-basic-training
+cd /home/ubuntu/work/data-engineer-${course}-training
 git pull
 ```
 <br>
@@ -47,7 +47,7 @@ docker rm -f `docker ps -aq`
 #### 1-2-3. 하이브 실습을 위한 컨테이너를 기동합니다
 ```bash
 # terminal
-cd /home/ubuntu/work/data-engineer-basic-training/day8
+cd /home/ubuntu/work/data-engineer-${course}-training/day4
 docker compose pull
 docker compose up -d
 docker compose ps
@@ -995,7 +995,7 @@ select dt, count(1) as cnt from `user` group by dt;
 ## 2-4-4. 컨테이너 정리
 * 테스트 작업이 완료되었으므로 모든 컨테이너를 종료합니다 (한번에 실행중인 모든 컨테이너를 종료합니다)
 ```bash
-cd /home/ubuntu/work/data-engineer-basic-training/day4
+cd /home/ubuntu/work/data-engineer-${course}-training/day4
 docker compose down
 ```
 <br>
