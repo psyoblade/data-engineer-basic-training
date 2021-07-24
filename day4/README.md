@@ -1,4 +1,4 @@
-# 4일차. 아파치 하이브 데이터 적재
+# 4일차. 데이터 엔지니어링 적재
 
 > 아파치 하이브를 통해 다양한 데이터 웨어하우스 예제를 실습합니다
 
@@ -20,7 +20,7 @@
 ### 1-1. 최신 소스를 내려 받습니다
 ```bash
 # terminal
-cd /home/ubuntu/work/data-engineer-intermediate-training
+cd /home/ubuntu/work/data-engineer-basic-training
 git pull
 ```
 <br>
@@ -47,7 +47,7 @@ docker rm -f `docker ps -aq`
 #### 1-2-3. 하이브 실습을 위한 컨테이너를 기동합니다
 ```bash
 # terminal
-cd /home/ubuntu/work/data-engineer-intermediate-training/day8
+cd /home/ubuntu/work/data-engineer-basic-training/day8
 docker compose pull
 docker compose up -d
 docker compose ps

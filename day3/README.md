@@ -1,15 +1,22 @@
-# 데이터 엔지니어링 초급 3일차 - 데이터 변환 도구 스파크
+# 3일차 데이터 엔지니어링 변환
+
 > 아파치 스파크의 기본 명령어 및 API 를 주피터 노트북을 통해 실습하고 이해합니다
 
 ## 스파크 실습을 위해 도커 컨테이너를 기동하고, 노트북 페이지에 접속합니다
 * logs 출력에 localhost:8888 페이지를 크롬 브라우저에서 오픈합니다
   - ***반드시 git pull 명령을 통해서 최신 데이터를 가져와야 합니다***
+
 ```bash
-bash> cd ~/workspace/data-engineer-basic-training/day3
-bash> git pull
-bash> docker-compose up -d
-bash> docker-compose ps
-bash> docker-compose logs notebook
+# terminal
+cd ~/workspace/data-engineer-basic-training/day3
+git pull
+docker-compose pull
+docker-compose up -d
+```
+```bash
+# terminal
+docker-compose ps
+docker-compose logs notebook
 ```
 
 * 목차
