@@ -3,23 +3,25 @@
 > 전체 과정에서 사용하는 기본적인 명령어 혹은 서비스(git, docker, linux, hdfs, sql) 등에 대해 실습하고 사용법을 익힙니다
 
 - 목차
-  * [ssh](#ssh)
-  * [git](#)
-  * [docker](#)
-  * [linux](#)
-  * [hdfs](#)
-  * [sql](#)
-
+  * [1. 클라우드 장비에 접속](#1-클라우드-장비에-접속)
+  * [2. Git 명령어 실습](#2-Git-명령어-실습)
+  * [3. Docker 명령어 실습](#3-Docker-명령어-실습)
+  * [4. 도커 컴포즈 명령어 실습](#4-도커-컴포즈-명령어-실습)
+  * [5. Linux 커맨드라인 명령어 실습](#5-Linux-커맨드라인-명령어-실습)
+  * [6. Hadoop 커맨드라인 명령어 실습](#6-Hadoop-커맨드라인-명령어-실습)
+  * [7. SQL 기본 실습](#7-SQL-기본-실습)
+<br>
 
 
 ## 1. 클라우드 장비에 접속
 
 > 개인 별로 할당 받은 `ubuntu@vm<number>.aiffelbiz.co.kr` 에 putty 혹은 terminal 을 이용하여 접속합니다
 
+
 ### 1-1. 원격 서버로 접속합니다
 ```bash
 # terminal
-# ssh ubuntu@vm<number>.aiffelbiz.co.kr
+# ssh ubuntu@vm001.aiffelbiz.co.kr
 # password: ******
 ```
 
@@ -32,7 +34,7 @@ git --version
 
 <details><summary>[실습] 출력 결과 확인</summary>
 
-> 출력 결과가 오류가 발생하지 않고, 아래와 유사하다면 성공입니다
+> 출력 결과가 오류가 발생하지 않고, 아래와 같다면 성공입니다
 
 ```text
 Docker version 20.10.6, build 370c289
@@ -55,6 +57,9 @@ cd /home/ubuntu/work
 git clone https://github.com/psyoblade/data-engineer-basic-training.git
 git clone https://github.com/psyoblade/helloworld.git
 ```
+
+[목차로 돌아가기](#1일차-데이터-엔지니어링-기본)
+<br>
 <br>
 
 
@@ -63,38 +68,52 @@ git clone https://github.com/psyoblade/helloworld.git
 > [Git Cheat-sheet](https://education.github.com/git-cheat-sheet-education.pdf) 를 참고하여 작성 되었습니다
 
 ### 2-1. 초기화
-* init : 현재 디렉토리를 Git 레포지토리로 초기화 하고, 로컬 레포지토리로 관리됩니다
+
+#### 2-1-1. init : 현재 디렉토리를 Git 레포지토리로 초기화 하고, 로컬 레포지토리로 관리됩니다
   - `.git` 경로가 생성되고, 하위에 index 및 object 들이 존재합니다
 ```bash
 # git init
+mkdir -p /home/ubuntu/work/git
+cd /home/ubuntu/work/git
 git init
 ```
-* clone : 원격 저장소의 내용을 로컬 저장소에 다운로드 합니다
-  - target directory 를 지정하지 않으면 프로젝트이름(`helloworld`)이 자동으로 생성됩니다
+  - tree 명령어로 `.git` 내부가 어떻게 구성되어 있는지 확인합니다
+```bash
+tree .git
+```
+
+#### 2-1-2 clone : 원격 저장소의 내용을 로컬 저장소에 다운로드 합니다
+  - target directory 를 지정하지 않으면 프로젝트이름(`test`)이 자동으로 생성됩니다
 ```bash
 # git clone [uri]
-git clone https://github.com/psyoblade/helloworld.git
+cd /home/ubuntu/work
+git clone https://github.com/psyoblade/test.git
+ls -al test/*
 ```
-<br>
 
 <details><summary>[실습] 터미널에 접속하여 /home/ubuntu/work 경로 아래에 https://github.com/psyoblade/helloworld.git 을 clone 하세요 </summary>
 
 > 출력 결과가 오류가 발생하지 않고, 아래와 유사하다면 성공입니다
 
 ```bash
-Cloning into 'helloworld'...
-remote: Enumerating objects: 86, done.
-remote: Counting objects: 100% (40/40), done.
-remote: Compressing objects: 100% (29/29), done.
-remote: Total 86 (delta 14), reused 34 (delta 8), pack-reused 46
-Unpacking objects: 100% (86/86), done.
+cd /home/ubuntu/work
+git clone https://github.com/psyoblade/helloworld.git
+# Cloning into 'helloworld'...
+# remote: Enumerating objects: 86, done.
+# remote: Counting objects: 100% (40/40), done.
+# remote: Compressing objects: 100% (29/29), done.
+# remote: Total 86 (delta 14), reused 34 (delta 8), pack-reused 46
+# Unpacking objects: 100% (86/86), done.
 ```
 
 </details>
 <br>
 
 
-#### 2-1-1. 기본 환경 구성
+
+### 2-2. 스테이징
+
+#### 2-2-1. 기본 환경 구성
 
 > 기본 실습 환경 구성 및 단축 명령어를 등록합니다 
 
@@ -108,14 +127,13 @@ source ~/.bashrc  # .bashrc 내용을 현재 세션에 다시 로딩합니다
 <br>
 
 
-### 2-2. 스테이징
-* status : 현재 경로의 스테이징 상태를 보여줍니다
+#### 2-2-2. status : 현재 경로의 스테이징 상태를 보여줍니다
 ```bash
 # git status (-s, --short)
 git status -s
 ```
 
-* add : 저장 대상 파일(들)을 인덱스에 스테이징 합니다
+#### 2-2-3. add : 저장 대상 파일(들)을 인덱스에 스테이징 합니다
   - 빈 디렉토리는 추가되지 않으며, 하나라도 파일이 존재해야 추가됩니다
   - 모든 Unstage 된 파일을 추가하는 옵션(-A)은 주의해서 사용해야 하며 .gitignore 파일을 잘 활용합니다
 ```bash
@@ -123,19 +141,19 @@ git status -s
 git add README.md
 ```
 
-* reset : 스테이징 된 파일을 언스테이징 합니다
+#### 2-2-4. reset : 스테이징 된 파일을 언스테이징 합니다
 ```bash
 # git reset [file]
 git reset README.md
 ```
 
-* diff : 스테이징 된 파일에 따라 발생하는 이전 상태와 차이점을 보여줍니다
+#### 2-2-5. diff : 스테이징 된 파일에 따라 발생하는 이전 상태와 차이점을 보여줍니다
 ```bash
 # git diff (--name-only)
 git diff
 ```
 
-* commit : 스테이징(add) 된 내역을 스냅샷으로 저장합니다
+#### 2-2-6. commit : 스테이징(add) 된 내역을 스냅샷으로 저장합니다
   - 스테이징 된 내역이 없다면 커밋되지 않습니다
 ```bash
 # git commit -m "descriptive message"
@@ -151,7 +169,7 @@ git commit -m "[수정] 초기화 완료"
 
 ### 2-3. 브랜치
 
-* branch : 로컬(-r:리모트, -a:전체) 브랜치 목록을 출력, 생성, 삭제 작업을 수행합니다
+#### 2-3-1. branch : 로컬(-r:리모트, -a:전체) 브랜치 목록을 출력, 생성, 삭제 작업을 수행합니다
 ```bash
 # git branch (-r, --remotes | -a, --all)
 git branch -a
@@ -163,21 +181,21 @@ git branch lgde/2021
 git branch -d lgde/2021
 ```
 
-* checkout : 해당 브랜치로 이동합니다
+#### 2-3-2. checkout : 해당 브랜치로 이동합니다
   - 존재하는 브랜치로만 체크아웃이 됩니다 (-b 옵션을 주면 생성하면서 이동합니다)
 ```bash
 # git checkout (-b) [branch-name]
 git checkout -b lgde/2021
 ```
 
-* merge : 대상 브랜치와 병합합니다. **대상 브랜치는 영향이 없고, 현재 브랜치가 변경**됩니다.
+#### 2-3-3. merge : 대상 브랜치와 병합합니다. **대상 브랜치는 영향이 없고, 현재 브랜치가 변경**됩니다.
   - 변경하고자 하는 브랜치를 먼저 체크아웃하는 습관을 가지시면 좋습니다
 ```bash
 # git merge [merge-branch]
 git merge master
 ```
 
-* log : 커밋 메시지를 브랜치 히스토리 별로 확인할 수 있습니다
+#### 2-3-4. log : 커밋 메시지를 브랜치 히스토리 별로 확인할 수 있습니다
 ```bash
 git log
 ```
@@ -186,13 +204,13 @@ git log
 
 ### 2-4. 경로 관리
 
-* rm : 커밋된 파일을 삭제합니다
+#### 2-4-1. rm : 커밋된 파일을 삭제합니다
 ```bash
 # git rm [file]
 git rm README.md
 ```
 
-* mv : 파일 혹은 경로를 새로운 경로로 이동합니다
+#### 2-4-2. mv : 파일 혹은 경로를 새로운 경로로 이동합니다
 ```bash
 # git mv [source-path] [target-path]
 git mv REAMDE.md tmp
@@ -204,7 +222,7 @@ git mv REAMDE.md tmp
 
 > 깃으로 관리되지 않는 파일 혹은 경로를 패턴을 통해 관리합니다 - [gitignore.io](https://www.toptal.com/developers/gitignore)
 
-* .gitignore : 해당 파일을 생성하고 내부 파일을 아래와 같이 관리합니다
+#### 2-5-1. .gitignore : 해당 파일을 생성하고 내부 파일을 아래와 같이 관리합니다
 ```bash
 # cat .gitignore
 logs/
@@ -217,13 +235,15 @@ tmp/
 ### 2-6. 저장소 관리
 
 > 원격 저장소와 동기화 하는 방법이며, pull, push 는 항상 conflict 에 유의해야 하며, 로컬 저장소에서 merge 및 conflict 해결하는 습관을 들여야만 합니다
+**원격 저장소(github.com)의 계정이 필요하므로 실습에서는 제외하도록 하겠습니다**
 
-* pull : 원격 저장소에서 변경된 내역을 로컬 저장소에 반영합니다
+
+#### 2-6-1. pull : 원격 저장소에서 변경된 내역을 로컬 저장소에 반영합니다
 ```bash
 # git pull (--dry-run)
 ```
 
-* push : 로컬 저장소의 커밋된 내역을 원격 저장소에 반영합니다
+#### 2-6.2. push : 로컬 저장소의 커밋된 내역을 원격 저장소에 반영합니다
   - 원격 저장소에 브랜치가 존재하지 않는 경우에 업스트림 옵션(--set-upstream origin lgde/2021)을 활용합니다
 ```bash
 # git push (--set-upstream <remote> <branch>)
@@ -232,7 +252,8 @@ tmp/
 
 
 ### 2-7. 이력 관리
-* reset : 스테이징된 모든 내역을 제거 혹은 제거된 내역을 롤백합니다
+
+#### 2-7-1. reset : 스테이징된 모든 내역을 제거 혹은 제거된 내역을 롤백합니다
   - git log 명령을 통해 확인된 commit 해시 값으로 해당 시점으로 돌릴 수 있습니다
   - git reflog 명령을 통해 모든 이력을 확인할 수 있고, reset 을 undo 할 수 있습니다
 ```bash
@@ -247,7 +268,7 @@ git reset 'HEAD@{1}'
 
 ### 2-8. 임시 저장
 
-* stash : 현재 수정내역을 커밋하기는 애매하지만, 다른 브랜치로 체크아웃 하고 싶을 때 임시로 수정 내역 전체를 저장합니다
+#### 2-8-1. stash : 현재 수정내역을 커밋하기는 애매하지만, 다른 브랜치로 체크아웃 하고 싶을 때 임시로 수정 내역 전체를 저장합니다
 ```bash
 # 임시로 저장
 git stash
@@ -270,20 +291,9 @@ git stash show stash@{1}
 <br>
 
 
-### 2-9. 깃 명령어 `톱 6`
+### 2-9. 활용 사례 실습
 
-> 가장 많이 사용하는 명령어 입니다
-
-```bash
-git clone
-git status -sb                    # 브랜치 + 상태
-git commit -am "[수정] 메시지"    # 스테이징 + 커밋
-git pull
-git push
-git checkout -- .                 # 수정한 내역 버리고 마지막 커밋 시점으로 롤백
-```
-
-#### 2-9-1. 파일생성 및 스테이징
+#### 2-9-1. 변경 상태 확인하기
 
 <details><summary>[실습] LGDE.txt 파일생성 후에 스테이징 후에 상태를 확인하세요 </summary>
 
@@ -328,6 +338,22 @@ ls -al
 ```
 
 </details>
+
+
+### 2-10. 자주 사용하는 깃 명령어
+
+> 제가 가장 많이 사용하는 명령어 입니다
+
+* `git clone`                      : 프로젝트 가져오기
+* `git status -sb`                 : 브랜치 + 상태
+* `git commit -am "[수정] 메시지"` : 스테이징 + 커밋
+* `git pull`                       : 작업 시작시에 가장 먼저 해야 하는 명령어
+* `git push`                       : 작업이 완료되면 푸시
+* `git checkout -- .`              : 수정한 내역 버리고 마지막 커밋 시점으로 롤백
+
+
+[목차로 돌아가기](#1일차-데이터-엔지니어링-기본)
+<br>
 <br>
 
 
@@ -339,7 +365,7 @@ ls -al
 
 > 도커 이미지로 만들어져 있는 컨테이너를 생성, 실행 종료하는 명령어를 학습합니다
 
-* create : 컨테이너를 생성합니다 
+#### 3-1-1. create : 컨테이너를 생성합니다 
   - <kbd>--name <container_name></kbd> : 컨테이너 이름을 직접 지정합니다 (지정하지 않으면 임의의 이름이 명명됩니다)
   - 로컬에 이미지가 없다면 다운로드(pull) 후 컨테이너를 생성까지만 합니다
   - 생성된 컨테이너는 실행 중이 아니라면 `docker ps -a` 실행으로만 확인이 가능합니다
@@ -348,28 +374,28 @@ ls -al
 docker create -name ubuntu ubuntu:18.04
 ```
 
-* start : 생성된 컨테이너를 기동합니다
+#### 3-1-2. start : 생성된 컨테이너를 기동합니다
   - 예제의 `busy_herschel` 는 자동으로 생성된 컨테이너 이름입니다
 ```bash
 # docker start <container_name> 
 docker start busy_herschel
 ```
 
-* stop : 컨테이너를 잠시 중지시킵니다
+#### 3-1-3. stop : 컨테이너를 잠시 중지시킵니다
   - 해당 컨테이너가 삭제되는 것이 아니라 잠시 실행만 멈추게 됩니다
 ```bash
 # docker stop <container_name>
 docker stop busy_herschel
 ```
 
-* rm : 중단된 컨테이너를 삭제합니다
+#### 3-1-4. rm : 중단된 컨테이너를 삭제합니다
   - <kbd>-f, --force</kbd> : 실행 중인 컨테이너도 강제로 종료합니다 (실행 중인 컨테이너는 삭제되지 않습니다)
 ```bash
 # docker rm <container_name>
 docker rm busy_herschel
 ```
 
-* run : 컨테이너의 생성과 시작을 같이 합니다 (create + start)
+#### 3-1-5. run : 컨테이너의 생성과 시작을 같이 합니다 (create + start)
   - <kbd>--rm</kbd> : 종료 시에 컨테이너까지 같이 삭제합니다
   - <kbd>-d, --detach</kbd> : 터미널을 붙지않고 데몬 처럼 백그라운드 실행이 되게 합니다
   - <kbd>-i, --interactive</kbd> : 인터액티브하게 표준 입출력을 키보드로 동작하게 합니다
@@ -379,7 +405,7 @@ docker rm busy_herschel
 docker run --rm --name ubuntu -dit ubuntu:20.04
 ```
 
-* kill : 컨테이너를 종료합니다
+#### 3-1-6. kill : 컨테이너를 종료합니다
 ```bash
 # docker kill <container_name>
 docker kill ubuntu
@@ -389,20 +415,20 @@ docker kill ubuntu
 
 ### 3-2. 컨테이너 모니터링
 
-* ps : 실행 중인 컨테이너를 확인합니다
+#### 3-2-1. ps : 실행 중인 컨테이너를 확인합니다
   - <kbd>-a</kbd> : 실행 중이지 않은 컨테이너까지 출력합니다
 ```bash
 docker ps
 ```
 
-* logs : 컨테이너 로그를 표준 출력으로 보냅니다
+#### 3-2-2. logs : 컨테이너 로그를 표준 출력으로 보냅니다
   - <kbd>-f</kbd> : 로그를 지속적으로 tailing 합니다
 ```bash
 # docker logs <container_name>
 docker logs -f mysql
 ```
 
-* top : 컨테이너에 떠 있는 프로세스를 확인합니다
+#### 3-2-3. top : 컨테이너에 떠 있는 프로세스를 확인합니다
 ```bash
 # docker top <container_name> <ps options>
 docker ps ubuntu
@@ -412,14 +438,14 @@ docker ps ubuntu
 
 ### 3-3. 컨테이너 상호작용
 
-* cp :  호스트에서 컨테이너로 혹은 반대로 파일을 복사합니다
+#### 3-3-1. cp :  호스트에서 컨테이너로 혹은 반대로 파일을 복사합니다
 ```bash
 # docker cp <container_name>:<path> <host_path> and vice-versa
 touch README.md
 docker cp ./README.md ubuntu:/home/ubuntu/
 ```
 
-* exec : 컨테이너 내부에 명령을 실행합니다 
+#### 3-3-2. exec : 컨테이너 내부에 명령을 실행합니다 
 ```bash
 # docker exec <container_name> <args>
 docker exec ubuntu echo 'hello world'
@@ -429,18 +455,18 @@ docker exec ubuntu echo 'hello world'
 
 ### 3-4. 컨테이너 이미지 생성관리
 
-* images : 현재 로컬에 저장된 이미지 목록을 출력합니다 
+#### 3-4-1. images : 현재 로컬에 저장된 이미지 목록을 출력합니다 
 ```bash
 docker images
 ```
 
-* docker commit : 현재 컨테이너를 별도의 이미지로 저장합니다 
+#### 3-4-2. commit : 현재 컨테이너를 별도의 이미지로 저장합니다 
 ```bash
 # docker commit <container_name>:<tag>
 docker commit ubuntu:latest
 ```
 
-* rmi : 해당 이미지를 삭제합니다
+#### 3-4-3. rmi : 해당 이미지를 삭제합니다
 ```bash
 docker rmi ubuntu:latest
 ```
@@ -451,24 +477,24 @@ docker rmi ubuntu:latest
 
 > 본 명령은 dockerhub.com 과 같은 docker registry 계정이 있어야 실습이 가능합니다
 
-* pull : 대상 이미지를 레포지토리에서 로컬로 다운로드합니다
+#### 3-5-1. pull : 대상 이미지를 레포지토리에서 로컬로 다운로드합니다
 ```bash
 # docker pull repository[:tag]
 docker pull psyoblade/data-engineer-ubuntu:18.04
 ```
 
-* push : 대상 이미지를 레포지토리로 업로드합니다
+#### 3-5-2. push : 대상 이미지를 레포지토리로 업로드합니다
 ```bash
 # docker push repository[:tag]
 docker push psyoblade/data-engineer-ubuntu:18.04
 ```
 
-* login : 레지스트리에 로그인 합니다
+#### 3-5-3. login : 레지스트리에 로그인 합니다
 ```bash
 docker login
 ```
 
-* logout : 레지스트리에 로그아웃 합니다
+#### 3-5-4. logout : 레지스트리에 로그아웃 합니다
 ```bash
 docker logout
 ```
@@ -540,17 +566,268 @@ Removing intermediate container 88f12333612b
  ---> da9a0e997fc0
 Successfully built da9a0e997fc0
 Successfully tagged ubuntu:local
-
 ```
 
 </details>
 <br>
 
 
+### 3-7. 도커 이미지 이해하기
+
+> 도커 컨테이너 이미지들의 다른점을 이해하고 다양한 실습을 통해 깊이 이해합니다
+
+
+### 3-7-1. 도커 이미지 크기 비교
+
+* 알파인 리눅스 vs. 우분투 컨테이너 이미지 크기 비교
+```bash
+docker pull alpine
+docker pull ubuntu
+docker image ls
+```
+<br>
+
+
+### 3-7-2. 알파인 리눅스 명령어 실습
+
+* 알파인 리눅스 환경이 아니지만 해당 리눅스 처럼 실행해보기
+```bash
+docker run alpine top
+docker run alpine uname -a
+docker run alpine cat /etc/issue
+```
+> 개별 명령어는 <kbd><samp>Ctrl</samp>+<samp>C</samp></kbd> 명령으로 종료합니다
+
+
+<details><summary>[실습] 위의 세번의 명령어 실행으로 생성된 컨테이너는 어떻게 삭제할까요?</summary>
+
+* 전체 컨테이너 목록(-a 옵션으로 중지된 컨테이너까지 확인) 가운데 alpine 을 포함한 목록의 컨테이너 아이디를 찾아 모두 종료합니다
+```bash
+docker rm -f `docker ps -a | grep alpine | awk '{ print $1 }'`
+```
+
+* 사용하지 않는 컨테이너 정리 명령어 (-f, --force)
+```bash
+dodcker container prune -f
+```
+
+</details>
+<br>
+
+
+### 3-7-3. 알파인 리눅스에서 패키지 설치
+
+> 리눅스 배포판마다 패키지 관리자가 다르기 때문에 참고로 실습합니다
+
+
+* bash 가 없기 때문에 /bin/sh 을 통해 --interactive --tty 를 생성해봅니다
+```bash
+docker run --rm -it alpine /bin/sh
+```
+> --rm 명령으로 종료와 동시에 가비지 컨테이너를 삭제하는 습관을 들이면 좋습니다
+
+* vim 도 없기 때문에 패키지 도구인 apk 및 apk add/del 를 통해 vim 을 설치 및 제거합니다
+  - apk { add, del, search, info, update, upgrade } 등의 명령어를 사용할 수 있습니다
+```bash
+apk update
+apk add vim
+apk del vim
+```
+<br>
+
+
+### 3-7-4. [메모리 설정을 변경한 상태 확인](https://docs.docker.com/config/containers/start-containers-automatically)
+
+* 컨테이너의 리소스를 제한하는 것도 가능합니다
+  - 기본적으로 도커 기동 시에 로컬 도커가 사용할 수 있는 리소스의 최대치를 사용할 수 있습니다
+  - 이번 예제에서는 도커를 실행하고 상태를 확인하기 위해 백그라운드 실행(-dit)을 합니다
+```bash
+docker run --name ubuntu_500m -dit -m 500m ubuntu
+```
+* 메모리 제약을 두고 띄운 컨테이너의 상태를 확인합니다
+```bash
+docker ps -f name=ubuntu_500m
+# docker stats <CONTAINER ID>
+```
+> <kbd><samp>Ctrl</samp>+<samp>C</samp></kbd> 명령으로 종료합니다
+
+
+<details><summary>[실습] 메모리 제약을 주지 않고 해당 컨테이너의 상태를 확인해 보세요</summary>
+
+> 출력 결과가 오류가 발생하지 않고, 아래와 유사하다면 성공입니다
+
+```bash
+docker run --name ubuntu_unlimited -dit ubuntu
+docker stats `docker ps | grep ubuntu_unlimited | awk '{ print $1 }'`
+```
+
+</details>
+
+<details><summary>[실습] 바로 위의 실습 정답을 활용해서 ubuntu 문자열이 포함된 모든 컨테이너를 종료해 보세요</summary>
+
+> 출력 결과가 오류가 발생하지 않고, 아래와 유사하다면 성공입니다
+
+```bash
+docker rm -f `docker ps | grep ubuntu | awk '{ print $1 }'`
+```
+
+</details>
+<br>
+
+
+### 3-8. MySQL 로컬 장비에 설치하지 않고 사용하기
+
+> 호스트 장비에 MySQL 설치하지 않고 사용해보기
+
+
+#### 3-8-1. [MySQL 데이터베이스 기동](https://hub.docker.com/_/mysql)
+
+* 아래와 같이 도커 명령어를 통해 MySQL 서버를 기동합니다
+```bash
+docker run --name mysql-volatile \
+  -p 3306:3306 \
+  -e MYSQL_ROOT_PASSWORD=rootpass \
+  -e MYSQL_DATABASE=testdb \
+  -e MYSQL_USER=user \
+  -e MYSQL_PASSWORD=pass \
+  -d mysql
+```
+
+* 서버가 기동되면 해당 서버로 접속합니다
+  - 너무 빨리 접속하면 서버가 기동되기전이라 접속이 실패할 수 있습니다
+```bash
+docker exec -it mysql-volatile mysql -uuser -ppass
+```
+
+#### 3-8-2. 테스트용 테이블을 생성해봅니다
+
+```sql
+# mysql>
+use testdb;
+create table foo (id int, name varchar(300));
+insert into foo values (1, 'my name');
+select * from foo;
+```
+> <kbd><samp>Ctrl</samp>+<samp>D</samp></kbd> 명령으로 빠져나옵니다
+
+
+#### 3-8-3. 컨테이너를 강제로 종료합니다
+```bash
+docker rm -f mysql-volatile
+docker volume ls
+```
+
+<details><summary>[실습] mysql-volatile 컨테이너를 다시 생성하고 테이블을 확인해 보세요</summary>
+
+> 테이블이 존재하지 않는다면 정답입니다.
+
+* 볼륨을 마운트하지 않은 상태에서 생성된 MySQL 데이터베이스는 컨테이너의 임시 볼륨 저장소에 저장되므로, 컨테이너가 종료되면 더이상 사용할 수 없습니다
+  - 사용한 컨테이너는 종료해 둡니다
+```bash
+docker rm -f mysql-volatile
+```
+
+</details>
+<br>
+
+
+### 3-9. 볼륨 마운트 통한 MySQL 서버 기동하기
+
+> 이번에는 별도의 볼륨을 생성하여, 컨테이너가 예기치 않게 종료되었다가 다시 생성되더라도, 데이터를 보존할 수 있게 볼륨을 생성합니다. 
+
+
+#### 3-9-1. 볼륨 마운트 생성
+
+* 아래와 같이 볼륨의 이름만 명시하여 마운트하는 것을 [Volume Mount](https://docs.docker.com/storage/volumes/) 방식이라고 합니다
+  - `docker volume ls` 명령을 통해 생성된 볼륨을 확인할 수 있습니다
+  - 이렇게 생성된 별도의 격리된 볼륨으로 관리되며 컨테이너가 종료되더라도 유지됩니다
+```bash
+docker run --name mysql-persist \
+  -p 3307:3306 \
+  -e MYSQL_ROOT_PASSWORD=rootpass \
+  -e MYSQL_DATABASE=testdb \
+  -e MYSQL_USER=user \
+  -e MYSQL_PASSWORD=pass \
+  -v mysql-volume:/var/lib/mysql \
+  -d mysql
+
+sleep 5
+docker exec -it mysql-persist mysql --port=3307 -uuser -ppass
+```
+
+#### 3-9-2. 볼륨 확인 실습
+
+<details><summary>[실습] mysql-persist 컨테이너를 강제 종료하고, 동일한 설정으로 다시 생성하여 테이블이 존재하는지 확인해 보세요</summary>
+
+> 테이블이 존재하고 데이터가 있다면 정답입니다
+
+```sql
+# mysql>
+use testdb;
+create table foo (id int, name varchar(300));
+insert into foo values (1, 'my name');
+select * from foo;
+```
+
+```bash
+# terminal
+docker rm -f mysql-persist
+docker run --name mysql-persist \
+  -p 3307:3306 \
+  -e MYSQL_ROOT_PASSWORD=rootpass \
+  -e MYSQL_DATABASE=testdb \
+  -e MYSQL_USER=user \
+  -e MYSQL_PASSWORD=pass \
+  -v mysql-volume:/var/lib/mysql \
+  -d mysql
+
+sleep 5
+docker exec -it mysql-persist mysql --port=3307 -uuser -ppass
+```
+
+```sql
+# mysql>
+use testdb;
+select * from foo;
+```
+
+</details>
+<br>
+
+
+### 3-10. 바인드 마운트 통한 MySQL 서버 기동하기
+
+#### 3-10-1. 바인드 마운트를 추가하여 저장소 관리하기 
+
+> 이번에는 호스트 장비의 경로에 직접 저장하는 바인드 마운트에 대해 실습합니다
+
+* 아래와 같이 상대 혹은 절대 경로를 포함한 볼륨의 이름을 명시하여 마운트하는 것을 [Bind Mount](https://docs.docker.com/storage/bind-mounts/) 방식이라고 합니다
+  - 호스트의 특정 경로를 저장소로 사용하게 되어, 호스트에서 직접 접근 및 확인이 가능합니다
+```bash
+docker run --name mysql-bind \
+  -p 3308:3306 \
+  -e MYSQL_ROOT_PASSWORD=rootpass \
+  -e MYSQL_DATABASE=testdb \
+  -e MYSQL_USER=user \
+  -e MYSQL_PASSWORD=pass \
+  -v ./mysql/bind:/var/lib/mysql \
+  -d mysql
+
+sleep 5
+docker exec -it mysql-bind mysql --port=3308 -uuser -ppass
+```
+
+> 이번 예제는 경로만 다를 뿐 동일하므로 실습은 각자 해보시기 바랍니다
+
+[목차로 돌아가기](#1일차-데이터-엔지니어링-기본)
+<br>
+<br>
+
+
 ## 4. 도커 컴포즈 명령어 실습
 
 > [docker-compose cheatsheet](https://devhints.io/docker-compose) 와 [Cheatsheet](https://buildvirtual.net/docker-compose-cheat-sheet/)를 참고하여 작성 되었습니다. 도커 컴포즈는 **도커의 명령어들을 반복적으로 수행되지 않도록 yml 파일로 저장해두고 활용**하기 위해 구성되었고, *여러개의 컴포넌트를 동시에 기동하여, 하나의 네트워크에서 동작하도록 구성*한 것이 특징입니다. 내부 서비스들 간에는 컨테이너 이름으로 통신할 수 있어 테스트 환경을 구성하기에 용이합니다. 
-
+<br>
 
 ### 4-1. 컨테이너 관리
 
@@ -578,7 +855,7 @@ docker-compose down
 
 ### 4-2. 기타 자주 사용되는 명령어
 
-* exec : 컨테이너에 커맨드를 실행합니다
+#### 4-2-1. exec : 컨테이너에 커맨드를 실행합니다
   - <kbd>-d, --detach</kbd> : 백그라운드 모드에서 실행합니다
   - <kbd>-e, --env `KEY=VAL`</kbd> : 환경변수를 전달합니다
   - <kbd>-u, --user <string></kbd> : 이용자를 지정합니다
@@ -588,50 +865,263 @@ docker-compose down
 docker-compose exec ubuntu echo hello world
 ```
 
-* logs : 컨테이너의 로그를 출력합니다
+#### 4-2-2. logs : 컨테이너의 로그를 출력합니다
   - <kbd>-f, --follow</kbd> : 출력로그를 이어서 tailing 합니다
 ```bash
 # terminal
 docker-compose logs -f ubuntu
 ```
 
-* pull : 컨테이너의 모든 이미지를 다운로드 받습니다
+#### 4-2-3. pull : 컨테이너의 모든 이미지를 다운로드 받습니다
   - <kbd>-q, --quiet</kbd> : 다운로드 메시지를 출력하지 않습니다 
 ```bash
 # terminal
 docker-compose pull
 ```
 
-* ps : 컨테이너 들의 상태를 확인합니다
+#### 4-2-4. ps : 컨테이너 들의 상태를 확인합니다
   - <kbd>-a, --all</kbd> : 모든 서비스의 프로세스를 확인합니다
 ```bash
 # terminal
 docker-compose ps -a
 ```
 
-* top : 컨테이너 내부에 실행되고 있는 프로세스를 출력합니다
+#### 4-2-5. top : 컨테이너 내부에 실행되고 있는 프로세스를 출력합니다
 ```bash
 # docker-compose top <services>
 docker-compose top ubuntu
 ```
+<br>
+
 
 ### 4-3. 컴포즈 파일을 통한 실습
 
-* image, conatainer
-* volume
-* network
-* cpu, memory
+#### 4-3-1. 도커 컴포즈를 통해서 커맨드라인 옵션을 설정을 통해 수행할 수 있습니다
+
+```yaml
+# cat docker-compose.yml
+version: "3"
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    volumes:
+      - mysql_default:/var/lib/mysql
+```
 
 
+### 4-4. 외부 볼륨을 통한 환경설정
+
+> 외부 볼륨을 통한 환경설정 제공 및 설정을 실습합니다
+
+#### 4-4-1. 캐릭터셋 변경 적용하기
+
+```bash
+# cat custom/my.cnf
+[client]
+default-character-set=utf8
+
+[mysqld]
+character-set-client-handshake=FALSE
+init_connect="SET collation_connection = utf8_general_ci"
+init_connect="SET NAMES utf8"
+character-set-server=utf8
+collation-server=utf8_general_ci
+
+[mysql]
+default-character-set=utf8
+```
+
+#### 4-4-2. MySQL 설정파일 사용
+
+> 지정한 설정파일을 사용하고, 내부 볼륨을 통한 MySQL 기동으로 변경합니다
+
+```bash
+# cat docker-compose.yml
+version: "3"
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    volumes:
+      - ./custom:/etc/myslq/conf.d
+      - mysql_utf8:/etc/myslq/conf.d
+```
+
+### 4-5. 초기화 파일을 적용한  MySQL 도커 이미지 생성
+
+#### 4-5-1. 초기화 파일을 생성합니다
+
+```bash
+# cat init/testdb.sql
+DROP TABLE IF EXISTS `seoul_popular_trip`;
+CREATE TABLE `seoul_popular_trip` (
+  `category` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `naddress` varchar(100) DEFAULT NULL,
+  `tel` varchar(20) DEFAULT NULL,
+  `tag` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+LOCK TABLES `seoul_popular_trip` WRITE;
+INSERT INTO `seoul_popular_trip` VALUES (0,25931,'통인가게 ','110-300 서울 종로구 관훈동 16 ','03148 서울 종로구 인사동길 32 (관훈동) ','02-733-4867','오래된가게,고미술,통인정신,통인가게,공예샵,현대공예');
+UNLOCK TABLES;
+```
+
+#### 4-5-2. 도커파일을 생성합니다
+
+```Dockerfile
+# cat Dockerfile
+ARG BASE_CONTAINER=mysql:5.7
+FROM $BASE_CONTAINER
+LABEL maintainer="student@lg.com"
+
+ADD ./init /docker-entrypoint-initdb.d
+
+EXPOSE 3306
+
+CMD ["mysqld"]
+```
+
+#### 4-5-3. 로컬에서 도커 이미지를 빌드합니다
+
+```bash
+docker build -t local/mysql:5.7 .
+```
+
+#### 4-5-4. 빌드된 이미지로 다시 테스트
+
+```bash
+# cat docker-compose.yml
+version: "3"
+
+services:
+  mysql:
+    container_name: mysql
+    image: local/mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    volumes:
+      - ./custom:/etc/mysql/conf.d
+      - mysql_utf8:/var/lib/mysql
+```
+```bash
+docker exec -it mysql mysql -u user -p
+```
+```sql
+use testdb;
+select * from seoul_popular_trip;
+```
+<br>
+
+
+### 4-6. 도커 컴포즈 통한 여러 이미지 실행
+
+> MySQL 과 phpMyAdmin 2가지 서비스를 실행합니다
+
+#### 4-6-1. 도커 컴포즈를 통해 phpMyAdmin 추가 설치
+
+```bash
+# cat docker-compose.yml
+version: "3"
+
+services:
+  mysql:
+    image: psyoblade/mysql:5.7
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    volumes:
+      - ./custom:/etc/mysql/conf.d
+      - mysql_utf8:/var/lib/mysql
+  php:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8183:80
+```
+> [phpMyAdmin](http://localhost:8183/index.php) 사이트에 접속하여 mysql/user/pass 로 접속합니다
+
+
+### 4-7. MySQL 이 정상적으로 로딩된 이후에 접속하도록 설정합니다
+
+* 테스트 헬스체크를 통해 MySQL 이 정상 기동되었을 때에 다른 어플리케이션을 띄웁니다
+
+```bash
+# cat docker-compose.yml
+version: "3"
+
+services:
+  mysql:
+    image: psyoblade/mysql:5.7
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 3s
+      timeout: 1s
+      retries: 3
+    volumes:
+      - ./custom:/etc/mysql/conf.d
+      - mysql_utf8:/var/lib/mysql
+  php:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8183:80
+```
+[목차로 돌아가기](#1일차-데이터-엔지니어링-기본)
+<br>
 <br>
 
 
 ## 5. Linux 커맨드라인 명령어 실습
 
-> 리눅스 터미널 환경에서 활용할 수 있는 CLI 도구들을 소개하고 실습합니다
-
-* 대부분의 오픈소스 인프라 및 서비스는 리눅스 서버 환경에서 운영
-* 장애 혹은 서비스 모니터링 환경에서 디버깅 및 
+> 리눅스 터미널 환경에서 활용할 수 있는 CLI 도구들을 소개하고 실습합니다. 대부분의 **오픈소스 인프라 및 서비스는 리눅스 서버 환경**에서 운영되며, 장애 혹은 서비스 모니터링 환경에서 디버깅의 가장 기본이 되는 것이 리눅스 커맨드라인 도구들이며, 독립적인 도구들로 하나의 실행파일로 가성비가 가장 높은 효과적인 도구들이기도 합니다
 
 
 * 환경 구성 및 예제 데이터 다운로드
@@ -649,14 +1139,15 @@ git clone https://github.com/psyoblade/linux-for-dummies
 
 ### 5-2. 출력 및 확인
 
-* cat : 텍스트 파일의 내용을 출력
+#### 5-2-1. cat : 텍스트 파일의 내용을 출력
   - <kbd>-n, --number</kbd> : 라인 번호를 출력
 ```bash
 # cat [OPTION] ... [FILE] ... 
 cat -n helloworld.py
 ```
 
-* more : 텍스트 파일의 일부를 지속적으로 출력
+#### 5-2-2. more : 텍스트 파일의 일부를 지속적으로 출력
+
   - <kbd>-p</kbd> : 화면을 지우고 위에서부터 출력합니다
   - <kbd>-s</kbd> : 여러 줄의 빈 라인을 하나의 빈 라인으로 대체합니다
   - <kbd>-number</kbd> : 한 번에 출력하는 라인 수를 지정합니다
@@ -667,28 +1158,43 @@ cat -n helloworld.py
 # more [OPTIONS] ... [FILE] ... 
 more -5 data/apache-access.log
 ```
+> 스페이스 바를 누를 때마다 스크롤 되지 않고, 첫 번째 라인부터 5줄씩 출력합니다
 
-* 퀴즈
-```
-more -p -5 data/apache-access.log    # 스페이스 바를 누를 때마다 스크롤 되지 않고, 첫 번째 라인부터 5줄씩 출력합니다
-more +/Exception -10 data/hadoop-hdfs-secondarynamenode.log     # 파일에서 exception 문자열이 발견된 위치부터 10줄씩 출력합니다
+<details><summary>[실습] data/hadoop-hdfs-secondarynamenode.log 파일에서 exception 문자열이 발견된 위치부터 10줄씩 출력하세요 </summary>
+
+> 출력 결과가 오류가 발생하지 않고, 아래와 유사하다면 성공입니다
+
+```bash
+more +/Exception -10 data/hadoop-hdfs-secondarynamenode.log
 ```
 
-* head : 텍스트 파일의 처음부터 일부를 출력
+</details>
+<br>
+
+
+#### 5-2-3. head : 텍스트 파일의 처음부터 일부를 출력
+
   - <kbd>-c, --bytes=[-]NUM</kbd> : 첫 번째 NUM bytes 크기 만큼 출력하되, NUM 이 음수인 경우는 마지막 NUM bytes 를 제외한 전체를 출력합니다
     - `b: 512, kB 1000, K 1024, MB 1000*1000, M 1024*1024, GB 1000*1000*1000, G 1024*1024*1024, T, P, E, Z, Y`.
   - <kbd>-n, --lines=[-]NUM</kbd> : 파일의 처음부터 NUM 라인 수만큼 출력하고, 마찬가지로 음수 NUM 은 마지막 NUM 라인을 제외한 전체를 출력합니다
 ```bash
 # head [OPTION] ... [FILE] ... 
+head -c 1K data/apache-access.log > 1k.log
 ```
+> 로그의 처음부터 1024 bytes 만큼 읽어서 파일을 생성합니다
 
-* 실습
+<details><summary>[실습] data/apache-access.log 로그의 첫 번째 30라인만 출력하세요</summary>
+
 ```bash
-$ head -c 1K data/apache-access.log > 1k.log    # 로그의 처음부터 1024 bytes 만큼 읽어서 파일을 생성합니다
-$ head -n 30 data/apache-access.log    # 로그의 첫 번째 30라인만 출력합니다
+head -n 30 data/apache-access.log
 ```
 
-* tail : 텍스트 파일의 마지막부터 일부를 출력
+</details>
+<br>
+
+
+#### 5-2-4. tail : 텍스트 파일의 마지막부터 일부를 출력
+
   - <kbd>-c, --bytes=[+]NUM</kbd> : 첫 번째 NUM bytes 크기 만큼 출력하되, NUM 이 양수인 경우는 처음 NUM bytes 를 제외한 전체를 출력합니다
     - `b: 512, kB 1000, K 1024, MB 1000*1000, M 1024*1024, GB 1000*1000*1000, G 1024*1024*1024, T, P, E, Z, Y`.
   - <kbd>-f, --follow</kbd> : 파일에 추가되는 내용을 계속 출력합니다
@@ -696,45 +1202,72 @@ $ head -n 30 data/apache-access.log    # 로그의 첫 번째 30라인만 출력
   - <kbd>-n, --lines=[+]NUM</kbd> : 파일의 끝에서 NUM 라인 수만큼 출력하고, 마찬가지로 양수 NUM 은 처음 NUM 라인을 제외한 전체를 출력합니다
 ```bash
 # tail [OPTION] ... [FILE] ...
+tail -n 30 data/apache-access.log
+```
+> 로그의 마지막 30라인만 출력합니다
 
-```
 ```bash
-$ tail -F data/notexist.log    # noexists.log 로그 없어도 계속 tail 하고 해당 파일에 로그가 추가되면 계속 tailing 합니다 $ tail -n 30 data/apache-access.log    # 로그의 마지막 30라인만 출력합니다
 ```
+
+<details><summary>[실습] noexists.log 로그가 없어도 계속 tail 하고 해당 파일에 로그가 추가되면 계속 tailing 하는 명령을 수행하세요 </summary>
+
+```bash
+$ tail -F data/notexist.log
+```
+
+</details>
 <br>
 
 
 ### 5-3. 계산 및 정렬
 
-* wc : 텍스트 파일의 단어의 수를 계산합니다
+#### 5-3-1. wc : 텍스트 파일의 단어의 수를 계산합니다
+
   - <kbd>-c, --bytes</kbd> :
   - <kbd>-m, --chars</kbd> :
   - <kbd>-l, --lines</kbd> :
   - <kbd>-w, --words</kbd> :
 ```bash
 # wc [OPTION] ... [FILE] ...
-
+wc -l data/apache-access.log
+wc -l data/*
 ```
+> 개별 파일의 라인수와 전체 라인수를 출력합니다
+
+<details><summary>[실습] data/apache-access.log 로그에 포함된 단어의 수를 출력하세요</summary>
+
 ```bash
-$ wc -l data/apache-access.log    # 로그의 라인 수를 출력합니다 $ wc -w data/apache-access.log  # 로그에 포함된 단어의 수를 출력합니다
-$ wc -l data/*    # 모든 파일의 라인 수와 전체 라인 수를 출력합니다
+wc -w data/apache-access.log
 ```
 
-* nl : 라인 수를 계산합니다
+</details>
+<br>
+
+
+#### 5-3-2. nl : 라인 수를 계산합니다
+
   - <kbd>-b, --body-numbering=STYLE</kbd> : 라인 수를 출력합니다
   - <kbd>-n, --number-format=FORMAT</kbd> : 포맷을 지정하여 라인 수를 출력합니다
-    - ` - ln : 좌측 정렬, rn : 우측 정렬,  rz : 0을 패딩 후 출력`
+    - `ln : 좌측 정렬, rn : 우측 정렬,  rz : 0을 패딩 후 출력`
   - <kbd>-s, --number-separator=STRING</kbd> : 라인 수와 내용을 구분자로 분리하여 출력합니다
 ```bash
 # nl [OPTION] ... [FILE] ...
-
+nl -b data/apache-access.log          # 로그를 라인 수와 함께 출력합니다
+nl -s ',<tab>' data/apache-access.log # 000123,<line> 와 같이 구분자를 넣어 출력합니다
 ```
+
+<details><summary>[실습] data/apache-access.log '000123' 과 같이 0을 패딩 후 출력하세요</summary>
+
 ```bash
-$ nl -b data/apache-access.log    # 로그를 라인 수와 함께 출력합니다 $ nl -n rz data/apache-access.log   # 000123 과 같이 0을 패딩 후 출력합니다
-$ nl -s ',<tab>' data/apache-access.log     # 000123,<line> 와 같이 구분자를 넣어 출력합니다
+nl -n rz data/apache-access.log
 ```
 
-* sort : 데이터를 정렬합니다
+</details>
+<br>
+
+
+#### 5-3-3. sort : 데이터를 정렬합니다
+
   - <kbd>-d, --dictionary-order</kbd> : 사전에 표기된 순서대로 정렬 즉, 공백, 알파벳 및 숫자 순으로 정렬
   - <kbd>-f, --ignore-case</kbd> : 대소문자를 구분하지 않고 정렬
   - <kbd>-n, --numeric-sort</kbd> : 숫자로 인식하여 정렬
@@ -745,14 +1278,25 @@ $ nl -s ',<tab>' data/apache-access.log     # 000123,<line> 와 같이 구분자
     - `KEYDEF -> F[.C][OPTS][,F[.C][OPTS]], OPTS -> [bdfgiMhnRrV]`
   - <kbd>-t, --field-separator=SEP</kbd> : 구분자에 의해 컬럼을 구분
   - <kbd>-u, --unique</kbd> : 동일한 라인이 여러개 등장하는 경우 첫 번째 라인만 출력합니다
+
+* 데이터 컬럼 -> 1:국가, 2:확진자, 3:사망자
 ```bash
 # sort [OPTION] ... [FILE] ...
-$ cat data/corona.body.tsv | sed 's/,//g' | cut --output-delimiter=',' -f1,2,3 | sort -t, -k3nr | head     # 사망자 톱 10
-$ cat data/corona.body.tsv | sed 's/,//g' | cut --output-delimiter=',' -f1,2,3 | sort -t, -k2nr | head     # 확진자 톱 10
-
+cat data/corona.body.tsv | sed 's/,//g' | cut --output-delimiter=',' -f1,2,3 | sort -t, -k3nr | head     # 사망자 톱 10
 ```
 
-* uniq : 유일한 값을 추출합니다
+<details><summary>[실습] 확진자 톱 10을 구하세요 </summary>
+
+```bash
+cat data/corona.body.tsv | sed 's/,//g' | cut --output-delimiter=',' -f1,2,3 | sort -t, -k2nr | head     # 확진자 톱 10
+```
+
+</details>
+<br>
+
+
+#### 5-3-4. uniq : 유일한 값을 추출합니다
+
   - <kbd>-c, --count</kbd> : 중복 횟수와 라인을 같이 출력 합니다
   - <kbd>-d, --repeated</kbd> : 중복이 발생한 라인만 출력하되, 같은 문장은 한 번만 출력합니다
   - <kbd>-D</kbd> : 중복된 모든 라인을 출력합니다
@@ -760,23 +1304,28 @@ $ cat data/corona.body.tsv | sed 's/,//g' | cut --output-delimiter=',' -f1,2,3 |
   - <kbd>-u, --unique</kbd> : 중복되지 않은 유일한 라인만 출력합니다
 ```bash
 # uniq [OPTION] ... [INPUT [OUTPUT]] ...
-
-$ cat /etc/passwd | cut -d: -f4 | sort | uniq -d    # 패스워드 파일에서 중복 그룹만 출력합니다
-$ cat /etc/passwd | cut -d: -f6 | sort | uniq -c | sort -nr | head -3    #  패스워드 파일에서 로그인 쉘 가운데 톱 3을 출력합니다
-
+cat /etc/passwd | cut -d: -f4 | sort | uniq -d    # 패스워드 파일에서 중복 그룹만 출력합니다
 ```
 
+<details><summary>[실습] 패스워드 파일에서 로그인 쉘 가운데 톱 3을 출력하세요</summary>
+
+```bash
+cat /etc/passwd | cut -d: -f6 | sort | uniq -c | sort -nr | head -3
+```
+
+</details>
 <br>
 
 
 ### 5-4. 변환 및 기타
 
-* cut : 
+#### 5-4-1. cut : 데이터를 구분자로 잘라서 출력합니다
+
   - <kbd>-b, --bytes=LIST	</kbd> : 지정한 바이트 수 만큼의 컬럼 값들을 출력합니다
-    - N : 첫 번째 컬럼을 1로 계산하여 N 번째 바이트만 출력 
-    - N- : N번째 바이트 부터 라인 끝까지 출력  
-    - N-M : N~M 바이트까지 출력 
-    - -M : 라인 처음부터 M 바이트까지 출력 
+    - `N` : 첫 번째 컬럼을 1로 계산하여 N 번째 바이트만 출력 
+    - `N-` : N번째 바이트 부터 라인 끝까지 출력  
+    - `N-M` : N~M 바이트까지 출력 
+    - `-M` : 라인 처음부터 M 바이트까지 출력 
   - <kbd>-d, --delimiter=DELIM</kbd> :	기본 구분자 TAB 대신 지정한 문자를 구분자로 동작합니다
   - <kbd>-f, --fields=LIST</kbd> :	구분자를 기준으로 컬럼을 지정하여 지정된 컬럼만 출력합니다
   - <kbd>--complement</kbd> :	선택한 조건의 컬럼을 제외한 나머지를 출력합니다
@@ -788,64 +1337,97 @@ $ cut -f 2 cut_txt    # 탭으로 구분된 라인들의 2번째 컬럼만 출�
 $ cut -f1- --output-delimiter=',' cut_text    # 탭으로 구분된 라인을 콤마로 구분된 라인으로 변경하여 출력합니다
 $ ls -al | cut -b -10 --complement    # ls -al 결과의 앞 10바이트를 제외한 나머지 컬럼 들만 출력합니다
 ```
+<br>
 
-* tr : 
+
+#### 5-4-2. tr : 데이터를 변환하여 출력합니다
+
   - <kbd>-c, --complement</kbd> : SET1 에 지정한 범위 외의 문자를 선택합니다
   - <kbd>-d, --delete</kbd> : SET1 에 지정한 범위 외의 문자를 삭제합니다 (단, 변환은 -d 옵션이 없을 경우에만 발생합니다)
-    - CHAR1-CHAR2 : CHAR1 부터 CHAR2 까지를 선택합니다 (ex_ a-z)
-    - [:alnum:] : 알파벳 + 숫자
-    - [:alpha:] : 알파벳
-    - [:blank:] : 공백
-    - [:space:] : 공백 + 줄바꿈
-    - [:lower:] / [:upper:] : 소문자 / 대문자
+    - `CHAR1-CHAR2` : CHAR1 부터 CHAR2 까지를 선택합니다 (ex_ a-z)
+    - `[:alnum:]` : 알파벳 + 숫자
+    - `[:alpha:]` : 알파벳
+    - `[:blank:]` : 공백
+    - `[:space:]` : 공백 + 줄바꿈
+    - `[:lower:]` / [:upper:] : 소문자 / 대문자
 
 ```bash
 # tr [OPTION] ... SET1 [SET2]
-$ head /etc/passwd | tr ':' ' '    # 패스워드 파일의 구분자 콜론을 공백으로 치환합니다
-$ head /etc/passwd | cut -d : -f 1 | tr [:lower:] [:upper:]   # 패스워드 파일의 계정 이름만 대문자로 출력합니다
-$ ls -al | tr -d [:space:]    # ls -al 결과의 한 줄의 문자열로 출력합니다
+head /etc/passwd | tr ':' ' '   # 패스워드 파일의 구분자 콜론을 공백으로 치환합니다
+ls -al | tr -d [:space:]        # ls -al 결과의 한 줄의 문자열로 출력합니다
 ```
 
-* sed : 
+<details><summary>[실습] 패스워드 파일의 계정 이름만 대문자로 출력하세요</summary>
+
+```bash
+head /etc/passwd | cut -d : -f 1 | tr [:lower:] [:upper:]
+```
+
+</details>
+<br>
+
+
+#### 5-4-3. sed : 반환 데이터를 정규실에 맞추어 변경 및 출력합니다
+
   - <kbd>-n, --quiet, --silent</kbd> : 패턴에 만족하는 기본 출력을 하지 않습니다
   - <kbd>-i[SUFFIX], --in-place[=SUFFIX]</kbd> : 파일을 직접 수정합니다. SUFFIX 가 주어진 경우는 백업 파일을 생성해 둡니다
   - <kbd>-E, -r, --regexp-extended</kbd> : SET1 에 지정한 범위 외의 문자를 삭제합니다 (단, 변환은 -d 옵션이 없을 경우에만 발생합니다)
-    - {RANGE}p : range 내의 라인을 출력합니다 (단, 패턴에 만족하는 출력까지 포함하면 2번 출력될 수 있습니다)
-    - {RANGE}d : range 내의 라인을 삭제합니다
-    - /pattern/p : pattern 에 만족하는 라인을 출력합니다
-    - /pattern/d : pattern 에 만족하는 라인을 제거합니다
-    - s/pattern/replaced/g : pattern 에 만족하는 부분을 replaced 로 교체합니다
+    - `{RANGE}p` : range 내의 라인을 출력합니다 (단, 패턴에 만족하는 출력까지 포함하면 2번 출력될 수 있습니다)
+    - `{RANGE}d` : range 내의 라인을 삭제합니다
+    - `/pattern/p` : pattern 에 만족하는 라인을 출력합니다
+    - `/pattern/d` : pattern 에 만족하는 라인을 제거합니다
+    - `s/pattern/replaced/g` : pattern 에 만족하는 부분을 replaced 로 교체합니다
+
 ```bash
 # sed [OPTION] ... {script-only-if-no-other-script} [FILE]
-$ sed -n '3,5p' /etc/passwd    # 패스워드 파일의 3~5번째 줄을 출력합니다
-$ sed '/^bin/p' /etc/passwd    # 패스워드 파일에서 bin 으로 시작하는 라인을 출력합니다
-$ sed 's/before/after/g' -i\.bak sed_text    # 파일의 before 를 after 로 모두 치환하고 원본 파일을 .bak 파일로 저장합니다
-
+sed -n '3,5p' /etc/passwd                   # 패스워드 파일의 3~5번째 줄을 출력합니다
+sed 's/before/after/g' -i\.bak sed_text     # 파일의 before 를 after 로 모두 치환하고 원본 파일을 .bak 파일로 저장합니다
 ```
 
+<details><summary>[실습] 패스워드 파일(/etc/passwd)에서 첫 번째 단어가 bin 으로 시작하는 라인을 출력합니다</summary>
 
-* awk : 
+```bash
+sed '/^bin/p' /etc/passwd
+```
+
+</details>
+<br>
+
+
+#### 5-4-4. awk : 데이터를 변환하여 출력합니다
+
   - <kbd>-F</kbd> : 필드 구분자
   - <kbd>-f</kbd> : 입력 파일 명을 지정합니다 (-f 옵션을 여러번 사용할 수 있습니다)
   - <kbd>-v VAR=VALUE</kbd> : 변수(VAR)를 할당(VALUE)하여 사용할 수 있습니다
   - <kbd>pattern { action }</kbd> : 
-    - NR (Number of Records) : 레코드 수
-    - NF (Number of Fields) : 필드 수
-    - FS (Field Separator, default: 공백) : 필드 구분자
-    - RS (Record Separator, default: 줄바꿈) : 레코드 구분자
-    - OFS (Output Field Separator) : 출력시 필드 구분자
-    - ORS (Output Record Separator) : 출력시 레코드 구분자
+    - `NR (Number of Records)` : 레코드 수
+    - `NF (Number of Fields)` : 필드 수
+    - `FS (Field Separator, default: 공백)` : 필드 구분자
+    - `RS (Record Separator, default: 줄바꿈)` : 레코드 구분자
+    - `OFS (Output Field Separator)` : 출력시 필드 구분자
+    - `ORS (Output Record Separator)` : 출력시 레코드 구분자
 
 ```bash
 # awk [-W OPTION] [-F VALUE] [-v VAR=VALUE] [--] 'PATTERN { ACTION }' [FILE ...]
-$ awk '/1200/ { print $0 }' /etc/passwd    # 패스워드 파일의 root 문자가 존재하는 라인을 출력합니다
-$ awk '{$7 = $1 * $3 ; print $3, $1, "*", $2, "=", $1 * $2}' address    # 주소록에서 1번 숫자와 2번 숫자의 곱과 3번째 컬럼을 출력합니다
-$ awk -F: '{ print NR, $1 }'    #  패스워드 파일을 읽어서 레코드 수와 아이디를 출력합니다
-
+awk '/1200/ { print $0 }' /etc/passwd                                 # 패스워드 파일의 root 문자가 존재하는 라인을 출력합니다
+awk '{$7 = $1 * $3 ; print $3, $1, "*", $2, "=", $1 * $2}' address    # 주소록에서 1번 숫자와 2번 숫자의 곱과 3번째 컬럼을 출력합니다
+awk -F: '{ print NR, $1 }' /etc/passwd                                #  패스워드 파일을 읽어서 레코드 수와 아이디를 출력합니다
 ```
 
+<details><summary>[실습] /etc 경로에 존재하는 파일의 user 와 group 의 유일한(uniq) 값만 출력하세요</summary>
 
-* rsync : 
+```bash
+ls -l /etc | awk '{ print $3, $4 }' | sort | uniq
+```
+
+</details>
+<br>
+
+
+#### 5-4-5. rsync : 소스경로와 타겟 경로를 동기화 합니다
+
+> 데이터를 백업하거나 원격지에 파일 전송 시에 주로 사용합니다
+
   - <kbd>-v, --verbose</kbd> : 상세하게 내용을 출력합니다
   - <kbd>-q, --quiet</kbd> : 에러가 아닌 메시지 출력을 하지 않습니다
   - <kbd>-a, --archive</kbd> : -rlptgoD 옵션과 동일하며, symlink, permission, group, owner 등을 완전히 동일하게 유지합니다
@@ -855,11 +1437,12 @@ $ awk -F: '{ print NR, $1 }'    #  패스워드 파일을 읽어서 레코드 �
   - <kbd>-z, --compress</kbd> : 전송 시에 압축하여 전송합니다
   - <kbd>-F, --exclude=PATTERN</kbd> : PATTERN에 해당하는 파일을 제외하고 복사합니다
   - <kbd>    --include=PATTERN</kbd> : PATTERN에 해당하는 파일만 복사합니다
+
 ```bash
 # rsync [OPTION ...] SRC ... [DEST]
-$ apt-get install ssh rsync    # 기본 패키지에 포함되어 있지 않으므로 ssh 및 rsync 는 별도로 설치되어야 합니다
-$ rsync -av ./data ubuntu@hostname:/home/ubuntu/archive    # 같은 네트워크의 원격지 ubuntu 계정의 archive 경로에 현재 data 경로 전체를 백업합니다
-$ rsync --dry-run -rave "ssh -i ~/.ssh/personal.pem" ubuntu@ec2.amazonaws.com:/home/ubuntu/data .    # EC2 장비의 data 경로를 로컬에 복사합니다
+apt-get install ssh rsync                               # 기본 패키지에 포함되어 있지 않으므로 ssh 및 rsync 는 별도로 설치되어야 합니다
+rsync -av ./data ubuntu@hostname:/home/ubuntu/archive   # 같은 네트워크의 원격지 ubuntu 계정의 archive 경로에 현재 data 경로 전체를 백업합니다
+rsync --dry-run -rave "ssh -i ~/.ssh/personal.pem" ubuntu@ec2.amazonaws.com:/home/ubuntu/data .    # EC2 장비의 data 경로를 로컬에 복사합니다
 ```
 
 
@@ -874,10 +1457,9 @@ $ rsync --dry-run -rave "ssh -i ~/.ssh/personal.pem" ubuntu@ec2.amazonaws.com:/h
 * netstat
 * telnet, ping
 
+[목차로 돌아가기](#1일차-데이터-엔지니어링-기본)
 <br>
-
-
-
+<br>
 
 
 ## 6. Hadoop 커맨드라인 명령어 실습
@@ -889,37 +1471,41 @@ $ rsync --dry-run -rave "ssh -i ~/.ssh/personal.pem" ubuntu@ec2.amazonaws.com:/h
 
 ### 6-1. 파일/디렉토리 관리
 
-* ls : 경로의 파일/디렉토리 목록을 출력합니다
+#### 6-1-1. ls : 경로의 파일/디렉토리 목록을 출력합니다
+
   - <kbd>-d</kbd> : 디렉토리 목록만 출력합니다
   - <kbd>-h</kbd> : 파일크기를 읽기쉽게 출력합니다
   - <kbd>-R</kbd> : 하위노드까지 모두 출력합니다
+
 ```bash
 # -ls [-d] [-h] [-R] [<path> ...]
-
+hdfs dfs -ls /user
 ```
-
 <br>
 
 
 ### 6-2. 파일 읽고/쓰기
 
-* text : 텍스트 파일(zip 압축)을 읽어서 출력합니다
+#### 6-2-1. text : 텍스트 파일(zip 압축)을 읽어서 출력합니다
   - <kbd>-ignoreCrc</kbd> : CRC 체크를 하지 않습니다
 ```bash
 # -text [-ignoreCrc] <src>
-
+hdfs dfs -text /
 ```
+<br>
 
-* cat : 텍스트 파일(plain)을 읽어서 출력합니다
+#### 6-2-2. cat : 텍스트 파일(plain)을 읽어서 출력합니다
   - <kbd>-ignoreCrc</kbd> : CRC 체크를 하지 않습니다
 ```bash
 # -cat [-ignoreCrc] <src>
-
+hdfs dfs -cat /tmp
 ```
+<br>
 
-* appendToFile : 소스 데이터를 읽어서 타겟 데이터 파일에 append 하며, 존재하지 않는 파일의 경우 생성됩니다
+#### 6-2-3. appendToFile : 소스 데이터를 읽어서 타겟 데이터 파일에 append 하며, 존재하지 않는 파일의 경우 생성됩니다
 ```bash
 # -appendToFile <localsrc> ... <dst>
+hdfs dfs -appendToFile 
 ```
 <br>
 
@@ -933,11 +1519,13 @@ $ rsync --dry-run -rave "ssh -i ~/.ssh/personal.pem" ubuntu@ec2.amazonaws.com:/h
 ```bash
 # -put [-f] [-p] [-l] <localsrc> ... <dst>
 ```
+<br>
 
 * moveFromLocal : put 과 동일하지만 저장이 성공한 이후에 로컬 파일이 삭제됩니다
 ```bash
 # -moveFromLocal <localsrc> ... <dst> 
 ```
+<br>
 
 * get : 분산 저장소로부터 파일을 가져옵니다 
   - <kbd>-p</kbd> : 소유자 및 변경시간을 유지합니다 (preserve)
@@ -946,6 +1534,7 @@ $ rsync --dry-run -rave "ssh -i ~/.ssh/personal.pem" ubuntu@ec2.amazonaws.com:/h
 ```bash
 # -get [-p] [-ignoreCrc] [-crc] <src> ... <localdst>
 ```
+<br>
 
 * getmerge : 디렉토리의 모든 파일을 하나로 묶어서 가져옵니다
   - <kbd>-nl</kbd> : 매 파일의 마지막에 줄바꿈 문자를 넣습니다
@@ -953,6 +1542,7 @@ $ rsync --dry-run -rave "ssh -i ~/.ssh/personal.pem" ubuntu@ec2.amazonaws.com:/h
 # -getmerge [-nl] <src> <localdst>
 hdfs dfs -getmerge /tmp/manyfiles
 ```
+<br>
 
 * copyToLocal : get 과 동일합니다
 ```bash
@@ -971,11 +1561,13 @@ hdfs dfs -getmerge /tmp/manyfiles
 ```bash
 # -cp [-f] [-p | -p[topax]] <src> ... <dst>
 ```
+<br>
 
 * mv : 소스 데이터를 타겟으로 이동합니다
 ```bash
 # -mv <src> ... <dst>
 ```
+<br>
 
 * rm : 지정한 패턴에 매칭되는 모든 파일을 삭제합니다
   - <kbd>-f</kbd> : 파일이 존재하지 않아도 에러 메시지를 출력하지 않습니다
@@ -985,12 +1577,14 @@ hdfs dfs -getmerge /tmp/manyfiles
 # -rm [-f] [-r|-R] [-skipTrash] <src> ...
 
 ```
+<br>
 
 * rmdir : 
   - <kbd>--ignore-fail-on-non-empty</kbd> : 와일드카드 삭제 시에 파일을 가진 디렉토리가 존재해도 오류를 출력하지 않습니다
 ```bash
 # -rmdir [--ignore-fail-on-non-empty] <dir> ...
 ```
+<br>
 
 * mkdir : 디렉토리를 생성합니다
   - <kbd>-p</kbd> : 중간경로가 없어도 생성합니다
@@ -998,6 +1592,7 @@ hdfs dfs -getmerge /tmp/manyfiles
 # -mkdir [-p] <path>
 hdfs -mkdir -p /create/also/mid/path
 ```
+<br>
 
 * touchz : 파일 크기가 0인 파일을 생성합니다
   - <kbd></kbd> :
@@ -1005,7 +1600,6 @@ hdfs -mkdir -p /create/also/mid/path
 # -touchz <path> ...
 hdfs -touchz  /tmp/zero_size_file
 ```
-
 <br>
 
 
@@ -1019,6 +1613,7 @@ hdfs -touchz  /tmp/zero_size_file
 # -chmod [-R] <MODE[,MODE]... | OCTALMODE> PATH...
 hdfs -chmod 777 /tmp/zero_size_file
 ```
+<br>
 
 * chown : 파일의 오너/그룹을 변경합니다
   - <kbd>-R</kbd> : 하위 경로의 파일도 동일하게 적용합니다
@@ -1026,6 +1621,7 @@ hdfs -chmod 777 /tmp/zero_size_file
 # -chown [-R] [OWNER][:[GROUP]] PATH...
 hdfs -chown lguser:lggroup /tmp/zero_size_file
 ```
+<br>
 
 * chgrp : 파일의 그룹을 변경합니다. chown 의 그룹변경과 동일합니다
   - <kbd>-R</kbd> : 하위 경로의 파일도 동일하게 적용합니다
@@ -1044,6 +1640,7 @@ hdfs -chown lgde /tmp/zero_size_file
 # -df [-h] [<path> ...]
 hdfs -du -h /tmp/*
 ```
+<br>
 
 * du : 디스크 사용 용량을 확인합니다
   - <kbd>-s</kbd> : 개별 파일은 생략하고 매칭된 전체의 집계(summary)된 용량을 출력
@@ -1052,22 +1649,53 @@ hdfs -du -h /tmp/*
 # -du [-s] [-h] <path> ...
 du -sh /*
 ```
+[목차로 돌아가기](#1일차-데이터-엔지니어링-기본)
+<br>
 <br>
 
 
+## 7. SQL 기본 실습
 
-## 7. SQL 명령어 실습
+### 7-1. SQL 실습을 위해 root 유저로 데이터베이스 (foo) 생성
 
-* mysql 서버로 접속
 ```bash
-bash> docker-compose exec mysql mysql -usqoop -psqoop
-
-mysql> use testdb;
-mysql> show tables;
+# terminal
+docker compose exec mysql mysql -uroot -proot
 ```
-
-* CREATE TABLE
+* sqoop 유저가 해당 데이터베이스를 사용할 수 있도록 권한 부여를 합니다
 ```sql
+# mysql>
+CREATE DATABASE foo;
+GRANT ALL ON foo.* TO 'sqoop'@'%';
+```
+> <kbd><samp>Ctrl</samp>+<samp>D</samp></kbd> 혹은 <kbd>exit</kbd> 명령으로 컨테이너에서 빠져나옵니다
+<br>
+
+
+### 7-2. 테이블 확인 및 SQL 실습
+```bash
+# terminal
+docker compose exec mysql mysql -usqoop -psqoop
+```
+<br>
+
+
+### 7-3. SQL 실습을 위해 sqoop 유저로 접속
+```sql
+# mysql>
+use foo;
+```
+<br>
+
+
+### 7-4. 기본 SQL 명령어 리마인드
+
+![SQL](images/SQL.png)
+
+#### 7-4-1. [테이블 생성](https://dev.mysql.com/doc/refman/8.0/en/create-table.html)
+
+```sql
+# mysql>
 CREATE TABLE table1 (
     col1 INT NOT NULL,
     col2 VARCHAR(10)
@@ -1078,33 +1706,95 @@ CREATE TABLE table2 (
     col2 VARCHAR(10) NOT NULL,
     PRIMARY KEY (col1)
 );
-```
 
-* SELECT
+CREATE TABLE foo (
+    foo INT
+);
+
+SHOW TABLES;
+```
+<br>
+
+
+#### 7-4-2. [테이블 변경](https://dev.mysql.com/doc/refman/8.0/en/alter-table.html)
 ```sql
+# mysql>
+ALTER TABLE foo ADD COLUMN ( bar VARCHAR(10) );
+
+DESC foo;
+```
+<br>
+
+
+#### 7-4-3. [테이블 삭제](https://dev.mysql.com/doc/refman/8.0/en/drop-table.html)
+```sql
+# mysql>
+DROP TABLE foo;
+
+SHOW TABLES;
+```
+<br>
+
+
+#### 7-4-4. [데이터 추가](https://dev.mysql.com/doc/refman/8.0/en/insert.html)
+```sql
+# mysql>
+INSERT INTO table1 ( col1 ) VALUES ( 1 );
+INSERT INTO table2 VALUES ( 1, 'one' );
+INSERT INTO table2 VALUES ( 2, 'two' ), ( 3, 'three' );
+```
+<br>
+
+
+#### 7-4-5. [데이터 조회](https://dev.mysql.com/doc/refman/8.0/en/select.html)
+```sql
+# mysql>
 SELECT col1, col2
 FROM table1;
 
 SELECT col2
 FROM table2
-WHERE col1 = '찾는값'
+WHERE col2 = 'two';
 ```
+<br>
 
-* INSERT
-```sql
-INSERT INTO table1 ( col1 ) VALUES ( 1 );
-INSERT INTO table2 VALUES ( 1, 'one' );
-INSERT INTO table2 VALUES ( 2, 'two' ), ( 3, 'three' );
-```
 
-* UPDATE
+#### 7-4-6. [데이터 변경](https://dev.mysql.com/doc/refman/8.0/en/update.html)
 ```sql
+# mysql>
 UPDATE table1 SET col1 = 100 WHERE col1 = 1;
-```
 
-* DELETE
+SELECT col1, col2 FROM table1;
+```
+<br>
+
+
+#### 7-4-7. [데이터 삭제](https://dev.mysql.com/doc/refman/8.0/en/delete.html)
 ```sql
+# mysql>
 DELETE FROM table1 WHERE col1 = 100;
 DELETE FROM table2;
 ```
+
+> <kbd><samp>Ctrl</samp>+<samp>D</samp></kbd> 혹은 <kbd>exit</kbd> 명령으로 컨테이너에서 빠져나옵니다
+<br>
+
+
+### 7-5. 데이터베이스 삭제
+
+> 테스트로 생성했던 foo 데이터베이스를 삭제합니다
+
+```bash
+# terminal
+docker compose exec mysql mysql -uroot -proot
+```
+```sql
+# mysql>
+drop database foo;
+```
+> <kbd><samp>Ctrl</samp>+<samp>D</samp></kbd> 혹은 <kbd>exit</kbd> 명령으로 컨테이너에서 빠져나옵니다
+
+[목차로 돌아가기](#1일차-데이터-엔지니어링-기본)
+<br>
+<br>
 
