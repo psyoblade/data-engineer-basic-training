@@ -57,6 +57,8 @@ services:
     privileged: true
     image: psyoblade/data-engineer-notebook:1.4
     restart: always
+    depends_on:
+      - mysql
     volumes:
       - ./notebooks:/home/jovyan/work
     environment:
@@ -117,9 +119,11 @@ services:
     image: shawnzhu/prestodb:0.181
     ports:
       - "8080:8080"
+
 networks:
   default:
     name: default_network
+
 volumes:
   namenode:
   datanode:

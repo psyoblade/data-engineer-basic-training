@@ -625,11 +625,12 @@ cd /home/ubuntu/work/linux-for-dummies
 
 ### Linux 기본 명령어
 
-### 5-1. 수집 및 적재
+### 5-1. 수집 및 탐색
 
-* wget
-* curl
-* w3m / lynx
+> 수집 및 탐색을 위한 다양한 도구([wget](https://www.gnu.org/software/wget/), [w3m](http://w3m.sourceforge.net/), [lynx](https://invisible-island.net/lynx/))들이 많지만, 하나로 통일해서 사용하는 것이 혼란을 줄일 수 있어, 가장 널리 사용되는 curl 에 대해서만 학습합니다
+
+#### 5-1-1. curl : URL 을 통해 데이터를 송수신 하는 명령어
+
 <br>
 
 

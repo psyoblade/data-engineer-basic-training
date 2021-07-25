@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   mysql:
@@ -37,3 +37,8 @@ services:
       - "4040:4040"
       - "4041:4041"
       - "8888:8888"
+
+networks:
+  default:
+    name: default_network
+
