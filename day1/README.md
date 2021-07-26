@@ -308,7 +308,7 @@ ls -al
   - `--` : 이 키워드 이후에 나오는 항목을 파일명으로 인식합니다
 ```bash
 git checkout -- .
-git statusb -sb
+git status -sb
 ls -al
 ```
 <br>
@@ -441,7 +441,7 @@ cat /etc/issue
 #### 3-1-6. kill : 컨테이너를 종료합니다
 ```bash
 # docker kill <container_name>
-docker kill ubuntu
+docker kill ubuntu20
 ```
 <br>
 
@@ -488,7 +488,7 @@ docker top nginx
 ```bash
 # docker cp <container_name>:<path> <host_path> and vice-versa
 docker run --rm --name ubuntu20 -dit ubuntu:20.04
-docker cp ./helloworld.sh ubuntu:/tmp
+docker cp ./helloworld.sh ubuntu20:/tmp
 ```
 
 #### 3-3-2. exec : 컨테이너 내부에 명령을 실행합니다 
