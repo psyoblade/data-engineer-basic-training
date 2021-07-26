@@ -488,7 +488,7 @@ docker top nginx
 ```bash
 # docker cp <container_name>:<path> <host_path> and vice-versa
 docker run --rm --name ubuntu20 -dit ubuntu:20.04
-docker cp ./helloworld.sh ubuntu:/tmp
+docker cp ./helloworld.sh ubuntu20:/tmp
 ```
 
 #### 3-3-2. exec : 컨테이너 내부에 명령을 실행합니다 
