@@ -705,7 +705,7 @@ tail -n 30 data/apache-access.log
 <details><summary>[실습] noexists.log 로그가 없어도 계속 tail 하고 해당 파일에 로그가 추가되면 계속 tailing 하는 명령을 수행하세요 </summary>
 
 ```bash
-tail -F data/notexist.log
+tail -F -f data/notexist.log
 ```
 ```bash
 # 별도의 터미널에서 아래와 같이 파일생성 후 append 합니다
