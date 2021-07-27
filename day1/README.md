@@ -919,7 +919,7 @@ hdfs dfs -ls hdfs:///tmp
   - <kbd>-p</kbd> : 중간경로가 없어도 생성합니다
 ```bash
 # -mkdir [-p] <path>
-hdfs -mkdir -p /create/also/mid/path
+hdfs dfs -mkdir -p /create/also/mid/path
 hdfs dfs -ls hdfs:///user/root
 ```
 ```bash
