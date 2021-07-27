@@ -754,6 +754,7 @@ docker-compose exec namenode bash
 
 ```bash
 # -ls [-d] [-h] [-R] [<path> ...]
+hdfs dfs -mkdir /user
 hdfs dfs -ls /user
 ```
 <br>
@@ -770,6 +771,7 @@ echo "hello world" > helloworld
 gzip helloworld
 ```
 ```bash
+hdfs dfs -mkdir /tmp
 hdfs dfs -put helloworld.gz /tmp/
 hdfs dfs -text /tmp/helloworld.gz
 ```
