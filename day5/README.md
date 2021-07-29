@@ -9,13 +9,13 @@
 
 - 목차
   * [1. :green_book: 최신버전 업데이트](#1-최신버전-업데이트)
-  * [2. :green_book: 테이블 수집](#2-테이블-수집)
-  * [3. :green_book: 파일 수집](#3-파일-수집)
-  * [4. :green_book: 노트북 컨테이너 기동](#4-노트북-컨테이너-기동)
-  * [5. :green_book: 수집된 데이터 탐색](#5-수집된-데이터-탐색)
-  * [6. :green_book: 기본 지표 생성](#6-기본-지표-생성)
-  * [7. :blue_book: 고급 지표 생성](#7-고급-지표-생성)
-  * [8. :green_book: 질문 및 컨테이너 종료](#8-질문-및-컨테이너-종료)
+  * [2. :green_book: 테이블 수집](#2-green_book-테이블-수집)
+  * [3. :green_book: 파일 수집](#3-green_book-파일-수집)
+  * [4. :green_book: 노트북 컨테이너 기동](#4-green_book-노트북-컨테이너-기동)
+  * [5. :green_book: 수집된 데이터 탐색](#5-green_book-수집된-데이터-탐색)
+  * [6. :green_book: 기본 지표 생성](#6-green_book-기본-지표-생성)
+  * [7. :blue_book: 고급 지표 생성](#7-blue_book-고급-지표-생성)
+  * [8. :green_book: 질문 및 컨테이너 종료](#8-green_book-질문-및-컨테이너-종료)
 
 - 정답
   * [1. :green_book:/:blue_book: 지표 노트북](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/data-engineer-training-course.html)
