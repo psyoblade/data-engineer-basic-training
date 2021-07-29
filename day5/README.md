@@ -4,9 +4,7 @@
 
 
 - 범례
-  * :green_book: 데이터 엔지니어 기본 과정
-  * :blue_book: 데이터 엔지니어 중급 과정
-  * :orange_book: 데이터 엔지니어 고급 과정
+  * :green_book: 기본, :blue_book: 중급
 
 - 목차
   * [1. :green_book: 최신버전 업데이트](#1-최신버전-업데이트)
