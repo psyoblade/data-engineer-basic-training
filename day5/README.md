@@ -4,7 +4,7 @@
 
 
 - 범례
-  * :green_book: 기본, :blue_book: 중급
+  * :green_book: : 기본, :blue_book: : 중급
 
 - 목차
   * [1. :green_book: 최신버전 업데이트](#1-최신버전-업데이트)
@@ -566,13 +566,16 @@ spark.sql("show tables '*25'")
 u_signup_condition = "<10월 25일자에 등록된 유저만 포함되는 조건을 작성합니다>"
 user = spark.sql("select u_id, u_name, u_gender from user25").where(u_signup_condition)
 user.createOrReplaceTempView("user")
+display(user)
 
 p_time_condition = "<10월 25일자에 발생한 매출만 포함되는 조건을 작성합니다>"
 purchase = spark.sql("select from_unixtime(p_time) as p_time, p_uid, p_id, p_name, p_amount from purchase25").where(p_time_condition)
 purchase.createOrReplaceTempView("purchase")
+display(purchase)
 
 access = spark.sql("select a_id, a_tag, a_timestamp, a_uid from access25")
 access.createOrReplaceTempView("access")
+display(access)
 
 spark.sql("show tables")
 ```
@@ -590,6 +593,7 @@ spark.sql("show tables")
 #### 5-4-1. 한 쪽의 성별('남' 혹은 '여')을 가진 목록을 출력하세요
 ```python
 spark.sql("describe user")
+spark.sql("select * from user")
 # whereCondition = "<성별을 구별하는 조건을 작성하세요>"
 # spark.sql("select * from user").where(whereCondition)
 ```
@@ -597,6 +601,7 @@ spark.sql("describe user")
 #### 5-4-2. 상품금액이 200만원을 초과하는 매출 목록을 출력하세요
 ```python
 spark.sql("describe purchase")
+spark.sql("select * from purchase")
 # selectClause = "<금액을 필터하는 조건을 작성하세요>"
 # spark.sql(selectClause)
 ```
@@ -604,6 +609,7 @@ spark.sql("describe purchase")
 #### 5-4-3. GroupBy 구문을 이용하여 로그인, 로그아웃 횟수를 출력하세요
 ```python
 spark.sql("describe access")
+spark.sql("select * from access")
 # groupByClause="<로그인/아웃 컬럼을 기준으로 집계하는 구문을 작성하세요>"
 # spark.sql(groupByClause)
 ```
@@ -636,6 +642,7 @@ display(access)
 # distinctAccessUser = "select <고객수 집계함수> as DAU from access"
 # dau = spark.sql(distinctAccessUser)
 # display(dau)
+# v_dau = dau.collect()[0]["DAU"]
 ```
 <details><summary> 정답확인</summary>
 
@@ -658,6 +665,7 @@ display(purchase)
 # distinctPayingUser = "<구매 고객수 집계함수>"
 # pu = spark.sql(distinctPayingUser)
 # display(pu)
+# v_pu = pu.collect()[0]["PU"]
 ```
 <details><summary> 정답확인</summary>
 
@@ -680,6 +688,7 @@ display(purchase)
 # sumOfDailyRevenue = "<일 별 구매금액 집계함수>"
 # dr = spark.sql(sumOfDailyRevenue)
 # display(dr)
+# v_dr = dr.collect()[0]["DR"]
 ```
 <details><summary> 정답확인</summary>
 
@@ -698,11 +707,12 @@ display(purchase)
   - 출력형태 : number (문자열: ARPU )
 
 ```python
-v_dau = dau.collect()[0]["DAU"]
-v_pu = pu.collect()[0]["PU"]
-v_dr = dr.collect()[0]["DR"]
-
 # print("ARPU : {}".format(<유저당 매출 금액 계산식>))
+print("+------------------+")
+print("|             ARPU |")
+print("+------------------+")
+print("|        {} |".format(v_dr / v_dau))
+print("+------------------+")
 ```
 <details><summary> 정답확인</summary>
 
@@ -722,6 +732,11 @@ v_dr = dr.collect()[0]["DR"]
 
 ```python
 # print("ARPPU : {}".format(<구매유저 당 매출 금액 계산식>))
+print("+------------------+")
+print("|            ARPPU |")
+print("+------------------+")
+print("|        {} |".format(v_dr / v_pu))
+print("+------------------+")
 ```
 <details><summary> 정답확인</summary>
 
@@ -996,6 +1011,40 @@ dimension.printSchema()
 
 </details>
 <br>
+
+#### 최종 결과가 아래와 일치하는 지 확인합니다
+  - DAU:             5
+  - PU:              4
+  - DR:     12,200,000
+  - ARPU:  2,440,000.0
+  - ARPPU: 3,050,000.0
+```python
+print("+------------------+")
+print("|              DAU |")
+print("+------------------+")
+print("|                {} |".format(v_dau))
+print("+------------------+")
+print("+------------------+")
+print("|               PU |")
+print("+------------------+")
+print("|                {} |".format(v_pu))
+print("+------------------+")
+print("+------------------+")
+print("|               DR |")
+print("+------------------+")
+print("|         {} |".format(v_dr))
+print("+------------------+")
+print("+------------------+")
+print("|             ARPU |")
+print("+------------------+")
+print("|        {} |".format(v_dr / v_dau))
+print("+------------------+")
+print("+------------------+")
+print("|            ARPPU |")
+print("+------------------+")
+print("|       {} |".format(v_dr / v_pu))
+print("+------------------+")
+```
 
 [목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
 <br>
