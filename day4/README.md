@@ -542,7 +542,6 @@ load data local inpath '/opt/hive/examples/imdb.tsv' into table imdb_movies;
 ```
 
 * 별도 터미널을 통해 하둡 명령어로 적재된 파일을 확인합니다
-
 ```bash
 # terminal
 docker-compose exec hive-server bash
@@ -768,11 +767,6 @@ export table imdb_orc to '/user/ubuntu/archive/imdb_orc';
 * 별도의 터미널을 통해 익스포트 된 결과를 확인합니다
 
 ```bash
-# terminal
-cd /home/ubuntu/work/data-engineer-basic-training/day4
-docker-compose exec hive-server bash
-```
-```bash
 # docker
 hadoop fs -ls /user/ubuntu/archive/imdb_orc
 ```
@@ -846,13 +840,6 @@ select * from imdb_recover;
 ### 2-4-1. 매출 테이블의 외부 제공을 위해 외부 테이블로 생성합니다
 
 > 로컬 경로에 수집되었던 테이블 parquet 파일이 존재하므로, 해당 파일을 이용하여 생성합니다
-
-* 하이브 컨테이너로 접속합니다
-```bash
-# terminal
-docker-compose exec hive-server bash
-```
-<br>
 
 * 원본 파일의 스키마를 확인 및 파일을 하둡 클러스터에 업로드합니다
 ```
@@ -935,27 +922,22 @@ select dt, count(1) as cnt from purchase group by dt;
 
 > 마찬가지로 유사한 방식으로 적재 및 테이블 생성을 수행합니다
 
-* 하이브 컨테이너로 접속합니다
-```bash
-# terminal
-docker-compose exec hive-server bash
-```
-
 * 파일 업로드 및 스키마 확인, 경로 생성 및 업로드
-
 ```bash
 # docker
 hadoop fs -mkdir -p /user/lgde/user/dt=20201025
 hadoop fs -mkdir -p /user/lgde/user/dt=20201026
 ```
-```sql
+```bash
+# docker
 hadoop fs -put /tmp/source/user/20201025/* /user/lgde/user/dt=20201025
 hadoop fs -put /tmp/source/user/20201026/* /user/lgde/user/dt=20201026
 ```
-```sql
+```bash
+# docker
 hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema file:///tmp/source/user/20201025/2e3738ff-5e2b-4bec-bdf4-278fe21daa3b.parquet
 ```
-```text
+```sql
 message user_20201025 {
   optional int32 u_id;
   optional binary u_name (UTF8);
