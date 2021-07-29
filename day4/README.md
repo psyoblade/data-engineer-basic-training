@@ -107,7 +107,7 @@ Driver: Hive JDBC (version 2.3.2)
 Transaction isolation: TRANSACTION_REPEATABLE_READ
 ```
 
-[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+[목차로 돌아가기](#4일차-데이터-엔지니어링-적재)
 
 <br>
 <br>
@@ -248,7 +248,7 @@ alter database testdb set owner role admin;
 describe database extended testdb;
 ```
 
-[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+[목차로 돌아가기](#4일차-데이터-엔지니어링-적재)
 
 <br>
 <br>
@@ -499,7 +499,7 @@ select count(1) from renamed_emp;
 
 </details>
 
-[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+[목차로 돌아가기](#4일차-데이터-엔지니어링-적재)
 
 <br>
 <br>
@@ -830,7 +830,7 @@ select * from imdb_recover;
 
 </details>
 
-[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+[목차로 돌아가기](#4일차-데이터-엔지니어링-적재)
 
 <br>
 <br>
@@ -1010,7 +1010,7 @@ select dt, count(1) as cnt from `user` group by dt;
 <br>
 
 
-[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+[목차로 돌아가기](#4일차-데이터-엔지니어링-적재)
 
 <br>
 <br>
