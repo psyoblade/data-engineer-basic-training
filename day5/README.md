@@ -20,7 +20,7 @@
 
 - 정답
   * [1. :green_book:/:blue_book: 시작 노트북](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/data-engineer-training-course.html)
-  * [1. :green_book:/:blue_book: 정답 노트북](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/data-engineer-training-course-answer.html)
+  * [2. :green_book:/:blue_book: 정답 노트북](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/data-engineer-training-course-answer.html)
 
 <br>
 
