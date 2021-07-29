@@ -863,7 +863,7 @@ hadoop fs -put /tmp/source/purchase/20201026/* /user/lgde/purchase/dt=20201026
 ### 2-4-2. 고객 및 매출 데이터의 파케이 스키마를 확인합니다
 ```bash
 # docker
-hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema file:///tmp/source/user/20201025/2e3738ff-5e2b-4bec-bdf4-278fe21daa3b.parquet
+hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema /user/lgde//user/20201025/2e3738ff-5e2b-4bec-bdf4-278fe21daa3b.parquet
 ```
 ```sql
 message user_20201025 {
