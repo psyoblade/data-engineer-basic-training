@@ -1013,11 +1013,6 @@ dimension.printSchema()
 <br>
 
 #### 최종 결과가 아래와 일치하는 지 확인합니다
-  - DAU:             5
-  - PU:              4
-  - DR:     12,200,000
-  - ARPU:  2,440,000.0
-  - ARPPU: 3,050,000.0
 ```python
 print("+------------------+")
 print("|              DAU |")
@@ -1045,6 +1040,18 @@ print("+------------------+")
 print("|       {} |".format(v_dr / v_pu))
 print("+------------------+")
 ```
+
+<details><summary> 정답확인</summary>
+
+```python
+DAU: 5
+PU: 4
+DR: 12,200,000
+ARPU: 2,440,000.0
+ARPPU: 3,050,000.0
+```
+
+</details>
 
 [목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
 <br>
