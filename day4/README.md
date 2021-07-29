@@ -988,7 +988,7 @@ alter table `user` add if not exists partition (dt = '20201026') location 'hdfs:
 ```sql
 # beeline>
 show partitions purchase;
-show partitions user;
+show partitions `user`;
 ```
 <br>
 
@@ -996,12 +996,12 @@ show partitions user;
 ```sql
 # beeline>
 select * from `user` where dt = '20201025' limit 3;
-select * from `purchase` where dt = '20201025' limit 3;
+select * from purchase where dt = '20201025' limit 3;
 ```
 
 * 고객 및 매출 집계 조회를 합니다 
 ```sql
-select dt, count(1) as cnt from `purchase` group by dt;
+select dt, count(1) as cnt from purchase group by dt;
 select dt, count(1) as cnt from `user` group by dt;
 ```
 <br>
