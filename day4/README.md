@@ -82,8 +82,8 @@ docker-compose exec hive-server bash
 * 도커 컨테이너에서 beeline 명령을 수행하면 프롬프트가 `beeline>` 으로 변경되고, SQL 명령의 수행이 가능합니다
 ```bash
 # docker
-echo "하이브 서버가 기동 되는데에 시간이 좀 걸립니다... 30초 후에 접속합니다"
-sleep 30 
+echo "하이브 서버가 기동 되는데에 시간이 좀 걸립니다... 15초 후에 접속합니다"
+sleep 15 
 
 beeline
 ```
@@ -325,15 +325,16 @@ describe database extended testdb;
 * 실습을 위한 고객 테이블 (employee)을 생성합니다
 ```sql
 # beeline> 
+use testdb;
 create table if not exists employee (
     emp_id string comment 'employee id',
     emp_name string comment 'employee name', 
     emp_salary bigint comment 'employee salary'
-  )
-  comment 'test employee table' 
-  row format delimited 
-  fields terminated by ','
-  stored as textfile;
+)
+comment 'test employee table' 
+row format delimited 
+fields terminated by ','
+stored as textfile;
 ```
 <br>
 
@@ -413,14 +414,14 @@ show tables;
 ```sql
 # beeline> 
 create table if not exists employee (
-        emp_id string comment 'employee id',
-        emp_name string comment 'employee name', 
-        emp_salary bigint comment 'employee salary'
-    )
-    comment 'test employee table' 
-    row format delimited 
-    fields terminated by ','
-    stored as textfile;
+    emp_id string comment 'employee id',
+    emp_name string comment 'employee name', 
+    emp_salary bigint comment 'employee salary'
+)
+comment 'test employee table' 
+row format delimited 
+fields terminated by ','
+stored as textfile;
 ```
 
 <details><summary>[실습] 테이블 이름을 `employee` 에서 `renamed_emp` 로 변경합니다 </summary>
@@ -448,11 +449,11 @@ show tables;
 create table if not exists employee (
     emp_id string comment 'employee id',
     emp_salary bigint comment 'employee salary'
-  )
-  comment 'test employee table' 
-  row format delimited 
-  fields terminated by ','
-  stored as textfile;
+)
+comment 'test employee table' 
+row format delimited 
+fields terminated by ','
+stored as textfile;
 ```
 
 <details><summary>[실습] 코멘트 'employee name' 을 가진 고객 이름(`emp_name` string) 컬럼을 추가하세요 </summary>
