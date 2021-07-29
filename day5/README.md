@@ -18,7 +18,7 @@
   * [8. :green_book: 질문 및 컨테이너 종료](#8-질문-및-컨테이너-종료)
 
 - 정답
-  * [1. 지표 노트북](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/data-engineer-training-course.html)
+  * [1. :green_book:/:blue_book:지표 노트북](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/data-engineer-training-course.html)
 
 <br>
 
