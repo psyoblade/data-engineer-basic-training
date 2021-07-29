@@ -2,6 +2,7 @@
 
 > 가상의 웹 쇼핑몰 LGDE.com 주요 지표를 생성하기 위한, 접속정보, 매출 및 고객정보 등의 데이터를 수집하여 기본 지표를 생성합니다
 
+
 - 범례
   * :green_book: 데이터 엔지니어 기본 과정
   * :blue_book: 데이터 엔지니어 중급 과정
@@ -46,6 +47,10 @@ docker ps -a
 docker rm -f `docker ps -aq`
 ```
 > 다시 `docker ps -a` 명령으로 결과가 없다면 모든 컨테이너가 종료되었다고 보시면 됩니다
+<br>
+
+[목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
+<br>
 <br>
 
 
@@ -268,6 +273,10 @@ find notebooks -name '*.parquet'
 ```
 <br>
 
+[목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
+<br>
+<br>
+
 
 ## 3. :green_book: 파일 수집
 
@@ -421,6 +430,10 @@ find notebooks -name '*.json'
 ```
 <br>
 
+[목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
+<br>
+<br>
+
 
 ## 4. :green_book: 노트북 컨테이너 기동
 
@@ -442,6 +455,10 @@ docker-compose logs notebook | grep 8888
 * `Launcher` 탭에서 `Notebook - Python 3` 를 선택하고
 * 탭에서 `Rename Notebook...` 메뉴를 통해 이름을 변경할 수 있습니다
 
+<br>
+
+[목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
+<br>
 <br>
 
 
@@ -596,6 +613,10 @@ spark.sql("describe access")
 </details>
 <br>
 
+[목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
+<br>
+<br>
+
 
 ## 6. :green_book: 기본 지표 생성
 
@@ -706,6 +727,10 @@ v_dr = dr.collect()[0]["DR"]
 > "ARPPU : 3050000.0" 가 나오면 정답입니다
 
 </details>
+<br>
+
+[목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
+<br>
 <br>
 
 
@@ -969,6 +994,10 @@ dimension.printSchema()
 > 디멘젼 테이블을 정상적으로 읽어왔고, 동일한 스키마와 데이터가 출력되었다면 정답입니다
 
 </details>
+<br>
+
+[목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
+<br>
 <br>
 
 
