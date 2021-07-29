@@ -856,7 +856,7 @@ docker-compose exec hive-server bash
 
 * 원본 파일의 스키마를 확인 및 파일을 하둡 클러스터에 업로드합니다
 ```
-hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema file:///tmp/source/user/20201025/2e3738ff-5e2b-4bec-bdf4-278fe21daa3b.parquet
+hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema file:///tmp/source/purchase/20201025/38dc1f5b-d49d-436d-a84a-4e5c2a4022a5.parquet
 ```
 ```text
 message purchase_20201025 {
@@ -928,6 +928,8 @@ select * from purchase where dt = '20201025';
 # beeline>
 select dt, count(1) as cnt from purchase group by dt;
 ```
+<br>
+
 
 ### 2-4-2. 고객 테이블의 외부 제공을 위해 외부 테이블로 생성합니다
 
@@ -951,7 +953,7 @@ hadoop fs -put /tmp/source/user/20201025/* /user/lgde/user/dt=20201025
 hadoop fs -put /tmp/source/user/20201026/* /user/lgde/user/dt=20201026
 ```
 ```sql
-hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema file:///tmp/source/purchase/20201025/38dc1f5b-d49d-436d-a84a-4e5c2a4022a5.parquet
+hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema file:///tmp/source/user/20201025/2e3738ff-5e2b-4bec-bdf4-278fe21daa3b.parquet
 ```
 ```text
 message user_20201025 {
@@ -977,6 +979,7 @@ beeline
 #### 하이브 테이블 `user` 상세정보
 
 * Parquet 포맷과 Hive 테이블 데이터 타입
+
 | Parquet | Hive | Description |
 | - | - | - |
 | int32 | int | 32비트 정수 |
