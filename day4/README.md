@@ -837,102 +837,30 @@ select * from imdb_recover;
 
 > 하이브의 경우 local 데이터를 하둡에 load 하여 Managed 테이블을 생성할 수도 있지만, 대게 외부 데이터 수집 및 적재의 경우 External 테이블로 생성합니다
 
-### 2-4-1. 매출 테이블의 외부 제공을 위해 외부 테이블로 생성합니다
-
-> 로컬 경로에 수집되었던 테이블 parquet 파일이 존재하므로, 해당 파일을 이용하여 생성합니다
-
-* 원본 파일의 스키마를 확인 및 파일을 하둡 클러스터에 업로드합니다
-```
-hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema file:///tmp/source/purchase/20201025/38dc1f5b-d49d-436d-a84a-4e5c2a4022a5.parquet
-```
-```text
-message purchase_20201025 {
-  optional binary p_time (UTF8);
-  optional int32 p_uid;
-  optional int32 p_id;
-  optional binary p_name (UTF8);
-  optional int32 p_amount;
-}
-```
-<br>
-
-* 경로 확인 및 생성
-```bash
-hadoop fs -mkdir -p /user/lgde/purchase/dt=20201025
-hadoop fs -mkdir -p /user/lgde/purchase/dt=20201026
-```
-```sql
-hadoop fs -put /tmp/source/purchase/20201025/* /user/lgde/purchase/dt=20201025
-hadoop fs -put /tmp/source/purchase/20201026/* /user/lgde/purchase/dt=20201026
-```
-
-* 하이브 명령 수행을 위해 beeline 을 실행합니다
-```bash
-beeline
-```
-* 콘솔로 접속하여 데이터베이스 및 테이블을 생성합니다 
-```bash
-# beeline>
-!connect jdbc:hive2://localhost:10000 scott tiger
-```
-```sql
-# beeline>
-create database if not exists testdb comment 'test database' 
-  location '/user/lgde/warehouse/testdb'
-  with dbproperties ('createdBy' = 'lgde');
-```
-```sql
-use testdb;
-
-create external table if not exists purchase (
-  p_time string
-  , p_uid int
-  , p_id int
-  , p_name string
-  , p_amount int
-) partitioned by (dt string) 
-row format delimited 
-stored as parquet 
-location 'hdfs:///user/lgde/purchase';
-```
-```sql
-alter table purchase add if not exists partition (dt = '20201025') location 'hdfs:///user/lgde/purchase/dt=20201025';
-alter table purchase add if not exists partition (dt = '20201026') location 'hdfs:///user/lgde/purchase/dt=20201026';
-```
-<br>
+### External Table 의 특징 (vs. Managed Table)
+* 데이터 저장 경로가 /user/hive/warehouse 가 아니라 임의의 hdfs 경로
+* hive drop 명령 수행 시에도 경로가 삭제되지 않음
 
 
-* 생성된 하이브 테이블을 조회합니다
-```sql
-# beeline>
-show partitions purchase;
-select * from purchase where dt = '20201025';
-```
-<br>
+### 2-4-1. 외부 저장소 테이블 실습을 위한 파일 업로드
 
-* 일자별 빈도를 조회합니다
-```sql
-# beeline>
-select dt, count(1) as cnt from purchase group by dt;
-```
-<br>
+> 하이브 외부 테이블의 실습을 위해서는 임의의 저장소에 파케이 파일이 존재해야 합니다. 하여 스쿱을 통해 적재된 데이터 혹은 스파크를 통해 변환된 데이터가 하둡에 적재되었다고 가정하기 위해 이미 기 수집된 데이터를 /tmp/source/{user, purchase} 경로에 마운트되어 있습니다
 
-
-### 2-4-2. 고객 테이블의 외부 제공을 위해 외부 테이블로 생성합니다
-
-> 마찬가지로 유사한 방식으로 적재 및 테이블 생성을 수행합니다
-
-* 파일 업로드 및 스키마 확인, 경로 생성 및 업로드
+* 고객 및 매출 데이터를 클러스터의 임의의 경로를 생성 및 업로드합니다
 ```bash
 # docker
 hadoop fs -mkdir -p /user/lgde/user/dt=20201025
 hadoop fs -mkdir -p /user/lgde/user/dt=20201026
-```
-```bash
-# docker
+hadoop fs -mkdir -p /user/lgde/purchase/dt=20201025
+hadoop fs -mkdir -p /user/lgde/purchase/dt=20201026
 hadoop fs -put /tmp/source/user/20201025/* /user/lgde/user/dt=20201025
 hadoop fs -put /tmp/source/user/20201026/* /user/lgde/user/dt=20201026
+hadoop fs -put /tmp/source/purchase/20201025/* /user/lgde/purchase/dt=20201025
+hadoop fs -put /tmp/source/purchase/20201026/* /user/lgde/purchase/dt=20201026
 ```
+<br>
+
+### 2-4-2. 고객 및 매출 데이터의 파케이 스키마를 확인합니다
 ```bash
 # docker
 hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema file:///tmp/source/user/20201025/2e3738ff-5e2b-4bec-bdf4-278fe21daa3b.parquet
@@ -945,22 +873,60 @@ message user_20201025 {
   optional int32 u_signup;
 }
 ```
+```bash
+# docker
+hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema /user/lgde/purchase/dt=20201025/38dc1f5b-d49d-436d-a84a-4e5c2a4022a5.parquet
+```
+```sql
+message purchase_20201025 {
+  optional binary p_time (UTF8);
+  optional int32 p_uid;
+  optional int32 p_id;
+  optional binary p_name (UTF8);
+  optional int32 p_amount;
+}
+```
 <br>
 
 
-* 하이브 명령 수행을 위해 beeline 을 실행합니다
-```bash
-beeline
-```
-* 하이브 테이블 생성 및 조회
-```bash
+### 2-4-3. Beeline 접속 후, `testdb` 데이터베이스를 생성합니다
+
+* 데이터베이스가 존재하지 않는다면 생성합니다
+```sql
 # beeline>
-!connect jdbc:hive2://localhost:10000 scott tiger
+create database if not exists testdb comment 'test database' 
+  location '/user/lgde/warehouse/testdb'
+  with dbproperties ('createdBy' = 'lgde');
 ```
+<br>
 
-#### 하이브 테이블 `user` 상세정보
+### 2-4-4. 매출 내역 테이블 `purchase` 를 생성합니다
 
-* Parquet 포맷과 Hive 테이블 데이터 타입
+```sql
+# beeline>
+use testdb;
+create external table if not exists purchase (
+  p_time string
+  , p_uid int
+  , p_id int
+  , p_name string
+  , p_amount int
+) partitioned by (dt string) 
+row format delimited 
+stored as parquet 
+location 'hdfs:///user/lgde/purchase';
+```
+```sql
+# beeline>
+alter table purchase add if not exists partition (dt = '20201025') location 'hdfs:///user/lgde/purchase/dt=20201025';
+alter table purchase add if not exists partition (dt = '20201026') location 'hdfs:///user/lgde/purchase/dt=20201026';
+```
+<br>
+
+
+### 2-4-5. 고객 테이블 `user` 를 생성합니다
+
+#### Parquet 포맷과 Hive 테이블 데이터 타입
 
 | Parquet | Hive | Description |
 | - | - | - |
@@ -970,7 +936,7 @@ beeline
 | double | double | 실수형 |
 | binary | string | 문자열 |
 
-* 파케이 파일 스키마
+#### 하이브 테이블 `user` 상세정보
 ```sql
   optional int32 u_id;
   optional binary u_name (UTF8);
@@ -1015,12 +981,27 @@ alter table `user` add if not exists partition (dt = '20201026') location 'hdfs:
 </details>
 <br>
 
-* 생성된 결과를 확인합니다
+
+### 2-4-6. 생성된 하이브 테이블을 조회합니다
+
+* 파티션이 제대로 저장 되었는지 확인합니다
 ```sql
 # beeline>
-select * from `user` where dt = '20201025';
+show partitions purchase;
+show partitions user;
 ```
+<br>
+
+* 일자별 빈도를 조회합니다
 ```sql
+# beeline>
+select * from `user` where dt = '20201025' limit 3;
+select * from `purchase` where dt = '20201025' limit 3;
+```
+
+* 고객 및 매출 집계 조회를 합니다 
+```sql
+select dt, count(1) as cnt from `purchase` group by dt;
 select dt, count(1) as cnt from `user` group by dt;
 ```
 <br>
