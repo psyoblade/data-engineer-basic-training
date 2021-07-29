@@ -985,6 +985,8 @@ beeline
   - `partition_value` : `hdfs:///user/lgde/user/dt=yyyyMMdd`
 
 <details><summary> :green_square: 9. [기본] 조건에 맞는 하이브 테이블을 생성하세요 </summary>
+
+* 아래와 같은 구문을 통해 테이블을 생성하면 정답입니다
 ```sql
 # beeline>
 drop table if exists `user`;
@@ -999,13 +1001,17 @@ row format delimited
 stored as parquet 
 location 'hdfs:///user/lgde/user';
 ```
+
 </details>
 
 <details><summary> :green_square: 10. [기본] `user` 테이블의 `20201025~20201026` 파티션을 추가하세요</summary>
+
+* 아래와 같은 구문을 통해 파티션이 추가되었다면 정답입니다
 ```sql
 alter table `user` add if not exists partition (dt = '20201025') location 'hdfs:///user/lgde/user/dt=20201025';
 alter table `user` add if not exists partition (dt = '20201026') location 'hdfs:///user/lgde/user/dt=20201026';
 ```
+
 </details>
 <br>
 
