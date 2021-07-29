@@ -207,7 +207,7 @@ ask sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --passw
 | age | INT | 30 | 나이 |
 | gender | VARCHAR(10) | 남 |
 
-<details><summary>[실습] 위에서 명시한 student 테이블을 sqoop eval 명령어를 통해 testdb 에 생성하세요 </summary>
+<details><summary>[실습] 위에서 명시한 student 테이블을 mysql 서버에 접속하여 명령어를 통해 testdb 에 생성하세요 </summary>
 
 ```bash
 # terminal
@@ -263,7 +263,7 @@ DESC student;
 ,('우소은','Woo.Soeun@lgde.com',30,'여')
 ```
 
-<details><summary>[실습] sqoop eval 명령어를 통해 student 테이블에 입력하세요 </summary>
+<details><summary>[실습] mysql 서버에 접속하여 insert into ... values 명령을 통해 student 테이블에 입력하세요 </summary>
 
 ```sql
 # mysql>
