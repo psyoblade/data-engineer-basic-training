@@ -422,7 +422,7 @@ fields terminated by ','
 stored as textfile;
 ```
 
-<details><summary> :green_square: 1. [기본] 테이블 이름을 `employee` 에서 `renamed_emp` 로 변경합니다 </summary>
+<details><summary> :green_book: 1. [기본] 테이블 이름을 `employee` 에서 `renamed_emp` 로 변경합니다 </summary>
 
 ```sql
 # beeline>
@@ -454,7 +454,7 @@ fields terminated by ','
 stored as textfile;
 ```
 
-<details><summary> :green_square: 2. [기본] 코멘트 'employee name' 을 가진 고객 이름(`emp_name` string) 컬럼을 추가하세요 </summary>
+<details><summary> :green_book: 2. [기본] 코멘트 'employee name' 을 가진 고객 이름(`emp_name` string) 컬럼을 추가하세요 </summary>
 
 ```sql
 alter table employee add columns (
@@ -485,7 +485,7 @@ insert into renamed_emp values (1, 'suhyuk', 1000);
 select * from renamed_emp;
 ```
 
-<details><summary> :green_square: 3. [기본] TRUNCATE 구문으로 `renamed_emp` 테이블의 데이터를 삭제해 보세요 </summary>
+<details><summary> :green_book: 3. [기본] TRUNCATE 구문으로 `renamed_emp` 테이블의 데이터를 삭제해 보세요 </summary>
 
 ```sql
 # beeline>
@@ -578,7 +578,7 @@ describe formatted imdb_movies;
 select genre, title from imdb_movies order by title asc;
 ```
 
-<details><summary> :green_square: 4. [기본] 랭킹(rank) 오름차순(ASC)으로 장르(genre), 제목(title) 정보를 상위 10개만 출력하세요 </summary>
+<details><summary> :green_book: 4. [기본] 랭킹(rank) 오름차순(ASC)으로 장르(genre), 제목(title) 정보를 상위 10개만 출력하세요 </summary>
 
 ```bash
 # beeline>
@@ -611,7 +611,7 @@ insert into table imdb_title select title from imdb_movies limit 5;
 select title from imdb_title;
 ```
 
-<details><summary> :blue_square: 5. [중급] 제목(title) 오름차순으로 5건, 내림차순으로 5건 각각 `imdb_title` 테이블에 입력하세요 </summary>
+<details><summary> :blue_book: 5. [중급] 제목(title) 오름차순으로 5건, 내림차순으로 5건 각각 `imdb_title` 테이블에 입력하세요 </summary>
 
 ```sql
 insert into table imdb_title select title from imdb_movies order by title asc limit 5;
@@ -667,7 +667,7 @@ insert into imdb_title values ('1 my first hive table record'), ('2 my second re
 select title from imdb_title where title like '%record%';
 ```
 
-<details><summary> :blue_square: 6. [중급] `imdb_movies` 테이블로부터 OVERWRITE 옵션으로 모든 제목(title)을 `imdb_title` 테이블에 입력하세요 </summary>
+<details><summary> :blue_book: 6. [중급] `imdb_movies` 테이블로부터 OVERWRITE 옵션으로 모든 제목(title)을 `imdb_title` 테이블에 입력하세요 </summary>
 
 ```sql
 insert overwrite table imdb_title select title from imdb_movies;
@@ -716,7 +716,7 @@ insert into table imdb_orc values (1, 'psyoblade'), (2, 'psyoblade suhyuk'), (3,
 */
 ```
 
-<details><summary> :blue_square: 7. [중급] WHERE 절에 랭크(rank)가 1인 레코드를 삭제 후, 조회해 보세요 </summary>
+<details><summary> :blue_book: 7. [중급] WHERE 절에 랭크(rank)가 1인 레코드를 삭제 후, 조회해 보세요 </summary>
 
 ```sql
 delete from imdb_orc where rank = 2;
@@ -796,7 +796,7 @@ import table imdb_orc_imported from '/user/ubuntu/archive/imdb_orc';
 select * from imdb_orc_imported;
 ```
 
-<details><summary> :green_square: 8. [기본] `imdb_title` 테이블을 `/user/ubuntu/archive/imdb_title` 경로로 백업후, `imdb_recover` 테이블로 복원해 보세요 </summary>
+<details><summary> :green_book: 8. [기본] `imdb_title` 테이블을 `/user/ubuntu/archive/imdb_title` 경로로 백업후, `imdb_recover` 테이블로 복원해 보세요 </summary>
 
 ```sql
 export table imdb_title to '/user/ubuntu/archive/imdb_title';
@@ -950,7 +950,7 @@ alter table purchase add if not exists partition (dt = '20201026') location 'hdf
   - `partition_key` : `dt string`
   - `partition_value` : `hdfs:///user/lgde/user/dt=yyyyMMdd`
 
-<details><summary> :green_square: 9. [기본] 조건에 맞는 하이브 테이블을 생성하세요 </summary>
+<details><summary> :green_book: 9. [기본] 조건에 맞는 하이브 테이블을 생성하세요 </summary>
 
 * 아래와 같은 구문을 통해 테이블을 생성하면 정답입니다
 ```sql
@@ -970,7 +970,7 @@ location 'hdfs:///user/lgde/user';
 
 </details>
 
-<details><summary> :green_square: 10. [기본] `user` 테이블의 `20201025~20201026` 파티션을 추가하세요</summary>
+<details><summary> :green_book: 10. [기본] `user` 테이블의 `20201025~20201026` 파티션을 추가하세요</summary>
 
 * 아래와 같은 구문을 통해 파티션이 추가되었다면 정답입니다
 ```sql
