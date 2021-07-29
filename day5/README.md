@@ -3,19 +3,22 @@
 > 가상의 웹 쇼핑몰 LGDE.com 주요 지표를 생성하기 위한, 접속정보, 매출 및 고객정보 등의 데이터를 수집하여 기본 지표를 생성합니다
 
 - 범례
-  * :green_book: - 데이터 엔지니어 기본 과정
-  * :blue_book: - 데이터 엔지니어 중급 과정
-  * :orange_book: - 데이터 엔지니어 고급 과정
+  * :green_book: 데이터 엔지니어 기본 과정
+  * :blue_book: 데이터 엔지니어 중급 과정
+  * :orange_book: 데이터 엔지니어 고급 과정
 
 - 목차
   * [1. :green_book: 최신버전 업데이트](#1-최신버전-업데이트)
-  * [2. :green_book: 테이블 수집 실습](#2-테이블-수집-실습)
-  * [3. :green_book: 파일 수집 실습](#3-파일-수집-실습)
+  * [2. :green_book: 테이블 수집](#2-테이블-수집)
+  * [3. :green_book: 파일 수집](#3-파일-수집)
   * [4. :green_book: 노트북 컨테이너 기동](#4-노트북-컨테이너-기동)
   * [5. :green_book: 수집된 데이터 탐색](#5-수집된-데이터-탐색)
   * [6. :green_book: 기본 지표 생성](#6-기본-지표-생성)
   * [7. :blue_book: 고급 지표 생성](#7-고급-지표-생성)
   * [8. :green_book: 질문 및 컨테이너 종료](#8-질문-및-컨테이너-종료)
+
+- 정답
+  * [1. 지표 노트북](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/data-engineer-training-course.html)
 
 <br>
 
@@ -46,7 +49,7 @@ docker rm -f `docker ps -aq`
 <br>
 
 
-## 2. :green_book: 테이블 수집 실습
+## 2. :green_book: 테이블 수집
 
 > 지표 생성에 필요한 고객 및 매출 테이블을 아파치 스쿱을 통해 수집합니다. <br>
 
@@ -266,7 +269,7 @@ find notebooks -name '*.parquet'
 <br>
 
 
-## 3. :green_book: 파일 수집 실습
+## 3. :green_book: 파일 수집
 
 ### 3-1. *원격 터미널에 접속* 후, *플루언트디 컨테이너에 접속*합니다
 
