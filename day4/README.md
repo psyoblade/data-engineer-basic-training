@@ -422,7 +422,7 @@ fields terminated by ','
 stored as textfile;
 ```
 
-<details><summary> 1. :green_square: [기본] 테이블 이름을 `employee` 에서 `renamed_emp` 로 변경합니다 </summary>
+<details><summary> :green_square: 1. [기본] 테이블 이름을 `employee` 에서 `renamed_emp` 로 변경합니다 </summary>
 
 ```sql
 # beeline>
@@ -454,7 +454,7 @@ fields terminated by ','
 stored as textfile;
 ```
 
-<details><summary>[실습] 코멘트 'employee name' 을 가진 고객 이름(`emp_name` string) 컬럼을 추가하세요 </summary>
+<details><summary> :green_square: 2. [기본] 코멘트 'employee name' 을 가진 고객 이름(`emp_name` string) 컬럼을 추가하세요 </summary>
 
 ```sql
 alter table employee add columns (
@@ -485,7 +485,7 @@ insert into renamed_emp values (1, 'suhyuk', 1000);
 select * from renamed_emp;
 ```
 
-<details><summary>[실습] TRUNCATE 구문으로 `renamed_emp` 테이블의 데이터를 삭제해 보세요 </summary>
+<details><summary> :green_square: 3. [기본] TRUNCATE 구문으로 `renamed_emp` 테이블의 데이터를 삭제해 보세요 </summary>
 
 ```sql
 # beeline>
@@ -541,16 +541,13 @@ create table imdb_movies (
 load data local inpath '/opt/hive/examples/imdb.tsv' into table imdb_movies;
 ```
 
-<details><summary>[실습] 별도 터미널을 통해 하둡 명령어로 적재된 파일을 확인해 보세요 </summary>
+* 별도 터미널을 통해 하둡 명령어로 적재된 파일을 확인합니다
 
 ```bash
 # terminal
 docker-compose exec hive-server bash
 hadoop fs -ls /user/hive/warehouse/testdb/
 ```
-> 적재된 테이블이 출력되면 정답입니다
-
-</details>
 <br>
 
 
@@ -582,7 +579,7 @@ describe formatted imdb_movies;
 select genre, title from imdb_movies order by title asc;
 ```
 
-<details><summary>[실습] 랭킹(rank) 오름차순(ASC)으로 장르(genre), 제목(title) 정보를 상위 10개만 출력하세요 </summary>
+<details><summary> :green_square: 4. [기본] 랭킹(rank) 오름차순(ASC)으로 장르(genre), 제목(title) 정보를 상위 10개만 출력하세요 </summary>
 
 ```bash
 # beeline>
@@ -615,7 +612,7 @@ insert into table imdb_title select title from imdb_movies limit 5;
 select title from imdb_title;
 ```
 
-<details><summary>[실습] 제목(title) 오름차순으로 5건, 내림차순으로 5건 각각 `imdb_title` 테이블에 입력하세요  </summary>
+<details><summary> :blue_square: 5. [중급] 제목(title) 오름차순으로 5건, 내림차순으로 5건 각각 `imdb_title` 테이블에 입력하세요 </summary>
 
 ```sql
 insert into table imdb_title select title from imdb_movies order by title asc limit 5;
@@ -671,7 +668,7 @@ insert into imdb_title values ('1 my first hive table record'), ('2 my second re
 select title from imdb_title where title like '%record%';
 ```
 
-<details><summary>[실습] `imdb_movies` 테이블로부터 OVERWRITE 옵션으로 모든 제목(title)을 `imdb_title` 테이블에 입력하세요 </summary>
+<details><summary> :blue_square: 6. [중급] `imdb_movies` 테이블로부터 OVERWRITE 옵션으로 모든 제목(title)을 `imdb_title` 테이블에 입력하세요 </summary>
 
 ```sql
 insert overwrite table imdb_title select title from imdb_movies;
@@ -720,7 +717,7 @@ insert into table imdb_orc values (1, 'psyoblade'), (2, 'psyoblade suhyuk'), (3,
 */
 ```
 
-<details><summary>[실습] WHERE 절에 랭크(rank)가 1인 레코드를 삭제 후, 조회해 보세요 </summary>
+<details><summary> :blue_square: 7. [중급] WHERE 절에 랭크(rank)가 1인 레코드를 삭제 후, 조회해 보세요 </summary>
 
 ```sql
 delete from imdb_orc where rank = 2;
@@ -768,7 +765,7 @@ select * from imdb_orc;
 export table imdb_orc to '/user/ubuntu/archive/imdb_orc';
 ```
 
-<details><summary>[실습] 별도의 터미널을 통해 익스포트 된 결과를 확인합니다 </summary>
+* 별도의 터미널을 통해 익스포트 된 결과를 확인합니다
 
 ```bash
 # terminal
@@ -783,8 +780,6 @@ hadoop fs -ls /user/ubuntu/archive/imdb_orc
 # -rwxr-xr-x   3 root supergroup       1244 2020-08-23 14:17 /user/ubuntu/archive/imdb_orc/_metadata
 # drwxr-xr-x   - root supergroup          0 2020-08-23 14:17 /user/ubuntu/archive/imdb_orc/data
 ```
-
-</details>
 <br>
 
 
@@ -807,7 +802,7 @@ import table imdb_orc_imported from '/user/ubuntu/archive/imdb_orc';
 select * from imdb_orc_imported;
 ```
 
-<details><summary>[실습] `imdb_title` 테이블을 `/user/ubuntu/archive/imdb_title` 경로로 백업후, `imdb_recover` 테이블로 복원해 보세요 </summary>
+<details><summary> :green_square: 8. [기본] `imdb_title` 테이블을 `/user/ubuntu/archive/imdb_title` 경로로 백업후, `imdb_recover` 테이블로 복원해 보세요 </summary>
 
 ```sql
 export table imdb_title to '/user/ubuntu/archive/imdb_title';
