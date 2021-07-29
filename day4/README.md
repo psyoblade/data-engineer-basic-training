@@ -374,14 +374,12 @@ show tables 'emp*';
 # beeline> 
 describe employee;
 ```
-<details><summary> [실습] EXTENDED 및 FORMATTED 명령을 통해 테이블 정보를 조회합니다 </summary>
+* EXTENDED 및 FORMATTED 명령을 통해 테이블 정보를 조회합니다
 
 ```sql
 describe extended employee;
 describe formatted employee;
 ```
-
-</details>
 <br>
 
 
@@ -424,7 +422,7 @@ fields terminated by ','
 stored as textfile;
 ```
 
-<details><summary>[실습] 테이블 이름을 `employee` 에서 `renamed_emp` 로 변경합니다 </summary>
+<details><summary> 1. :green_square: [기본] 테이블 이름을 `employee` 에서 `renamed_emp` 로 변경합니다 </summary>
 
 ```sql
 # beeline>
