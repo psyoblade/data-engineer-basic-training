@@ -59,7 +59,7 @@ docker-compose ps
 
 ```bash
 # terminal
-docker-compose cp data/imdb.tsv hive-server:/opt/hive/examples/imdb.tsv
+docker cp data/imdb.tsv hive-server:/opt/hive/examples/imdb.tsv
 docker-compose exec hive-server ls /opt/hive/examples
 ```
 
