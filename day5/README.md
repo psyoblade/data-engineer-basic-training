@@ -41,7 +41,7 @@ docker rm -f `docker ps -aq`
 <br>
 
 
-## 2. 테이블 수집 실습
+## 2. :green_square: 테이블 수집 실습
 
 > 지표 생성에 필요한 고객 및 매출 테이블을 아파치 스쿱을 통해 수집합니다. <br>
 
@@ -72,33 +72,14 @@ docker-compose exec sqoop bash
 <br>
 
 
-### 2-2. 실습명령어 검증을 위한 ask 를 리뷰하고 실습합니다
+### 2-2. 서버가 정상 기동 되었는지 확인합니다
 
-> ask 명령어는 아래와 같이 전달받은 명령을 실행하는 스크립트입니다
-
-```bash
-#!/bin/bash
-while true; do
-    echo
-    echo "$ $@"
-    echo
-    read -p "위 명령을 실행 하시겠습니까? [y/n] " yn
-    case $yn in
-        [Yy]* ) "$@"; break;;
-        [Nn]* ) exit;;
-        * ) echo "[y/n] 을 입력해 주세요.";;
-    esac
-done
-```
 ```bash
 # docker
 ask echo hello world
 ```
-<details><summary> 정답확인</summary>
-
 > "hello world" 가 출력되면 정상입니다
 
-</details>
 <br>
 
 
@@ -280,7 +261,7 @@ find notebooks -name '*.parquet'
 <br>
 
 
-## 3. 파일 수집 실습
+## 3. :green_square: 파일 수집 실습
 
 ### 3-1. *원격 터미널에 접속* 후, *플루언트디 컨테이너에 접속*합니다
 
@@ -433,7 +414,7 @@ find notebooks -name '*.json'
 <br>
 
 
-## 4. 노트북 컨테이너 기동
+## 4. :green_square: 노트북 컨테이너 기동
 
 > 본 장에서 수집한 데이터를 활용하여 데이터 변환 및 지표 생성작업을 위하여 주피터 노트북을 열어둡니다
 
@@ -447,7 +428,7 @@ docker-compose logs notebook | grep 8888
 > 출력된  URL을 복사하여 `127.0.0.1:8888` 대신 개인 `<hostname>.aiffelbiz.co.kr:8888` 으로 변경하여 크롬 브라우저를 통해 접속하면, jupyter notebook lab 이 열리고 work 폴더가 보이면 정상기동 된 것입니다
 
 #### 4-1-2. 기 생성된 실습용 노트북을 엽니다
-* 좌측 메뉴에서 "data-engineer-lgde-day1.ipynb" 을 더블클릭합니다
+* 좌측 메뉴에서 "data-engineer-lgde-day5.ipynb" 을 더블클릭합니다
 
 #### 4-1-3. 신규로 노트북을 만들고 싶은 경우
 * `Launcher` 탭에서 `Notebook - Python 3` 를 선택하고
@@ -456,7 +437,7 @@ docker-compose logs notebook | grep 8888
 <br>
 
 
-## 5. 수집된 데이터 탐색
+## 5. :green_square: 수집된 데이터 탐색
 
 > 스파크 세션을 통해서 수집된 데이터의 형태를 파악하고, 스파크의 기본 명령어를 통해 수집된 데이터 집합을 탐색합니다
 
@@ -608,7 +589,7 @@ spark.sql("describe access")
 <br>
 
 
-## 6. 기본 지표 생성
+## 6. :green_square: 기본 지표 생성
 
 > 생성된 테이블을 통하여 기본 지표(DAU, DPU, DR, ARPU, ARPPU) 를 생성합니다
 
@@ -720,7 +701,7 @@ v_dr = dr.collect()[0]["DR"]
 <br>
 
 
-## 7. 고급 지표 생성
+## 7. :blue_square: 고급 지표 생성
 
 ### 7-1. 디멘젼 테이블을 설계 합니다
 
@@ -983,7 +964,7 @@ dimension.printSchema()
 <br>
 
 
-## 8. 질문 및 컨테이너 종료
+## 8. :green_square: 질문 및 컨테이너 종료
 
 ### 8-1. 질문과 답변
 
