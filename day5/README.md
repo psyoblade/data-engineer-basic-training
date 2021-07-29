@@ -210,13 +210,15 @@ find /tmp/target -name "*.parquet"
 #### 2-7-2. 출력된 파일 경로를 복사하여 경로르 변수명에 할당합니다
 ```bash
 # docker
-filename=""
+user_table=`ls -d1 /tmp/target/user/20201025/*`
+purchase_table=`ls -d1 /tmp/target/user/20201025/*`
 ```
 
 #### 2-7-3. 대상 파일경로 전체를 복사하여 아래와 같이 스키마를 확인합니다
 ```bash
 # docker
-ask hadoop jar /jdbc/parquet-tools-1.8.1.jar schema file://${filename}
+hadoop jar /jdbc/parquet-tools-1.8.1.jar schema file://${user_table}
+ask hadoop jar /jdbc/parquet-tools-1.8.1.jar schema file://${purchase_table}
 ```
 <details><summary> 정답확인</summary>
 
@@ -245,7 +247,7 @@ message purchase_20201025 {
 #### 2-7-4. 파일 내용의 데이터가 정상적인지 확인합니다
 ```bash
 # docker
-ask hadoop jar /jdbc/parquet-tools-1.8.1.jar cat file://${filename}
+ask hadoop jar /jdbc/parquet-tools-1.8.1.jar cat file://${purchase_table}
 ```
 <details><summary> 정답확인</summary>
 
