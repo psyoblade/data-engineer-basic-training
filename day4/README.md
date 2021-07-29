@@ -973,6 +973,33 @@ beeline
 # beeline>
 !connect jdbc:hive2://localhost:10000 scott tiger
 ```
+
+#### 하이브 테이블 `user` 상세정보
+
+* Parquet 포맷과 Hive 테이블 데이터 타입
+| Parquet | Hive | Description |
+| - | - | - |
+| int32 | int | 32비트 정수 |
+| int64 | bigint | 64비트 정수 |
+| float | float | 실수형 |
+| double | double | 실수형 |
+| binary | string | 문자열 |
+
+* 파케이 파일 스키마
+```sql
+  optional int32 u_id;
+  optional binary u_name (UTF8);
+  optional binary u_gender (UTF8);
+  optional int32 u_signup;
+```
+* 테이블 상세 스펙
+  - `table_type` : `external`
+  - `table_name` : `user`
+  - `location` : `hdfs:///user/lgde/user`
+  - `partition_key` : `dt string`
+  - `partition_value` : `hdfs:///user/lgde/user/dt=yyyyMMdd`
+
+<details><summary> :green_square: 9. [기본] 조건에 맞는 하이브 테이블을 생성하세요 </summary>
 ```sql
 # beeline>
 drop table if exists `user`;
@@ -987,10 +1014,14 @@ row format delimited
 stored as parquet 
 location 'hdfs:///user/lgde/user';
 ```
+</details>
+
+<details><summary> :green_square: 10. [기본] `user` 테이블의 `20201025~20201026` 파티션을 추가하세요</summary>
 ```sql
 alter table `user` add if not exists partition (dt = '20201025') location 'hdfs:///user/lgde/user/dt=20201025';
 alter table `user` add if not exists partition (dt = '20201026') location 'hdfs:///user/lgde/user/dt=20201026';
 ```
+</details>
 <br>
 
 * 생성된 결과를 확인합니다
@@ -1003,16 +1034,6 @@ select dt, count(1) as cnt from `user` group by dt;
 ```
 <br>
 
-
-### 2-4-3. Parquet 포맷과 Hive 테이블 데이터 타입
-| Parquet | Hive | Description |
-| - | - | - |
-| int32 | int | 32비트 정수 |
-| int64 | bigint | 64비트 정수 |
-| float | float | 실수형 |
-| double | double | 실수형 |
-| binary | string | 문자열 |
-<br>
 
 [목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
 
