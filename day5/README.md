@@ -210,7 +210,7 @@ find /tmp/target -name "*.parquet"
 ```bash
 # docker
 user_table=`ls -d1 /tmp/target/user/20201025/*`
-purchase_table=`ls -d1 /tmp/target/user/20201025/*`
+purchase_table=`ls -d1 /tmp/target/purchase/20201025/*`
 ```
 
 #### 2-7-3. 대상 파일경로 전체를 복사하여 아래와 같이 스키마를 확인합니다
