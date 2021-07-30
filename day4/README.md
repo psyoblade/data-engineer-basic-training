@@ -799,7 +799,7 @@ import table imdb_orc_imported from '/user/ubuntu/archive/imdb_orc';
 select * from imdb_orc_imported;
 ```
 
-<details><summary> :green_book: 8. [기본] `imdb_title` 테이블을 `/user/ubuntu/archive/imdb_title` 경로로 백업후, `imdb_recover` 테이블로 복원해 보세요 </summary>
+<details><summary> :blue_book: 8. [중급] `imdb_title` 테이블을 `/user/ubuntu/archive/imdb_title` 경로로 백업후, `imdb_recover` 테이블로 복원해 보세요 </summary>
 
 ```sql
 export table imdb_title to '/user/ubuntu/archive/imdb_title';
