@@ -1,4 +1,4 @@
 #!/bin/bash
 rm notebooks/*.html
-docker exec notebook jupyter nbconvert --to html work/data-engineer-training-course\*.ipynb
-mv notebooks/data-engineer-training-course*.html notebooks/html
+docker-compose exec notebook sh -c "jupyter nbconvert work/*.ipynb --to html"
+mv notebooks/*.html notebooks/html
