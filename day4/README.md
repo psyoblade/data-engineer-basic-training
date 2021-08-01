@@ -2,7 +2,10 @@
 
 > 아파치 하이브를 통해 다양한 데이터 웨어하우스 예제를 실습합니다
 
-* 목차
+- 범례
+  * :green_book: : 기본, :blue_book: : 중급
+
+- 목차
   * [1. 최신버전 업데이트](#1-최신버전-업데이트)
   * [2. 하이브 기본명령어 가이드](#2-하이브-기본-명령어-가이드)
     * [2-1. 하이브 데이터베이스 DDL 가이드](#2-1-하이브-데이터베이스-DDL-가이드)
@@ -56,10 +59,11 @@ docker-compose ps
 
 
 #### 1-2-4. 실습에 필요한 IMDB 데이터를 컨테이너로 복사합니다
+
 ```bash
 # terminal
-docker-compose cp data/imdb.tsv hive:/opt/hive/examples/imdb.tsv
-docker-compose exec hive-serverls /opt/hive/examples
+docker cp data/imdb.tsv hive-server:/opt/hive/examples/imdb.tsv
+docker-compose exec hive-server ls /opt/hive/examples
 ```
 
 > 마지막 ls /opt/hive/examples 명령어 결과로 imdb.tsv 파일이 확인되면 정상입니다
@@ -81,8 +85,8 @@ docker-compose exec hive-server bash
 * 도커 컨테이너에서 beeline 명령을 수행하면 프롬프트가 `beeline>` 으로 변경되고, SQL 명령의 수행이 가능합니다
 ```bash
 # docker
-echo "하이브 서버가 기동 되는데에 시간이 좀 걸립니다... 30초 후에 접속합니다"
-sleep 30 
+echo "하이브 서버가 기동 되는데에 시간이 좀 걸립니다... 15초 후에 접속합니다"
+sleep 15 
 
 beeline
 ```
@@ -103,7 +107,7 @@ Driver: Hive JDBC (version 2.3.2)
 Transaction isolation: TRANSACTION_REPEATABLE_READ
 ```
 
-[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+[목차로 돌아가기](#4일차-데이터-엔지니어링-적재)
 
 <br>
 <br>
@@ -244,7 +248,7 @@ alter database testdb set owner role admin;
 describe database extended testdb;
 ```
 
-[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+[목차로 돌아가기](#4일차-데이터-엔지니어링-적재)
 
 <br>
 <br>
@@ -324,15 +328,16 @@ describe database extended testdb;
 * 실습을 위한 고객 테이블 (employee)을 생성합니다
 ```sql
 # beeline> 
+use testdb;
 create table if not exists employee (
     emp_id string comment 'employee id',
     emp_name string comment 'employee name', 
     emp_salary bigint comment 'employee salary'
-  )
-  comment 'test employee table' 
-  row format delimited 
-  fields terminated by ','
-  stored as textfile;
+)
+comment 'test employee table' 
+row format delimited 
+fields terminated by ','
+stored as textfile;
 ```
 <br>
 
@@ -372,14 +377,12 @@ show tables 'emp*';
 # beeline> 
 describe employee;
 ```
-<details><summary> [실습] EXTENDED 및 FORMATTED 명령을 통해 테이블 정보를 조회합니다 </summary>
+* EXTENDED 및 FORMATTED 명령을 통해 테이블 정보를 조회합니다
 
 ```sql
 describe extended employee;
 describe formatted employee;
 ```
-
-</details>
 <br>
 
 
@@ -412,17 +415,17 @@ show tables;
 ```sql
 # beeline> 
 create table if not exists employee (
-        emp_id string comment 'employee id',
-        emp_name string comment 'employee name', 
-        emp_salary bigint comment 'employee salary'
-    )
-    comment 'test employee table' 
-    row format delimited 
-    fields terminated by ','
-    stored as textfile;
+    emp_id string comment 'employee id',
+    emp_name string comment 'employee name', 
+    emp_salary bigint comment 'employee salary'
+)
+comment 'test employee table' 
+row format delimited 
+fields terminated by ','
+stored as textfile;
 ```
 
-<details><summary>[실습] 테이블 이름을 `employee` 에서 `renamed_emp` 로 변경합니다 </summary>
+<details><summary> :green_book: 1. [기본] 테이블 이름을 `employee` 에서 `renamed_emp` 로 변경합니다 </summary>
 
 ```sql
 # beeline>
@@ -447,14 +450,14 @@ show tables;
 create table if not exists employee (
     emp_id string comment 'employee id',
     emp_salary bigint comment 'employee salary'
-  )
-  comment 'test employee table' 
-  row format delimited 
-  fields terminated by ','
-  stored as textfile;
+)
+comment 'test employee table' 
+row format delimited 
+fields terminated by ','
+stored as textfile;
 ```
 
-<details><summary>[실습] 코멘트 'employee name' 을 가진 고객 이름(`emp_name` string) 컬럼을 추가하세요 </summary>
+<details><summary> :green_book: 2. [기본] 코멘트 'employee name' 을 가진 고객 이름(`emp_name` string) 컬럼을 추가하세요 </summary>
 
 ```sql
 alter table employee add columns (
@@ -485,7 +488,7 @@ insert into renamed_emp values (1, 'suhyuk', 1000);
 select * from renamed_emp;
 ```
 
-<details><summary>[실습] TRUNCATE 구문으로 `renamed_emp` 테이블의 데이터를 삭제해 보세요 </summary>
+<details><summary> :green_book: 3. [기본] TRUNCATE 구문으로 `renamed_emp` 테이블의 데이터를 삭제해 보세요 </summary>
 
 ```sql
 # beeline>
@@ -496,7 +499,7 @@ select count(1) from renamed_emp;
 
 </details>
 
-[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+[목차로 돌아가기](#4일차-데이터-엔지니어링-적재)
 
 <br>
 <br>
@@ -541,16 +544,12 @@ create table imdb_movies (
 load data local inpath '/opt/hive/examples/imdb.tsv' into table imdb_movies;
 ```
 
-<details><summary>[실습] 별도 터미널을 통해 하둡 명령어로 적재된 파일을 확인해 보세요 </summary>
-
+* 별도 터미널을 통해 하둡 명령어로 적재된 파일을 확인합니다
 ```bash
 # terminal
 docker-compose exec hive-server bash
 hadoop fs -ls /user/hive/warehouse/testdb/
 ```
-> 적재된 테이블이 출력되면 정답입니다
-
-</details>
 <br>
 
 
@@ -582,7 +581,7 @@ describe formatted imdb_movies;
 select genre, title from imdb_movies order by title asc;
 ```
 
-<details><summary>[실습] 랭킹(rank) 오름차순(ASC)으로 장르(genre), 제목(title) 정보를 상위 10개만 출력하세요 </summary>
+<details><summary> :green_book: 4. [기본] 랭킹(rank) 오름차순(ASC)으로 장르(genre), 제목(title) 정보를 상위 10개만 출력하세요 </summary>
 
 ```bash
 # beeline>
@@ -615,7 +614,7 @@ insert into table imdb_title select title from imdb_movies limit 5;
 select title from imdb_title;
 ```
 
-<details><summary>[실습] 제목(title) 오름차순으로 5건, 내림차순으로 5건 각각 `imdb_title` 테이블에 입력하세요  </summary>
+<details><summary> :blue_book: 5. [중급] 제목(title) 오름차순으로 5건, 내림차순으로 5건 각각 `imdb_title` 테이블에 입력하세요 </summary>
 
 ```sql
 insert into table imdb_title select title from imdb_movies order by title asc limit 5;
@@ -671,7 +670,7 @@ insert into imdb_title values ('1 my first hive table record'), ('2 my second re
 select title from imdb_title where title like '%record%';
 ```
 
-<details><summary>[실습] `imdb_movies` 테이블로부터 OVERWRITE 옵션으로 모든 제목(title)을 `imdb_title` 테이블에 입력하세요 </summary>
+<details><summary> :blue_book: 6. [중급] `imdb_movies` 테이블로부터 OVERWRITE 옵션으로 모든 제목(title)을 `imdb_title` 테이블에 입력하세요 </summary>
 
 ```sql
 insert overwrite table imdb_title select title from imdb_movies;
@@ -720,7 +719,7 @@ insert into table imdb_orc values (1, 'psyoblade'), (2, 'psyoblade suhyuk'), (3,
 */
 ```
 
-<details><summary>[실습] WHERE 절에 랭크(rank)가 1인 레코드를 삭제 후, 조회해 보세요 </summary>
+<details><summary> :blue_book: 7. [중급] WHERE 절에 랭크(rank)가 1인 레코드를 삭제 후, 조회해 보세요 </summary>
 
 ```sql
 delete from imdb_orc where rank = 2;
@@ -768,13 +767,8 @@ select * from imdb_orc;
 export table imdb_orc to '/user/ubuntu/archive/imdb_orc';
 ```
 
-<details><summary>[실습] 별도의 터미널을 통해 익스포트 된 결과를 확인합니다 </summary>
+* 별도의 터미널을 통해 익스포트 된 결과를 확인합니다
 
-```bash
-# terminal
-cd /home/ubuntu/work/data-engineer-basic-training/day4
-docker-compose exec hive-server bash
-```
 ```bash
 # docker
 hadoop fs -ls /user/ubuntu/archive/imdb_orc
@@ -783,8 +777,6 @@ hadoop fs -ls /user/ubuntu/archive/imdb_orc
 # -rwxr-xr-x   3 root supergroup       1244 2020-08-23 14:17 /user/ubuntu/archive/imdb_orc/_metadata
 # drwxr-xr-x   - root supergroup          0 2020-08-23 14:17 /user/ubuntu/archive/imdb_orc/data
 ```
-
-</details>
 <br>
 
 
@@ -807,7 +799,7 @@ import table imdb_orc_imported from '/user/ubuntu/archive/imdb_orc';
 select * from imdb_orc_imported;
 ```
 
-<details><summary>[실습] `imdb_title` 테이블을 `/user/ubuntu/archive/imdb_title` 경로로 백업후, `imdb_recover` 테이블로 복원해 보세요 </summary>
+<details><summary> :blue_book: 8. [중급] `imdb_title` 테이블을 `/user/ubuntu/archive/imdb_title` 경로로 백업후, `imdb_recover` 테이블로 복원해 보세요 </summary>
 
 ```sql
 export table imdb_title to '/user/ubuntu/archive/imdb_title';
@@ -838,7 +830,7 @@ select * from imdb_recover;
 
 </details>
 
-[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+[목차로 돌아가기](#4일차-데이터-엔지니어링-적재)
 
 <br>
 <br>
@@ -848,22 +840,47 @@ select * from imdb_recover;
 
 > 하이브의 경우 local 데이터를 하둡에 load 하여 Managed 테이블을 생성할 수도 있지만, 대게 외부 데이터 수집 및 적재의 경우 External 테이블로 생성합니다
 
-### 2-4-1. 매출 테이블의 외부 제공을 위해 외부 테이블로 생성합니다
+### External Table 의 특징 (vs. Managed Table)
+* 데이터 저장 경로가 /user/hive/warehouse 가 아니라 임의의 hdfs 경로
+* hive drop 명령 수행 시에도 경로가 삭제되지 않음
 
-> 로컬 경로에 수집되었던 테이블 parquet 파일이 존재하므로, 해당 파일을 이용하여 생성합니다
 
-* 하이브 컨테이너로 접속합니다
+### 2-4-1. 외부 저장소 테이블 실습을 위한 파일 업로드
+
+> 하이브 외부 테이블의 실습을 위해서는 임의의 저장소에 파케이 파일이 존재해야 합니다. 하여 스쿱을 통해 적재된 데이터 혹은 스파크를 통해 변환된 데이터가 하둡에 적재되었다고 가정하기 위해 이미 기 수집된 데이터를 /tmp/source/{user, purchase} 경로에 마운트되어 있습니다
+
+* 고객 및 매출 데이터를 클러스터의 임의의 경로를 생성 및 업로드합니다
 ```bash
-# terminal
-docker-compose exec hive-server bash
+# docker
+hadoop fs -mkdir -p /user/lgde/user/dt=20201025
+hadoop fs -mkdir -p /user/lgde/user/dt=20201026
+hadoop fs -mkdir -p /user/lgde/purchase/dt=20201025
+hadoop fs -mkdir -p /user/lgde/purchase/dt=20201026
+hadoop fs -put /tmp/source/user/20201025/* /user/lgde/user/dt=20201025
+hadoop fs -put /tmp/source/user/20201026/* /user/lgde/user/dt=20201026
+hadoop fs -put /tmp/source/purchase/20201025/* /user/lgde/purchase/dt=20201025
+hadoop fs -put /tmp/source/purchase/20201026/* /user/lgde/purchase/dt=20201026
 ```
 <br>
 
-* 원본 파일의 스키마를 확인 및 파일을 하둡 클러스터에 업로드합니다
+### 2-4-2. 고객 및 매출 데이터의 파케이 스키마를 확인합니다
+```bash
+# docker
+hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema /user/lgde/user/dt=20201025/2e3738ff-5e2b-4bec-bdf4-278fe21daa3b.parquet
 ```
-hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema file:///tmp/source/user/20201025/2e3738ff-5e2b-4bec-bdf4-278fe21daa3b.parquet
+```sql
+message user_20201025 {
+  optional int32 u_id;
+  optional binary u_name (UTF8);
+  optional binary u_gender (UTF8);
+  optional int32 u_signup;
+}
 ```
-```text
+```bash
+# docker
+hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema /user/lgde/purchase/dt=20201025/38dc1f5b-d49d-436d-a84a-4e5c2a4022a5.parquet
+```
+```sql
 message purchase_20201025 {
   optional binary p_time (UTF8);
   optional int32 p_uid;
@@ -874,34 +891,23 @@ message purchase_20201025 {
 ```
 <br>
 
-* 경로 확인 및 생성
-```bash
-hadoop fs -mkdir -p /user/lgde/purchase/dt=20201025
-hadoop fs -mkdir -p /user/lgde/purchase/dt=20201026
-```
-```sql
-hadoop fs -put /tmp/source/purchase/20201025/* /user/lgde/purchase/dt=20201025
-hadoop fs -put /tmp/source/purchase/20201026/* /user/lgde/purchase/dt=20201026
-```
 
-* 하이브 명령 수행을 위해 beeline 을 실행합니다
-```bash
-beeline
-```
-* 콘솔로 접속하여 데이터베이스 및 테이블을 생성합니다 
-```bash
-# beeline>
-!connect jdbc:hive2://localhost:10000 scott tiger
-```
+### 2-4-3. Beeline 접속 후, `testdb` 데이터베이스를 생성합니다
+
+* 데이터베이스가 존재하지 않는다면 생성합니다
 ```sql
 # beeline>
 create database if not exists testdb comment 'test database' 
   location '/user/lgde/warehouse/testdb'
   with dbproperties ('createdBy' = 'lgde');
 ```
-```sql
-use testdb;
+<br>
 
+### 2-4-4. 매출 내역 테이블 `purchase` 를 생성합니다
+
+```sql
+# beeline>
+use testdb;
 create external table if not exists purchase (
   p_time string
   , p_uid int
@@ -914,70 +920,42 @@ stored as parquet
 location 'hdfs:///user/lgde/purchase';
 ```
 ```sql
+# beeline>
 alter table purchase add if not exists partition (dt = '20201025') location 'hdfs:///user/lgde/purchase/dt=20201025';
 alter table purchase add if not exists partition (dt = '20201026') location 'hdfs:///user/lgde/purchase/dt=20201026';
 ```
 <br>
 
 
-* 생성된 하이브 테이블을 조회합니다
+### 2-4-5. 고객 테이블 `user` 를 생성합니다
+
+#### Parquet 포맷과 Hive 테이블 데이터 타입
+
+| Parquet | Hive | Description |
+| - | - | - |
+| int32 | int | 32비트 정수 |
+| int64 | bigint | 64비트 정수 |
+| float | float | 실수형 |
+| double | double | 실수형 |
+| binary | string | 문자열 |
+
+#### 하이브 테이블 `user` 상세정보
 ```sql
-# beeline>
-show partitions purchase;
-select * from purchase where dt = '20201025';
-```
-<br>
-
-* 일자별 빈도를 조회합니다
-```sql
-# beeline>
-select dt, count(1) as cnt from purchase group by dt;
-```
-
-### 2-4-2. 고객 테이블의 외부 제공을 위해 외부 테이블로 생성합니다
-
-> 마찬가지로 유사한 방식으로 적재 및 테이블 생성을 수행합니다
-
-* 하이브 컨테이너로 접속합니다
-```bash
-# terminal
-docker-compose exec hive-server bash
-```
-
-* 파일 업로드 및 스키마 확인, 경로 생성 및 업로드
-
-```bash
-# docker
-hadoop fs -mkdir -p /user/lgde/user/dt=20201025
-hadoop fs -mkdir -p /user/lgde/user/dt=20201026
-```
-```sql
-hadoop fs -put /tmp/source/user/20201025/* /user/lgde/user/dt=20201025
-hadoop fs -put /tmp/source/user/20201026/* /user/lgde/user/dt=20201026
-```
-```sql
-hadoop jar /tmp/source/parquet-tools-1.8.1.jar schema file:///tmp/source/purchase/20201025/38dc1f5b-d49d-436d-a84a-4e5c2a4022a5.parquet
-```
-```text
-message user_20201025 {
   optional int32 u_id;
   optional binary u_name (UTF8);
   optional binary u_gender (UTF8);
   optional int32 u_signup;
-}
 ```
-<br>
+* 테이블 상세 스펙
+  - `table_type` : `external`
+  - `table_name` : `user`
+  - `location` : `hdfs:///user/lgde/user`
+  - `partition_key` : `dt string`
+  - `partition_value` : `hdfs:///user/lgde/user/dt=yyyyMMdd`
 
+<details><summary> :green_book: 9. [기본] 조건에 맞는 하이브 테이블을 생성하세요 </summary>
 
-* 하이브 명령 수행을 위해 beeline 을 실행합니다
-```bash
-beeline
-```
-* 하이브 테이블 생성 및 조회
-```bash
-# beeline>
-!connect jdbc:hive2://localhost:10000 scott tiger
-```
+* 아래와 같은 구문을 통해 테이블을 생성하면 정답입니다
 ```sql
 # beeline>
 drop table if exists `user`;
@@ -992,34 +970,47 @@ row format delimited
 stored as parquet 
 location 'hdfs:///user/lgde/user';
 ```
+
+</details>
+
+<details><summary> :green_book: 10. [기본] `user` 테이블의 `20201025~20201026` 파티션을 추가하세요</summary>
+
+* 아래와 같은 구문을 통해 파티션이 추가되었다면 정답입니다
 ```sql
 alter table `user` add if not exists partition (dt = '20201025') location 'hdfs:///user/lgde/user/dt=20201025';
 alter table `user` add if not exists partition (dt = '20201026') location 'hdfs:///user/lgde/user/dt=20201026';
 ```
+
+</details>
 <br>
 
-* 생성된 결과를 확인합니다
+
+### 2-4-6. 생성된 하이브 테이블을 조회합니다
+
+* 파티션이 제대로 저장 되었는지 확인합니다
 ```sql
 # beeline>
-select * from `user` where dt = '20201025';
+show partitions purchase;
+show partitions `user`;
 ```
+<br>
+
+* 일자별 빈도를 조회합니다
 ```sql
+# beeline>
+select * from `user` where dt = '20201025' limit 3;
+select * from purchase where dt = '20201025' limit 3;
+```
+
+* 고객 및 매출 집계 조회를 합니다 
+```sql
+select dt, count(1) as cnt from purchase group by dt;
 select dt, count(1) as cnt from `user` group by dt;
 ```
 <br>
 
 
-### 2-4-3. Parquet 포맷과 Hive 테이블 데이터 타입
-| Parquet | Hive | Description |
-| - | - | - |
-| int32 | int | 32비트 정수 |
-| int64 | bigint | 64비트 정수 |
-| float | float | 실수형 |
-| double | double | 실수형 |
-| binary | string | 문자열 |
-<br>
-
-[목차로 돌아가기](#4일차-아파치-하이브-데이터-적재)
+[목차로 돌아가기](#4일차-데이터-엔지니어링-적재)
 
 <br>
 <br>

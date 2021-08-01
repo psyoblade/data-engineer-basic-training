@@ -2,15 +2,23 @@
 
 > 가상의 웹 쇼핑몰 LGDE.com 주요 지표를 생성하기 위한, 접속정보, 매출 및 고객정보 등의 데이터를 수집하여 기본 지표를 생성합니다
 
+
+- 범례
+  * :green_book: : 기본, :blue_book: : 중급
+
 - 목차
-  * [1. 최신버전 업데이트](#1-최신버전-업데이트)
-  * [2. 테이블 수집 실습](#2-테이블-수집-실습)
-  * [3. 파일 수집 실습](#3-파일-수집-실습)
-  * [4. 노트북 컨테이너 기동](#4-노트북-컨테이너-기동)
-  * [5. 수집된 데이터 탐색](#5-수집된-데이터-탐색)
-  * [6. 기본 지표 생성](#6-기본-지표-생성)
-  * [7. 고급 지표 생성](#7-고급-지표-생성)
-  * [8. 질문 및 컨테이너 종료](#8-질문-및-컨테이너-종료)
+  * [1. :green_book: 최신버전 업데이트](#1-최신버전-업데이트)
+  * [2. :green_book: 테이블 수집](#2-green_book-테이블-수집)
+  * [3. :green_book: 파일 수집](#3-green_book-파일-수집)
+  * [4. :green_book: 노트북 컨테이너 기동](#4-green_book-노트북-컨테이너-기동)
+  * [5. :green_book: 수집된 데이터 탐색](#5-green_book-수집된-데이터-탐색)
+  * [6. :green_book: 기본 지표 생성](#6-green_book-기본-지표-생성)
+  * [7. :blue_book: 고급 지표 생성](#7-blue_book-고급-지표-생성)
+  * [8. :green_book: 질문 및 컨테이너 종료](#8-green_book-질문-및-컨테이너-종료)
+
+- 정답
+  * [1. :green_book:/:blue_book: 시작 노트북](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/data-engineer-training-course.html)
+  * [2. :green_book:/:blue_book: 정답 노트북](http://htmlpreview.github.io/?https://github.com/psyoblade/data-engineer-basic-training/blob/master/day5/notebooks/html/data-engineer-training-course-answer.html)
 
 <br>
 
@@ -40,8 +48,12 @@ docker rm -f `docker ps -aq`
 > 다시 `docker ps -a` 명령으로 결과가 없다면 모든 컨테이너가 종료되었다고 보시면 됩니다
 <br>
 
+[목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
+<br>
+<br>
 
-## 2. 테이블 수집 실습
+
+## 2. :green_book: 테이블 수집
 
 > 지표 생성에 필요한 고객 및 매출 테이블을 아파치 스쿱을 통해 수집합니다. <br>
 
@@ -72,33 +84,14 @@ docker-compose exec sqoop bash
 <br>
 
 
-### 2-2. 실습명령어 검증을 위한 ask 를 리뷰하고 실습합니다
+### 2-2. 서버가 정상 기동 되었는지 확인합니다
 
-> ask 명령어는 아래와 같이 전달받은 명령을 실행하는 스크립트입니다
-
-```bash
-#!/bin/bash
-while true; do
-    echo
-    echo "$ $@"
-    echo
-    read -p "위 명령을 실행 하시겠습니까? [y/n] " yn
-    case $yn in
-        [Yy]* ) "$@"; break;;
-        [Nn]* ) exit;;
-        * ) echo "[y/n] 을 입력해 주세요.";;
-    esac
-done
-```
 ```bash
 # docker
 ask echo hello world
 ```
-<details><summary> 정답확인</summary>
-
 > "hello world" 가 출력되면 정상입니다
 
-</details>
 <br>
 
 
@@ -216,13 +209,15 @@ find /tmp/target -name "*.parquet"
 #### 2-7-2. 출력된 파일 경로를 복사하여 경로르 변수명에 할당합니다
 ```bash
 # docker
-filename=""
+user_table=`ls -d1 /tmp/target/user/20201025/*`
+purchase_table=`ls -d1 /tmp/target/purchase/20201025/*`
 ```
 
 #### 2-7-3. 대상 파일경로 전체를 복사하여 아래와 같이 스키마를 확인합니다
 ```bash
 # docker
-ask hadoop jar /jdbc/parquet-tools-1.8.1.jar schema file://${filename}
+hadoop jar /jdbc/parquet-tools-1.8.1.jar schema file://${user_table}
+ask hadoop jar /jdbc/parquet-tools-1.8.1.jar schema file://${purchase_table}
 ```
 <details><summary> 정답확인</summary>
 
@@ -251,7 +246,7 @@ message purchase_20201025 {
 #### 2-7-4. 파일 내용의 데이터가 정상적인지 확인합니다
 ```bash
 # docker
-ask hadoop jar /jdbc/parquet-tools-1.8.1.jar cat file://${filename}
+ask hadoop jar /jdbc/parquet-tools-1.8.1.jar cat file://${purchase_table}
 ```
 <details><summary> 정답확인</summary>
 
@@ -279,8 +274,12 @@ find notebooks -name '*.parquet'
 ```
 <br>
 
+[목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
+<br>
+<br>
 
-## 3. 파일 수집 실습
+
+## 3. :green_book: 파일 수집
 
 ### 3-1. *원격 터미널에 접속* 후, *플루언트디 컨테이너에 접속*합니다
 
@@ -432,8 +431,12 @@ find notebooks -name '*.json'
 ```
 <br>
 
+[목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
+<br>
+<br>
 
-## 4. 노트북 컨테이너 기동
+
+## 4. :green_book: 노트북 컨테이너 기동
 
 > 본 장에서 수집한 데이터를 활용하여 데이터 변환 및 지표 생성작업을 위하여 주피터 노트북을 열어둡니다
 
@@ -447,7 +450,7 @@ docker-compose logs notebook | grep 8888
 > 출력된  URL을 복사하여 `127.0.0.1:8888` 대신 개인 `<hostname>.aiffelbiz.co.kr:8888` 으로 변경하여 크롬 브라우저를 통해 접속하면, jupyter notebook lab 이 열리고 work 폴더가 보이면 정상기동 된 것입니다
 
 #### 4-1-2. 기 생성된 실습용 노트북을 엽니다
-* 좌측 메뉴에서 "data-engineer-lgde-day1.ipynb" 을 더블클릭합니다
+* 좌측 메뉴에서 "data-engineer-lgde-day5.ipynb" 을 더블클릭합니다
 
 #### 4-1-3. 신규로 노트북을 만들고 싶은 경우
 * `Launcher` 탭에서 `Notebook - Python 3` 를 선택하고
@@ -455,8 +458,12 @@ docker-compose logs notebook | grep 8888
 
 <br>
 
+[목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
+<br>
+<br>
 
-## 5. 수집된 데이터 탐색
+
+## 5. :green_book: 수집된 데이터 탐색
 
 > 스파크 세션을 통해서 수집된 데이터의 형태를 파악하고, 스파크의 기본 명령어를 통해 수집된 데이터 집합을 탐색합니다
 
@@ -559,13 +566,16 @@ spark.sql("show tables '*25'")
 u_signup_condition = "<10월 25일자에 등록된 유저만 포함되는 조건을 작성합니다>"
 user = spark.sql("select u_id, u_name, u_gender from user25").where(u_signup_condition)
 user.createOrReplaceTempView("user")
+display(user)
 
 p_time_condition = "<10월 25일자에 발생한 매출만 포함되는 조건을 작성합니다>"
 purchase = spark.sql("select from_unixtime(p_time) as p_time, p_uid, p_id, p_name, p_amount from purchase25").where(p_time_condition)
 purchase.createOrReplaceTempView("purchase")
+display(purchase)
 
 access = spark.sql("select a_id, a_tag, a_timestamp, a_uid from access25")
 access.createOrReplaceTempView("access")
+display(access)
 
 spark.sql("show tables")
 ```
@@ -583,6 +593,7 @@ spark.sql("show tables")
 #### 5-4-1. 한 쪽의 성별('남' 혹은 '여')을 가진 목록을 출력하세요
 ```python
 spark.sql("describe user")
+spark.sql("select * from user")
 # whereCondition = "<성별을 구별하는 조건을 작성하세요>"
 # spark.sql("select * from user").where(whereCondition)
 ```
@@ -590,6 +601,7 @@ spark.sql("describe user")
 #### 5-4-2. 상품금액이 200만원을 초과하는 매출 목록을 출력하세요
 ```python
 spark.sql("describe purchase")
+spark.sql("select * from purchase")
 # selectClause = "<금액을 필터하는 조건을 작성하세요>"
 # spark.sql(selectClause)
 ```
@@ -597,6 +609,7 @@ spark.sql("describe purchase")
 #### 5-4-3. GroupBy 구문을 이용하여 로그인, 로그아웃 횟수를 출력하세요
 ```python
 spark.sql("describe access")
+spark.sql("select * from access")
 # groupByClause="<로그인/아웃 컬럼을 기준으로 집계하는 구문을 작성하세요>"
 # spark.sql(groupByClause)
 ```
@@ -607,8 +620,12 @@ spark.sql("describe access")
 </details>
 <br>
 
+[목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
+<br>
+<br>
 
-## 6. 기본 지표 생성
+
+## 6. :green_book: 기본 지표 생성
 
 > 생성된 테이블을 통하여 기본 지표(DAU, DPU, DR, ARPU, ARPPU) 를 생성합니다
 
@@ -625,6 +642,7 @@ display(access)
 # distinctAccessUser = "select <고객수 집계함수> as DAU from access"
 # dau = spark.sql(distinctAccessUser)
 # display(dau)
+# v_dau = dau.collect()[0]["DAU"]
 ```
 <details><summary> 정답확인</summary>
 
@@ -647,6 +665,7 @@ display(purchase)
 # distinctPayingUser = "<구매 고객수 집계함수>"
 # pu = spark.sql(distinctPayingUser)
 # display(pu)
+# v_pu = pu.collect()[0]["PU"]
 ```
 <details><summary> 정답확인</summary>
 
@@ -669,6 +688,7 @@ display(purchase)
 # sumOfDailyRevenue = "<일 별 구매금액 집계함수>"
 # dr = spark.sql(sumOfDailyRevenue)
 # display(dr)
+# v_dr = dr.collect()[0]["DR"]
 ```
 <details><summary> 정답확인</summary>
 
@@ -687,11 +707,12 @@ display(purchase)
   - 출력형태 : number (문자열: ARPU )
 
 ```python
-v_dau = dau.collect()[0]["DAU"]
-v_pu = pu.collect()[0]["PU"]
-v_dr = dr.collect()[0]["DR"]
-
 # print("ARPU : {}".format(<유저당 매출 금액 계산식>))
+print("+------------------+")
+print("|             ARPU |")
+print("+------------------+")
+print("|        {} |".format(v_dr / v_dau))
+print("+------------------+")
 ```
 <details><summary> 정답확인</summary>
 
@@ -711,6 +732,11 @@ v_dr = dr.collect()[0]["DR"]
 
 ```python
 # print("ARPPU : {}".format(<구매유저 당 매출 금액 계산식>))
+print("+------------------+")
+print("|            ARPPU |")
+print("+------------------+")
+print("|        {} |".format(v_dr / v_pu))
+print("+------------------+")
 ```
 <details><summary> 정답확인</summary>
 
@@ -719,8 +745,12 @@ v_dr = dr.collect()[0]["DR"]
 </details>
 <br>
 
+[목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
+<br>
+<br>
 
-## 7. 고급 지표 생성
+
+## 7. :blue_book: 고급 지표 생성
 
 ### 7-1. 디멘젼 테이블을 설계 합니다
 
@@ -982,8 +1012,74 @@ dimension.printSchema()
 </details>
 <br>
 
+#### 최종 결과가 아래와 일치하는 지 확인합니다
+```python
+print("+------------------+")
+print("|              DAU |")
+print("+------------------+")
+print("|                {} |".format(v_dau))
+print("+------------------+")
+print("+------------------+")
+print("|               PU |")
+print("+------------------+")
+print("|                {} |".format(v_pu))
+print("+------------------+")
+print("+------------------+")
+print("|               DR |")
+print("+------------------+")
+print("|         {} |".format(v_dr))
+print("+------------------+")
+print("+------------------+")
+print("|             ARPU |")
+print("+------------------+")
+print("|        {} |".format(v_dr / v_dau))
+print("+------------------+")
+print("+------------------+")
+print("|            ARPPU |")
+print("+------------------+")
+print("|        {} |".format(v_dr / v_pu))
+print("+------------------+")
+```
 
-## 8. 질문 및 컨테이너 종료
+<details><summary> 정답확인</summary>
+
+* 아래와 일치한다면 정답입니다
+```python
++------------------+
+|              DAU |
++------------------+
+|                5 |
++------------------+
++------------------+
+|               PU |
++------------------+
+|                4 |
++------------------+
++------------------+
+|               DR |
++------------------+
+|         12200000 |
++------------------+
++------------------+
+|             ARPU |
++------------------+
+|        2440000.0 |
++------------------+
++------------------+
+|            ARPPU |
++------------------+
+|        3050000.0 |
++------------------+
+```
+
+</details>
+
+[목차로 돌아가기](#5일차-데이터-엔지니어링-프로젝트)
+<br>
+<br>
+
+
+## 8. :green_book: 질문 및 컨테이너 종료
 
 ### 8-1. 질문과 답변
 

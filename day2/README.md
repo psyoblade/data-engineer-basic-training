@@ -207,7 +207,7 @@ ask sqoop eval --connect jdbc:mysql://mysql:3306/testdb --username sqoop --passw
 | age | INT | 30 | 나이 |
 | gender | VARCHAR(10) | 남 |
 
-<details><summary>[실습] 위에서 명시한 student 테이블을 sqoop eval 명령어를 통해 testdb 에 생성하세요 </summary>
+<details><summary>[실습] 위에서 명시한 student 테이블을 mysql 서버에 접속하여 명령어를 통해 testdb 에 생성하세요 </summary>
 
 ```bash
 # terminal
@@ -263,7 +263,7 @@ DESC student;
 ,('우소은','Woo.Soeun@lgde.com',30,'여')
 ```
 
-<details><summary>[실습] sqoop eval 명령어를 통해 student 테이블에 입력하세요 </summary>
+<details><summary>[실습] mysql 서버에 접속하여 insert into ... values 명령을 통해 student 테이블에 입력하세요 </summary>
 
 ```sql
 # mysql>
@@ -523,16 +523,6 @@ show tables;
 ask sqoop export -m 1 --connect jdbc:mysql://mysql:3306/testdb --username sqoop --password sqoop \
   --table seoul_popular_exp --export-dir /user/sqoop/target/seoul_popular_trip
 ```
-<br>
-
-![RM](images/RM.png)
-* 오류 확인은 리소스매니저 (`http://vm<student-id>.aiffelbiz.co.kr:8088/`) 사이트에서 할 수 있습니다
-  * `application_id` 링크를 클릭하고 logs 경로를 클릭하면 http://9e48393c5f39:8042/ 와 같이 docker-container 아이로 redirect 됩니다
-  * 해당 문자열을 자신의 클라우드 장비의 IP 혹은 DNS 주소로 변경하면 됩니다
-  * 해당 로그 페이지에서 "syslog : Total file length is 49301 bytes." 링크를 클릭하고 "here" 링크를 클릭하면 전체 로그를 한 번에 확인할 수 있습니다
-* 포트가 변경되어 접근이 불가능한 경우는 아래와 같이 직접 확인할 수 있습니다
-  * `http://vm<student-id>.aiffelbiz.co.kr:8088/logs/userlogs/`
-  * 해당 디렉토리 내의 stdout 로그를 확인하면 오류를 확인할 수 있습니다
 <br>
 
 
