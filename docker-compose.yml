@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  ubuntu:
+    container_name: ubuntu
+    image: psyoblade/data-engineer-ubuntu:20.04
+    restart: always
+    tty: true
+    ports:
+      - '2022:22'
+
+networks:
+  default:
+    name: data_engineer_basic_network
+
