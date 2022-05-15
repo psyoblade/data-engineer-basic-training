@@ -62,7 +62,7 @@ num_6 = Fraction()
 print(num_1, num_2, num_3, num_4, num_5, num_6)
 ```
 
-#### 2-2. 문자열
+### 2-2. 문자열
 ```python
 str_1 = 'hello world'
 str_2 = "It's Python"
@@ -71,14 +71,14 @@ str_4 = u'sp\xc4m'
 print(str_1, str_2, str_3, str_4)
 ```
 
-#### 2-3. 리스트
+### 2-3. 리스트
 ```python
 list_1 = [1, [2, 'three'], 4, 5]
 list_2 = list(range(10))
 print(list_1, list_2)
 ```
 
-#### 2-4. 딕셔너리
+### 2-4. 딕셔너리
 ```python
 # 한글도 가능하지만, 가능하면 영문으로 작성
 dict_1 = {"음식":"빵", "음료":"콜라"}
@@ -86,14 +86,14 @@ dict_2 = dict(시간=10)
 print(dict_1, dict_2)
 ```
 
-#### 2-5. 튜플
+### 2-5. 튜플
 ```python
 tuple_1 = (1, 1.5, 'hello', {})
 tuple_2 = tuple('튜플_아이템')
 print(tuple_1, tuple_2)
 ```
 
-#### 2-6. 파일
+### 2-6. 파일
 ```python
 file_1 = open("./untitled.txt", "w+")
 file_1.write("hello world")
@@ -104,7 +104,7 @@ print(file_2.read())
 file_2.close()
 ```
 
-#### 2-7. 집합
+### 2-7. 집합
 ```python
 set_1 = set("abc")
 set_2 = {"하나", "둘", "셋", "하나"}
@@ -112,20 +112,49 @@ set_3 = {1, "둘", "three", 4}
 print(set_1, set_2, set_3)
 ```
 
-#### 2-8. 불리언
+### 2-8. 불리언
 ```python
 bool_1 = True
 bool_2 = False
 print(bool_1, bool_2)
 ```
 
-### 3. 유틸리티
+
+## 3. 유틸리티
 
 * 자주 사용되는 라이브러리를 미리 로딩해 둡니다
 ```python
 from decimal import Decimal
 from fractions import Fraction
 from pprint import pprint
-import math, random, struct
+import sys, os, math, random, struct
+```
+
+* 자주 사용하는 공통함수입니다
+  - 터미널의 명령어와 결과를 구분하기 위해 `>>>` 와 같은 프롬프트를 사용하는 경우가 있습니다
+
+| 연산자 혹은 함수 | 해석 |
+| --- | --- |
+| help(object) | 객체의 속성이나 메소드에 대한 메뉴얼 출력 |
+| type(object) | 객체의 타입을 출력 |
+| dir(module) | 해당 모듈의 접근 가능한 모든 네임스페이스(속성, 클래스 등)를 출력 |
+
+```python
+>>> help(math.gcd)
+gcd(*integers)
+    Greatest Common Divisor.
+
+>>> help(math.lcm)
+lcm(*integers)
+    Least Common Multiple.
+
+>>> num = 2**1000
+>>> type(num)
+int
+
+>>> dir(struct)
+>>> print(list(filter(lambda item: not item.startswith("_"), dir(struct))))
+['Struct', 'calcsize', 'error', 'iter_unpack', 'pack', 'pack_into', 'unpack', 'unpack_from']
+
 ```
 
