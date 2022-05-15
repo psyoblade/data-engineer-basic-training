@@ -1,6 +1,7 @@
 # Custom ignore
 **/Untitled*.ipynb
 **/.ipynb_checkpoints/
+tmp
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/git,python,jupyternotebooks,macos,vim
