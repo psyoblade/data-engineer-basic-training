@@ -30,7 +30,7 @@ services:
     container_name: notebook
     user: root
     privileged: true
-    image: psyoblade/data-engineer-notebook:1.7
+    image: psyoblade/data-engineer-notebook:1.7.1
     restart: always
     depends_on:
       - mysql

@@ -1,6 +1,7 @@
-# Custom .gitignore
-tmp/
-notebooks/
+# Custom ignore
+**/Untitled*.ipynb
+**/.ipynb_checkpoints/
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/git,python,jupyternotebooks,macos,vim
 # Edit at https://www.toptal.com/developers/gitignore?templates=git,python,jupyternotebooks,macos,vim
