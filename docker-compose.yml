@@ -6,10 +6,75 @@ services:
     image: psyoblade/data-engineer-ubuntu:20.04
     restart: always
     tty: true
+  mysql:
+    container_name: mysql
+    image: psyoblade/data-engineer-mysql:1.2
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: default
+      MYSQL_USER: scott
+      MYSQL_PASSWORD: tiger
     ports:
-      - '2022:22'
+      - '3306:3306'
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 3s
+      timeout: 1s
+      retries: 3
+    volumes:
+      - ./mysql/etc:/etc/mysql/conf.d
+  notebook:
+    container_name: notebook
+    user: root
+    privileged: true
+    image: psyoblade/data-engineer-notebook:1.7.1
+    restart: always
+    depends_on:
+      - mysql
+      - namenode
+      - datanode
+    volumes:
+      - ./notebooks:/home/jovyan/work
+      - hadoop:/usr/local/hadoop-2.7.4
+    environment:
+      - GRANT_SUDO=yes
+    ports:
+      - "4040:4040"
+      - "4041:4041"
+      - "8888:8888"
+  namenode:
+    container_name: namednode
+    image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
+    volumes:
+      - namenode:/hadoop/dfs/name
+      - hadoop:/opt/hadoop-2.7.4
+    environment:
+      - CLUSTER_NAME=test
+    env_file:
+      - ./hadoop-hive.env
+    ports:
+      - "50070:50070"
+      - "8020:8020"
+  datanode:
+    container_name: datanode
+    image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+    volumes:
+      - datanode:/hadoop/dfs/data
+    env_file:
+      - ./hadoop-hive.env
+    environment:
+      SERVICE_PRECONDITION: "namenode:50070"
+    ports:
+      - "50075:50075"
 
 networks:
   default:
     name: data_engineer_basic_network
 
+volumes:
+  namenode:
+  datanode:
+  hadoop:
