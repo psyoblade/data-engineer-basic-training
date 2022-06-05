@@ -6,6 +6,15 @@ services:
     image: psyoblade/data-engineer-ubuntu:20.04
     restart: always
     tty: true
+    volumes:
+      - ./data:/tmp/data
+  ubuntu-server:
+    container_name: ubuntu-server
+    image: psyoblade/data-engineer-ubuntu-server:20.04
+    restart: always
+    tty: true
+    ports:
+      - '2004:22'
   mysql:
     container_name: mysql
     image: psyoblade/data-engineer-mysql:1.2
@@ -28,14 +37,15 @@ services:
       - ./mysql/etc:/etc/mysql/conf.d
   notebook:
     container_name: notebook
-    user: root
+#    user: root
+    user: jovyan
     privileged: true
-    image: psyoblade/data-engineer-notebook:1.7.1
+    image: psyoblade/data-engineer-notebook:1.7.2
     restart: always
-    depends_on:
-      - mysql
-      - namenode
-      - datanode
+#    depends_on:
+#      - mysql
+#      - namenode
+#      - datanode
     volumes:
       - ./notebooks:/home/jovyan/work
       - hadoop:/usr/local/hadoop-2.7.4
@@ -46,7 +56,7 @@ services:
       - "4041:4041"
       - "8888:8888"
   namenode:
-    container_name: namednode
+    container_name: namenode
     image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
     volumes:
       - namenode:/hadoop/dfs/name
