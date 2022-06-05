@@ -1,6 +1,7 @@
 # Custom ignore
 **/Untitled*.ipynb
 **/.ipynb_checkpoints/
+**/foo
 tmp
 
 
