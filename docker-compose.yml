@@ -6,8 +6,11 @@ services:
     image: psyoblade/data-engineer-ubuntu:20.04
     restart: always
     tty: true
+    environment:
+      TERM: xterm-256color
     volumes:
       - ./data:/tmp/data
+      - ./work:/home/ubuntu/work
   ubuntu-server:
     container_name: ubuntu-server
     image: psyoblade/data-engineer-ubuntu-server:20.04
@@ -42,10 +45,10 @@ services:
     privileged: true
     image: psyoblade/data-engineer-notebook:1.7.2
     restart: always
-#    depends_on:
-#      - mysql
-#      - namenode
-#      - datanode
+    depends_on:
+      - mysql
+      - namenode
+      - datanode
     volumes:
       - ./notebooks:/home/jovyan/work
       - hadoop:/usr/local/hadoop-2.7.4
