@@ -20,7 +20,7 @@ services:
       - '2004:22'
   mysql:
     container_name: mysql
-    image: psyoblade/data-engineer-mysql:1.2
+    image: psyoblade/data-engineer-mysql:1.3
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -38,6 +38,15 @@ services:
       retries: 3
     volumes:
       - ./mysql/etc:/etc/mysql/conf.d
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
   notebook:
     container_name: notebook
 #    user: root
@@ -47,10 +56,11 @@ services:
     restart: always
     depends_on:
       - mysql
-      - namenode
-      - datanode
+#      - namenode
+#      - datanode
     volumes:
       - ./notebooks:/home/jovyan/work
+      - ./data:/home/jovyan/work/data
       - hadoop:/usr/local/hadoop-2.7.4
     environment:
       - GRANT_SUDO=yes
