@@ -6,8 +6,11 @@ services:
     image: psyoblade/data-engineer-ubuntu:20.04
     restart: always
     tty: true
+    environment:
+      TERM: xterm-256color
     volumes:
       - ./data:/tmp/data
+      - ./work:/home/ubuntu/work
   ubuntu-server:
     container_name: ubuntu-server
     image: psyoblade/data-engineer-ubuntu-server:20.04
@@ -17,13 +20,14 @@ services:
       - '2004:22'
   mysql:
     container_name: mysql
-    image: psyoblade/data-engineer-mysql:1.2
+    image: psyoblade/data-engineer-mysql:1.3
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: default
       MYSQL_USER: scott
       MYSQL_PASSWORD: tiger
+      TZ: Asia/Seoul
     ports:
       - '3306:3306'
     networks:
@@ -35,19 +39,28 @@ services:
       retries: 3
     volumes:
       - ./mysql/etc:/etc/mysql/conf.d
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
   notebook:
     container_name: notebook
-#    user: root
     user: jovyan
     privileged: true
     image: psyoblade/data-engineer-notebook:1.7.2
     restart: always
-#    depends_on:
-#      - mysql
-#      - namenode
-#      - datanode
+    depends_on:
+      - mysql
+      - phpmyadmin
     volumes:
       - ./notebooks:/home/jovyan/work
+      - ./data:/home/jovyan/work/data
       - hadoop:/usr/local/hadoop-2.7.4
     environment:
       - GRANT_SUDO=yes
@@ -71,6 +84,8 @@ services:
   datanode:
     container_name: datanode
     image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+    depends_on:
+      - namenode
     volumes:
       - datanode:/hadoop/dfs/data
     env_file:
